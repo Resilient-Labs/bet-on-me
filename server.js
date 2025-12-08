@@ -8,12 +8,13 @@ const methodOverride = require("method-override");
 const flash = require("express-flash");
 const logger = require("morgan");
 const connectDB = require("./config/database");
+const mainRoutes = require("./routes/main");
+const postRoutes = require("./routes/posts");
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
 
 // Passport config
-//=== User Schema
 require("./config/passport")(passport);
 
 //Connect To Database
@@ -41,7 +42,7 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    store:MongoStore.create({ mongoUrl: process.env.DB_STRING }),
   })
 );
 
