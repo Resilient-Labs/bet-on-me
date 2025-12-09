@@ -19,8 +19,7 @@
   },
   "homepage": "https://github.com/Resilient-Labs/bet-on-me#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "bcryptjs": "^3.0.3",
+    "bcrypt": "^6.0.0",
     "cloudinary": "^2.8.0",
     "connect-mongo": "^5.1.0",
     "dotenv": "^17.2.3",
