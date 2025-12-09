@@ -5,12 +5,13 @@ Users can join groups (“clusters”) to work on habit-building together. Each 
 1. Fork and Clone the Main repositories Main branch
 2. Create your own branch for your respective team and name it branchName-yourName (e.g. Frontend-Leanne, Backend-Justin, Etc.)
 3. Work/make your changes, etc.
-4. Push said changes to your respective branch (e.g. Backend-Leanne, Frontend-Angel, etc.) creating a Pull Request (PR)
+4. Push said changes to your respective new branch (e.g. Backend-Leanne, Frontend-Angel, etc.) creating a Pull Request (PR)
 5. Ping someone on your team to review your changes
 6. Ping your teams PM for a Merge Request (MR) review to the DevOps Branch
 7. DevOps will review and then merge your changes into the DevOps Branch
 8. If the merge passes tests the changes will be merged into DevOps
-9. If it all looks good the team will decide when to Merge changes from the DevOps Branch to the Main Branch
+9. Whoever merged will then delete your branch
+10. If it all looks good the team will decide when to Merge changes from the DevOps Branch to the Main Branch
 
 ## How to Build & Run the App
 
