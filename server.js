@@ -42,7 +42,7 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: false,
-    store:MongoStore.create({ mongoUrl: process.env.DB_STRING }),
+    store: MongoStore.create({ mongoUrl: process.env.DB_STRING }),
   })
 );
 
@@ -59,5 +59,5 @@ app.use("/post", postRoutes);
 
 //Server Running
 app.listen(process.env.PORT, () => {
-  console.log("Server is running, you better catch it!");
+  console.log(`Server is running, you better catch it! localhost:${process.env.PORT}`);
 });
