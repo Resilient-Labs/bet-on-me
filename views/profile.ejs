@@ -1,46 +1,48 @@
-<%- include('partials/header') -%>
-<div class="container">
-  <div class="row mt-5">
-      <div class="col-6">
-          <div>
-              <p><strong>User Name</strong>: <%= user.userName %></p>
-              <p><strong>Email</strong>: <%= user.email %></p>
-              <a href="/logout" class="col-3 btn btn-primary">Logout</a>
-          </div>
-          <div class="mt-5">
-            <h2>Add a post</h2>
-            <form action="/post/createPost" enctype="multipart/form-data" method="POST">
-              <div class="mb-3">
-                  <label for="title" class="form-label">Title</label>
-                  <input type="text" class="form-control" id="title" name="title">
-              </div>
-              <div class="mb-3">
-                <label for="caption" class="form-label">Caption</label>
-                <textarea class="form-control" id="caption" name="caption"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="imgUpload" class="form-label">Image</label>
-                <input type="file" class="form-control" id="imageUpload" name="file">
-              </div>
-              <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
-            </form>
-          </div>
-      </div>
-      <div class="col-6">
-        <ul class="row list-unstyled">
-        <% for(var i=0; i<posts.length; i++) {%>
-          <li class="col-6 justify-content-between mt-5">
-            <a href="/post/<%= posts[i]._id%>">
-              <img class="img-fluid" src="<%= posts[i].image%>">
-            </a>
-          </li>
-        <% } %>
-        </ul>
-        <div class="row justify-content-center mt-5">
-          <a class="btn btn-primary" href="/feed">Return to Feed</a>
-        </div>  
-      </div>  
-    </div>
-  </div>
+<div style="
+  width: 360px; 
+  margin: 40px auto; 
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+">
+
+  <img 
+    src="<%= user.profile_image %>" 
+    style="width:140px; height:140px; border-radius:50%; object-fit:cover;"
+  >
+
+  <h2 style="margin-top: 15px;"><%= user.name %></h2>
+  <p style="color: #777;">@<%= user.userName %></p>
+  <p style="color: #777;"><%= user.email %></p>
+
+  <hr style="margin: 20px 0;">
+
+  <h3>Update Profile Picture</h3>
+
+  <form 
+    action="/users/update-picture/<%= user._id %>" 
+    method="POST" 
+    enctype="multipart/form-data"
+    style="margin-top: 10px;"
+  >
+    <input type="file" name="profile_image" required>
+
+    <button 
+      type="submit"
+      style="
+        margin-top: 10px;
+        padding: 8px 16px;
+        background: #2b4c7e;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+      "
+    >
+      Upload New Picture
+    </button>
+  </form>
+
 </div>
-<%- include('partials/footer') -%>
