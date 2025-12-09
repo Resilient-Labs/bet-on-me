@@ -1,0 +1,68 @@
+<div style="
+  width: 350px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+">
+
+  <!-- Profile Picture -->
+  <img 
+    src="<%= user.profile_image || 'https://via.placeholder.com/120?text=User' %>" 
+    alt="Profile"
+    style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;"
+  >
+
+  <!-- User Info -->
+  <h2 style="margin-top: 15px;"><%= user.name %></h2>
+  <p style="color: gray;"><%= user.email %></p>
+  <p style="color: gray;">@<%= user.userName %></p>
+
+  <!-- Upload Picture Form -->
+  <form 
+    action="/users/update-picture/<%= user._id %>" 
+    method="POST"
+    enctype="multipart/form-data"
+    style="margin-top:20px;"
+  >
+    <input type="hidden" name="_method" value="PUT">
+    <input type="file" name="profile_image" required>
+    <button type="submit" style="
+      padding: 8px 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    ">Update Profile Picture</button>
+  </form>
+
+  <!-- Clusters Section -->
+  <div style="margin-top: 30px; text-align: left; border-top: 1px solid #eee; padding-top: 20px;">
+    <h3 style="text-align: center; margin-bottom: 15px;">Clusters Joined</h3>
+    
+    <% if (clusters && clusters.length > 0) { %>
+      <ul style="list-style: none; padding: 0;">
+        <% clusters.forEach(cluster => { %>
+          <li style="
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+          ">
+            <strong><%= cluster.cluster_name %></strong>
+            <p style="margin: 5px 0; font-size: 14px; color: #666;">
+              Members: <%= cluster.member_count %>
+            </p>
+          </li>
+        <% }); %>
+      </ul>
+    <% } else { %>
+      <p style="color: #999; font-style: italic;">No clusters joined yet</p>
+    <% } %>
+  </div>
+
+</div>

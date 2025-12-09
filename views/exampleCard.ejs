@@ -1,0 +1,33 @@
+<h1 style="color:red;">THIS IS THE CORRECT EJS FILE</h1>
+
+<div style="
+  width: 350px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+">
+  
+  <img 
+    src="<%= user.profile_image %>" 
+    style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;"
+  >
+
+  <h2 style="margin-top: 15px;"><%= user.name %></h2>
+  <p style="color: gray; margin: 3px 0;">@<%= user.userName %></p>
+  <p style="color: gray; margin: 3px 0;"><%= user.email %></p>
+
+  <p style="margin-top: 20px; color: #888">User ID: <%= user._id %></p>
+<form 
+  action="/users/test-upload/123456789012345678901234"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  <input type="file" name="profile_image" required>
+  <button type="submit">Upload Test Image</button>
+</form>
+
+
+</div>

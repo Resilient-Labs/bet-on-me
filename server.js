@@ -13,6 +13,9 @@ const postRoutes = require("./routes/posts");
 const taskRoutes = require("./routes/task");
 const goalRoutes = require("./routes/goal");
 
+const userRoutes = require("./routes/users");
+const testUploadRoutes = require("./routes/testUpload"); 
+
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
 
@@ -27,6 +30,9 @@ app.set("view engine", "ejs");
 
 //Static Folder
 app.use(express.static("public"));
+
+// override before parsing 
+app.use(methodOverride("_method"))
 
 //Body Parsing
 app.use(express.urlencoded({ extended: true }));
@@ -54,6 +60,12 @@ app.use(passport.session());
 
 //Use flash messages for errors, info, ect...
 app.use(flash());
+
+// test upload routes (does NOT interfere with /users anymore) leaving this here in case anyone wants to test 
+app.use("/test-upload", testUploadRoutes);
+
+// real user routes
+app.use("/users", userRoutes);
 
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);
