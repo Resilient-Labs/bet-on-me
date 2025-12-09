@@ -1,0 +1,62 @@
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-s">
+        <div class="modal-content login-modal">
+            <div class="modal-body p-4">
+
+                <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <h5 class="modal-title mb-4"></h5>
+
+                <!-- ERROR MESSAGES -->
+                <% if (locals.messages.errors) { %> 
+                    <% messages.errors.forEach( error => { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= error.msg %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }) %> 
+                <% } %> 
+
+                <!-- INFO MESSAGES -->
+                <% if (locals.messages.info) { %> 
+                <% messages.info.forEach( info => { %>
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <%= info.msg %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% }) %> 
+                <% } %>
+
+                <!-- FORM -->
+                <form action="/signup" method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" required>
+                        <small id="emailHelp" class="form-text">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" required>
+                    </div>
+                     <div class="mb-3">
+                        <label for="password" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+
+                <!-- FOOTER -->
+                <section class="mt-3 text-center">
+                    <small class="d-block">Already have an account?
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Login</a>
+                    </small>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>

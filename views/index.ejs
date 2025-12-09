@@ -1,11 +1,27 @@
 <%- include('partials/header') -%>
 
-<main class="container">
-    <div class="row justify-content-around mt-5">
-        <a href="/login" class="col-3 btn btn-primary"> Login</a>
-        <a href="/signup" class="col-3 btn btn-primary"> Signup</a>
-    </div>
-</main>
-    
+    <main class="container">
+        <div class="row justify-content-around mt-5">
 
-<%- include('partials/footer') -%>
+            <!-- Login/signup block START   -->
+                <!-- Links to trigger modals -->
+                <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+
+                <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#signupModal">Signup</a>
+
+                <!-- Don't separate these partials, they call each other -->
+                <%- include('partials/loginModal') %>
+                <%- include('partials/signupModal') %>
+            <!-- Login/signup block END   -->
+
+        </div>
+    </main>
+<% if (locals.messages && locals.messages.errors) { %>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('[data-bs-target="#loginModal"]').click();
+    });
+  </script>
+<% } %>
+
+    <%- include('partials/footer') -%>
