@@ -1,0 +1,52 @@
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-s">
+    <div class="modal-content login-modal">
+      <div class="modal-body p-4">
+
+        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+
+        <h5 class="modal-title mb-4"></h5>
+
+          <!-- ERROR MESSAGES -->
+          <% if (locals.messages.errors) { %> 
+              <% messages.errors.forEach( error => { %>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <%= error.msg %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          <% }) %> 
+          <% } %> 
+
+          <!-- INFO MESSAGES -->
+          <% if (locals.messages.info) { %> 
+          <% messages.info.forEach( info => { %>
+              <div class="alert alert-info alert-dismissible fade show" role="alert">
+              <%= info.msg %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          <% }) %> 
+          <% } %>
+
+        <!-- FORM -->
+        <form action="/login" method="POST">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="password" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+
+        <!-- FOOTER --> 
+        <section class="mt-3 text-center">
+          <small class="d-block mb-1">Don't have an account yet?
+            <a href="#" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal">Register</a>
+          </small>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

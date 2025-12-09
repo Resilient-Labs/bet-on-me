@@ -1,3 +1,59 @@
+:root {
+    --color-golden-brown: rgb(187, 161, 117);
+    --color-pale-yellow: rgb(252, 237, 194);
+    --color-faded-yellow: rgb(153, 150, 143);
+    --color-light-coral: rgb(235, 153, 121);
+    --color-vibrant-coral: rgb(250, 137, 92);
+    --bg-dark-brown: rgb(51, 49, 49);
+    --bg-dark-gray: rgb(30, 30, 30);
+}
+
 * {
     box-sizing: border-box;
 }
+
+/* login and sign up modals START */
+
+.login-modal {
+    background-color: var(--bg-dark-brown);
+    color: var(--color-pale-yellow);
+    border-radius: 1rem;
+}
+
+.login-modal button {
+    background-color: var(--color-light-coral);
+    color: var(--bg-dark-gray);
+    font-weight: 500;
+    font-size: 1.3rem;
+    border: none;
+}
+
+.login-modal button:hover {
+    background-color: var(--color-vibrant-coral);
+    color: var(--bg-dark-brown)
+}
+
+.login-modal a {
+    color: var(--color-light-coral);
+}
+
+.login-modal a:hover {
+    color: var(--color-vibrant-coral);
+}
+
+
+.login-modal input {
+    background-color: var(--color-pale-yellow);
+}
+
+.login-modal input:focus {
+    background-color: var(--color-pale-yellow);
+    border-color: var(--color-light-coral);
+    border-width: .1rem;
+}
+
+.login-modal .form-text{
+    color:var(--color-faded-yellow);
+}
+
+/* login and sign up modals END */
