@@ -2,16 +2,28 @@
 Users can join groups (“clusters”) to work on habit-building together. Each group member selects habits they want to improve and sets a required frequency (weekly/monthly) and time limit for completing each habit. Users can place monetary bets on their own ability to complete the habit, and optionally bet with friends. The system tracks passes/fails for each habit, updates points, and manages the shared money pot. All progress is visible to the group, encouraging accountability and friendly competition.
 
 ## How to submit your code for review/Workflow
-1. Fork and Clone the Main repositories Main branch
-2. Create your own branch for your respective team and name it branchName-yourName (e.g. Frontend-Leanne, Backend-Justin, Etc.)
+1. Clone the Main repository
+2. Create your own branch for your respective team and name it branchName-yourName/feature (e.g. Frontend-Leanne/Logo, Backend-Justin/UserSchema, Etc.)
 3. Work/make your changes, etc.
-4. Push said changes to your respective new branch (e.g. Backend-Leanne, Frontend-Angel, etc.) creating a Pull Request (PR)
+4. Push said changes to your respective new branch:
+```
+git push --set-upstream origin [BRANCH NAME]
+```
 5. Ping someone on your team to review your changes
-6. Ping your teams PM for a Merge Request (MR) review to the DevOps Branch
-7. DevOps will review and then merge your changes into the DevOps Branch
+6. Create pull request
+```
+## Change Made
+-Comment on what you changed and where.
+
+## Usage
+-But why though?
+```
+
+7. DevOps will review and then merge your changes into the DevOps Branch or leave comments for you to fix.
 8. If the merge passes tests the changes will be merged into DevOps
-9. Whoever merged will then delete your branch
-10. If it all looks good the team will decide when to Merge changes from the DevOps Branch to the Main Branch
+9. DevOps will then delete your branch
+
+## __Pull Changes from main branch AT LEAST daily. (before pushing, before changing files, before making a new branch, when you wake up, after evening prayers, etc.)__
 
 ## How to Build & Run the App
 
