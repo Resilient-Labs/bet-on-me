@@ -17,6 +17,7 @@
   "bugs": {
     "url": "https://github.com/Resilient-Labs/bet-on-me/issues"
   },
+  
   "homepage": "https://github.com/Resilient-Labs/bet-on-me#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
