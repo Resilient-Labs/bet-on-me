@@ -21,7 +21,7 @@ npm install
   - API_SECRET = `your cloudinary api secret`
 
 ### 4. Run the server
-npm run dev
+npm start
 
 ### 5. Open the app
 
