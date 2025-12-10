@@ -59,3 +59,5 @@ http://localhost:3000
 | Backend   | Node.js, Express, Mongoose, MongoDB |
 | Frontend  | EJS, HTML, Bootstrap, JavaScript    |
 | Dev Tools | dotenv                     |
+
+
