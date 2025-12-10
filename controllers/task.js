@@ -8,4 +8,12 @@ module.exports = {
       console.log(err);
     }
   },
+
+  getTaskById: async (taskId) => {
+    try {
+      return await Task.find({ _id: taskId });
+    } catch (err) {
+      console.log(err);
+    }
+  },
 };
