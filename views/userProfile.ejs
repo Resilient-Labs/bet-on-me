@@ -1,5 +1,4 @@
 <%- include('partials/header') -%>
-<body>
     <section class="cont">
         <div class="center col alicen bg">
             <h2 class="big">Todo List</h2>
@@ -13,11 +12,14 @@
             <h1>Add</h1>
             <h2 id="clearCompleted">Clear Completed</h2>
             <h2 id="clearAll">Clear All</h2>
-            <p></p>
+            <ul>
+                <% for(let i = 0; i<tasks?.length; i++) {%>
+                    <li class="col-6 justify-content-between mt-5">
+                        <span><%= tasks[i].task_name %></span>
+                    </li>
+                <% } %>
+            </ul>
         </div>
-        
     </section>
 
-    <script src="js/main.js"></script>
-</body>
 <%- include('partials/footer') -%>
