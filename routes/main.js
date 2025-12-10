@@ -19,7 +19,9 @@ router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
+//this route leads to the function that loads tasks in the userProfile
 router.get("/task/:id/edit", ensureAuth, tasksController.editPage);
+//this route leads to where users can edit their task name
 router.post("/task/:id", ensureAuth, tasksController.updateTask);
 
 module.exports = router;

@@ -19,7 +19,7 @@ module.exports = {
     }
   },
 
-  // render edit task page
+  // render load task page
   editPage: async (req, res) => {
     const task = await Task.findById(req.params.id);
     res.render("editTask.ejs", { task });
