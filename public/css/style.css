@@ -20,7 +20,7 @@
     border-radius: 1rem;
 }
 
-.login-modal button {
+.login-modal button[type="submit"] {
     background-color: var(--color-light-coral);
     color: var(--bg-dark-gray);
     font-weight: 500;
@@ -35,6 +35,11 @@
 
 .login-modal a {
     color: var(--color-light-coral);
+}
+
+.login-modal h5 {
+    font-size: 0;
+    padding: .5rem;
 }
 
 .login-modal a:hover {

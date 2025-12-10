@@ -5,14 +5,16 @@
 
                 <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
 
-                <h5 class="modal-title mb-4"></h5>
+                <h5 class="modal-title mb-4">Signup</h5>
 
                 <!-- ERROR MESSAGES -->
-                <% if (locals.messages.errors) { %> 
+                <% if (locals.messages.errors &&
+                        locals.messages.modal && 
+                        locals.messages.modal[0] === 'signup') { %> 
                     <% messages.errors.forEach( error => { %>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <%= error.msg %>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <%= error.msg %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <% }) %> 
                 <% } %> 
@@ -30,8 +32,16 @@
                 <!-- FORM -->
                 <form action="/signup" method="POST">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" name="username" id="username" required>
+                        <label for="firstName" class="form-label">First name</label>
+                        <input type="text" class="form-control" name="firstName" id="firstName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last name</label>
+                        <input type="text" class="form-control" name="lastName" id="lastName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userName" class="form-label">Username</label>
+                        <input type="text" class="form-control" name="userName" id="userName" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
@@ -43,7 +53,7 @@
                         <input type="password" class="form-control" name="password" id="password" required>
                     </div>
                      <div class="mb-3">
-                        <label for="password" class="form-label">Confirm Password</label>
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Register</button>
