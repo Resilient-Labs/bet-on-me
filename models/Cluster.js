@@ -5,6 +5,10 @@ const clusterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+   challenge_participants:{
+    type: [String],
+    require: true,
+  },
   creator_user_id:{
     type: String,
     required: true,
