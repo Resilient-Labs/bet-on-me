@@ -12,6 +12,15 @@ module.exports = {
       console.log(err);
     }
   },
+  getUserGoal: async (req, res) => {
+    try {
+      const posts = await Post.find({ user: req.user.id });
+      const tasks = await Task.find({ user: req.user.id })
+      res.render("userGoal.ejs", { posts: posts, user: req.user, tasks: tasks });
+    } catch (err) {
+      console.log(err);
+    }
+  },
   //this function gets the user profile, and the todo list of tasks!
   getUserProfile: async (req, res) => {
     try {
@@ -47,7 +56,7 @@ module.exports = {
   },
   //this function updates a cluser
   createCluster: async (req, res) => {
-    console.log('request',req.body)
+    console.log('request', req.body)
     try {
       //this function will make a pseudo-randomly generated code on cluster creation. Users can use this code to join a cluster.
       function makeid(length) {
@@ -96,21 +105,14 @@ module.exports = {
   },
   createTask: async (req, res) => {
     try {
-      // Upload image to cloudinary
-
       await Task.create({
         task_name: req.body.title,
         creator_user_id: req.user.id,
         task_is_completed: false,
         user: req.user.id,
       });
-
       console.log("Task has been added!");
-
-      const tasks = await Task.find({ user: req.user.id })
-      console.log(tasks)
-
-      // res.redirect("/userProfile", { tasks: tasks });
+      res.redirect("/post/userGoal");
     } catch (err) {
       console.log(err);
     }
@@ -145,18 +147,15 @@ module.exports = {
       console.log(err);
     }
   },
-  deletePost: async (req, res) => {
+  deleteTask: async (req, res) => {
     try {
-      // Find post by id
-      let post = await Post.findById({ _id: req.params.id });
-      // Delete image from cloudinary
-      await cloudinary.uploader.destroy(post.cloudinaryId);
-      // Delete post from db
-      await Post.findOneAndDelete({ _id: req.params.id });
+      await Task.findOneAndDelete({ _id: req.params.id });
       console.log("Deleted Post");
-      res.redirect("/profile");
+      // res.redirect("/post/userGoal");
+      res.send('ok')
     } catch (err) {
-      res.redirect("/profile");
+      console.log(err)
+      res.redirect("/post/userGoal");
     }
   },
 };
