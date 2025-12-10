@@ -18,6 +18,7 @@ exports.postLogin = (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
+    req.flash("modal", "login");
     return res.redirect("/");
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
@@ -30,6 +31,7 @@ exports.postLogin = (req, res, next) => {
     }
     if (!user) {
       req.flash("errors", info);
+      req.flash("modal", "login"); 
       return res.redirect("/");
     }
     req.logIn(user, (err) => {
@@ -89,6 +91,7 @@ exports.postSignup = async (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
+    req.flash("modal", "signup");
     return res.redirect("/");
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
@@ -112,6 +115,7 @@ exports.postSignup = async (req, res, next) => {
         req.flash("errors", {
           msg: "Account with that email address or username already exists.",
         });
+        req.flash("modal", "signup");
         return res.redirect("/");
       }
   user.save()

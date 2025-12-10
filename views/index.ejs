@@ -1,27 +1,30 @@
 <%- include('partials/header') -%>
 
-    <main class="container">
-        <div class="row justify-content-around mt-5">
+  <main class="container">
+      <div class="row justify-content-around mt-5">
 
-            <!-- Login/signup block START   -->
-                <!-- Links to trigger modals -->
-                <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+          <!-- Login/signup block START   -->
+              <!-- Links to trigger modals -->
+              <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
 
-                <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#signupModal">Signup</a>
+              <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#signupModal">Signup</a>
 
-                <!-- Don't separate these partials, they call each other -->
-                <%- include('partials/loginModal') %>
-                <%- include('partials/signupModal') %>
-            <!-- Login/signup block END   -->
+              <!-- Don't separate these partials, they call each other -->
+              <%- include('partials/loginModal') %>
+              <%- include('partials/signupModal') %>
+              <%- include('partials/resetModal') %>
+          <!-- Login/signup block END   -->
 
-        </div>
-    </main>
-<% if (locals.messages && locals.messages.errors) { %>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelector('[data-bs-target="#loginModal"]').click();
-    });
-  </script>
-<% } %>
+      </div>
+  </main>
+  
 
-    <%- include('partials/footer') -%>
+<%- include('partials/footer') -%>
+
+<script>
+  <% if (locals.messages && locals.messages.modal) { %>
+    setTimeout(() => {
+      new bootstrap.Modal(document.getElementById('<%= locals.messages.modal[0] %>Modal')).show();
+    }, 100);
+  <% } %>
+</script>
