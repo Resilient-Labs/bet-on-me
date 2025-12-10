@@ -1,25 +1,29 @@
 <%- include('partials/header') -%>
-    <section class="cont">
-        <div class="center col alicen bg">
-            <h2 class="big">Todo List</h2>
-            <form action="/post/createTask" enctype="multipart/form-data" method="POST">
-              <div class="mb-3">
-                  <label for="title" class="form-label">Task</label>
-                  <input type="text" class="form-control" id="title" name="title">
-              </div>
-              <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
-            </form>
-            <h1>Add</h1>
-            <h2 id="clearCompleted">Clear Completed</h2>
-            <h2 id="clearAll">Clear All</h2>
-            <ul>
-                <% for(let i = 0; i<tasks?.length; i++) {%>
-                    <li class="col-6 justify-content-between mt-5">
-                        <span><%= tasks[i].task_name %></span>
-                    </li>
-                <% } %>
-            </ul>
-        </div>
-    </section>
+
+<section class="cont">
+  <div class="center col alicen bg">
+    <h2 class="big">Todo List</h2>
+    <form action="/post/createTask" enctype="multipart/form-data" method="POST">
+      <div class="mb-3">
+        <label for="title" class="form-label">Task</label>
+        <input type="text" class="form-control" id="title" name="title" />
+      </div>
+      <button type="submit" class="btn btn-primary" value="Upload">
+        Submit
+      </button>
+    </form>
+    <h1>Add</h1>
+    <h2 id="clearCompleted">Clear Completed</h2>
+    <h2 id="clearAll">Clear All</h2>
+    <ul>
+      <% tasks.forEach(task => {%>
+      <li class="col-6 justify-content-between mt-5">
+        <span><%= task.task_name %></span>
+        <a href="/task/<%= task._id %>/edit">Edit</a>
+      </li>
+      <% }) %>
+    </ul>
+  </div>
+</section>
 
 <%- include('partials/footer') -%>

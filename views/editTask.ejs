@@ -1,0 +1,10 @@
+<%- include('partials/header') -%>
+
+<section>
+  <form action="/task/<%= task._id %>" method="POST">
+    <input type="text" name="task_name" value="<%= task.task_name %>" />
+    <button type="submit">Save</button>
+  </form>
+</section>
+
+<%- include('partials/footer') -%>

@@ -2,7 +2,7 @@ const cloudinary = require("../middleware/cloudinary");
 const Cluster = require("../models/Cluster");
 const Post = require("../models/Post");
 const Task = require("../models/Task");
-const { getUserTasks } = require("./task");
+const { getUserTasks } = require("./tasks");
 
 module.exports = {
   getProfile: async (req, res) => {
