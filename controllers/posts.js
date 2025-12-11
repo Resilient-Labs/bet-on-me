@@ -47,7 +47,7 @@ module.exports = {
   },
   //this function updates a cluser
   createCluster: async (req, res) => {
-    console.log('request',req.body)
+    console.log('request', req.body)
     try {
       //this function will make a pseudo-randomly generated code on cluster creation. Users can use this code to join a cluster.
       function makeid(length) {
@@ -141,6 +141,20 @@ module.exports = {
       );
       console.log("Likes +1");
       res.redirect(`/post/${req.params.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  changePassword: async (req, res) => {
+    try {
+      // await Post.findOneAndUpdate(
+      //   { _id: req.params.id },
+      //   {
+      //     $inc: { likes: 1 },
+      //   }
+      // );
+      // console.log("Likes +1");
+      // res.redirect(`/post/${req.params.id}`);
     } catch (err) {
       console.log(err);
     }
