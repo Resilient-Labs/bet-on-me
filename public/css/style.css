@@ -1,3 +1,20 @@
+
+
+
+  /* This is connected to JS and controls the toggle on/off of the clock
+  @author: Justin Jimenez
+  */
+
+  #wholeClock{
+    display: none;
+  }
+
+ /* This is connected to JS and controls the toggle on/off of the button for users to join the challenge */
+
+
+  #joinChallenge{
+    display: none;
+  }
 :root {
     --color-golden-brown: rgb(187, 161, 117);
     --color-pale-yellow: rgb(252, 237, 194);
