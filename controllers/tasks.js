@@ -6,7 +6,7 @@ module.exports = {
     try {
       return await Task.find({ user: userId });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 
@@ -15,30 +15,24 @@ module.exports = {
     try {
       return await Task.find({ _id: taskId });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
-  },
-
-  // render load task page
-  editPage: async (req, res) => {
-    const task = await Task.findById(req.params.id);
-    res.render("editTask.ejs", { task });
   },
 
   // update one task
   updateTask: async (req, res) => {
+    const { task_name } = req.body;
+
     try {
       const updatedTask = await Task.findOneAndUpdate(
         { _id: req.params.id, creator_user_id: req.user.id },
-        {
-          task_name: req.body.task_name,
-        }
+        { task_name }
       );
       if (!updatedTask) {
         return res.status(404).send("Error: Task not found or Unauthorized");
       }
 
-      res.redirect("/userProfile");
+      res.status(200).json({ message: "Task updated" });
     } catch (err) {
       console.error(err);
       res.status(500).send("Server error");

@@ -15,15 +15,25 @@
     <h1>Add</h1>
     <h2 id="clearCompleted">Clear Completed</h2>
     <h2 id="clearAll">Clear All</h2>
-    <ul>
+
+    <!-- Task List -->
+    <ul id="taskList">
       <% tasks.forEach(task => {%>
-      <li class="col-6 justify-content-between mt-5">
-        <span><%= task.task_name %></span>
-        <a href="/task/<%= task._id %>/edit">Edit</a>
+      <li class="col-6 justify-content-between mt-5" data-id="<%= task._id %>">
+        <span class="task-text"><%= task.task_name %></span>
+        <input
+          class="task-input d-none"
+          type="text"
+          value="<%= task.task_name %>"
+        />
+        <button class="btn-edit">Edit</button>
+        <button class="btn-save d-none">Save</button>
+        <button class="btn-cancel d-none" title="Cancel">X</button>
       </li>
       <% }) %>
     </ul>
   </div>
 </section>
+<script src="/js/main.js"></script>
 
 <%- include('partials/footer') -%>
