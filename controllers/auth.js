@@ -6,6 +6,7 @@ exports.getLogin = (req, res) => {
   if (req.user) {
     return res.redirect("/profile");
   }
+  //redirect to home page if user not logged in
   res.redirect("/");
 };
 
@@ -18,6 +19,7 @@ exports.postLogin = (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
+    //redirect to home page if user not logged in, and open correct modal
     req.flash("modal", "login");
     return res.redirect("/");
   }
@@ -31,6 +33,7 @@ exports.postLogin = (req, res, next) => {
     }
     if (!user) {
       req.flash("errors", info);
+      //redirect to home page if user not logged in, and open correct modal
       req.flash("modal", "login"); 
       return res.redirect("/");
     }
@@ -75,6 +78,7 @@ exports.getSignup = (req, res) => {
   if (req.user) {
     return res.redirect("/profile");
   }
+  //redirect back to home page in case of signup error
   res.redirect("/");
 };
 
@@ -91,6 +95,7 @@ exports.postSignup = async (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
+    //redirect to home page and open correct modal
     req.flash("modal", "signup");
     return res.redirect("/");
   }
@@ -115,6 +120,7 @@ exports.postSignup = async (req, res, next) => {
         req.flash("errors", {
           msg: "Account with that email address or username already exists.",
         });
+        //redirect to home page and open correct modal
         req.flash("modal", "signup");
         return res.redirect("/");
       }
