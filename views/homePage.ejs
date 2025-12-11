@@ -1,0 +1,47 @@
+<%- include('partials/header') -%>
+
+    <div class="home-container">
+        <section class="row col home-header">
+            <div>
+                <h1>Welcome to Bet On Me!</h1>
+                <p>A place to Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident earum impedit quae eum
+                    voluptatibus!</p>
+            </div>
+            <!-- <img src="#" alt="logo of bet on me"> -->
+        </section>
+        <section class="home-body">
+            <section class="join container">
+
+                <h1>Join a group</h1>
+                <p>Please enter your group code</p>
+
+                <form action="/joinGroup" method="POST">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="code" id="code" placeholder="XH708DQWA3" required>
+                        <button type="submit" class="btn btn-primary">Join</button>
+                    </div>
+                </form>
+
+            </section>
+
+            <section class="create container">
+
+                <h1>Make your own group</h1>
+                <p>And invite your friends!</p>
+                <!-- button to switch to a form -->
+                <button type="button" class="btn btn-secondary" id="showFormBtn">Get started!</button>
+
+                <form action="/post/createCluster" method="POST" id="createGroupForm" style="display: none;">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="title" id="title"
+                            placeholder="Name your group" required>
+                        <button type="submit" class="btn btn-success">Create</button>
+                    </div>
+                </form>
+            </section>
+
+        </section>
+    </div>
+    <script src="js/main.js"></script>
+
+    <%- include('partials/footer') -%>

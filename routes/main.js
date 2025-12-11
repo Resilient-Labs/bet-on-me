@@ -11,8 +11,11 @@ router.get("/", homeController.getIndex);
 router.get("/profile", ensureAuth, postsController.getProfile);
 // userGoal page (also available under /post/userGoal)
 router.get("/userGoal", ensureAuth, postsController.getUserGoal);
+//Main page after login
+router.get("/home", ensureAuth, postsController.getHome);
 //this route will lead to the page where user can create a cluster!
 router.get("/createCluster", ensureAuth, postsController.getClusterCreationPage);
+router.get("/teamPage", ensureAuth, postsController.getTeamPage);
 //this route will lead to the user profile!
 router.get("/userProfile", ensureAuth, postsController.getUserProfile);
 router.get("/feed", ensureAuth, postsController.getFeed);
