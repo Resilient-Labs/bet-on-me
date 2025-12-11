@@ -13,6 +13,13 @@ module.exports = {
       console.log(err);
     }
   },
+  getTeamPage: async (req, res) => {
+    try {
+      res.render("teamPage.ejs", { user: req.user });
+    } catch (err) {
+      console.log(err);
+    }
+  },
   getUserGoal: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });

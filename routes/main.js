@@ -13,6 +13,7 @@ router.get("/profile", ensureAuth, postsController.getProfile);
 router.get("/createCluster", ensureAuth, postsController.getClusterCreationPage);
 //this route will lead to the user profile!
 router.get("/userProfile", ensureAuth, postsController.getUserProfile);
+router.get("/teamPage", ensureAuth, postsController.getTeamPage)
 router.get("/feed", ensureAuth, postsController.getFeed);
 router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);
