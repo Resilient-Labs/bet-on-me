@@ -4,7 +4,7 @@ const User = require("../models/User");
 
 exports.getLogin = (req, res) => {
   if (req.user) {
-    return res.redirect("/profile");
+    return res.redirect("/userProfile");
   }
   //redirect to home page if user not logged in
   res.redirect("/");
@@ -42,7 +42,7 @@ exports.postLogin = (req, res, next) => {
         return next(err);
       }
       req.flash("success", { msg: "Success! You are logged in." });
-      res.redirect(req.session.returnTo || "/profile");
+      res.redirect(req.session.returnTo || "/userProfile");
     });
   })(req, res, next);
 };
@@ -76,7 +76,7 @@ exports.logout = (req, res) => {
 
 exports.getSignup = (req, res) => {
   if (req.user) {
-    return res.redirect("/profile");
+    return res.redirect("/userProfile");
   }
   //redirect back to home page in case of signup error
   res.redirect("/");
@@ -129,7 +129,7 @@ exports.postSignup = async (req, res, next) => {
         if (err) {
           return next(err);
         }
-        res.redirect("/profile");
+        res.redirect("/userProfile");
       });
   });
 };
