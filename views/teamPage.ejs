@@ -1,0 +1,112 @@
+<%- include('partials/header') -%>
+  <%- include('partials/nav') -%>
+
+    <div class="containerLeft">
+      <h2>Team Progress</h2>
+
+      <!-- Info Comes from Group page creation -->
+      <div class="row justify-content-center mt-5">
+        <% groupCode(groupName=> { %>
+          <strong>
+            <%= groupCode.GroupName %>
+          </strong>
+          <% }) %>
+      </div>
+
+      <!-- users of Group and wagers entered !!!Pull users from group code, display each user-->
+      <div class="row justify-content-center mt-5">
+        <% groupCode.users.forEach(user=> { %>
+          <div>
+            <strong>
+              <%= user.name %>
+            </strong>
+            Wager: $<%= user.wager %>
+          </div>
+          <% }) %>
+
+
+            <!-- progress bar for each user / task updates !!! Pull info from USER page, per task completed, update progress bar-->
+            <% users.forEach(user.progress=> { %>
+              <div class="progress" style="height: 25px;">
+                <div id="myBar" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%">
+                  0%
+                </div>
+              </div>
+
+
+
+              <!-- 
+<script>
+  const bar = document.getElementById("myBar");
+  let width = 0;
+  
+  const interval = setInterval(() => {
+    if (width >= 60) { 
+      clearInterval(interval); 
+    } else {
+      width++;
+      bar.style.width = width + "%";
+      bar.textContent = width + "%";
+      bar.classList.add("progress-bar-animated");
+    }
+  }, 20); // speed
+</script> -->
+
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- ~~~~~~~~~~RIGHT SIDE DIV~~~~~~~~ -->
+      <div class="containerRIGHT">
+        <!-- Time !!! Info from Group page??? -->
+        <div class="">
+          <h2>Timeline</h2>
+          <% groupCode(groupTime=> { %>
+            <strong>
+              <%= groupCode.groupTime%>
+            </strong>
+            <% }) %>
+        </div>
+
+     
+
+
+   <!-- cash jar total amoungst all users !!! Need to complete still-->
+        <div class="">
+          <h2>Cash Jar</h2>
+
+          <% groupCode.users.forEach(user=> { %>
+
+<!-- !!!!!need to total all user wagers into Cash Jar!!!!!! -->
+            <%= user.wager %>
+            <!-- total of all group member wagers -->
+            <%=cashJar.total %>
+
+
+              <strong>
+                <%= Total Pot: $<%=cashJar.total %>%>
+              </strong>
+              <% }) %>
+
+        </div>
+
+
+
+
+      </div>
+
+
+
+      <%- include('partials/footer') -%>

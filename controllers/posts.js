@@ -1,7 +1,8 @@
 const cloudinary = require("../middleware/cloudinary");
-const Cluster = require("../models/Cluster")
+const Cluster = require("../models/Cluster");
 const Post = require("../models/Post");
 const Task = require("../models/Task");
+const { getUserTasks } = require("./tasks");
 
 module.exports = {
   getProfile: async (req, res) => {
@@ -24,8 +25,8 @@ module.exports = {
   //this function gets the user profile, and the todo list of tasks!
   getUserProfile: async (req, res) => {
     try {
-
-      res.render("userProfile.ejs", { user: req.user });
+      const tasks = await getUserTasks(req.user.id);
+      res.render("userProfile.ejs", { user: req.user, tasks });
     } catch (err) {
       console.log(err);
     }
