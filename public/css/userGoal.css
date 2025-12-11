@@ -110,6 +110,22 @@ body {
     background-color: #e89450;
 }
 
+h4 {
+    color: white;
+    margin: 5% 0;
+}
+
+.user-money{
+    color: yellow;
+    background: green;
+    border: 1px solid green;
+    width: 70px;
+    height: 22px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
 
 /* Steps Section */
 #hide-task {
@@ -296,6 +312,17 @@ a.btn.btn-default {
 .task-buttons .delete-btn {
     background: #ff6f91;
 }
+
+.goal-completed{
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: large;
+    color: white;
+    background:#ffbf00;
+}
+
 
 /* ----------------------------------------------------
    User Goal & Steps (End)
