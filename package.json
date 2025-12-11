@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\"",
+    "test": "jest",
+    "coverage":"jest --coverage=true --coverageDirectory=coverage",
     "build": "echo \"No build step required\""
   },
   "repository": {

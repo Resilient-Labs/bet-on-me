@@ -79,6 +79,7 @@ exports.getSignup = (req, res) => {
     return res.redirect("/profile");
   }
   //redirect back to home page in case of signup error
+  
   res.redirect("/");
 };
 
