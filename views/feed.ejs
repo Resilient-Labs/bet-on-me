@@ -1,4 +1,4 @@
-<%- include('partials/header') -%>
+<%- include('partials/clockHead') -%>
 <div class="container">
   <div class="row justify-content-center mt-5">
     <button id="joinChallenge">Join Challenge</button>
@@ -12,6 +12,12 @@
       <% } %>
     </ul>
   </div>
+  <!-- 
+    This is where the form to start a challenge and clock exist.
+    Form can be changed to front end's discretion but need to make sure ID's, values, types match.
+    @author Justin Jimenez
+
+   -->
   <div class="countdown-wrapper" id="wholeClock">
     <div class="countdown"></div></div>
     <form>
@@ -22,4 +28,4 @@
       <button type="submit" id="challengeCall">Call Challenge</button>
     </form>
 </div>
-<%- include('partials/footer') -%>
+<%- include('partials/clockFoot') -%>
