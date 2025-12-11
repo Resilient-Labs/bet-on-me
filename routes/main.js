@@ -22,11 +22,4 @@ router.post("/signup", authController.postSignup);
 // this route allows users to edit a task
 router.put("/task/:id", ensureAuth, tasksController.updateTask);
 
-//Home page test block START
-    //contains group creation and joining groups 
-    router.get("/home", (req, res) => {
-    res.render("homePage.ejs");
-    });
-//Home page test block END
-
 module.exports = router;
