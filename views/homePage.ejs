@@ -1,0 +1,34 @@
+<%- include('partials/header') -%>
+
+    <body>
+        <main class="container-sm border">
+            <section class="row col border">
+                <h1>Welcome to Bet On Me!</h1>
+                <img src="#" alt="logo of bet on me">
+            </section>
+            <div class="row">
+                <section class="col-6 border">
+                    <h1>Join A group</h1>
+                    <p>Please enter a group code</p>
+
+                    <form action="/joinGroup" method="POST">
+                        <input type="text" name="code" id="code" placeholder="XH708DQWA3" required>
+                        <button type="submit">Join</button>
+                    </form>
+
+                </section>
+                <section class="col-6 border">
+                    <h1>Create a group</h1>
+                    <button type="button">Make a new group</button>
+
+                    <form action="/createGroup" method="POST">
+                        <input type="text" name="groupName" id="groupName" placeholder="The circle of five" required>
+                        <button type="submit">Create</button>
+                    </form>
+
+                </section>
+            </div>
+        </main>
+    </body>
+
+<%- include('partials/footer') -%>
