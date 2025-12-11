@@ -1,3 +1,9 @@
+/**
+ * Money jar file
+ * The file defines the schema for maoney jar. I includes the total money in the money jar, current balance of the user, payout status and more as commented below.
+ * @author Innocent
+ */
+
 const mongoose = require("mongoose");
 
 const moneyJarSchema = new mongoose.Schema({
@@ -59,6 +65,20 @@ const moneyJarSchema = new mongoose.Schema({
   endDate: {
     type: Date,
   },
+  //keeping the balance inside participants array
+  participants: [
+  {
+    user: ObjectId,
+    amountBet: Number,
+    taskCompleted: Boolean,
+    payoutStatus: String,
+    //user wallet after bid or user's current balance
+    currentBalance: {
+      type: Number,
+      default: 0,
+    }
+  }
+]
 
 });
 
