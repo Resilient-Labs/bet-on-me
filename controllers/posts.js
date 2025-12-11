@@ -153,7 +153,7 @@ module.exports = {
       //     $inc: { likes: 1 },
       //   }
       // );
-      // console.log("Likes +1");
+      // console.log("Likes +1");z
       // res.redirect(`/post/${req.params.id}`);
     } catch (err) {
       console.log(err);
