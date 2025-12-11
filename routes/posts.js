@@ -13,10 +13,10 @@ router.post("/createPost", upload.single("file"), postsController.createPost);
 
 router.post("/createCluster", upload.single("file"), postsController.createCluster);
 
+//RESOLVE - moved createTask to controllers/tasks.js @author Winnie
+
 router.put("/likePost/:id", postsController.likePost);
 
-router.post("/createTask", upload.single("file"), postsController.createTask);
-
-router.delete("/deleteTask/:id", postsController.deleteTask);
+router.delete("/deletePost/:id", postsController.deletePost);
 
 module.exports = router;

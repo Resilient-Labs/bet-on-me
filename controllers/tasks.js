@@ -1,3 +1,10 @@
+/**
+ * Task Controller
+ * Handles task-related logic and database interactions.
+ * Used by routes/task.js
+ */
+
+
 const Task = require("../models/Task");
 
 module.exports = {
@@ -38,4 +45,48 @@ module.exports = {
       res.status(500).send("Server error");
     }
   },
+  createTask: async (req, res) => {
+    try {
+      // enforce 10-task-per-user limit
+      const taskCount = await Task.countDocuments({ user: req.user.id });
+      if (taskCount >= 10) {
+        const tasks = await Task.find({ user: req.user.id });
+        console.log("User has reached the task limit");
+        return res.status(400).render("userProfile.ejs", {
+          tasks: tasks,
+          error: "Task limit reached (maximum 10 tasks).",
+        });
+      }
+
+      // Create the task
+      await Task.create({
+        task_name: req.body.title,
+        creator_user_id: req.user.id,
+        task_is_completed: false,
+        user: req.user.id,
+      });
+
+      console.log("Task has been added!");
+
+      const tasks = await Task.find({ user: req.user.id });
+      console.log(tasks);
+
+      res.render("userProfile.ejs", { tasks: tasks });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  //limit tasks to max 10 per user
+  limitTask: async (userID) => {
+    try {
+      const taskCount = await Task.countDocuments({ user: userID });
+      return taskCount < 10;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  }
 };
+
+
+

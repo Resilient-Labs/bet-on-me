@@ -104,20 +104,7 @@ module.exports = {
       console.log(err);
     }
   },
-  createTask: async (req, res) => {
-    try {
-      await Task.create({
-        task_name: req.body.title,
-        creator_user_id: req.user.id,
-        task_is_completed: false,
-        user: req.user.id,
-      });
-      console.log("Task has been added!");
-      res.redirect("/post/userGoal");
-    } catch (err) {
-      console.log(err);
-    }
-  },
+  //RESOLVE - moved createTask to controllers/tasks.js @author Winnie
   //RESOLVE - get this function to update user pfps!
   //RESOLVE - after a user creates an account, they should be able to 
   updateUserPfp: async (req, res) => {
