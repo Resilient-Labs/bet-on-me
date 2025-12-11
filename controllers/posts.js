@@ -131,6 +131,7 @@ module.exports = {
       console.log(err);
     }
   },
+
   likePost: async (req, res) => {
     try {
       await Post.findOneAndUpdate(
@@ -145,6 +146,22 @@ module.exports = {
       console.log(err);
     }
   },
+
+  removeUserFromCluster: async (req, res) => {
+    try {
+      console.log(req.user.id)
+      await Cluster.findOneAndUpdate(
+        { user: req.params.id },
+        {
+          $pull: { cluster_members: req.user.id },
+        }
+      );
+      console.log("Cluster");
+      res.render("userProfile.ejs", { user: req.user.id })
+    } catch (err) {
+      console.log(err);
+    }
+  },
   deletePost: async (req, res) => {
     try {
       // Find post by id
@@ -153,6 +170,20 @@ module.exports = {
       await cloudinary.uploader.destroy(post.cloudinaryId);
       // Delete post from db
       await Post.findOneAndDelete({ _id: req.params.id });
+      console.log("Deleted Post");
+      res.redirect("/profile");
+    } catch (err) {
+      res.redirect("/profile");
+    }
+  },
+    deleteUserFromCluster: async (req, res) => {
+    try {
+      // Find post by id
+      let post = await Post.findById({ _id: req.params.id });
+      // Delete image from cloudinary
+      // await cloudinary.uploader.destroy(post.cloudinaryId);
+      // Delete post from db
+      await Cluster.findOneAndDelete({ _id: req.params.id });
       console.log("Deleted Post");
       res.redirect("/profile");
     } catch (err) {
