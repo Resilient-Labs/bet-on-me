@@ -63,7 +63,7 @@ module.exports = {
       const randomCode = makeid(8)
       await Cluster.create({
         cluster_name: req.body.title,
-        creator_user_id: req.user.id,
+        user: req.user.id,
         cluster_join_id: randomCode,
         cluster_members: req.user.id,
         member_count: 1,

@@ -16,14 +16,17 @@ const moneyJarSchema = new mongoose.Schema({
         ref: "User",
         required: true,
       },
+      //Adding money to money jar
       amountBet: {
         type: Number,
         required: true,
       },
-      taskCompleted: { //checking if the user has completed the task or not
+      //checking if the user has completed the task or not
+      taskCompleted: { 
         type: Boolean,
         default: false,
       },
+      //payout upon money jar completion
       payoutStatus: {
         type: String,
         enum: ["pending", "paid", "forfeited"],
