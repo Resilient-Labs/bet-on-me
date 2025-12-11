@@ -135,5 +135,27 @@ module.exports = {
       console.log(err);
     }
   }
+  ,
+  // delete a post (remove cloudinary image and DB record)
+  deletePost: async (req, res) => {
+    try {
+      // Find post by id
+      let post = await Post.findById({ _id: req.params.id });
+      if (!post) return res.status(404).redirect('/profile');
+
+      // Delete image from cloudinary
+      if (post.cloudinaryId) {
+        await cloudinary.uploader.destroy(post.cloudinaryId);
+      }
+
+      // Delete post from db
+      await Post.findOneAndDelete({ _id: req.params.id });
+      console.log("Deleted Post");
+      res.redirect("/profile");
+    } catch (err) {
+      console.log(err);
+      res.redirect("/profile");
+    }
+  }
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
 };
