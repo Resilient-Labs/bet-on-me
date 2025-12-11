@@ -24,7 +24,15 @@
       integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
       crossorigin="anonymous"
     />
+
     <link rel="stylesheet" href="/css/style.css" />
+
+    <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
+    crossorigin="anonymous">
+    <link href="/css/headers.css" rel="stylesheet" />
+
   </head>
   
  <body>
@@ -57,18 +65,22 @@
             </ul>
             <div class="text-end">
               <button type="button" class="btn btn-outline-light me-2">
-                <a class="login" href="/login">
-                Login
-                </a>
+                  <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
               </button>
               <button type="button" class="btn btn-warning">
-                <a class="signup" href="/signup">
-                Sign-up
-                </a>
+                  <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#signupModal">Signup</a>
               </button>
             </div>
           </div>
         </div>
       </header>
-  </body>
-</html>
+
+  <!-- modals -->
+    <%- include('../partials/loginModal') %>
+    <%- include('../partials/signupModal') %>
+    <%- include('../partials/resetModal') %>
+  <!-- --- -->
+
+
+  <!-- </body>
+</html> -->
