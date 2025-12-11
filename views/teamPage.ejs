@@ -1,112 +1,112 @@
 <%- include('partials/header') -%>
   <%- include('partials/nav') -%>
 
-    <div class="containerLeft">
-      <h2>Team Progress</h2>
-
-      <!-- Info Comes from Group page creation -->
-      <div class="row justify-content-center mt-5">
-        <% groupCode(groupName=> { %>
-          <strong>
-            <%= groupCode.GroupName %>
-          </strong>
-          <% }) %>
-      </div>
-
-      <!-- users of Group and wagers entered !!!Pull users from group code, display each user-->
-      <div class="row justify-content-center mt-5">
-        <% groupCode.users.forEach(user=> { %>
-          <div>
-            <strong>
-              <%= user.name %>
-            </strong>
-            Wager: $<%= user.wager %>
+<div class="container-fluid team-progress-container">
+  <div class="container-fluid px-5">
+    <div class="row g-4">
+      
+      <!-- LEFT SIDE - Team Progress -->
+      <div class="col-lg-8 col-md-7">
+        <div class="card shadow-lg border-0 team-card">
+          <div class="text-center card-header team-card-header">
+            <h2 class="mb-0 text-dark fw-bold">
+              <i class="bi me-2"></i>Team Progress
+            </h2>
           </div>
-          <% }) %>
+          <div class="card-body p-4">
+            
+            <!-- Group Name -->
+            <div class="group-name-section">
+              <h3 class="fw-bold mb-0 group-name-title">
+                <i class="bi me-2"></i>
+                <%= groupCode.GroupName %>
+              </h3>
+            </div>
 
-
-            <!-- progress bar for each user / task updates !!! Pull info from USER page, per task completed, update progress bar-->
-            <% users.forEach(user.progress=> { %>
-              <div class="progress" style="height: 25px;">
-                <div id="myBar" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%">
-                  0%
+            <!-- Users and Progress Bars -->
+            <% groupCode.users.forEach((user, index) => { %>
+              <div class="card user-card">
+                <div class="card-body p-4">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0 fw-bold text-white">
+                      <%= user.name %>
+                    </h5>
+                    <span class="badge wager-badge">
+                      $<%= user.wager %>
+                    </span>
+                  </div>
+                  
+                  <!-- Progress Bar -->
+                  <div class="progress progress-container">
+                    <div class="progress-bar progress-bar-animated progress-bar-gold" 
+                         role="progressbar" 
+                         style="width: <%= user.progress %>%"
+                         aria-valuenow="<%= user.progress %>" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                    </div>
+                  </div>
                 </div>
               </div>
-
-
-
-              <!-- 
-<script>
-  const bar = document.getElementById("myBar");
-  let width = 0;
-  
-  const interval = setInterval(() => {
-    if (width >= 60) { 
-      clearInterval(interval); 
-    } else {
-      width++;
-      bar.style.width = width + "%";
-      bar.textContent = width + "%";
-      bar.classList.add("progress-bar-animated");
-    }
-  }, 20); // speed
-</script> -->
-
-
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <!-- ~~~~~~~~~~RIGHT SIDE DIV~~~~~~~~ -->
-      <div class="containerRIGHT">
-        <!-- Time !!! Info from Group page??? -->
-        <div class="">
-          <h2>Timeline</h2>
-          <% groupCode(groupTime=> { %>
-            <strong>
-              <%= groupCode.groupTime%>
-            </strong>
             <% }) %>
+          </div>
         </div>
-
-     
-
-
-   <!-- cash jar total amoungst all users !!! Need to complete still-->
-        <div class="">
-          <h2>Cash Jar</h2>
-
-          <% groupCode.users.forEach(user=> { %>
-
-<!-- !!!!!need to total all user wagers into Cash Jar!!!!!! -->
-            <%= user.wager %>
-            <!-- total of all group member wagers -->
-            <%=cashJar.total %>
-
-
-              <strong>
-                <%= Total Pot: $<%=cashJar.total %>%>
-              </strong>
-              <% }) %>
-
-        </div>
-
-
-
-
       </div>
 
 
 
-      <%- include('partials/footer') -%>
+
+      <!-- RIGHT SIDE - Timeline & Cash Jar -->
+      <div class="col-lg-4 col-md-5">
+        <div class="d-flex flex-column gap-4">
+          
+
+
+
+          <!-- Timeline Card ~~~~~~~~~ NEED TO HAVE GROUP ENTER TIMELINE FOR DURATION OF CHALLANGE-->
+          <div class="card shadow-lg border-0 timeline-card">
+            <div class="card-header py-4 text-center timeline-header">
+              <h4 class="mb-0 text-dark fw-bold">
+                <i class="bi me-2"></i>Timeline
+              </h4>
+            </div>
+            <!-- <div class="card-body text-center p-5">
+              <div class="display-5 fw-bold mb-2 timeline-time">
+                <i class="bi me-2"></i><%= groupCode.groupTime %>
+              </div> -->
+              <p class="text-muted mb-0 fs-6">Challenge Duration</p>
+            </div>
+          </div>
+
+
+
+
+
+          <!-- cash jar div and total total~~~~~~ NEED TO FIGURE OUT HOW TO HAVE AN IMAGE WITH AMOUNT OF EACH USER TO SHOW -->
+          <div class="card shadow-lg border-0 cash-jar-card">
+            <div class="card-header text-center cash-jar-header">
+              <h4 class="mb-0 fw-bold">
+                <i class="bi me-2"></i>Cash Jar
+              </h4>
+            </div>
+
+            <div class="card-body text-center p-5">
+              <div class="mb-4">
+                <svg class="" width="64" height="64" fill="currentColor" >
+                    </svg>
+              </div>
+              <h2 class="display-2 fw-bold mb-2 cash-jar-total">$<%= cashJar.total %></h2>
+              <p class="mb-0 mt-3 fs-5 fw-bold cash-jar-label">Total Pot</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') -%>
+
+
+
+

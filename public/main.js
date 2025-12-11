@@ -79,3 +79,51 @@ Array.from(trash).forEach(function (element) {
 //     });
 //   });
 // });
+
+
+
+
+// !!!!!! TEST INFO FOT TEAMS PAGE!!!!!!////////
+/// !!!!!! START!!!!!////////
+router.get("/team-progress", ensureAuth, (req, res) => {
+  const groupCode = {
+    GroupName: "Task Team",
+    groupTime: "30 Days",
+    users: [
+      {
+        name: "Sarah Johnson",
+        wager: 50,
+        progress: 65
+      },
+      {
+        name: "Mike Chen",
+        wager: 75,
+        progress: 42
+      },
+      {
+        name: "Emily Rodriguez",
+        wager: 100,
+        progress: 88
+      },
+      {
+        name: "James Parker",
+        wager: 50,
+        progress: 55
+      },
+      {
+        name: "Lisa Anderson",
+        wager: 80,
+        progress: 73
+      }
+    ]
+  };
+
+  const cashJar = {
+    total: groupCode.users.reduce((sum, user) => sum + user.wager, 0)
+  };
+
+  res.render('team-progress', { groupCode, cashJar });
+});
+
+// !!!!!! TEST INFO FOT TEAMS PAGE!!!!!!////////
+/// !!!!!! END!!!!!////////

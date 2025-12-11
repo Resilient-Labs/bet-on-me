@@ -62,3 +62,168 @@
 }
 
 /* login and sign up modals END */
+
+
+
+
+
+/* ~~~~~~~~~~~~!!!!!!!START!!!!!! teamPage Styles~~~~~~~~~~~~~~~~~~~ */
+
+
+
+body {
+  background: #000000;
+}
+
+.team-progress-container {
+  background: #000000;
+  min-height: 100vh;
+  padding: 3rem 0;
+}
+
+.team-card {
+  background: #1a1a1a;
+  min-height: 85vh;
+}
+
+.team-card-header {
+  background: linear-gradient(135deg, #DEB887 0%, #F5DEB3 100%);
+  border: none;
+  padding: 1.5rem;
+}
+
+.group-name-section {
+  border-bottom: 2px solid #DEB887;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+}
+
+.group-name-title {
+  color: #DEB887;
+  font-size: 2rem;
+}
+
+.user-card {
+  background: #2a2a2a;
+  border: none;
+  margin-bottom: 1.5rem;
+}
+
+.user-badge {
+  width: 35px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #DEB887;
+  color: #000;
+  font-size: 1rem;
+}
+
+.wager-badge {
+  background: #DEB887;
+  color: #000;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+}
+
+.progress-container {
+  height: 35px;
+  background: #1a1a1a;
+}
+
+.progress-bar-gold {
+  background-color: var(--color-golden-brown);
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+
+/* Right Side Cards */
+.timeline-card {
+  background: #1a1a1a;
+  border: 2px solid #DEB887 !important;
+}
+
+.timeline-header {
+  background: #DEB887;
+  border: none;
+  padding: 1.5rem;
+}
+
+.timeline-time {
+  color: #DEB887;
+}
+
+.cash-jar-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border: 3px solid #DEB887 !important;
+}
+
+.cash-jar-header {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #DEB887 !important;
+  padding: 1.5rem;
+  color: #DEB887;
+}
+
+.cash-jar-icon {
+  font-size: 4rem;
+  color: #DEB887;
+}
+
+.cash-jar-total {
+  color: #F5DEB3;
+}
+
+.cash-jar-label {
+  color: #DEB887;
+}
+
+.contributions-card {
+  background: #1a1a1a;
+  border: 2px solid #DEB887 !important;
+}
+
+.contributions-header {
+  background: #2a2a2a;
+  border-bottom: 2px solid #DEB887;
+  padding: 1.5rem;
+  color: #DEB887;
+}
+
+.contributions-body {
+  background: #1a1a1a;
+  padding: 1.5rem;
+}
+
+.contribution-item {
+  background: transparent;
+  border-color: #444;
+  color: #fff;
+  padding: 1rem 0.5rem;
+}
+
+.contribution-icon {
+  color: #DEB887;
+}
+
+.contribution-badge {
+  background: #DEB887;
+  color: #000;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+
+/* ~~~~~~~~~~~~!!!!!!!END!!!!!!   teamPage Styles~~~~~~~~~~~~~~~~~~~ */
