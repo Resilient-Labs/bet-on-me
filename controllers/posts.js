@@ -134,16 +134,6 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
-  },
-  deleteTask: async (req, res) => {
-    try {
-      await Task.findOneAndDelete({ _id: req.params.id });
-      console.log("Deleted Post");
-      // res.redirect("/post/userGoal");
-      res.send('ok')
-    } catch (err) {
-      console.log(err)
-      res.redirect("/post/userGoal");
-    }
-  },
+  }
+  //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
 };

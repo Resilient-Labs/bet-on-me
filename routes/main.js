@@ -9,6 +9,8 @@ const { ensureAuth } = require("../middleware/auth");
 //Main Routes - simplified for now
 router.get("/", homeController.getIndex);
 router.get("/profile", ensureAuth, postsController.getProfile);
+// userGoal page (also available under /post/userGoal)
+router.get("/userGoal", ensureAuth, postsController.getUserGoal);
 //this route will lead to the page where user can create a cluster!
 router.get("/createCluster", ensureAuth, postsController.getClusterCreationPage);
 //this route will lead to the user profile!

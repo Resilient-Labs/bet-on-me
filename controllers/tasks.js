@@ -76,6 +76,17 @@ module.exports = {
       console.log(err);
     }
   },
+  // delete one task
+  deleteTask: async (req, res) => {
+    try {
+      await Task.findOneAndDelete({ _id: req.params.id, creator_user_id: req.user.id });
+      console.log("Deleted Task");
+      return res.status(200).json({ message: "Task deleted" });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Server error" });
+    }
+  },
   //limit tasks to max 10 per user
   limitTask: async (userID) => {
     try {
