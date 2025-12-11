@@ -19,6 +19,8 @@ router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
+// this route leads to controllers/auth.js, containing functionality to recover user's lost passwords
+router.post("/forgot", authController.forgotPassword);
 // this route allows users to edit a task
 router.put("/task/:id", ensureAuth, tasksController.updateTask);
 
