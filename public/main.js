@@ -83,7 +83,7 @@ Array.from(trash).forEach(function (element) {
 
 
 
-// !!!!!! TEST INFO FOT TEAMS PAGE!!!!!!////////
+// !!!!!! TEST INFO FOR TEAMSPAGE.ejs!!!!!!////////
 /// !!!!!! START!!!!!////////
 router.get("/team-progress", ensureAuth, (req, res) => {
   const groupCode = {
@@ -125,5 +125,5 @@ router.get("/team-progress", ensureAuth, (req, res) => {
   res.render('team-progress', { groupCode, cashJar });
 });
 
-// !!!!!! TEST INFO FOT TEAMS PAGE!!!!!!////////
+// !!!!!! TEST INFO FOR TEAMS PAGE!!!!!!////////
 /// !!!!!! END!!!!!////////
