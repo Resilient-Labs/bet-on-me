@@ -14,7 +14,7 @@ Array.from(edit).forEach(function (element) {
 Array.from(trash).forEach(function (element) {
   element.addEventListener('click', function () {
     const _id = this.closest('li').querySelector('span').getAttribute("name")
-    fetch(`/post/deleteTask/${_id}`, {
+    fetch(`/task/${_id}`, {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json'

@@ -3,7 +3,11 @@
 <section class="cont">
   <div class="center col alicen bg">
     <h2 class="big">Todo List</h2>
-    <form action="/post/createTask" enctype="multipart/form-data" method="POST">
+    <!--Task Creation Form--> 
+    <form action="/task/createTask" enctype="multipart/form-data" method="POST">
+      <% if (typeof error !== 'undefined') { %> <!-- Display error message if exists @author Winnie -->
+      <div class="alert alert-danger"><%= error %></div>
+      <% } %>
       <div class="mb-3">
         <label for="title" class="form-label">Task</label>
         <input type="text" class="form-control" id="title" name="title" />
