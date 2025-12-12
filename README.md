@@ -3,7 +3,7 @@ Users can join groups (“clusters”) to work on habit-building together. Each 
 
 ## How to submit your code for review/Workflow
 1. Clone the Main repository
-2. Create your own branch for your respective team and name it branchName-yourName/feature (e.g. Frontend-Leanne/Logo, Backend-Justin/UserSchema, Etc.)
+2. Create your own branch for your respective team and name it branchName-yourName/feature (e.g. Frontend-Leanne/Logo, Backend-Justin/UserSchema, etc.)
 3. Work/make your changes, etc.
 4. Push said changes to your respective new branch:
 ```
