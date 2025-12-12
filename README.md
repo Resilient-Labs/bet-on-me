@@ -43,6 +43,8 @@ npm install
   - CLOUD_NAME = `your cloudinary cloud name`
   - API_KEY = `your cloudinary api key`
   - API_SECRET = `your cloudinary api secret`
+  - MAILER_USER = betonmemailer@gmail.com
+  - MAILER_PASS = jjoi uzug jntu otha
 
 ### 4. Run the server
 npm start

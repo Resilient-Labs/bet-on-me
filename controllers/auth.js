@@ -153,7 +153,7 @@ exports.postSignup = async (req, res, next) => {
 * Author: @JustinJoshi
 */
 
-
+require("dotenv").config({ path: "./config/.env" });
 
 exports.forgotPassword = (req, res) => {
   const generateResetToken = () => {
@@ -172,8 +172,8 @@ exports.forgotPassword = (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'betonmemailer@gmail.com',
-      pass: 'jjoi uzug jntu otha '
+      user: process.env.MAILER_USER,
+      pass: process.env.MAILER_PASS
     }
   });
 
