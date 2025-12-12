@@ -2,6 +2,7 @@
  * Task Controller
  * Handles task-related logic and database interactions.
  * Used by routes/task.js
+ * Author @Maureen
  */
 
 

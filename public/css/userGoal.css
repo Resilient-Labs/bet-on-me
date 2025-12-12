@@ -368,6 +368,9 @@ input.task-input:focus {
     background:#ffbf00;
 }
 
+.goal-completed:hover{
+    cursor: pointer;
+}
 
 /* ----------------------------------------------------
    User Goal & Steps (End)
