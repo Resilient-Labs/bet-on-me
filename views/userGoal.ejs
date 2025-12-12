@@ -38,24 +38,44 @@
             </form>
 
             <div class="user-steps">
+                <!-- Task List -->
                 <ul id="task-list">
-                    <% for(var i=0; i<tasks.length; i++) {%>
-                        <li class="task-buttons <%= tasks[i].completed ? 'completed' : '' %>">
-                            <input type="checkbox" class="checkbox" <%=tasks[i].completed ? 'checked' : '' %>
-                            data-id="<%= tasks[i]._id %>">
-                                <%= tasks[i].task %>
-                                    <span name="<%= tasks[i]._id %>"> <%=tasks[i].task_name%>
-                                    </span>
-                                    <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                                    <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
-                                    <input type="hidden" class="task-id" value="<%= tasks[i]._id %>">
+                    <% tasks.forEach(task => {%>
+                        <li class="task-buttons <%= task.completed ? 'completed' : '' %>" data-id="<%= task._id %>">
+                            <input
+                                name="checkbox"
+                                type="checkbox"
+                                class="checkbox"
+                                <%=task.completed ? 'checked' : '' %>
+                                data-id="<%= task._id %>"
+                            />
+                                <%= task.task %>
+                            <span name="<%= task._id %>" class="task-text"> <%= task.task_name %></span>
+
+                            <!-- Default buttons -->
+                            <button class="edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete-btn" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                            <input type="hidden" class="task-id" value="<%= task._id %>">
+
+                            <!-- Edit view-->
+                             <form class="edit-task-form d-none">
+                                <input
+                                    name="task-input"
+                                    class="task-input d-none"
+                                    type="text"
+                                    value="<%= task.task_name %>"
+                                />
+                                <span>
+                                    <button class="save-btn d-none" title="Save"><i class="fa-solid fa-check"></i></button>
+                                    <button class="cancel-btn d-none" title="Cancel"><i class="fa-solid fa-xmark"></i></button>
+                                </span>
+                            </form>
                         </li>
-                        <% } %>
+                    <% }) %>
                 </ul>
             </div>
             <button class="goal-completed">Goal Completed</button>
         </div>
     </div>
-
-    <script src="/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>

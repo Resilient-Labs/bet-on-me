@@ -228,7 +228,6 @@ a.btn.btn-default {
 #task-list li {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     background: rgba(225, 194, 209, 0.3);
     margin-bottom: 10px;
     padding: 8px 10px;
@@ -281,7 +280,6 @@ a.btn.btn-default {
 
 .task-buttons {
     display: flex;
-    justify-content: flex-end;
     margin-right: auto;
     gap: 10px;
 }
@@ -311,6 +309,47 @@ a.btn.btn-default {
 
 .task-buttons .delete-btn {
     background: #ff6f91;
+}
+
+.edit-task-form {
+    display: flex;
+    width: 100%;
+
+    span {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .save-btn {
+        background-color: forestgreen;
+    }
+
+    .cancel-btn {
+        background-color: slategrey;
+    }
+}
+
+button.d-none,
+input.d-none,
+span.d-none,
+form.d-none {
+    display: none;
+}
+
+input.task-input {
+    align-items: center;
+    background: transparent;
+    padding: 8px 10px;
+    margin: -8px 4px -8px 0;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    position: relative;
+    color: #ddd;
+    border: none;
+}
+
+input.task-input:focus {
+    outline: none;
 }
 
 .goal-completed{
