@@ -2,6 +2,7 @@
  * Task Controller
  * Handles task-related logic and database interactions.
  * Used by routes/task.js
+ * Author @Maureen
  */
 
 
@@ -28,12 +29,12 @@ module.exports = {
 
   // update one task
   updateTask: async (req, res) => {
-    const { task_name } = req.body;
+    const { task_name, task_is_completed } = req.body;
 
     try {
       const updatedTask = await Task.findOneAndUpdate(
         { _id: req.params.id, creator_user_id: req.user.id },
-        { task_name }
+        { task_name, task_is_completed }
       );
       if (!updatedTask) {
         return res.status(404).send("Error: Task not found or Unauthorized");
@@ -52,7 +53,7 @@ module.exports = {
       if (taskCount >= 10) {
         const tasks = await Task.find({ user: req.user.id });
         console.log("User has reached the task limit");
-        return res.status(400).render("userProfile.ejs", {
+        return res.status(400).render("userGoal.ejs", {
           tasks: tasks,
           error: "Task limit reached (maximum 10 tasks).",
         });
@@ -68,10 +69,7 @@ module.exports = {
 
       console.log("Task has been added!");
 
-      const tasks = await Task.find({ user: req.user.id });
-      console.log(tasks);
-
-      res.render("userProfile.ejs", { tasks: tasks });
+      return res.redirect("/userGoal");
     } catch (err) {
       console.log(err);
     }
@@ -96,8 +94,5 @@ module.exports = {
       console.error(err);
       return false;
     }
-  }
+  },
 };
-
-
-
