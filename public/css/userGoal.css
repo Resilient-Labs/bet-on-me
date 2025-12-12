@@ -267,6 +267,12 @@ a.btn.btn-default {
     font-size: 1rem;
 }
 
+.strike-through {
+    text-decoration: line-through;
+    opacity: 0.6;
+    font-style: italic;
+}
+
 #task-list li span {
     flex: 1;
     margin-left: 10px;

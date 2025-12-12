@@ -28,12 +28,12 @@ module.exports = {
 
   // update one task
   updateTask: async (req, res) => {
-    const { task_name } = req.body;
+    const { task_name, task_is_completed } = req.body;
 
     try {
       const updatedTask = await Task.findOneAndUpdate(
         { _id: req.params.id, creator_user_id: req.user.id },
-        { task_name }
+        { task_name, task_is_completed }
       );
       if (!updatedTask) {
         return res.status(404).send("Error: Task not found or Unauthorized");
@@ -96,8 +96,5 @@ module.exports = {
       console.error(err);
       return false;
     }
-  }
+  },
 };
-
-
-

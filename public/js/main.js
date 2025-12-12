@@ -87,6 +87,32 @@ document.querySelectorAll("#task-list li").forEach((li) => {
 
     toggleDefaultView();
   };
+
+  let isCompleted = checkbox.dataset.completed === "true";
+
+  // Update task completion status
+  checkbox.onclick = async () => {
+    isCompleted = !isCompleted;
+
+    const response = await fetch(`/task/${taskId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        task_is_completed: isCompleted,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error("Error updating task");
+    }
+
+    // update styling
+    isCompleted
+      ? span.classList.add("strike-through")
+      : span.classList.remove("strike-through");
+
+    checkbox.dataset.completed = isCompleted;
+  };
 });
 
 // DELETE TASK

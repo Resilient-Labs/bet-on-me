@@ -46,11 +46,11 @@
                                 name="checkbox"
                                 type="checkbox"
                                 class="checkbox"
-                                <%=task.completed ? 'checked' : '' %>
-                                data-id="<%= task._id %>"
+                                <%=task.task_is_completed ? 'checked' : '' %>
+                                data-completed="<%= task.task_is_completed %>"
                             />
                                 <%= task.task %>
-                            <span name="<%= task._id %>" class="task-text"> <%= task.task_name %></span>
+                            <span name="<%= task._id %>" class="task-text <%= task.task_is_completed ? 'strike-through' : '' %>"> <%= task.task_name %></span>
 
                             <!-- Default buttons -->
                             <button class="edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
