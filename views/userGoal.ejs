@@ -36,6 +36,9 @@
                 <input type="text" id="hide-task" placeholder="Name" name="_id">
                 <button type="submit" id="add-task-btn"><i class="fa-solid fa-plus"></i></button>
             </form>
+            <% if (typeof error !== 'undefined') { %>
+                <div class="alert alert-danger"><%= error %></div>
+            <% } %>
 
             <div class="user-steps">
                 <!-- Task List -->

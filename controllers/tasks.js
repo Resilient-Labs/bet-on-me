@@ -52,7 +52,7 @@ module.exports = {
       if (taskCount >= 10) {
         const tasks = await Task.find({ user: req.user.id });
         console.log("User has reached the task limit");
-        return res.status(400).render("userProfile.ejs", {
+        return res.status(400).render("userGoal.ejs", {
           tasks: tasks,
           error: "Task limit reached (maximum 10 tasks).",
         });
@@ -68,10 +68,7 @@ module.exports = {
 
       console.log("Task has been added!");
 
-      const tasks = await Task.find({ user: req.user.id });
-      console.log(tasks);
-
-      res.render("userGoal.ejs", { tasks: tasks });
+      return res.redirect("/userGoal");
     } catch (err) {
       console.log(err);
     }
