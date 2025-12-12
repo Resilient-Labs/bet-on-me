@@ -1,9 +1,9 @@
 <%- include('partials/header') -%>
 
-  <main>
+  <main class="landing-page-main">
       <div class="container my-5">
         <div
-          class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg"
+          class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" 
         >
           <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
             <h1 class="display-4 fw-bold lh-1 text-body-emphasis">
@@ -20,26 +20,27 @@
             >
               <button
                 type="button"
-                class="btn btn-primary btn-lg px-4 me-md-2 fw-bold"
+                class="btn btn-lg px-4 me-md-2 fw-bold" style="background-color: rgb(41, 188, 186);"
               >
-                Primary
+                <a href="#" type="button" data-bs-toggle="modal" class="join-btn" data-bs-target="#signupModal">
+                  Join
+                </a>
               </button>
               <button
                 type="button"
-                class="btn btn-outline-secondary btn-lg px-4"
+                class="btn btn-outline-secondary btn-lg px-4 gold-btn"
               >
-                Default
+                About
+                <!-- I want this to lead to the bottom half of the page, I will make an about section -->
               </button>
-              <!-- these buttons are placeholders, i will either remove them or find somewhere to lead them -->
-            </div>
+              </div>
           </div>
           <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-            <!-- place holder image it is super fuzzy right now -->
             <img
-              class="rounded-lg-3"
+              class="rounded-lg-3 gold-border"
               src="/imgs/mainHeroImg.jpg" 
               alt=""
-              width="300"
+              width="450"
             />
           </div>
         </div>

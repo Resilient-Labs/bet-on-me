@@ -51,6 +51,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Make user available in all EJS templates so conditional can be made for header; user || !user for login/logout buttons in nav
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
 //Use flash messages for errors, info, ect...
 app.use(flash());
 

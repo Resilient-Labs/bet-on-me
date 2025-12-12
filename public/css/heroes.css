@@ -1,3 +1,47 @@
+:root {
+    --color-golden-brown: rgb(187, 161, 117);
+    --color-pale-yellow: rgb(252, 237, 194);
+    --color-faded-yellow: rgb(153, 150, 143);
+    --color-light-coral: rgb(235, 153, 121);
+    --color-vibrant-coral: rgb(250, 137, 92);
+    --color-vibrant-gold: rgb(247, 174, 28);
+    --bg-dark-brown: rgb(51, 49, 49);
+    --bg-dark-gray: rgb(30, 30, 30);
+}
+
+.my-5{
+  background-color: rgb(51, 49, 49);
+}
+
+
+.lead{
+  color: var(--color-pale-yellow)
+}
+
+.color-match{
+  color: rgb(41, 188, 186);
+}
+
+.gold-btn{
+  border-color: rgb(247, 174, 28) !important;
+  color: rgb(247, 174, 28) !important;
+}
+
+.gold-btn:hover {
+  background-color: rgb(247, 174, 28) !important;
+  border-color: rgb(247, 174, 28) !important;
+  color: white !important; 
+}
+
+.join-btn, .join-btn:hover{
+  color: black;
+  text-decoration: none;
+}
+
+.gold-border{
+  border: solid var(--color-vibrant-gold) 2px;
+}
+
 @media (min-width: 992px) {
   .rounded-lg-3 { border-radius: .3rem; }
 }

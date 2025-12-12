@@ -17,6 +17,7 @@
 }
 .custom-header{
   background-color: var(--color-golden-brown);
+  border-bottom: solid 4px black;
 }
 .text-small {
   font-size: 85%;
@@ -35,4 +36,8 @@
 .signup{
   color: black;
   text-decoration: none;
+}
+
+a.login:hover {
+  color: black; 
 }
