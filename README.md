@@ -19,7 +19,7 @@ git push --set-upstream origin [BRANCH NAME]
 -But why though?
 ```
 
-7. DevOps will review and then merge your changes into the DevOps Branch or leave comments for you to fix.
+7. DevOps will review and then merge your changes into the DevOps Branch or leave comments for you to fix
 8. If the merge passes tests the changes will be merged into DevOps
 9. DevOps will then delete your branch
 
