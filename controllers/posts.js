@@ -58,6 +58,7 @@ module.exports = {
   //this function updates a cluser
   createCluster: async (req, res) => {
     console.log('request', req.body)
+    console.log('request', req.body)
     try {
       //this function will make a pseudo-randomly generated code on cluster creation. Users can use this code to join a cluster.
       function makeid(length) {
