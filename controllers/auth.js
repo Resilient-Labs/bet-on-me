@@ -1,6 +1,9 @@
 const passport = require("passport");
 const validator = require("validator");
 const User = require("../models/User");
+const async = require("async")
+const crypto = require("crypto")
+const nodemailer = require("nodemailer")
 
 exports.getLogin = (req, res) => {
   if (req.user) {
@@ -61,8 +64,8 @@ exports.postLogin = (req, res, next) => {
 //   });
 // };
 exports.logout = (req, res) => {
-  req.logout(function(err){
-    if(err) {console.log(err)}
+  req.logout(function (err) {
+    if (err) { console.log(err) }
 
     console.log('User has logged out.')
 
@@ -73,7 +76,7 @@ exports.logout = (req, res) => {
       res.redirect("/");
     })
   })
-  
+
 };
 
 exports.getSignup = (req, res) => {
@@ -111,10 +114,10 @@ exports.postSignup = async (req, res, next) => {
     email: req.body.email,
     access: req.body?.access,     // -> ?. <- before access is checking for any access value. If it's there, then return value. If not, then return udefined
     password: req.body.password,
-    score:0
+    score: 0
   })
-  
-  console.log('user',user)
+
+  console.log('user', user)
 
   const existingUser = await User.findOne(
     { $or: [{ email: req.body.email }, { userName: req.body.userName }] }
@@ -128,77 +131,68 @@ exports.postSignup = async (req, res, next) => {
         return res.redirect("/");
       }
   user.save()
-  .then(usr => {req.logIn(user, (err) => {
+    .then(usr => {
+      req.logIn(user, (err) => {
         if (err) {
           return next(err);
         }
         //main page to make or join groups
         res.redirect("/home");
       });
-  });
+    });
 };
 
 
 
-/* this functionality will make use of the following dependencies -- async, nodemailer, crypto --  to create a token, and send an email to a user to change their forgotten password
+/* this functionality will make use of the following dependencies -- nodemailer, crypto --  to create a token, and send an email to a user to change their forgotten password
 
- *async - provides .waterfall() method -
- **from the async docs:
- ***Runs the tasks array of functions in series, each passing their results to the next in the array. However, if any of the   tasks pass an error to their own callback, the next function is not executed, and the main callback is immediately called with the error.
-
-*nodemailer - sends an email to the user's registered email address using SMTP
+*nodemailer - sends an email to the user's registered email address
 
 *crypto - creates a random token to send to user's email to verify their password!
 
 * Author: @JustinJoshi
 */
-exports.forgotPassword = function(req, res, next) {
-  async.waterfall([
-    function(done) {
-      crypto.randomBytes(20, function(err, buf) {
-        var token = buf.toString('hex');
-        done(err, token);
-      });
-    },
-    function(token, done) {
-      User.findOne({ email: req.body.email }, function(err, user) {
-        if (!user) {
-          req.flash('error', 'No account with that email address exists.');
-          return res.redirect('/forgot');
-        }
 
-        user.resetPasswordToken = token;
-        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
-        user.save(function(err) {
-          done(err, token, user);
-        });
-      });
-    },
-    function(token, user, done) {
-      var smtpTransport = nodemailer.createTransport('SMTP', {
-        service: 'gmail',
-        auth: {
-          user: '!!! YOUR SENDGRID USERNAME !!!',
-          pass: '!!! YOUR SENDGRID PASSWORD !!!'
-        }
-      });
-      var mailOptions = {
-        to: user.email,
-        from: 'passwordreset@demo.com',
-        subject: 'Node.js Password Reset',
-        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-      };
-      smtpTransport.sendMail(mailOptions, function(err) {
-        req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
-        done(err, 'done');
-      });
+
+exports.forgotPassword = (req, res) => {
+  const generateResetToken = () => {
+    return crypto.randomBytes(20).toString('hex');
+  };
+
+  const token = generateResetToken();
+
+  const saveTokenToDatabase = async (email, token) => {
+    const user = await User.findOne({ email });
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600000; // Token expires in 1 hour
+    await user.save();
+  };
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'betonmemailer@gmail.com',
+      pass: 'jjoi uzug jntu otha '
     }
-  ], function(err) {
-    if (err) return next(err);
-    res.redirect('/forgot');
   });
-};
+
+  const sendResetEmail = async (email, token) => {
+    const mailOptions = {
+      from: 'betonmemailer@gmail.com',
+      to: email,
+      subject: 'Password Reset Request',
+      //RESOLVE - insert link that redirects to hosted website resolve forgotPassword link
+      html: `<p>You have requested a password reset. Click on the following link to reset your password: <a href="${token}">Reset Password</a></p>`
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log('Password reset email sent');
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
+  saveTokenToDatabase(req.body.resetEmail, token)
+  sendResetEmail(req.body.resetEmail, token)
+}

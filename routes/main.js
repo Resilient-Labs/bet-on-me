@@ -5,6 +5,7 @@ const homeController = require("../controllers/home");
 const postsController = require("../controllers/posts");
 const tasksController = require("../controllers/tasks");
 const { ensureAuth } = require("../middleware/auth");
+const upload = require("../middleware/multer");
 
 //Main Routes - simplified for now
 router.get("/", homeController.getIndex);
@@ -24,6 +25,8 @@ router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
+// this function leads to where a user can reset their password
+router.post("/passwordReset", upload.single("file"), authController.forgotPassword);
 // this route allows users to edit a task
 router.put("/task/:id", ensureAuth, tasksController.updateTask);
 
