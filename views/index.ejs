@@ -1,11 +1,19 @@
 <%- include('partials/header') -%>
 
-<main class="container">
-    <div class="row justify-content-around mt-5">
-        <a href="/login" class="col-3 btn btn-primary"> Login</a>
-        <a href="/signup" class="col-3 btn btn-primary"> Signup</a>
-    </div>
-</main>
-    
+  <main class="container">
+      <div class="row justify-content-around mt-5">
+
+      </div>
+  </main>
+  
 
 <%- include('partials/footer') -%>
+
+<!-- Load modals back to screen to show validation errors -->
+<script>
+  <% if (locals.messages && locals.messages.modal) { %>
+    setTimeout(() => {
+      new bootstrap.Modal(document.getElementById('<%= locals.messages.modal[0] %>Modal')).show();
+    }, 100);
+  <% } %>
+</script>

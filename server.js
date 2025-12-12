@@ -12,6 +12,7 @@ const connectDB = require("./config/database");
 // ROUTES
 const mainRoutes = require("./routes/main");
 const postRoutes = require("./routes/posts");
+const taskRoutes = require("./routes/task");
 const userRoutes = require("./routes/users");
 
 //Use .env file in config folder
@@ -65,6 +66,7 @@ app.use("/users", userRoutes);
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);
 app.use("/post", postRoutes);
+app.use("/task", taskRoutes);
 
 //Server Running
 app.listen(process.env.PORT, () => {

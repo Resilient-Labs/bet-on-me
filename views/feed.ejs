@@ -1,15 +1,31 @@
-<%- include('partials/header') -%>
-  <div class="container">
-    <div class="row justify-content-center mt-5">
-      <ul class="row list-unstyled">
-        <% for(var i=0; i<posts.length; i++) {%>
-          <li class="col-6 justify-content-between mt-5">
-            <a href="/post/<%= posts[i]._id%>">
-              <img class="img-fluid" src="<%= posts[i].image%>">
-            </a>
-          </li>
-        <% } %>
-        </ul>
-    </div>
-  </div>  
-<%- include('partials/footer') -%>
+<%- include('partials/clockHead') -%>
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <button id="joinChallenge">Join Challenge</button>
+    <ul class="row list-unstyled">
+      <% for(var i=0; i<posts.length; i++) {%>
+        <li class="col-6 justify-content-between mt-5">
+          <a href="/post/<%= posts[i]._id%>">
+            <img class="img-fluid" src="<%= posts[i].image%>">
+          </a>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+  <!-- 
+    This is where the form to start a challenge and clock exist.
+    Form can be changed to front end's discretion but need to make sure ID's, values, types match.
+    @author Justin Jimenez
+
+   -->
+  <div class="countdown-wrapper" id="wholeClock">
+    <div class="countdown"></div></div>
+    <form>
+      <label>Set Up Your Challenge</label>
+      <label>End Date</label>
+      <input type="date" id="date-input" value="2026-01-01"></input>
+      <input type="time" id="time-input" value="10:00">
+      <button type="submit" id="challengeCall">Call Challenge</button>
+    </form>
+</div>
+<%- include('partials/clockFoot') -%>

@@ -1,7 +1,8 @@
 const cloudinary = require("../middleware/cloudinary");
-const Cluster = require("../models/Cluster")
+const Cluster = require("../models/Cluster");
 const Post = require("../models/Post");
 const Task = require("../models/Task");
+const { getUserTasks } = require("./tasks");
 
 module.exports = {
   getProfile: async (req, res) => {
@@ -12,11 +13,20 @@ module.exports = {
       console.log(err);
     }
   },
+  getUserGoal: async (req, res) => {
+    try {
+      const posts = await Post.find({ user: req.user.id });
+      const tasks = await Task.find({ user: req.user.id })
+      res.render("userGoal.ejs", { posts: posts, user: req.user, tasks: tasks });
+    } catch (err) {
+      console.log(err);
+    }
+  },
   //this function gets the user profile, and the todo list of tasks!
   getUserProfile: async (req, res) => {
     try {
-
-      res.render("userProfile.ejs", { user: req.user });
+      const tasks = await getUserTasks(req.user.id);
+      res.render("userProfile.ejs", { user: req.user, tasks });
     } catch (err) {
       console.log(err);
     }
@@ -47,7 +57,7 @@ module.exports = {
   },
   //this function updates a cluser
   createCluster: async (req, res) => {
-    console.log('request',req.body)
+    console.log('request', req.body)
     try {
       //this function will make a pseudo-randomly generated code on cluster creation. Users can use this code to join a cluster.
       function makeid(length) {
@@ -94,27 +104,7 @@ module.exports = {
       console.log(err);
     }
   },
-  createTask: async (req, res) => {
-    try {
-      // Upload image to cloudinary
-
-      await Task.create({
-        task_name: req.body.title,
-        creator_user_id: req.user.id,
-        task_is_completed: false,
-        user: req.user.id,
-      });
-
-      console.log("Task has been added!");
-
-      const tasks = await Task.find({ user: req.user.id })
-      console.log(tasks)
-
-      // res.redirect("/userProfile", { tasks: tasks });
-    } catch (err) {
-      console.log(err);
-    }
-  },
+  //RESOLVE - moved createTask to controllers/tasks.js @author Winnie
   //RESOLVE - get this function to update user pfps!
   //RESOLVE - after a user creates an account, they should be able to 
   updateUserPfp: async (req, res) => {
@@ -144,19 +134,28 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
-  },
+  }
+  ,
+  // delete a post (remove cloudinary image and DB record)
   deletePost: async (req, res) => {
     try {
       // Find post by id
       let post = await Post.findById({ _id: req.params.id });
+      if (!post) return res.status(404).redirect('/profile');
+
       // Delete image from cloudinary
-      await cloudinary.uploader.destroy(post.cloudinaryId);
+      if (post.cloudinaryId) {
+        await cloudinary.uploader.destroy(post.cloudinaryId);
+      }
+
       // Delete post from db
       await Post.findOneAndDelete({ _id: req.params.id });
       console.log("Deleted Post");
       res.redirect("/profile");
     } catch (err) {
+      console.log(err);
       res.redirect("/profile");
     }
-  },
+  }
+  //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
 };
