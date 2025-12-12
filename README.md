@@ -34,8 +34,8 @@ git clone https://github.com/Resilient-Labs/bet-on-me.git
 cd <your-project-folder>
 
 ### 2. Install server dependencies
-npm install
-npm i
+1. npm install
+2. npm i
 
 ### 3. Set up environment variables
 - Create a `.env` file in config folder and add the following as `key = value`
