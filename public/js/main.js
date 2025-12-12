@@ -55,6 +55,16 @@ document.querySelectorAll("#task-list li").forEach((li) => {
     toggleDefaultView();
   };
 
+  // allow esc key to also cancel editing
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (!input.classList.contains("d-none")) {
+        console.log("by");
+        cancelBtn.onclick();
+      }
+    }
+  });
+
   // Save Mode
   saveBtn.onclick = async () => {
     const updatedTask = input.value.trim();
