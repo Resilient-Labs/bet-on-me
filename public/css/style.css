@@ -1,6 +1,6 @@
 /* Keep :root and * at the top */
 
-:root { 
+:root {
     --color-golden-brown: rgb(187, 161, 117);
     --color-pale-yellow: rgb(252, 237, 194);
     --color-faded-yellow: rgb(153, 150, 143);
@@ -85,16 +85,15 @@
 /* Home page START */
 
 .home-container {
-    min-height: 75vh;
+    min-height: 78vh;
     display: flex;
     flex-direction: column;
     width: 100%;
     background-color: var(--bg-dark-gray);
+    margin-top: 5rem;
 }
 
-.home-container .home-header {
-    flex: 1;
-}
+
 
 .home-container .home-body {
     flex: 1;
@@ -103,7 +102,10 @@
 .home-header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex: 1;
+    width: 60%;
+    margin: auto;
+    min-width: 352px;
 }
 
 .home-header h1 {
@@ -148,7 +150,7 @@
     align-items: center;
     justify-content: center;
     min-height: 150px;
-    min-width: 405px;
+    min-width: 350px;
 }
 
 .home-body button {
@@ -176,10 +178,13 @@
     .home-container {
         padding: 2rem 0;
         padding-bottom: 10rem;
+        margin-top: 9rem;
+        margin-bottom: 2rem;
     }
 
-    .home-header {
-        padding: 0 2rem;
+    .home-container .create,
+    .home-container .join {
+        min-height: 252px;
     }
 
     .home-body {
@@ -190,6 +195,10 @@
 
     .home-body section {
         margin-bottom: 0;
+    }
+
+    .home-header{
+        width: 80%;
     }
 }
 
@@ -530,3 +539,5 @@ footer {
 /* ~~~~~~~!!!!!!!!!!!!MONEY JAR CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! END !!!!!!!~~~~~~~~ */
+
+
