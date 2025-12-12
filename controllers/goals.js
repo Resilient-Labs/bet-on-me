@@ -37,7 +37,7 @@ module.exports = {
 
       const updatedGoal = await Goal.findOneAndUpdate(
         { _id: req.params.id, user: req.user.id },
-        { name, description, completed }
+        { name, description: description ?? "", completed: completed ?? false }
       );
 
       if (!updatedGoal) {
