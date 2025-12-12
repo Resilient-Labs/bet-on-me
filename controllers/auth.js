@@ -4,9 +4,10 @@ const User = require("../models/User");
 
 exports.getLogin = (req, res) => {
   if (req.user) {
-    return res.redirect("/profile");
+    //main page to make or join groups
+    return res.redirect("/home");
   }
-  //redirect to home page if user not logged in
+  //redirect to landing page if user not logged in
   res.redirect("/");
 };
 
@@ -19,7 +20,7 @@ exports.postLogin = (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
-    //redirect to home page if user not logged in, and open correct modal
+    //redirect to landing page if user not logged in, and open correct modal
     req.flash("modal", "login");
     return res.redirect("/");
   }
@@ -33,7 +34,7 @@ exports.postLogin = (req, res, next) => {
     }
     if (!user) {
       req.flash("errors", info);
-      //redirect to home page if user not logged in, and open correct modal
+      //redirect to landing page if user not logged in, and open correct modal
       req.flash("modal", "login"); 
       return res.redirect("/");
     }
@@ -42,7 +43,8 @@ exports.postLogin = (req, res, next) => {
         return next(err);
       }
       req.flash("success", { msg: "Success! You are logged in." });
-      res.redirect(req.session.returnTo || "/profile");
+      //main page to make or join groups
+      res.redirect(req.session.returnTo || "/home");
     });
   })(req, res, next);
 };
@@ -76,9 +78,10 @@ exports.logout = (req, res) => {
 
 exports.getSignup = (req, res) => {
   if (req.user) {
-    return res.redirect("/profile");
+    //main page to make or join groups
+    return res.redirect("/home");
   }
-  //redirect back to home page in case of signup error
+  //redirect back to landing page in case of signup error
   res.redirect("/");
 };
 
@@ -95,7 +98,7 @@ exports.postSignup = async (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
-    //redirect to home page and open correct modal
+    //redirect to landing page and open correct modal
     req.flash("modal", "signup");
     return res.redirect("/");
   }
@@ -120,7 +123,7 @@ exports.postSignup = async (req, res, next) => {
         req.flash("errors", {
           msg: "Account with that email address or username already exists.",
         });
-        //redirect to home page and open correct modal
+        //redirect to landing page and open correct modal
         req.flash("modal", "signup");
         return res.redirect("/");
       }
@@ -129,7 +132,8 @@ exports.postSignup = async (req, res, next) => {
         if (err) {
           return next(err);
         }
-        res.redirect("/profile");
+        //main page to make or join groups
+        res.redirect("/home");
       });
   });
 };

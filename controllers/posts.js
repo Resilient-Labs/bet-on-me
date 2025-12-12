@@ -13,6 +13,21 @@ module.exports = {
       console.log(err);
     }
   },
+  //This is the page that shows after successful login
+   getHome: async (req, res) => {
+    try {
+      res.render("homePage.ejs");
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getTeamPage: async (req, res) => {
+    try {
+      res.render("teamPage.ejs", { user: req.user });
+    } catch (err) {
+      console.log(err);
+    }
+  },
   getUserGoal: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
@@ -79,7 +94,8 @@ module.exports = {
         member_count: 1,
       });
       console.log("Post has been added!");
-      res.redirect("/createCluster");
+      //After creating a cluster the user is redirected to the group page
+      res.redirect("/teamPage");
     } catch (err) {
       console.log(err);
     }
