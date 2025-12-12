@@ -35,6 +35,7 @@ cd <your-project-folder>
 
 ### 2. Install server dependencies
 npm install
+npm install i
 
 ### 3. Set up environment variables
 - Create a `.env` file in config folder and add the following as `key = value`
