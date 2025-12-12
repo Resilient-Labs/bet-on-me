@@ -217,3 +217,313 @@ main {
   padding-bottom: 60px; /* Adjust to your footer's height */
   /* Or use flexbox/grid for more complex layouts */
 }
+
+
+
+/* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
+/* ~~~~~~~!!!!!!!!!!!! START !!!!!!!~~~~~~~~ */
+
+
+
+.team-progress-container {
+  background: #000000;
+  min-height: 100vh;
+  padding: 3rem 0;
+}
+
+.team-card {
+  background: #1a1a1a;
+  min-height: 85vh;
+}
+
+.team-card-header {
+  background: linear-gradient(135deg, #DEB887 0%, #F5DEB3 100%);
+  border: none;
+  padding: 1.5rem;
+}
+
+.group-name-section {
+  border-bottom: 2px solid #DEB887;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+}
+
+.group-name-title {
+  color: #DEB887;
+  font-size: 2rem;
+}
+
+.user-card {
+  background: #2a2a2a;
+  border: none;
+  margin-bottom: 1.5rem;
+}
+
+.user-badge {
+  width: 35px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #DEB887;
+  color: #000;
+  font-size: 1rem;
+}
+
+.wager-badge {
+  background: #DEB887;
+  color: #000;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
+}
+
+.progress-container {
+  height: 35px;
+  background: #1a1a1a;
+}
+
+.progress-bar-gold {
+  background-color: var(--color-golden-brown);
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+
+/* Right Side Cards */
+.timeline-card {
+  background: #1a1a1a;
+  border: 2px solid #DEB887 !important;
+}
+
+.timeline-header {
+  background: #DEB887;
+  border: none;
+  padding: 1.5rem;
+}
+
+.timeline-time {
+  color: #DEB887;
+}
+
+.cash-jar-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border: 3px solid #DEB887 !important;
+}
+
+.cash-jar-header {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #DEB887 !important;
+  padding: 1.5rem;
+  color: #DEB887;
+}
+
+.cash-jar-icon {
+  font-size: 4rem;
+  color: #DEB887;
+}
+
+.cash-jar-total {
+  color: #F5DEB3;
+}
+
+.cash-jar-label {
+  color: #DEB887;
+}
+
+.contributions-card {
+  background: #1a1a1a;
+  border: 2px solid #DEB887 !important;
+}
+
+.contributions-header {
+  background: #2a2a2a;
+  border-bottom: 2px solid #DEB887;
+  padding: 1.5rem;
+  color: #DEB887;
+}
+
+.contributions-body {
+  background: #1a1a1a;
+  padding: 1.5rem;
+}
+
+.contribution-item {
+  background: transparent;
+  border-color: #444;
+  color: #fff;
+  padding: 1rem 0.5rem;
+}
+
+.contribution-icon {
+  color: #DEB887;
+}
+
+.contribution-badge {
+  background: #DEB887;
+  color: #000;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+/* ~~~~~~~!!!!!!!!!!!!MONEY JAR CSS!!!!!!!~~~~~~~~ */
+/* ~~~~~~~!!!!!!!!!!!! START !!!!!!!~~~~~~~~ */
+
+
+/* Cash Jar Styles */
+.cash-card {
+  position: relative;
+  display: inline-block;
+  margin: 20px auto;
+}
+
+.jar-img {
+  width: 300px;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.cash-card:hover .jar-img {
+  transform: scale(1.05);
+}
+
+/* Hover Overlay */
+.hover-jar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.cash-card:hover .hover-jar {
+  opacity: 1;
+}
+
+/* Big Coins Animation
+.big-coins {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+.coin {
+  position: absolute;
+  font-size: 24px;
+  animation: coinDrop 1.5s ease-in infinite;
+}
+
+.coin-1 {
+  left: 30%;
+  animation-delay: 0s;
+}
+
+.coin-2 {
+  left: 50%;
+  animation-delay: 0.5s;
+}
+
+.coin-3 {
+  left: 70%;
+  animation-delay: 1s;
+} */
+
+@keyframes coinDrop {
+  0% {
+    top: -30px;
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+  100% {
+    top: 150px;
+    opacity: 0;
+    transform: rotate(360deg);
+  }
+}
+
+/* Amount List (User Contributions) */
+.amount-list {
+  position: absolute;
+  bottom: 0px;
+  left: 150%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  min-width: 220px;
+  z-index: 10;
+}
+
+.user-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+  animation-delay: var(--delay);
+}
+
+.coin-small {
+  font-size: 30px;
+  animation: spin 2s linear infinite;
+  animation-delay: calc(var(--delay) + 0.3s);
+}
+
+.user-line p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Cash Jar Total */
+.cash-jar-total {
+  color: #fada24;
+}
+
+.cash-jar-label {
+  color: #fada24;
+}
+
+
+/* ~~~~~~~!!!!!!!!!!!!MONEY JAR CSS!!!!!!!~~~~~~~~ */
+/* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
+/* ~~~~~~~!!!!!!!!!!!! END !!!!!!!~~~~~~~~ */
