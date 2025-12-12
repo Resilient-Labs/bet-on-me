@@ -5,14 +5,6 @@ const Task = require("../models/Task");
 const { getUserTasks } = require("./tasks");
 
 module.exports = {
-  getProfile: async (req, res) => {
-    try {
-      const posts = await Post.find({ user: req.user.id });
-      res.render("profile.ejs", { posts: posts, user: req.user });
-    } catch (err) {
-      console.log(err);
-    }
-  },
   getUserGoal: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
@@ -75,9 +67,9 @@ module.exports = {
         cluster_name: req.body.title,
         creator_user_id: req.user.id,
         cluster_join_id: randomCode,
-        cluster_members: req.user.id,
+        cluster_members: [req.user.id],
         member_count: 1,
-      });
+});
       console.log("Post has been added!");
       res.redirect("/createCluster");
     } catch (err) {
@@ -99,7 +91,7 @@ module.exports = {
         user: req.user.id,
       });
       console.log("Post has been added!");
-      res.redirect("/profile");
+      res.redirect("/userProfile");
     } catch (err) {
       console.log(err);
     }
@@ -141,7 +133,7 @@ module.exports = {
     try {
       // Find post by id
       let post = await Post.findById({ _id: req.params.id });
-      if (!post) return res.status(404).redirect('/profile');
+      if (!post) return res.status(404).redirect('/userProfile');
 
       // Delete image from cloudinary
       if (post.cloudinaryId) {
@@ -151,11 +143,106 @@ module.exports = {
       // Delete post from db
       await Post.findOneAndDelete({ _id: req.params.id });
       console.log("Deleted Post");
-      res.redirect("/profile");
+      res.redirect("/useProfile");
     } catch (err) {
       console.log(err);
-      res.redirect("/profile");
+      res.redirect("/userProfile");
     }
-  }
+  },
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
+
+  
+// users joing a cluster code - shawn
+
+joinCluster: async (req, res) => {
+  try {
+    const { joinCode } = req.body;
+
+    const cluster = await Cluster.findOne({
+      cluster_join_id: joinCode,
+    });
+
+    if (!cluster) {
+      return res.status(404).send("Cluster not found");
+    }
+
+    // prevent duplicate joins!!
+    if (cluster.cluster_members.includes(req.user.id)) {
+      return res.status(400).send("Already a member of this cluster");
+    }
+
+    cluster.cluster_members.push(req.user.id);
+    // update member count by 1
+    cluster.member_count += 1;
+
+    await cluster.save();
+
+    res.redirect("/userProfile");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error joining cluster");
+  }
+},
+
+// letting users leave a cluster - shawn
+
+leaveCluster: async (req, res) => {
+  try {
+    // get cluster by its generated ID
+    const clusterId = req.params.id;
+
+    const cluster = await Cluster.findById(clusterId);
+
+    // if there's no cluster
+    if (!cluster) {
+      return res.status(404).send("Cluster doesn't exist!");
+    }
+
+    // Check membership
+    if (!cluster.cluster_members.includes(req.user.id)) {
+      return res.status(400).send("You are not a member of this cluster");
+    }
+
+    // Remove user
+    cluster.cluster_members = cluster.cluster_members.filter(
+      userId => userId !== req.user.id
+    );
+
+    cluster.member_count = cluster.cluster_members.length;
+
+    await cluster.save();
+
+    res.redirect("/userProfile");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error leaving cluster");
+  }
+},
+
+// Search for a cluster by join ID
+searchCluster: async (req, res) => {
+  try {
+    const { joinCode } = req.query;
+
+    if (!joinCode) {
+      return res.status(400).json({ message: "Join code is required" });
+    }
+
+    const cluster = await Cluster.findOne({
+      cluster_join_id: joinCode,
+    }).lean();
+
+    if (!cluster) {
+      return res.status(404).json({ message: "Cluster not found" });
+    }
+
+    res.json(cluster);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error searching for cluster" });
+  }
+},
+
+
 };
+

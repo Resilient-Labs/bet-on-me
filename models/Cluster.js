@@ -13,13 +13,13 @@ const clusterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cluster_members:{
-    type: [String],
-    required: true,
+  cluster_members: {
+  type: [String],
+  default: [],
   },
-  member_count:{
+  member_count: {
     type: Number,
-    required: true,
+    default: 0,
   },
   createdAt: {
     type: Date,
