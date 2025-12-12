@@ -3,6 +3,7 @@ const Cluster = require("../models/Cluster");
 const Post = require("../models/Post");
 const Task = require("../models/Task");
 const { getUserTasks } = require("./tasks");
+const { getUserGoals } = require("./goals");
 
 module.exports = {
   getProfile: async (req, res) => {
@@ -16,8 +17,9 @@ module.exports = {
   getUserGoal: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
-      const tasks = await Task.find({ user: req.user.id })
-      res.render("userGoal.ejs", { posts: posts, user: req.user, tasks: tasks });
+      const tasks = await Task.find({ user: req.user.id });
+      const goals = await getUserGoals(req.user.id);
+      res.render("userGoal.ejs", { posts, user: req.user, tasks, goals });
     } catch (err) {
       console.log(err);
     }
