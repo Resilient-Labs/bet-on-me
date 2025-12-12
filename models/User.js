@@ -5,10 +5,14 @@ const UserSchema = new mongoose.Schema({
   userName: { type: String, unique: true },
   email: { type: String, unique: true },
   password: String,
-  name: {type: String},
-  profile_image: {type: String},
-  joined_clusters: {type: [String]},
-  tasks_isCompleted: {type: [Boolean]},
+  name: { type: String },
+  profile_image: { type: String },
+  joined_clusters: { type: [String] },
+  tasks_isCompleted: { type: [Boolean] },
+  //these are necessary for resetting password functionality. Token comes from authController
+  resetPasswordToken: { type: String },
+  //sets the date a token was created, token expires within one day
+  resetPasswordExpires: { type: Date }
 });
 
 // Password hash middleware.
