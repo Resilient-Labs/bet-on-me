@@ -16,22 +16,27 @@ const UserSchema = new mongoose.Schema({
   resetPasswordExpires: { type: Date }
 });
 
-// Password hash middleware.
+// Password hash middleware - Mongoose 9 compatible
+UserSchema.pre("save", async function () {
+  const user = this;
+  
+  // If password hasn't been modified, skip hashing
+  if (!user.isModified("password")) {
+    return;
+  }
 
-UserSchema.pre('save', async function () {
-  if (!this.isModified('password')) return;
-  this.password = await bcrypt.hash(this.password, 10);
+  try {
+    // Generate salt and hash password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+  } catch (err) {
+    throw err;
+  }
 });
 
-// Helper method for validating user's password.
-
-UserSchema.methods.comparePassword = function comparePassword(
-  candidatePassword,
-  cb
-) {
-  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-    cb(err, isMatch);
-  });
+// Helper method for validating user's password
+UserSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
 };
 
 module.exports = mongoose.model("User", UserSchema);
