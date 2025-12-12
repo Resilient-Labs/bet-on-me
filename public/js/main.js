@@ -125,6 +125,11 @@ const trash = document.querySelectorAll("#task-list .fa-trash");
 Array.from(trash).forEach(function (element) {
   element.addEventListener("click", function () {
     const _id = this.closest("li").querySelector("span").getAttribute("name");
+
+    // confirmation before deleting
+    const confirmed = window.confirm("Are you sure you want to delete this task? This action cannot be undone.");
+    if (!confirmed) return;
+
     fetch(`/task/${_id}`, {
       method: "delete",
       headers: {
