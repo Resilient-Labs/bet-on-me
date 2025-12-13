@@ -27,3 +27,10 @@ test( 'testing login without user', () => {
     expect (res.redirect.mock.calls.length).toBe(1)
 })
 
+//forget password
+//joining clusters
+//logout
+//logout
+//adding task
+//inviting to group
+//searching group
