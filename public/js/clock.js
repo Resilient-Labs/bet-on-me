@@ -172,8 +172,8 @@ Setting up a day to save this in localStorage so it doesn't go away as you navig
       
       if (!initialComplete) {
         // Start initial 48-hour countdown (2880.016 minutes)
-        set_countdown(2880.016, new Date());
-        console.log("Starting initial countdown: 2880.016 minutes (48 hours)");
+        set_countdown(1440.008, new Date());
+        console.log("Starting initial countdown: 2880.26 minutes (48 hours)");
       } else {
         // Initial countdown already done, go straight to target date
         var currentDate = new Date();
