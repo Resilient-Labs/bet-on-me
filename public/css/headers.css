@@ -44,3 +44,41 @@ a.login:hover {
 a.signup:hover {
   color: black; 
 }
+
+.profile-bubble {
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.profile-bubble:hover {
+  transform: scale(1.05);
+}
+
+.profile-pic-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--color-golden-brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-pale-yellow);
+  transition: all 0.3s ease;
+}
+
+.profile-pic-circle:hover {
+  background-color: var(--color-vibrant-coral);
+  border-color: var(--color-mustard);
+  box-shadow: 0 0 10px rgba(187, 161, 117, 0.5);
+}
+
+.profile-pic-circle i {
+  color: var(--bg-dark-gray);
+  font-size: 20px;
+}
+
+/* ensure the text-end div items are vertically centered */
+.text-end {
+  display: flex;
+  align-items: center;
+}

@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bet On Me</title>
-    <!-- browser tab logo, doesnt look good needs to be fixed -->
     <link
       rel="icon"
       type="image/png"
@@ -51,19 +50,14 @@
                 height="100"
                 role="img"
                 aria-label="Bootstrap"
-                src="imgs/BETonMe.png"
+                src="/imgs/BETonMe.png"
               >
-                <use xlink:href="#bootstrap"></use>
-              </svg>
             </a>
             <ul
               class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
             >
-              <!-- <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-              <li><a href="#" class="nav-link px-2 text-white">Clusters</a></li>
-              <li><a href="#" class="nav-link px-2 text-white">About</a></li> -->
             </ul>
-            <div class="text-end">
+            <div class="text-end d-flex align-items-center gap-3">
 
               <% if (!user) { %>
                 <!-- NOT LOGGED IN -->
@@ -76,6 +70,16 @@
 
               <% } else { %>
               <!-- LOGGED IN -->
+              
+              <!-- Only show profile bubble on /home page, not on /userGoal -->
+              <% if (typeof showProfileBubble === 'undefined' || showProfileBubble) { %>
+                <a href="/userGoal" class="profile-bubble">
+                  <div class="profile-pic-circle">
+                    <i class="fas fa-user"></i>
+                  </div>
+                </a>
+              <% } %>
+              
                <button type="button" class="btn btn-warning">
                   <a href="/logout" type="button" class="signup">Logout</a>
               </button>
@@ -89,8 +93,3 @@
     <%- include('../partials/loginModal') %>
     <%- include('../partials/signupModal') %>
     <%- include('../partials/resetModal') %>
-  <!-- --- -->
-
-
-  <!-- </body>
-</html> -->
