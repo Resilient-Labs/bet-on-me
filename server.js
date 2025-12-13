@@ -8,10 +8,14 @@ const methodOverride = require("method-override");
 const flash = require("express-flash");
 const logger = require("morgan");
 const connectDB = require("./config/database");
+
+// ROUTES
 const mainRoutes = require("./routes/main");
 const postRoutes = require("./routes/posts");
 const taskRoutes = require("./routes/task");
 const goalRoutes = require("./routes/goal");
+
+const userRoutes = require("./routes/users");
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
@@ -27,6 +31,9 @@ app.set("view engine", "ejs");
 
 //Static Folder
 app.use(express.static("public"));
+
+// override before parsing 
+app.use(methodOverride("_method"))
 
 //Body Parsing
 app.use(express.urlencoded({ extended: true }));
@@ -54,6 +61,9 @@ app.use(passport.session());
 
 //Use flash messages for errors, info, ect...
 app.use(flash());
+
+// MOUNT USERS ROUTE
+app.use("/users", userRoutes);
 
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);
