@@ -2,11 +2,10 @@
  * Task Controller
  * Handles task-related logic and database interactions.
  * Used by routes/task.js
- * Author @Maureen
  */
 
-
 const Task = require("../models/Task");
+const Goal = require("../models/Goal");
 
 module.exports = {
   // get all user's tasks
@@ -36,11 +35,32 @@ module.exports = {
         { _id: req.params.id, creator_user_id: req.user.id },
         { task_name, task_is_completed }
       );
+
       if (!updatedTask) {
         return res.status(404).send("Error: Task not found or Unauthorized");
       }
 
-      res.status(200).json({ message: "Task updated" });
+      // check if all tasks for goal have been completed
+      if (task_is_completed && updatedTask.goal_id) {
+        const allTasks = await Task.find({ goal_id: updatedTask.goal_id });
+        const goalCompleted = allTasks.every((task) => task.task_is_completed);
+
+        if (goalCompleted) {
+          await Goal.findByIdAndUpdate(updatedTask.goal_id, {
+            completed: true,
+          });
+        }
+
+        return res.status(200).json({
+          message: "Task updated",
+          goalCompleted,
+        });
+      }
+
+      res.status(200).json({
+        message: "Task updated",
+        goalCompleted: false,
+      });
     } catch (err) {
       console.error(err);
       res.status(500).send("Server error");
@@ -77,7 +97,10 @@ module.exports = {
   // delete one task
   deleteTask: async (req, res) => {
     try {
-      await Task.findOneAndDelete({ _id: req.params.id, creator_user_id: req.user.id });
+      await Task.findOneAndDelete({
+        _id: req.params.id,
+        creator_user_id: req.user.id,
+      });
       console.log("Deleted Task");
       return res.status(200).json({ message: "Task deleted" });
     } catch (err) {

@@ -34,7 +34,14 @@
             <form class="input-area" action="/task/createTask" method="POST">
                 <input type="text" id="task-input" placeholder="Enter the steps to get there" name="title">
                 <input type="text" id="hide-task" placeholder="Name" name="_id">
-                <button type="submit" id="add-task-btn"><i class="fa-solid fa-plus"></i></button>
+                <button
+                    type="submit"
+                    id="add-task-btn"
+                    <%= goals.id ? '' : 'disabled' %>
+                    title="<%= goals.id ? 'Add task' : 'Add goal before creating tasks' %>"
+                >
+                    <i class="fa-solid fa-plus"></i>
+                </button>
             </form>
             <% if (typeof error !== 'undefined') { %>
                 <div class="alert alert-danger"><%= error %></div>
@@ -77,7 +84,13 @@
                     <% }) %>
                 </ul>
             </div>
-            <button class="goal-completed">Goal Completed</button>
+            <button
+                class="goal-completed"
+                id="goalCompletedBtn"
+                <%= tasks.length > 0 && tasks.every(t => t.task_is_completed) ? '' : 'disabled' %>
+            >
+                Goal Completed
+            </button>
         </div>
     </div>
     <script src="/js/main.js"></script>

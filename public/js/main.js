@@ -111,6 +111,10 @@ document.querySelectorAll("#task-list li").forEach((li) => {
       ? span.classList.add("strike-through")
       : span.classList.remove("strike-through");
 
+    const data = await response.json();
+
+    document.getElementById("goalCompletedBtn").disabled = !data.goalCompleted;
+
     checkbox.dataset.completed = isCompleted;
   };
 });

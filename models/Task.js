@@ -18,6 +18,11 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  goal_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Goal",
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

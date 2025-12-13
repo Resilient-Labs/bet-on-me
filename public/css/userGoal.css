@@ -214,6 +214,12 @@ a.btn.btn-default {
     background: #ff6f91;
 }
 
+.input-area button:disabled {
+    transform: unset;
+    background: grey;
+    cursor: not-allowed;
+}
+
 .user-steps {
     width: 100%;
     display: flex;
@@ -370,6 +376,11 @@ input.task-input:focus {
 
 .goal-completed:hover{
     cursor: pointer;
+}
+
+.goal-completed:disabled {
+    background: grey;
+    cursor: not-allowed;
 }
 
 /* ----------------------------------------------------
