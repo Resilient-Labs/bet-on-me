@@ -1,0 +1,987 @@
+[33mcommit 06faadf2acc3139cd5a0e3c2a89787a913360cc0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfrontend-JustinJoshi/footerPartial[m[33m)[m
+Author: Justin Joshi <justinjoshi@proton.me>
+Date:   Sat Dec 13 16:28:29 2025 -0500
+
+    test
+
+[33mcommit 7c0349dd26ed40b3d43e895693e82f01d232f80e[m
+Author: Justin Joshi <justinjoshi@proton.me>
+Date:   Sat Dec 13 16:17:08 2025 -0500
+
+    header and footer dont stick to home page
+
+[33mcommit a400790b52fb33c319aa4a5cce32d6514fbacfc2[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Frontend-Backend-Angy/profilePicNav[m[33m, [m[1;32mmain[m[33m)[m
+Merge: 0c242df fb648e5
+Author: Fadma Belkhouraf <fadma.belkhouraf@gmail.com>
+Date:   Sat Dec 13 15:38:23 2025 -0500
+
+    Merge pull request #177 from Resilient-Labs/Frontend-Backend-Angy-Winnie-Mau-Angel/implementingStripe
+    
+    Frontend backend angy winnie mau angel/implementing stripe
+
+[33mcommit fb648e5810b7d47f8fb47ec4c6bc801b0be724a8[m
+Merge: d2eb846 0c242df
+Author: Fadma Belkhouraf <fadma.belkhouraf@gmail.com>
+Date:   Sat Dec 13 15:37:42 2025 -0500
+
+    Merge branch 'main' into Frontend-Backend-Angy-Winnie-Mau-Angel/implementingStripe
+
+[33mcommit 0c242dfce68bb0bf16ad85c47d946edfe6c7b1bc[m
+Merge: 3da9101 c664f1f
+Author: Karlee Perpignant <kperpignant@gmail.com>
+Date:   Sat Dec 13 13:22:53 2025 -0500
+
+    Merge pull request #176 from Resilient-Labs/frontend/Naima/landingPageUpdates
+    
+    Frontend/naima/landing page updates
+
+[33mcommit d2eb8468db63b338bf6e24e90c8e1525ba5845fd[m[33m ([m[1;31morigin/Frontend-Backend-Angy-Winnie-Mau-Angel/implementingStripe[m[33m)[m
+Author: Angelica Matos <angelicamatos255@gmail.com>
+Date:   Fri Dec 12 23:40:16 2025 -0500
+
+    fix merge conflicts
+
+[33mcommit 985fb952f07eeb19d6728c2edfb3156fcf719e2c[m
+Author: Angelica Matos <angelicamatos255@gmail.com>
+Date:   Fri Dec 12 17:38:29 2025 -0500
+
+    npm install stripe
+
+[33mcommit ddbaa91d12853d8af010cf70d10e3f9d9f478930[m
+Author: Angelica Matos <angelicamatos255@gmail.com>
+Date:   Fri Dec 12 12:04:17 2025 -0500
+
+    change readme
+
+[33mcommit 44db54530ca7b352ea5aedd18f1a4954fadba1cb[m
+Author: Angelica Matos <angelicamatos255@gmail.com>
+Date:   Fri Dec 12 11:56:52 2025 -0500
+
+    update readme
+
+[33mcommit c664f1f1bdb467c4dd984753c47d8277a3458ebe[m
+Author: Naima e Bogran <Naima.E.Bogran@gmail.com>
+Date:   Fri Dec 12 21:55:22 2025 -0500
+
+    Responsive Fix for image
+    
+    ##Changes Made: I fixed the logo image to be responsive, made the whole landing page responsive
+
+[33mcommit 9f6f06da77b3d07192e7d796667028d8a22f91a8[m
+Author: Naima e Bogran <Naima.E.Bogran@gmail.com>
+Date:   Fri Dec 12 21:38:55 2025 -0500
+
+    Update index.ejs
+
+[33mcommit 997ab1e0dbab17747923e03a80dab4728891bb9e[m
+Author: Naima e Bogran <Naima.E.Bogran@gmail.com>
+Date:   Fri Dec 12 21:31:55 2025 -0500
+
+    Updated Landing Page
+    
+    ##Changes made: I mostly completed the landing page adding more about cards and sections. I want to add more images to the bottom cards, using screenshots from the other pages in the app.
+
+[33mcommit 3da910199a13291521da74134862ff89cd21d406[m
+Merge: 88bb338 74b0e71
+Author: Fadma Belkhouraf <fadma.belkhouraf@gmail.com>
+Date:   Fri Dec 12 19:21:52 2025 -0500
+
+    Merge pull request #174 from Resilient-Labs/backend/cluster-join-search-leave
+    
+    Backend/cluster join search leave
+
+[33mcommit 74b0e718544df2c9a1602a40c7b0a8d87bb8475f[m[33m ([m[1;31morigin/backend/cluster-join-search-leave[m[33m)[m
+Author: JustinJoshi <JustinJoshi@proton.me>
+Date:   Fri Dec 12 19:14:37 2025 -0500
+
+    got the user logging in to work now! had to change the user.js schema to include the old method of password hashing
+
+[33mcommit 70ad07b220cded7b69373e2e9dd751a7a9d4add9[m
+Author: JustinJoshi <JustinJoshi@proton.me>
+Date:   Fri Dec 12 19:09:26 2025 -0500
+
+    successfully got joinCluster to work again! It was not working for me us
+
+[33mcommit a15669a1372688b43a32013e14902320c058dcbf[m
+Author: Shawn1042 <shawnholmes9921@gmail.com>
+Date:   Fri Dec 12 15:35:23 2025 -0500
+
+    continuing to rebase code with main
+
+[33mcommit 1ffed71bdaa89402629365d7f4549f47e316600d[m
+Author: Shawn1042 <shawnholmes9921@gmail.com>
+Date:   Fri Dec 12 04:01:45 2025 -0500
+
+    deleted unecessary cloudinary file and testing files
+
+[33mcommit 4071cb75d01cbaae59a0c0e0f44fffab1781f2bb[m
+Author: Shawn1042 <shawnholmes9921@gmail.com>
+Date:   Wed Dec 10 20:11:06 2025 -0500
+
+    updated cloudinary link to middleware
+
+[33mcommit 42efb807f9e4a5503e10c7610585b7b256b2390e[m
+Author: Shawn1042 <shawnholmes9921@gmail.com>
+Date:   Fri Dec 12 15:33:20 2025 -0500
+
+    rebase
+
+[33mcommit 38419c7b91d4fdc4a716cdb72a76cac7b3532953[m
+Author: Shawn1042 <shawnholmes9921@gmail.com>
+Date:   Tue Dec 9 17:02:00 2025 -0500
+
+    profile picture logic
+
+[33mcommit 88bb33864d090901271f7c3fb28947d818a22222[m
+Merge: 604726d d201655
+Author: Karlee Perpignant <kperpignant@gmail.com>
+Date:   Fri Dec 12 15:20:54 2025 -0500
+
+    Merge pull request #161 from Resilient-Labs/backend-mz/merge-profile-pages
+    
+    Backend mz/merge profile pages
+
+[33mcommit d201655c3ec1906afe0aae989fde71b86b5fada6[m
+Merge: 9153334 970fc39
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Fri Dec 12 15:03:22 2025 -0500
+
+    Merge branch 'main' into backend-mz/merge-profile-pages
+
+[33mcommit 604726d67babfa723a437587114f3f517264c58d[m
+Merge: 49f5a54 c15f5b6
+Author: Karlee Perpignant <kperpignant@gmail.com>
+Date:   Fri Dec 12 14:29:32 2025 -0500
+
+    Merge pull request #171 from Resilient-Labs/devops-karlee-readme3rdTry
+    
+    made install instructions a numbered list
+
+[33mcommit c15f5b6921f84f9c932f850bfbca435135120f12[m
+Author: karlee <kperpignant@gmail.com>
+Date:   Fri Dec 12 14:27:54 2025 -0500
+
+    made install instructions a numbered list
+
+[33mcommit 49f5a54cd319fa10088f668d4f4d17e280c1bc80[m
+Merge: 5aa8211 006880e
+Author: Karlee Perpignant <kperpignant@gmail.com>
+Date:   Fri Dec 12 14:24:01 2025 -0500
+
+    Merge pull request #170 from Resilient-Labs/devops-karlee-readme2
+    
+    fixed readme instructions error
+
+[33mcommit 006880e8edd1dcc3ed7848b16c6a55e99000dfd4[m
+Author: karlee <kperpignant@gmail.com>
+Date:   Fri Dec 12 14:22:11 2025 -0500
+
+    fixed readme instructions error
+
+[33mcommit 5aa8211c917030a3f51357f3f3125b994de1ddc9[m
+Merge: 2e635bc 0d547f6
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Fri Dec 12 14:11:50 2025 -0500
+
+    Merge pull request #169 from Resilient-Labs/devops-karleeReadme12.12.25
+    
+    updated readme to include extra install instructions
+
+[33mcommit 2e635bcbd61f091e2fa8e41fd00f30cb471724ea[m
+Merge: 6e887d8 7f79f56
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Fri Dec 12 14:11:05 2025 -0500
+
+    Merge pull request #167 from Resilient-Labs/backend-Justin-clocks
+    
+    cookie functionality and time storage
+
+[33mcommit 0d547f6316f7a40875d23eb8c04e3edab124d54b[m
+Author: karlee <kperpignant@gmail.com>
+Date:   Fri Dec 12 14:07:39 2025 -0500
+
+    updated readme to include extra install instructions
+
+[33mcommit 7f79f560a3bc9a11fcf63c25f2aa784ade0dd2c9[m
+Author: glitchwhostolexmas <justin.raf.jimenez@gmail.com>
+Date:   Fri Dec 12 13:53:42 2025 -0500
+
+    cookie functionality and time storage
+
+[33mcommit 6e887d8d3554fc9340099a0ef680d2c235891c9e[m
+Merge: b0bbb0c aee55d6
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Fri Dec 12 13:50:32 2025 -0500
+
+    Merge pull request #160 from Resilient-Labs/backend-JustinJoshi/passwordReset1
+    
+    Backend justin joshi/password reset1
+
+[33mcommit b0bbb0c14711e7ae5e2dcf22a9cae84c20070da7[m
+Merge: 970fc39 73de40b
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Fri Dec 12 13:48:51 2025 -0500
+
+    Merge pull request #166 from Resilient-Labs/innocentMerge
+    
+    Innocent merge
+
+[33mcommit aee55d6dfd056d73e042ca7905e244cf8bb873c4[m
+Author: JustinJoshi <JustinJoshi@proton.me>
+Date:   Fri Dec 12 11:42:23 2025 -0500
+
+    changed readme to include ENV vars for mailer and removed auth tokens from codebase
+
+[33mcommit 825455a5e0982ba480c62dd5a38ac66374b106f0[m
+Author: JustinJoshi <JustinJoshi@proton.me>
+Date:   Fri Dec 12 13:46:02 2025 -0500
+
+    rebased to main
+
+[33mcommit 7690f14390aa352800d208efe5f80e6d2a8d6ca1[m
+Author: Justin Joshi <justinjoshi@proton.me>
+Date:   Thu Dec 11 20:05:13 2025 -0500
+
+    adding changes
+
+[33mcommit 73de40bd3cc49cdd3135e48ecef7cda2034702d5[m
+Merge: 970fc39 acb55ff
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Fri Dec 12 13:43:44 2025 -0500
+
+    Merge remote-tracking branch 'origin/backend-innocent/addingMoney' into innocentMerge
+    rebasing innocent's code before merging
+
+[33mcommit 465eaa1dfd2bad1647c11d30a53c226202880a12[m
+Author: Naima e Bogran <Naima.E.Bogran@gmail.com>
+Date:   Fri Dec 12 12:27:33 2025 -0500
+
+    Updated Landing Page
+    
+    ##Changes: Image is different, added more specific classes so there won't be CSS overrides in style.css, made a logged in header so users can log out.
+    
+    Things are looking good, still not complete obviously.
+
+[33mcommit 970fc39dc16b7498c2dfa3990028b4de0529de96[m
+Merge: ed5f815 1d4e7ca
+Author: Karlee Perpignant <kperpignant@gmail.com>
+Date:   Fri Dec 12 11:54:42 2025 -0500
+
+    Merge pull request #165 from Resilient-Labs/Winnie/Backend/DeleteTaskWarning
+    
+    Delete task warning
+
+[33mcommit acb55ff84ef7bd736bbaaf383efd8dd16e0d395d[m[33m ([m[1;31morigin/backend-innocent/addingMoney[m[33m, [m[1;32mbackend-innocent/addingMoney[m[33m)[m
+Author: Innocent Rukundo <rukundoinnocent27@gmail.com>
+Date:   Fri Dec 12 11:53:26 2025 -0500
+
+    Added inviteControllers.js, moneyJarController.js, invitation schema, updated moneyjar schema, moneyJarRoutes.js, and invite routes. Removed the goal.js as well
+
+[33mcommit 1d4e7ca20ab1a314ceb5155b4d8d002d6ee77990[m
+Author: WinniePokes <winnieyu.pro@gmail.com>
+Date:   Fri Dec 12 11:49:06 2025 -0500
+
+    Delete task warning
+
+[33mcommit ed5f81597deaa70a710afa1bb549a92dc6aec7fa[m
+Merge: f4993aa 201daa0
+Author: Karlee Perpignant <kperpignant@gmail.com>
+Date:   Fri Dec 12 11:27:04 2025 -0500
+
+    Merge pull request #162 from Resilient-Labs/backend-mz/add-goals-api
+    
+    Backend mz/add goals api
+    
+    Looks good, needs frontend support to test effectively though
+
+[33mcommit f4993aad4d3bf5b45d0b58fe0258510d99da6e28[m
+Merge: f402206 5a3e42b
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Fri Dec 12 11:13:54 2025 -0500
+
+    Merge pull request #159 from Resilient-Labs/frontend-homepage-Meryem
+    
+    First draft of the homepage -Meryem
+
+[33mcommit 5a3e42bcb7e64136f699fa8001927581846718e6[m[33m ([m[1;31morigin/frontend-homepage-Meryem[m[33m)[m
+Merge: 48e6ed3 f402206
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Fri Dec 12 11:13:02 2025 -0500
+
+    Merge branch 'main' into frontend-homepage-Meryem
+
+[33mcommit f402206f173fb08a1233ab3521268278c3b12dc8[m
+Merge: 86d7439 115e35e
+Author: Karlee Perpignant <kperpignant@gmail.com>
+Date:   Fri Dec 12 11:04:48 2025 -0500
+
+    Merge pull request #157 from Resilient-Labs/frontend/Naima/modalAndHeaderStyling
+    
+    Landing page updates ## Change Made
+
+[33mcommit 915333482e707361fae793af74912aa8c7d8207b[m[33m ([m[1;31morigin/backend-mz/merge-profile-pages[m[33m)[m
+Author: JustinJoshi <JustinJoshi@proton.me>
+Date:   Fri Dec 12 09:29:20 2025 -0500
+
+    amazing work! I added an Author @Maureen to the top of the Tasks.js file, as well as a cursor: pointer on the goal-completed:hover button! This project is really coming together now
+
+[33mcommit 201daa05546d41edf5ea272a823fef1557b7c9a0[m
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Fri Dec 12 09:08:44 2025 -0500
+
+    Add missing routes + fix updateGoal
+
+[33mcommit 48e6ed31e7b72e36478b0ed63017cefd8ec17439[m
+Author: Meryem L. <82731366+L-Meryem@users.noreply.github.com>
+Date:   Fri Dec 12 08:51:27 2025 -0500
+
+    Minor styling change -Meryem
+
+[33mcommit 020532bb6dd3ae47142e8abd961dcc7b21ca4cea[m
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Fri Dec 12 08:41:49 2025 -0500
+
+    Add goal api and routes
+    
+    Resolves ticket #128
+
+[33mcommit cbcb8f5dd90908c689666c7dc41f9f73a4f2ab47[m
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Thu Dec 11 11:53:25 2025 -0500
+
+    Add Goal model
+    
+    Resolves ticket #127
+
+[33mcommit 41249df54dff3e7a77166650c5c53951c6f908a8[m
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Fri Dec 12 07:16:57 2025 -0500
+
+    Move max tasks error to userGoal page
+
+[33mcommit eb38030a3cf596aa17026739469718e4ae15fad9[m
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Fri Dec 12 06:35:39 2025 -0500
+
+    Fix updateTask endpoint to allow user to edit task completion
+
+[33mcommit 538a8bbae3aa93ddc06e72613ec0f877192f9ccf[m
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Fri Dec 12 05:21:53 2025 -0500
+
+    Allow user to cancel task edit by hitting esc key
+
+[33mcommit 76d93cc92f0a238d7243ef50872c140c74dd1b18[m
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Fri Dec 12 04:54:12 2025 -0500
+
+    Merge userProfile functionality into userGoal styling
+    
+    Resolves ticket #152
+
+[33mcommit 7dbda7e4d24137c93b81444514afa973d2c806e8[m
+Author: Meryem L. <82731366+L-Meryem@users.noreply.github.com>
+Date:   Thu Dec 11 18:31:33 2025 -0500
+
+    First draft of the homepage -Meryem
+
+[33mcommit 115e35ef77e8e7c0f3eca49918db6bc772b95dfe[m[33m ([m[1;31morigin/frontend/Naima/modalAndHeaderStyling[m[33m, [m[1;32mfrontend/Naima/modalAndHeaderStyling[m[33m, [m[1;32mbackend-JustinJoshi/testMerge1[m[33m)[m
+Author: Naima e Bogran <Naima.E.Bogran@gmail.com>
+Date:   Thu Dec 11 15:56:29 2025 -0500
+
+    Landing page updates ## Change Made
+    -I changed the color of the text for the log in and signup buttons in the nav bar so they werent blue anymore, I also changed the main hero so it works with the app, the image in there is a place holder for now as well as the buttons. I also made the header and the footer fixed so they always stay at the top/bottom
+    
+    ## Usage
+    Styling
+    
+    I still need to update the modals so they look uniform to the page and there is a lot more I will do to the landing page.
+
+[33mcommit 86d74396ba55e3f11315919356d769f8e43d3e0d[m
+Merge: e97f71c 19bed09
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Thu Dec 11 15:16:46 2025 -0500
+
+    Merge pull request #151 from Resilient-Labs/Winnie/Backend/limit10task
+    
+    Backend validation to restrict users to maximum ten tasks.
+
+[33mcommit e97f71ccea2c95977322e4d5721998ac1be98f88[m
+Merge: 9b50639 a586b3e
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Thu Dec 11 15:14:51 2025 -0500
+
+    Merge pull request #132 from Resilient-Labs/backend-Justin-clocks
+    
+    Logic for Clocks
+
+[33mcommit a586b3ebd116ac9d27f40b7bfc4c8088ca7ebebc[m
+Merge: 1e100af 9b50639
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Thu Dec 11 15:14:21 2025 -0500
+
+    Merge branch 'main' into backend-Justin-clocks
+
+[33mcommit 9b506395e9b2a3820b2b5b9bdedfb050eb6b4480[m
+Merge: 238692e 12ef370
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Thu Dec 11 15:03:56 2025 -0500
+
+    Merge pull request #155 from Resilient-Labs/loginSignupModalsInNavbar
+    
+    Login signup modals in navbar
+
+[33mcommit 1e100afd56d5986a2b6b14ddb67e1ebf44aa62a7[m
+Author: glitchwhostolexmas <justin.raf.jimenez@gmail.com>
+Date:   Thu Dec 11 14:54:26 2025 -0500
+
+    comments and status comments and separation of files
+
+[33mcommit 1e7b351d3058d6c4e1c0ec5d360b18e57b9638bc[m
+Author: glitchwhostolexmas <justin.raf.jimenez@gmail.com>
+Date:   Thu Dec 11 09:59:57 2025 -0500
+
+    logic for clocks
+
+[33mcommit 12ef3706f7c01649385f555c53a643026df7d8a0[m[33m ([m[1;31morigin/loginSignupModalsInNavbar[m[33m)[m
+Author: Meryem L. <82731366+L-Meryem@users.noreply.github.com>
+Date:   Thu Dec 11 14:45:27 2025 -0500
+
+    Add login and signup modals to navbar - Meryem
+
+[33mcommit 19bed0986269d7c85bc4a2042c57d4dd6383c808[m[33m ([m[1;31morigin/Winnie/Backend/limit10task[m[33m)[m
+Author: WinniePokes <winnieyu.pro@gmail.com>
+Date:   Thu Dec 11 14:33:56 2025 -0500
+
+    Added back deletePost
+
+[33mcommit 55f1213c366bbe95e62eadafb62e3914d712ddee[m
+Author: WinniePokes <winnieyu.pro@gmail.com>
+Date:   Thu Dec 11 14:14:16 2025 -0500
+
+    Additional changes to Backend validation to restrict users to maximum ten tasks.
+
+[33mcommit c155361be6f78218bb241b4e77b975acee5ba984[m
+Author: WinniePokes <winnieyu.pro@gmail.com>
+Date:   Thu Dec 11 14:13:51 2025 -0500
+
+    Backend validation to restrict users to maximum ten tasks. Added tasks controller and task routes file.
+
+[33mcommit 3d0aa0e538d5c7a3c7c0bbacb1413e9a8cd83a95[m
+Author: Meryem L. <82731366+L-Meryem@users.noreply.github.com>
+Date:   Thu Dec 11 14:11:31 2025 -0500
+
+    Add a test home page -Meryem
+
+[33mcommit 0440b8f7f2f6f16638847d193d6b6546144b3ae2[m
+Author: Innocent Rukundo <rukundoinnocent27@gmail.com>
+Date:   Thu Dec 11 13:56:26 2025 -0500
+
+    Added user's wallet after big
+
+[33mcommit 238692e4da106677dd4f0bab3e45c2450328bd9c[m[33m ([m[1;31morigin/FrontEnd--Leeanne[m[33m)[m
+Merge: f6d459d e2d15d2
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Thu Dec 11 13:47:39 2025 -0500
+
+    Merge pull request #148 from Resilient-Labs/frontend/mainPage-naima
+    
+    Frontend/main page naima
+
+[33mcommit e2d15d26d2b4b50bc92ee4f11a00ee32c1a19fa5[m
+Merge: d00c2e8 df89b30
+Author: Naima e Bogran <Naima.E.Bogran@gmail.com>
+Date:   Thu Dec 11 13:43:56 2025 -0500
+
+    Merge branch 'frontend/mainPage-naima' of https://github.com/Resilient-Labs/bet-on-me into frontend/mainPage-naima
+
+[33mcommit d00c2e872aa1abed859058345c0b03e9a2b5d0b9[m
+Author: Naima e Bogran <Naima.E.Bogran@gmail.com>
+Date:   Thu Dec 11 12:31:44 2025 -0500
+
+    Completed Header and Footer partials
+    
+    The header and footer are now complete. The header is only for users who are not logged in, I need to create a new header for signed in users.
+
+[33mcommit f6d459d660a9be679e69e27d6995bfa1ce868832[m
+Merge: bacc9b7 b5bd6ec
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Thu Dec 11 13:35:11 2025 -0500
+
+    Merge pull request #131 from Resilient-Labs/frontend-angel
+    
+    add getUserGoal & edit create+delete task
+
+[33mcommit b5bd6eccd7d9157ea124633df70570f453d79695[m[33m ([m[1;31morigin/frontend-angel[m[33m)[m
+Merge: 616aae3 bacc9b7
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Thu Dec 11 12:32:21 2025 -0500
+
+    Merge branch 'main' into frontend-angel
+
+[33mcommit df89b309177d4d733468d5bb9f46626cd9463439[m[33m ([m[1;31morigin/frontend/mainPage-naima[m[33m)[m
+Author: Naima e Bogran <Naima.E.Bogran@gmail.com>
+Date:   Thu Dec 11 12:31:44 2025 -0500
+
+    Completed Header and Footer partials
+    
+    The header and footer are now complete. The header is only for users who are not logged in, I need to create a new header for signed in users.
+
+[33mcommit bacc9b7eb6b033573f935a0d074ac032f664e77b[m
+Merge: fbdb0a6 6d6fd56
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Thu Dec 11 12:16:51 2025 -0500
+
+    Merge pull request #146 from Resilient-Labs/FrontEnd-Leeanne
+    
+    FrontEnd-Leeanne-Initial-Outline
+
+[33mcommit fbdb0a6c0ffbe8558887b34e11e028cc84b369b5[m
+Merge: 3511dae de7335c
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Thu Dec 11 12:08:37 2025 -0500
+
+    Merge pull request #79 from Resilient-Labs/frontend-loginSignupModals
+    
+    Frontend login signup modals
+
+[33mcommit aed86cb33c5f8e1a7f2cdcacfdeb5690d106ebd1[m
+Author: Innocent Rukundo <rukundoinnocent27@gmail.com>
+Date:   Thu Dec 11 12:07:56 2025 -0500
+
+    Cluster schema now takes in object id for user type and added comments
+
+[33mcommit de7335c67ea216734f8a49269eb8ff6e688bfd9c[m
+Author: Meryem L. <82731366+L-Meryem@users.noreply.github.com>
+Date:   Thu Dec 11 12:02:00 2025 -0500
+
+    Add comments -Meryem
+
+[33mcommit d74211e86e9c021370ce153ecfcedb3391501144[m
+Author: Meryem L. <82731366+L-Meryem@users.noreply.github.com>
+Date:   Wed Dec 10 12:33:01 2025 -0500
+
+    Add password reset and few tweeks - Meryem
+
+[33mcommit bde125b349bfd2ebfcae0f25520b38c66f8c81db[m
+Author: Meryem L. <82731366+L-Meryem@users.noreply.github.com>
+Date:   Tue Dec 9 18:47:07 2025 -0500
+
+    Add login and signup modals with styling. Update redirects in auth.js - Meryem
+
+[33mcommit 6d6fd56262cf942662f45cab63a897a9f4c8ce59[m
+Author: leeanneeagan <leeanne.eagan@gmail.com>
+Date:   Thu Dec 11 11:43:21 2025 -0500
+
+    FrontEnd-Leeanne-Initial-Outline
+
+[33mcommit 3511dae8537f89966cdeef36f7b33d6cdc9185a8[m
+Merge: 8468411 77d5b76
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Thu Dec 11 11:32:41 2025 -0500
+
+    Merge pull request #77 from Resilient-Labs/backend/mz/get-and-edit-tasks
+    
+    Backend - View + Edit Tasks
+
+[33mcommit 84684114beb932a022bcb7a542ef67fc6c67e25d[m
+Merge: 8ce5b83 c0544ec
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Thu Dec 11 11:31:14 2025 -0500
+
+    Merge pull request #136 from Resilient-Labs/Winnie/Backend/BetModel
+    
+    Creation of Bet Model Schema
+
+[33mcommit 616aae31b2a4c896597121d0b4da9057a24ebf99[m
+Author: ANGÉL <asa@ANGEL.local>
+Date:   Thu Dec 11 11:29:11 2025 -0500
+
+    updating new style
+
+[33mcommit c0544ecfbb9c9f1816e3d406c365e7c96f15aa02[m
+Merge: 054c88c 247d29f
+Author: WinniePokes <winnieyu.pro@gmail.com>
+Date:   Thu Dec 11 11:26:27 2025 -0500
+
+    Merge branch 'Winnie/Backend/BetModel' of https://github.com/Resilient-Labs/bet-on-me into Winnie/Backend/BetModel
+
+[33mcommit 054c88ccb38c0ebf7ea44da482694ba4d6a7a55d[m
+Author: WinniePokes <winnieyu.pro@gmail.com>
+Date:   Thu Dec 11 11:09:23 2025 -0500
+
+    Added comments with correct structure
+
+[33mcommit 4f852b1c44862e07fdd1e8d70ae36a357f76b66c[m
+Author: WinniePokes <winnieyu.pro@gmail.com>
+Date:   Thu Dec 11 11:05:19 2025 -0500
+
+    Added comments with correct structure
+
+[33mcommit baf78a83de16549ddcafdf11ac5fdffac2e4689c[m
+Author: WinniePokes <winnieyu.pro@gmail.com>
+Date:   Thu Dec 11 10:34:41 2025 -0500
+
+    Creation of Bet Model Schema
+
+[33mcommit 247d29f00e49cc8e1d77ee1611f92b5bc4e8153c[m[33m ([m[1;31morigin/Winnie/Backend/BetModel[m[33m)[m
+Author: WinniePokes <winnieyu.pro@gmail.com>
+Date:   Thu Dec 11 11:05:19 2025 -0500
+
+    Added comments with correct structure
+
+[33mcommit 5e97cfec68e253746d02e3407f1417b067a36990[m
+Author: WinniePokes <winnieyu.pro@gmail.com>
+Date:   Thu Dec 11 10:34:41 2025 -0500
+
+    Creation of Bet Model Schema
+
+[33mcommit 77d5b762f0ea9a4d50efc3938ecd74901136ec41[m[33m ([m[1;31morigin/backend/mz/get-and-edit-tasks[m[33m)[m
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Thu Dec 11 01:48:24 2025 -0500
+
+    Implement inline editing for tasks
+    
+    Resolves ticket #125
+
+[33mcommit 19a97525c8382c4eebb8671738a0edc1f468b918[m
+Author: Justin Joshi <justinjoshi@proton.me>
+Date:   Wed Dec 10 08:28:56 2025 -0500
+
+    fixed userProfile not rendering from before Mau's PR, added comments
+
+[33mcommit 9bea41a0d3066c2944844b1bdb90d61dd61a5b98[m
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Wed Dec 10 06:50:42 2025 -0500
+
+    Allow users to edit tasks
+    
+    Resolves ticket #65
+
+[33mcommit 81583fdf8e2f4ed6ea0eae63860da18fa1cf8444[m
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Wed Dec 10 06:09:32 2025 -0500
+
+    Add getTaskById endpoint
+    
+    Resolves ticket #66
+
+[33mcommit 6411958e82cc568695a618e47136d684ead9e42a[m
+Author: Maureen E. Zitouni <maureen.zitouni@gmail.com>
+Date:   Wed Dec 10 06:05:49 2025 -0500
+
+    Add getUserTasks endpoint
+    
+    Resolves ticket #67
+
+[33mcommit 2742bf3725e7ab5809b6e40668c92e3568c68436[m
+Author: Innocent Rukundo <rukundoinnocent27@gmail.com>
+Date:   Thu Dec 11 00:45:53 2025 -0500
+
+    Added moneyJar Schema
+
+[33mcommit 8ce5b83b79ae2a71ce2b74269c155ecb9a21d591[m[33m ([m[1;31morigin/testing/MC[m[33m)[m
+Author: Abdirahman Mohamed <abdirahman.mohamed@maine.edu>
+Date:   Wed Dec 10 19:39:16 2025 -0500
+
+    WIP: saving progress
+
+[33mcommit 9f2a4a30681ca58b2ad3ccfac5b7a363b0f66fef[m
+Author: ANGÉL <asa@ANGEL.local>
+Date:   Wed Dec 10 17:46:23 2025 -0500
+
+    add getUserGoal & edit create+delete task
+
+[33mcommit 49d7a072826b6f0e78c0f26d52cb3b1a1a6aba50[m
+Author: Innocent Rukundo <rukundoinnocent27@gmail.com>
+Date:   Wed Dec 10 15:18:13 2025 -0500
+
+    added goal.js schema
+
+[33mcommit 1fee9911805752b1aa5cf85bbbacaf2055079b86[m
+Merge: 84aed5e 2e91d8e
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Wed Dec 10 14:05:55 2025 -0500
+
+    Merge pull request #78 from Resilient-Labs/Fadma1234-patch-1
+    
+    Update README to change MONGODB_URI to DB_STRING
+
+[33mcommit 2e91d8eb58afcd2d0854144e65cb9f3227bc09b0[m[33m ([m[1;31morigin/Fadma1234-patch-1[m[33m)[m
+Author: Fadma Belkhouraf <fadma.belkhouraf@gmail.com>
+Date:   Wed Dec 10 11:04:06 2025 -0500
+
+    Update README to change MONGODB_URI to DB_STRING
+
+[33mcommit 84aed5ec316fccde5b2b015fa3c9f433af80a3da[m
+Merge: 9949a66 b556650
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Tue Dec 9 21:08:19 2025 -0500
+
+    Merge pull request #76 from Resilient-Labs/abdirxhmxn-patch-1
+    
+    Remove extra blank lines in README.md
+
+[33mcommit b556650b59f2565300c00be38395b0f5f89abd6b[m[33m ([m[1;31morigin/abdirxhmxn-patch-1[m[33m)[m
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Tue Dec 9 21:07:11 2025 -0500
+
+    Remove extra blank lines in README.md
+
+[33mcommit 9949a6668c48113e9b14a2c9d52f3f0aea5b4bac[m
+Merge: 3164aec be59285
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Tue Dec 9 20:37:10 2025 -0500
+
+    Merge pull request #75 from Resilient-Labs/testBranch
+    
+    Test branch
+
+[33mcommit be592856bc7384e13879b15c9596cfc043fe5713[m
+Author: codwiz23 <abdirahman.mohamed@maine.edu>
+Date:   Tue Dec 9 20:36:09 2025 -0500
+
+    testing pushing with pulling to prevent duplicate code
+
+[33mcommit 87c9e99cb1cd7e84c5c4063e4259ba0c5926b93f[m
+Author: codwiz23 <abdirahman.mohamed@maine.edu>
+Date:   Tue Dec 9 13:39:58 2025 -0500
+
+    did not change anything -MC
+
+[33mcommit 3164aecd96e8b7dc97e433b00c8eecf62ea5352c[m
+Merge: 50c0c90 d27ae5b
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Tue Dec 9 16:01:03 2025 -0500
+
+    Merge pull request #56 from Resilient-Labs/newBranch
+    
+    Changed README
+
+[33mcommit d27ae5b813c4929cd07b64b29dace5390084da7b[m
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Tue Dec 9 15:44:37 2025 -0500
+
+    Changed README
+
+[33mcommit 50c0c90574a7ceb0813340c693d6c3779b0327fb[m
+Merge: 14024ff decf99c
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Tue Dec 9 15:34:02 2025 -0500
+
+    Merge pull request #17 from Resilient-Labs/newBranchNaima
+    
+    Logo added
+
+[33mcommit decf99c7b8733f1af5444226c4c8ea1d50e77ab8[m
+Author: Naima e Bogran <Naima.E.Bogran@gmail.com>
+Date:   Tue Dec 9 14:41:06 2025 -0500
+
+    Logo added
+    
+    logo added to img public file
+
+[33mcommit 14024ff027586b5053d0b4e2232046965bc2aa63[m[33m ([m[1;31morigin/FrontEnd-Leeanne[m[33m)[m
+Author: codwiz23 <abdirahman.mohamed@maine.edu>
+Date:   Tue Dec 9 10:46:05 2025 -0500
+
+    testing to push to main
+
+[33mcommit 51151521077932d86f1abd621c5d64020af3a375[m
+Merge: 511528e 9f29a57
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Tue Dec 9 10:43:52 2025 -0500
+
+    Merge pull request #10 from Resilient-Labs/newTest
+    
+    did not change anything this is another test
+
+[33mcommit 9f29a575fc12a925d080c00cc7bdcd9fa58c95d6[m
+Author: codwiz23 <abdirahman.mohamed@maine.edu>
+Date:   Tue Dec 9 10:42:24 2025 -0500
+
+    did not change anything this is another test
+
+[33mcommit 511528ee4f5beda72a1c4328e17e845919eb9e14[m
+Merge: 2604df5 7a729be
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Tue Dec 9 10:36:54 2025 -0500
+
+    Merge pull request #9 from Resilient-Labs/testing
+    
+    Testing
+
+[33mcommit 7a729be8066e42e323b5db8999c2268e8414cf39[m
+Author: codwiz23 <abdirahman.mohamed@maine.edu>
+Date:   Tue Dec 9 10:32:38 2025 -0500
+
+    testing nothing was really changed
+
+[33mcommit 548c11a57eefb6d9760076873044f002d035332b[m
+Merge: 6b33484 2604df5
+Author: codwiz23 <abdirahman.mohamed@maine.edu>
+Date:   Tue Dec 9 10:30:28 2025 -0500
+
+    Merge branch 'main' of https://github.com/Resilient-Labs/bet-on-me into testing
+
+[33mcommit 6b3348489ddc3cccd2efc459562646b8958098f5[m
+Author: codwiz23 <abdirahman.mohamed@maine.edu>
+Date:   Tue Dec 9 10:26:34 2025 -0500
+
+    testing (did not change anything)
+
+[33mcommit 2604df5ed0740d94735ca8fbce364e128ded7bef[m
+Merge: f3009e3 0f8bf87
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Tue Dec 9 09:55:11 2025 -0500
+
+    Merge pull request #8 from Resilient-Labs/devops-branch
+    
+    Devops branch
+
+[33mcommit f3009e39a62a3dc2228ac8cf2e8455737c5c4413[m
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Tue Dec 9 09:05:26 2025 -0500
+
+    revised version of bcrypt
+
+[33mcommit e212806f9ed855e6056f283f953395b61117412e[m
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Tue Dec 9 09:01:46 2025 -0500
+
+    removed extra bcrypt package
+
+[33mcommit 0d70bdf05ada4f77337d545c64ea6fdfbe97d786[m
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Mon Dec 8 21:31:28 2025 -0500
+
+    fixed hashing/salt. Minor changes to readme and server.js
+
+[33mcommit 0f8bf876fb6d26bc2e32193d35516d95f0f23855[m
+Merge: 9fb07bf af4d10a
+Author: Karlee Perpignant <kperpignant@gmail.com>
+Date:   Mon Dec 8 20:52:01 2025 -0500
+
+    Merge pull request #7 from Resilient-Labs/devops-karlee
+    
+    updating steps for review instructions
+
+[33mcommit af4d10aa1a8933db9810d8d4332433dd4a92b412[m
+Author: karlee <kperpignant@gmail.com>
+Date:   Mon Dec 8 20:48:56 2025 -0500
+
+    updating steps for review instructions
+
+[33mcommit 9fb07bfe701e8c7b5de523dc6ee066326ed530f3[m
+Merge: a56c344 0dd56be
+Author: Karlee Perpignant <kperpignant@gmail.com>
+Date:   Mon Dec 8 20:44:17 2025 -0500
+
+    Merge pull request #6 from Resilient-Labs/devops-karlee
+    
+    Devops karlee push containing review instructions
+
+[33mcommit 0dd56be72248a467714e2d863b17d26ce25a378c[m
+Merge: f3f60e7 a56c344
+Author: Karlee Perpignant <kperpignant@gmail.com>
+Date:   Mon Dec 8 20:42:51 2025 -0500
+
+    Merge branch 'devops-branch' into devops-karlee
+
+[33mcommit f3f60e78f66e46db1a02e7693f1507a714d8d15b[m
+Author: karlee <kperpignant@gmail.com>
+Date:   Mon Dec 8 20:37:27 2025 -0500
+
+    updated readme
+
+[33mcommit a56c344598ec35624c5e2dd2abb71a910b64e35b[m
+Merge: 63cc963 9caf928
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Mon Dec 8 19:01:27 2025 -0500
+
+    Merge pull request #3 from Resilient-Labs/abdirahman/workflows-config
+    
+    added build script in package.json for node ci config
+
+[33mcommit 9caf92883bb6771623fec842185f5fe378f5b521[m
+Merge: 1bd804c 63cc963
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Mon Dec 8 19:00:54 2025 -0500
+
+    Merge branch 'main' into abdirahman/workflows-config
+
+[33mcommit 63cc96394619c05e65f3aaf6b444cf710cca7767[m
+Merge: 536bd60 22b210c
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Mon Dec 8 18:57:33 2025 -0500
+
+    Merge pull request #4 from Resilient-Labs/abdirxhmxn-patch-2
+    
+    Fix test script syntax in package.json
+
+[33mcommit 22b210cba5ef0e710538d95ff01cda6efbc7ccb6[m
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Mon Dec 8 18:56:49 2025 -0500
+
+    Fix test script syntax in package.json
+
+[33mcommit 1bd804c6655b46e617e01b47c13fbe6aca89c4b4[m
+Author: codwiz23 <abdirahman.mohamed@maine.edu>
+Date:   Mon Dec 8 18:45:57 2025 -0500
+
+    added build script in package.json for node ci config
+
+[33mcommit 536bd603903544c69e5bc4fa068c52b36a67e098[m
+Author: Fadma1234 <fadma.belkhouraf@gmail.com>
+Date:   Mon Dec 8 18:08:16 2025 -0500
+
+    updated readme
+
+[33mcommit 584481d52f952b5d4a663c27fb47326acff45484[m
+Merge: 2ef751e ba773b7
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Mon Dec 8 17:45:21 2025 -0500
+
+    Merge pull request #2 from Resilient-Labs/abdirxhmxn-patch-1
+    
+    Add Node.js CI workflow
+
+[33mcommit ba773b7aeeb596dc8d2df15c91f9b3836446671a[m
+Author: Abdirahman Mohamed <144724786+abdirxhmxn@users.noreply.github.com>
+Date:   Mon Dec 8 17:44:42 2025 -0500
+
+    Add Node.js CI workflow
+    
+    This workflow installs Node.js dependencies, builds the project, and runs tests on multiple Node.js versions.
+
+[33mcommit 2ef751e56f75cf3d90e706d156bb2b887c6b7b68[m
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Mon Dec 8 17:36:03 2025 -0500
+
+    what is happening?
+
+[33mcommit 886292cecb51f538ec5ffcc2d1d07b96b74d3659[m
+Author: Fadma Belkhouraf <fadma.belkhouraf@gmail.com>
+Date:   Mon Dec 8 16:17:21 2025 -0500
+
+    Update README with build and run instructions
+    
+    Added detailed instructions for building and running the app.
+
+[33mcommit 6dd8b2c3f43cb7b46e3a6cdec671bebf6cb160d5[m
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Mon Dec 8 15:58:29 2025 -0500
+
+    Added initial server(incomplete)
+
+[33mcommit 7f19b2a1968c269ab4ff94a07a5574e988378122[m
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Mon Dec 8 15:30:48 2025 -0500
+
+    initial package
+
+[33mcommit d1ed0d9b386323c8aa2329b49826097b4a9203a5[m
+Author: Godwin Kamau <contactgodwinkamau@gmail.com>
+Date:   Mon Dec 8 15:17:19 2025 -0500
+
+    first commit
