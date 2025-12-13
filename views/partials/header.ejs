@@ -32,10 +32,10 @@
     rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
     crossorigin="anonymous">
     <link href="/css/headers.css" rel="stylesheet" />
-
+    <link href="/css/heroes.css" rel="stylesheet" />
   </head>
   
- <body>
+ <body style="background-color: black;">
       <header class="custom-header">
         <div class="container">
           <div
@@ -64,12 +64,22 @@
               <li><a href="#" class="nav-link px-2 text-white">About</a></li> -->
             </ul>
             <div class="text-end">
+
+              <% if (!user) { %>
+                <!-- NOT LOGGED IN -->
               <button type="button" class="btn btn-outline-light me-2">
                   <a href="#" type="button" data-bs-toggle="modal" class="login" data-bs-target="#loginModal">Login</a>
               </button>
               <button type="button" class="btn btn-warning">
                   <a href="#" type="button" data-bs-toggle="modal" class="signup" data-bs-target="#signupModal">Signup</a>
               </button>
+
+              <% } else { %>
+              <!-- LOGGED IN -->
+               <button type="button" class="btn btn-warning">
+                  <a href="/logout" type="button" class="signup">Logout</a>
+              </button>
+              <% } %>
             </div>
           </div>
         </div>
