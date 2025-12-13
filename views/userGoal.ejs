@@ -12,47 +12,59 @@
 </head>
 
 <body>
+    <!-- Left Section: Profile -->
     <div class="container">
-        <!-- left Section: Profile -->
         <div class="profile-section">
             <div class="profile-picture">
                 <span>Profile Picture</span>
             </div>
-            <h2 class="user-name"><%= user.userName %></h2>
-            <p class="goal-label">Big thing I want to accomplish!</p>
-            
-            <% if (goals && goals.length > 0) { %>
-                <% const mainGoal = goals[0]; %>
-                <div class="big-thing">
-                    <input type="text" placeholder="Enter Your Goal" id="bigThing" name="goal" value="<%= mainGoal.name %>">
-                    <input type="hidden" id="goal-id" value="<%= mainGoal._id %>">
-                    <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+            <h2 class="user-name">
+                <%= user.userName %>
+            </h2>
+            <p class="goal-label">
+                <%= goals?.name ? goals.name : "Big thing I want to accomplish!" %>
+            </p>
+
+            <% if (goals) { %>
+                    <div class="big-thing">
+                        <%if(goals?.user==user.id){ %>
+                            <form class="input-area goal-setting" action="/goal/" method="POST">
+                                <input type="text" placeholder="Enter Your Goal" id="bigGoal" name="name"
+                                    value="<%= goals?.name %>" />
+                                    <!-- have the original inputed goal inside the input field -->
+                                <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                                <button class="add-btn" id="saveBigThing"><i class="fa-solid fa-plus"></i></button>
+                            </form>
+                        <%}%>
                 </div>
-                
+
                 <h4>Goal Wager</h4>
-                <% if (mainGoal.wagerPaid) { %>
-                    <div class="user-money">$<%= mainGoal.wagerAmount %></div>
+                <% if (goals?.wagerPaid) { %>
+                    <div class="user-money">$<%= goals?.wagerAmount %>
+                    </div>
                     <p style="color: #4CAF50; margin-top: 10px;"> Wager Placed</p>
                 <% } else { %>
                     <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
-                        <input type="number" id="wager-amount" placeholder="Amount" min="1" step="1" 
-                               style="width: 100px; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+                        <input type="number" id="wager-amount" placeholder="Amount" min="1" step="1"
+                            style="width: 100px; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
                         <button id="place-wager-btn" class="add-btn">
                             <i class="fa-solid fa-dollar-sign"></i> Place Wager
                         </button>
                     </div>
                 <% } %>
             <% } else { %>
-    <!-- add form -->
-    <form action="/goal" method="POST">
-        <div class="big-thing">
-            <input type="text" placeholder="Enter Your Goal" id="bigThing" name="name" required>
-            <button type="submit" class="add-btn"><i class="fa-solid fa-plus"></i></button>
-        </div>
-    </form>
-    <h4>Goal Wager</h4>
-    <p style="color: #999;">Create a goal first</p>
-<% } %>
+                <!-- add form -->
+                <div class="big-thing">
+                            <form class="input-area goal-setting" action="/goal/" method="POST">
+                                <input type="text" placeholder="Enter Your Goal" id="bigGoal" name="name"
+                                    value="<%= goals?.name %>" />
+                                <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                                <button class="add-btn" id="saveBigThing"><i class="fa-solid fa-plus"></i></button>
+                            </form>
+                </div>
+                <h4>Goal Wager</h4>
+                <p style="color: #999;">Create a goal first</p>
+            <% } %>
         </div>
     </div>
 
@@ -64,29 +76,33 @@
                 <input type="text" id="hide-task" placeholder="Name" name="_id">
                 <button type="submit" id="add-task-btn"><i class="fa-solid fa-plus"></i></button>
             </form>
-            <% if (typeof error !== 'undefined') { %>
-                <div class="alert alert-danger"><%= error %></div>
-            <% } %>
+            <% if (typeof error !=='undefined' ) { %>
+                <div class="alert alert-danger">
+                    <%= error %>
+                </div>
+                <% } %>
 
-            <div class="user-steps">
-                <!-- Task List -->
-                <ul id="task-list">
-                    <% for(var i=0; i<tasks.length; i++) {%>
-                        <li class="task-buttons <%= tasks[i].completed ? 'completed' : '' %>">
-                            <input type="checkbox" class="checkbox" <%=tasks[i].completed ? 'checked' : '' %>
-                            data-id="<%= tasks[i]._id %>">
-                                <span name="<%= tasks[i]._id %>"> <%=tasks[i].task_name%></span>
-                                <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
-                                <input type="hidden" class="task-id" value="<%= tasks[i]._id %>">
-                        </li>
-                    <% } %>
-                </ul>
-            </div>
-            <button class="goal-completed">Goal Completed</button>
+                    <div class="user-steps">
+                        <!-- Task List -->
+                        <ul id="task-list">
+                            <% for(var i=0; i<tasks.length; i++) {%>
+                                <li class="task-buttons <%= tasks[i].completed ? 'completed' : '' %>">
+                                    <input type="checkbox" class="checkbox" <%=tasks[i].completed ? 'checked' : '' %>
+                                    data-id="<%= tasks[i]._id %>">
+                                        <span name="<%= tasks[i]._id %>">
+                                            <%=tasks[i].task_name%>
+                                        </span>
+                                        <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                                        <input type="hidden" class="task-id" value="<%= tasks[i]._id %>">
+                                </li>
+                                <% } %>
+                        </ul>
+                    </div>
+                    <button class="goal-completed">Goal Completed</button>
         </div>
     </div>
 
+    <script src="/js/goal.js"></script>
     <script src="/js/stripe.js"></script>
-    <script src="/main.js"></script>
 </body>
