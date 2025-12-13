@@ -25,6 +25,8 @@ module.exports = {
   },
   getTeamPage: async (req, res) => {
     try {
+      const groupcode = await Cluster.find( {user: req.user.id} )
+      console.log(groupcode)
       res.render("teamPage.ejs", { user: req.user });
     } catch (err) {
       console.log(err);
