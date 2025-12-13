@@ -211,9 +211,10 @@ footer {
   /* Add height, background, etc. */
 }
 
-main {
+.landing-page-main {
   /* Add padding to push content below the header and above the footer */
   padding-top: 80px;  /* Adjust to your header's height */
   padding-bottom: 60px; /* Adjust to your footer's height */
   /* Or use flexbox/grid for more complex layouts */
+  background-color: black;
 }
