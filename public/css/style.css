@@ -196,7 +196,7 @@
 /* Home page END */
 /* CSS for Fixed Header & Footer */
 header {
-  position: fixed; /* Makes it stick to the viewport */
+  /* position: fixed; Makes it stick to the viewport */
   top: 0;          /* Sticks to the top */
   width: 100%;     /* Stretches across the screen */
   z-index: 10;     /* Keeps it on top */
@@ -204,7 +204,7 @@ header {
 }
 
 footer {
-  position: fixed; /* Makes it stick to the viewport */
+  /* position: fixed; Makes it stick to the viewport */
   bottom: 0;       /* Sticks to the bottom */
   width: 100%;     /* Stretches across the screen */
   z-index: 10;     /* Keeps it on top */

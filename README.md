@@ -47,6 +47,7 @@ cd <your-project-folder>
   - MAILER_USER = betonmemailer@gmail.com
   - MAILER_PASS = jjoi uzug jntu otha
 
+
 ### 4. Run the server
 npm start
 
