@@ -36,8 +36,10 @@ cd <your-project-folder>
 ### 2. Install server dependencies
 1. npm install
 2. npm i
+3. npm install stripe
 
 ### 3. Set up environment variables
+There are additional stripe keys that can be found in slack, or can be provided if requested.
 - Create a `.env` file in config folder and add the following as `key = value`
   - PORT = 3000
   - DB_STRING = `your database URI`
