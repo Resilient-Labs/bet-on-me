@@ -3,7 +3,7 @@ Users can join groups (“clusters”) to work on habit-building together. Each 
 
 ## How to submit your code for review/Workflow
 1. Clone the Main repository
-2. Create your own branch for your respective team and name it branchName-yourName/feature (e.g. Frontend-Leanne/Logo, Backend-Justin/UserSchema, Etc.)
+2. Create your own branch for your respective team and name it branchName-yourName/feature (e.g. Frontend-Leanne/Logo, Backend-Justin/UserSchema, etc.)
 3. Work/make your changes, etc.
 4. Push said changes to your respective new branch:
 ```
@@ -19,7 +19,7 @@ git push --set-upstream origin [BRANCH NAME]
 -But why though?
 ```
 
-7. DevOps will review and then merge your changes into the DevOps Branch or leave comments for you to fix.
+7. DevOps will review and then merge your changes into the DevOps Branch or leave comments for you to fix
 8. If the merge passes tests the changes will be merged into DevOps
 9. DevOps will then delete your branch
 

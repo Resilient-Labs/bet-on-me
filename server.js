@@ -8,37 +8,52 @@ const methodOverride = require("method-override");
 const flash = require("express-flash");
 const logger = require("morgan");
 const connectDB = require("./config/database");
+
+// ROUTES
 const mainRoutes = require("./routes/main");
 const postRoutes = require("./routes/posts");
 const taskRoutes = require("./routes/task");
 const goalRoutes = require("./routes/goal");
 
+const userRoutes = require("./routes/users");
+
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
 
-// Passport config
+// passport config
 require("./config/passport")(passport);
 
-//Connect To Database
+// connect to database
 connectDB();
 
-//Using EJS for views
+// using EJS for views
 app.set("view engine", "ejs");
 
-//Static Folder
+// static folder
 app.use(express.static("public"));
 
+// override before parsing 
+app.use(methodOverride("_method"))
+
 //Body Parsing
+// Stripe webhook route MUST come before body parsing middleware
+// this is because Stripe needs the raw request body to verify signatures
+app.post('/stripe/webhook', 
+  express.raw({ type: 'application/json' }), 
+  require('./controllers/stripe').handleWebhook
+);
+
+// body parsing middleware - comes AFTER webhook route
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//Logging
+// logging
 app.use(logger("dev"));
 
-//Use forms for put / delete
+// use forms for put / delete
 app.use(methodOverride("_method"));
 
-// Setup Sessions - stored in MongoDB
+// setup sessions - stored in MongoDB
 app.use(
   session({
     secret: "keyboard cat",
@@ -48,20 +63,31 @@ app.use(
   })
 );
 
-// Passport middleware
+// passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
+// use flash messages for errors, info, etc...
+// Make user available in all EJS templates so conditional can be made for header; user || !user for login/logout buttons in nav
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
 //Use flash messages for errors, info, ect...
 app.use(flash());
+
+// MOUNT USERS ROUTE
+app.use("/users", userRoutes);
 
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);
 app.use("/post", postRoutes);
 app.use("/task", taskRoutes);
 app.use("/goal", goalRoutes);
+app.use("/stripe", require("./routes/stripe"));
 
-//Server Running
+// server running
 app.listen(process.env.PORT, () => {
   console.log(`Server is running, you better catch it! localhost:${process.env.PORT}`);
 });

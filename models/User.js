@@ -6,7 +6,8 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   name: { type: String },
-  profile_image: { type: String },
+  profile_image: { type: String, default: "https://static.vecteezy.com/system/resources/previews/036/280/650/non_2x/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg",
+ },
   joined_clusters: { type: [String] },
   tasks_isCompleted: { type: [Boolean] },
   //these are necessary for resetting password functionality. Token comes from authController
