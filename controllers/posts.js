@@ -181,8 +181,11 @@ module.exports = {
 // users joing a cluster code - shawn
 
 joinCluster: async (req, res) => {
+  console.log('hi')
   try {
-    const { joinCode } = req.body;
+    const joinCode = req.body.code;
+
+    console.log(joinCode)
 
     const cluster = await Cluster.findOne({
       cluster_join_id: joinCode,

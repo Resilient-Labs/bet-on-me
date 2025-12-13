@@ -20,7 +20,7 @@ router.put("/likePost/:id", postsController.likePost);
 
 router.delete("/deletePost/:id", postsController.deletePost);
 
-router.post("/joinCluster", ensureAuth, postsController.joinCluster);
+router.post("/joinCluster", ensureAuth, upload.single("file"), postsController.joinCluster);
 router.post("/leaveCluster/:id", ensureAuth, postsController.leaveCluster);
 
 
