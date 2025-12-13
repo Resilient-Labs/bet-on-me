@@ -10,11 +10,6 @@ module.exports = {
     }
   },
 
-  // Create / Update One Goal
-  // get the name from the req.body
-  // try to find one goal & update
-  // if there is no goal, we will create it
-  // redirect to createGoal
   createOrUpdateGoal : async (req, res) => {
     try {
       const { name, description, completed } = req.body;
@@ -25,12 +20,6 @@ module.exports = {
         name
       })
       console.log(updatedGoal)
-
-      //if we don't hv the goal yet, disregard findone andupdate one bcs it's null
-
-      //prevent submit if the input is empty
-      //have the original name inside input field
-      //if the name is empty on the backend, we just ignore
 
       if (updatedGoal == null) {
         const goal = await Goal.create({
@@ -47,6 +36,7 @@ module.exports = {
     }
   },
 
+  //on Backend - if the name is empty = ignore Goal value
 
   // create a goal
   createGoal: async (req, res) => {
