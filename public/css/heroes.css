@@ -80,19 +80,23 @@
   padding-top: 20px;
 }
 
-/* Box that holds the BETonMeLogoBlack.png */
 .about-logo-box {
-  background-color: var(--bg-dark-brown);
+  background-color: black;
   border: 2px dashed var(--color-vibrant-gold);
-  height: 260px;
+  border-radius: 10px;
+
+  /* Responsive sizing */
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 520 / 355;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
 }
+
 
 .about-logo-box img {
   width: 90%;
