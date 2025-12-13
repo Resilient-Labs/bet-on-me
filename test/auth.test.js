@@ -10,8 +10,8 @@ test( 'testing login with user', () => {
     auth.getSignup( req, res )
     //=====
     //===== assert statements
-    expect( res.redirect.mock.calls[ 0 ][ 0 ] ).toBe( '/userProfile' )
-    expect( res.redirect.mock.calls[ 1 ][ 0 ] ).toBe( '/userProfile' )
+    expect( res.redirect.mock.calls[ 0 ][ 0 ] ).toBe( '/home' )
+    expect( res.redirect.mock.calls[ 1 ][ 0 ] ).toBe( '/home' )
     expect (res.redirect.mock.calls.length).toBe(2)
 })
 test( 'testing login without user', () => {
