@@ -1,4 +1,4 @@
-<%- include('partials/clockHead') -%>
+
 <div class="container">
   <div class="row justify-content-center mt-5">
     <button id="joinChallenge">Join Challenge</button>
@@ -29,5 +29,11 @@
     </form>
     <button id="resetChallenge" /*style="display:none;"*/>Reset Challenge (Testing)</button>
 
+    <button type="submit" id="timeout">Timeout</button>
+    <div id="safeTimer">
+      <h2>Safe Timer</h2>
+      <p id="safeTimerDisplay">48:00:00</p>
+    </div>
+
+    <script src="js/clock2.js"></script>
 </div>
-<%- include('partials/clockFoot') -%>
