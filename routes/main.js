@@ -17,8 +17,6 @@ router.get("/home", ensureAuth, postsController.getHome);
 //this route will lead to the page where user can create a cluster!
 router.get("/createCluster", ensureAuth, postsController.getClusterCreationPage);
 router.get("/teamPage", ensureAuth, postsController.getTeamPage);
-//this route will lead to the user profile!
-router.get("/userProfile", ensureAuth, postsController.getUserProfile);
 router.get("/feed", ensureAuth, postsController.getFeed);
 router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);

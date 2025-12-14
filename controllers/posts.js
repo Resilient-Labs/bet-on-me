@@ -2,6 +2,7 @@ const cloudinary = require("../middleware/cloudinary");
 const Cluster = require("../models/Cluster");
 const Post = require("../models/Post");
 const Task = require("../models/Task");
+const User = require("../models/User")
 const { getUserTasks } = require("./tasks");
 const { getUserGoals } = require("./goals");
 
@@ -15,9 +16,16 @@ module.exports = {
     }
   },
   //This is the page that shows after successful login
-   getHome: async (req, res) => {
+  getHome: async (req, res) => {
     try {
-      res.render("homePage.ejs");
+      const userCluster = await User.findOne({ _id: req.user.id })
+      console.log(userCluster)
+      if (userCluster.joined_clusters.length === 0) {
+        res.render("homePage.ejs");
+      } else if (userCluster.joined_clusters.length > 0) {
+        res.redirect("/userGoal")
+      }
+
     } catch (err) {
       console.log(err);
     }
@@ -43,7 +51,7 @@ module.exports = {
   getUserProfile: async (req, res) => {
     try {
       const tasks = await getUserTasks(req.user.id);
-      res.render("userProfile.ejs", { user: req.user, tasks });
+      res.render("userGoal.ejs", { user: req.user, tasks });
     } catch (err) {
       console.log(err);
     }
@@ -94,7 +102,7 @@ module.exports = {
         cluster_join_id: randomCode,
         cluster_members: [req.user.id],
         member_count: 1,
-});
+      });
       console.log("Post has been added!");
       //After creating a cluster the user is redirected to the group page
       res.redirect("/teamPage");
@@ -177,100 +185,114 @@ module.exports = {
   },
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
 
-  
-// users joing a cluster code - shawn
 
-joinCluster: async (req, res) => {
-  console.log('hi')
-  try {
-    const joinCode = req.body.code;
+  // users joing a cluster code - shawn
 
-    console.log(joinCode)
+  joinCluster: async (req, res) => {
+    console.log('hi')
+    try {
 
-    const cluster = await Cluster.findOne({
-      cluster_join_id: joinCode,
-    });
+      await User.findByIdAndUpdate(
+        req.user.id,
+        { $push: { joined_clusters: req.body.code } },
+        { new: true } // returns the updated document
+      );
+      const joinCode = req.body.code;
 
-    if (!cluster) {
-      return res.status(404).send("Cluster not found");
+      console.log(req.user._id, 'USER')
+
+
+      console.log(joinCode)
+
+      const cluster = await Cluster.findOne({
+        cluster_join_id: joinCode,
+      });
+
+      if (!cluster) {
+        return res.status(404).send("Cluster not found");
+      }
+
+      // prevent duplicate joins!!
+      if (cluster.cluster_members.includes(req.user.id)) {
+        return res.status(400).send("Already a member of this cluster");
+      }
+
+      cluster.cluster_members.push(req.user.id);
+      // update member count by 1
+      cluster.member_count += 1;
+
+      await cluster.save();
+      await User.findOneAndUpdate(
+          { _id: req.params.id },
+          { $push: { joined_clusters: joinCode } }
+        );
+
+
+      res.redirect("/userGoal");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error joining cluster");
     }
+  },
 
-    // prevent duplicate joins!!
-    if (cluster.cluster_members.includes(req.user.id)) {
-      return res.status(400).send("Already a member of this cluster");
+  // letting users leave a cluster - shawn
+
+  leaveCluster: async (req, res) => {
+    try {
+      // get cluster by its generated ID
+      const clusterId = req.params.id;
+
+      const cluster = await Cluster.findById(clusterId);
+
+      // if there's no cluster
+      if (!cluster) {
+        return res.status(404).send("Cluster doesn't exist!");
+      }
+
+      // Check membership
+      if (!cluster.cluster_members.includes(req.user.id)) {
+        return res.status(400).send("You are not a member of this cluster");
+      }
+
+      // Remove user
+      cluster.cluster_members = cluster.cluster_members.filter(
+        userId => userId !== req.user.id
+      );
+
+      cluster.member_count = cluster.cluster_members.length;
+
+      await cluster.save();
+
+      res.redirect("/userProfile");
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Error leaving cluster");
     }
+  },
 
-    cluster.cluster_members.push(req.user.id);
-    // update member count by 1
-    cluster.member_count += 1;
+  // Search for a cluster by join ID
+  searchCluster: async (req, res) => {
+    try {
+      const { joinCode } = req.query;
 
-    await cluster.save();
+      if (!joinCode) {
+        return res.status(400).json({ message: "Join code is required" });
+      }
 
-    res.redirect("/userProfile");
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error joining cluster");
-  }
-},
+      const cluster = await Cluster.findOne({
+        cluster_join_id: joinCode,
+      }).lean();
 
-// letting users leave a cluster - shawn
+      if (!cluster) {
+        return res.status(404).json({ message: "Cluster not found" });
+      }
 
-leaveCluster: async (req, res) => {
-  try {
-    // get cluster by its generated ID
-    const clusterId = req.params.id;
-
-    const cluster = await Cluster.findById(clusterId);
-
-    // if there's no cluster
-    if (!cluster) {
-      return res.status(404).send("Cluster doesn't exist!");
+      res.json(cluster);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Error searching for cluster" });
     }
-
-    // Check membership
-    if (!cluster.cluster_members.includes(req.user.id)) {
-      return res.status(400).send("You are not a member of this cluster");
-    }
-
-    // Remove user
-    cluster.cluster_members = cluster.cluster_members.filter(
-      userId => userId !== req.user.id
-    );
-
-    cluster.member_count = cluster.cluster_members.length;
-
-    await cluster.save();
-
-    res.redirect("/userProfile");
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Error leaving cluster");
-  }
-},
-
-// Search for a cluster by join ID
-searchCluster: async (req, res) => {
-  try {
-    const { joinCode } = req.query;
-
-    if (!joinCode) {
-      return res.status(400).json({ message: "Join code is required" });
-    }
-
-    const cluster = await Cluster.findOne({
-      cluster_join_id: joinCode,
-    }).lean();
-
-    if (!cluster) {
-      return res.status(404).json({ message: "Cluster not found" });
-    }
-
-    res.json(cluster);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Error searching for cluster" });
-  }
-},
+  },
 
 
 };
