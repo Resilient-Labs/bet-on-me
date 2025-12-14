@@ -22,13 +22,29 @@ module.exports = {
       console.log(err);
     }
   },
-  getTeamPage: async (req, res) => {
-    try {
-      res.render("teamPage.ejs", { user: req.user });
-    } catch (err) {
-      console.log(err);
-    }
-  },
+// getTeamPage: async (req, res) => {
+//   try {
+//     const cluster = await Cluster.findById(req.params.clusterId)
+//       .populate("cluster_members")
+//       .lean();
+
+//     if (!cluster) {
+//       return res.status(404).send("Team not found");
+//     }
+
+//     res.render("teamPage.ejs", {
+//       user: req.user,
+//       cluster,
+//       members: cluster.cluster_members,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// },
+
+
+
+  
   getUserGoal: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
@@ -73,35 +89,42 @@ module.exports = {
     }
   },
   //this function updates a cluser
-  createCluster: async (req, res) => {
-    console.log('request', req.body)
-    try {
-      //this function will make a pseudo-randomly generated code on cluster creation. Users can use this code to join a cluster.
-      function makeid(length) {
-        var result = '';
-        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var charactersLength = characters.length;
-        for (var i = 0; i < length; i++) {
-          result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        return result
+createCluster: async (req, res) => {
+  console.log('request', req.body);
+  try {
+    function makeid(length) {
+      var result = '';
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
       }
-
-      const randomCode = makeid(8)
-      await Cluster.create({
-        cluster_name: req.body.title,
-        user: req.user.id,
-        cluster_join_id: randomCode,
-        cluster_members: [req.user.id],
-        member_count: 1,
-});
-      console.log("Post has been added!");
-      //After creating a cluster the user is redirected to the group page
-      res.redirect("/teamPage");
-    } catch (err) {
-      console.log(err);
+      return result;
     }
-  },
+
+    const randomCode = makeid(8);
+
+    const newCluster = await Cluster.create({
+      cluster_name: req.body.title,
+      user: req.user.id,
+      cluster_join_id: randomCode,
+      cluster_members: [req.user.id],
+      member_count: 1,
+    });
+
+    console.log("Cluster has been added!");
+
+    // 🔹 Redirect to the specific team page
+    res.redirect(`/teamPage/${newCluster._id}`);
+
+  } catch (err) {
+    console.log(err);
+  }
+},
+
+
+
+
   createPost: async (req, res) => {
     try {
       // Upload image to cloudinary

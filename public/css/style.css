@@ -223,7 +223,9 @@ footer {
 
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! START !!!!!!!~~~~~~~~ */
-
+.card-body{
+    background: #1a1a1a;;
+}
 
 
 .team-progress-container {
@@ -306,7 +308,7 @@ footer {
 }
 
 .timeline-header {
-  background: #DEB887;
+  background: #513a1a;
   border: none;
   padding: 1.5rem;
 }
