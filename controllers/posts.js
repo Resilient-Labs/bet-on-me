@@ -4,6 +4,7 @@ const Post = require("../models/Post");
 const Task = require("../models/Task");
 const { getUserTasks } = require("./tasks");
 const { getUserGoals } = require("./goals");
+const Goal = require("../models/Goal");
 
 module.exports = {
   getProfile: async (req, res) => {
@@ -35,6 +36,9 @@ module.exports = {
       const tasks = await Task.find({ user: req.user.id });
       const goals = await getUserGoals(req.user.id);
       res.render("userGoal.ejs", { posts, user: req.user, tasks, goals, showProfileBubble: false });
+      const goals = await Goal.findOne({ user: req.user.id });
+      // const goals = await getUserGoals(req.user.id);
+      res.render("userGoal.ejs", { posts, user: req.user, tasks, goals });
     } catch (err) {
       console.log(err);
     }
