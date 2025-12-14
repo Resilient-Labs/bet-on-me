@@ -25,7 +25,6 @@ module.exports = {
       } else if (userCluster.joined_clusters.length > 0) {
         res.redirect("/userGoal")
       }
-
     } catch (err) {
       console.log(err);
     }
@@ -222,10 +221,6 @@ module.exports = {
       cluster.member_count += 1;
 
       await cluster.save();
-      await User.findOneAndUpdate(
-          { _id: req.params.id },
-          { $push: { joined_clusters: joinCode } }
-        );
 
 
       res.redirect("/userGoal");
