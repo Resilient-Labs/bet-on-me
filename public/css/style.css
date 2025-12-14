@@ -1,14 +1,15 @@
 /* Keep :root and * at the top */
 
 :root {
-  --color-golden-brown: rgb(187, 161, 117);
+  --color-golden-brown: rgb(158, 145, 106);
   --color-pale-yellow: rgb(252, 237, 194);
   --color-faded-yellow: rgb(153, 150, 143);
   --color-light-coral: rgb(235, 153, 121);
   --color-vibrant-coral: rgb(250, 137, 92);
-  --bg-dark-brown: rgb(51, 49, 49);
+  --bg-dark-brown: rgb(63, 46, 34);
   --bg-dark-gray: rgb(30, 30, 30);
   --color-mustard: rgb(255, 193, 7);
+  --color-blue: rgb(33, 112, 94);
 }
 
 * {
@@ -85,11 +86,11 @@
 /* Home page START */
 
 .home-container {
-  min-height: 78vh;
+  min-height: 81vh;
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: var(--bg-dark-gray);
+  background-color: var(--bg-dark-brown);
   margin-bottom: -4rem;
 }
 
@@ -246,9 +247,9 @@ footer {
 
 .landing-page-main {
   /* Add padding to push content below the header and above the footer */
-  padding-top: 80px;
+  /* padding-top: 80px; */
   /* Adjust to your header's height */
-  padding-bottom: 60px;
+  /* padding-bottom: 60px; */
   /* Adjust to your footer's height */
   /* Or use flexbox/grid for more complex layouts */
   background-color: black;
@@ -258,6 +259,51 @@ footer {
   color: var(--color-pale-yellow);
 }
 
+.landing-page-main .about-app{
+  background-color: var(--bg-dark-brown);
+}
+.landing-page-main .transparent{
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* 
+.landing-page-main h1{
+  font-size: 2.4rem;
+} */
+
+.landing-page-main .rounded-box{
+  border-radius: 2rem;
+  border: 2px solid var(--color-golden-brown);
+}
+
+.landing-page-main .dashed{
+  border: 2px dashed var(--color-golden-brown);
+}
+
+.landing-page-main .card-detail {
+  background-color: var(--bg-dark-gray);
+  border-top: 2px solid var(--color-golden-brown);
+  height: 160px;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem
+}
+
+.landing-page-main .card-content{
+  text-align: center;
+}
+
+.landing-page-main .card-detail{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.landing-page-main .about{
+  align-items: center;
+  justify-content: center;
+}
 
 
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
