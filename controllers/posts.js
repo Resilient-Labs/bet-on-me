@@ -190,39 +190,47 @@ module.exports = {
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
 
   
-  // users joining a cluster code - shawn
-  joinCluster: async (req, res) => {
-    console.log('hi')
-    try {
-      const joinCode = req.body.code;
+ joinCluster: async (req, res) => {
+  try {
+    const joinCode = req.body.code;
 
-      console.log(joinCode)
+    const cluster = await Cluster.findOne({
+      cluster_join_id: joinCode,
+    });
 
-      const cluster = await Cluster.findOne({
-        cluster_join_id: joinCode,
-      });
-
-      if (!cluster) {
-        return res.status(404).send("Cluster not found");
-      }
-
-      // prevent duplicate joins!!
-      if (cluster.cluster_members.includes(req.user.id)) {
-        return res.status(400).send("Already a member of this cluster");
-      }
-
-      cluster.cluster_members.push(req.user.id);
-      // update member count by 1
-      cluster.member_count += 1;
-
-      await cluster.save();
-
-      res.redirect("/userProfile");
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Error joining cluster");
+    if (!cluster) {
+      req.flash("error_msg", "Cluster not found");
+      return res.redirect("/clusters/join");
     }
-  },
+
+    //  Atomic MongoDB-level protection against duplicates
+    const result = await Cluster.updateOne(
+      {
+        _id: cluster._id,
+        cluster_members: { $ne: req.user._id }, // only update if not already a member
+      },
+      {
+        $addToSet: { cluster_members: req.user._id },
+        $inc: { member_count: 1 },
+      }
+    );
+
+    // If no document was modified, user was already in the group
+    if (result.modifiedCount === 0) {
+      req.flash("error_msg", "Already in group");
+      return res.redirect("/clusters/join");
+    }
+
+    req.flash("success_msg", "Joined cluster successfully");
+    res.redirect("/userProfile");
+  } catch (err) {
+    console.error(err);
+    req.flash("error_msg", "Error joining cluster");
+    res.redirect("/clusters/join");
+  }
+},
+
+
 
   // letting users leave a cluster - shawn
   leaveCluster: async (req, res) => {
