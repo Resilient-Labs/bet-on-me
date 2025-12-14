@@ -2,11 +2,12 @@
 <div class="container">
   <div class="row mt-5">
       <div class="col-6">
-          <div>
-              <p><strong>User Name</strong>: <%= user.userName %></p>
-              <p><strong>Email</strong>: <%= user.email %></p>
+            <div>
+              <p><strong>User Name</strong>: <span class="user-name"><%= user.userName %></span></p>
+              <p><strong>Email</strong>: <span class="user-name"><%= user.email %></span></p>
+              <p><strong>Member Since</strong>: <span class="user-name"><%= typeof memberSince !== 'undefined' ? memberSince : 'Unknown' %></span></p>
               <a href="/logout" class="col-3 btn btn-primary">Logout</a>
-          </div>
+            </div>
           <div class="mt-5">
             <h2>Add a post</h2>
             <form action="/post/createPost" enctype="multipart/form-data" method="POST">
