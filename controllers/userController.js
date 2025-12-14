@@ -31,9 +31,23 @@ exports.getProfile = async (req, res) => {
       cluster_members: req.params.id,
     }).lean();
 
-    res.render("profilePage", { 
+    // compute memberSince for this user
+    let memberSince = 'Unknown';
+    try {
+      if (user && user.createdAt) {
+        memberSince = new Date(user.createdAt).toLocaleDateString('en-US');
+      } else if (user && user._id) {
+        const hex = user._id.toString().substring(0, 8);
+        memberSince = new Date(parseInt(hex, 16) * 1000).toLocaleDateString('en-US');
+      }
+    } catch (e) {
+      memberSince = 'Unknown';
+    }
+
+    res.render("profilePage", {
       user,
-      clusters: userClusters 
+      clusters: userClusters,
+      memberSince,
     });
   } catch (err) {
     console.error(err);

@@ -9,7 +9,20 @@ module.exports = {
   getProfile: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
-      res.render("profile.ejs", { posts: posts, user: req.user, showProfileBubble: true });
+      // compute memberSince on the server so the view can simply print it
+      let memberSince = 'Unknown';
+      try {
+        if (req.user && req.user.createdAt) {
+          memberSince = new Date(req.user.createdAt).toLocaleDateString('en-US');
+        } else if (req.user && req.user._id) {
+          const hex = req.user._id.toString().substring(0, 8);
+          memberSince = new Date(parseInt(hex, 16) * 1000).toLocaleDateString('en-US');
+        }
+      } catch (e) {
+        memberSince = 'Unknown';
+      }
+
+      res.render("profile.ejs", { posts: posts, user: req.user, memberSince, showProfileBubble: true });
     } catch (err) {
       console.log(err);
     }
