@@ -72,13 +72,20 @@
                 <!-- Task List -->
                 <ul id="task-list">
                     <% for(var i=0; i<tasks.length; i++) {%>
-                        <li class="task-buttons <%= tasks[i].completed ? 'completed' : '' %>">
-                            <input type="checkbox" class="checkbox" <%=tasks[i].completed ? 'checked' : '' %>
-                            data-id="<%= tasks[i]._id %>">
-                                <span name="<%= tasks[i]._id %>"> <%=tasks[i].task_name%></span>
-                                <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
-                                <input type="hidden" class="task-id" value="<%= tasks[i]._id %>">
+                        <li class="task-buttons <%= tasks[i].completed ? 'completed' : '' %>" data-id="<%= tasks[i]._id %>">
+                            <input type="checkbox" class="checkbox" <%=tasks[i].completed ? 'checked' : '' %> data-completed="<%= tasks[i].completed %>">
+                            <span class="task-text"><%= tasks[i].task_name %></span>
+                            
+                            <!-- inline editing -->
+                            <form class="edit-task-form d-none">
+                                <input type="text" class="task-input d-none" value="<%= tasks[i].task_name %>">
+                                <button type="button" class="save-btn d-none"><i class="fa-solid fa-check"></i></button>
+                                <button type="button" class="cancel-btn d-none"><i class="fa-solid fa-xmark"></i></button>
+                            </form>
+                            
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <input type="hidden" class="task-id" value="<%= tasks[i]._id %>">
                         </li>
                     <% } %>
                 </ul>
@@ -88,5 +95,5 @@
     </div>
 
     <script src="/js/stripe.js"></script>
-    <script src="/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>

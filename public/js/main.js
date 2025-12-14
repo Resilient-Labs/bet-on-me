@@ -1,4 +1,3 @@
-// INLINE EDITING
 document.querySelectorAll("#task-list li").forEach((li) => {
   const editBtn = li.querySelector(".edit-btn");
   const deleteBtn = li.querySelector(".delete-btn");
@@ -15,15 +14,13 @@ document.querySelectorAll("#task-list li").forEach((li) => {
     e.preventDefault();
   });
 
-  // Edit Mode
+  // edit Mode
   editBtn.onclick = () => {
     // hide span & edit button
     span.classList.add("d-none");
     editBtn.classList.add("d-none");
     deleteBtn.classList.add("d-none");
     checkbox.classList.add("d-none");
-
-    input.focus();
 
     // show input, save & cancel button
     input.classList.remove("d-none");
@@ -48,7 +45,7 @@ document.querySelectorAll("#task-list li").forEach((li) => {
     checkbox.classList.remove("d-none");
   };
 
-  // Cancel Edit Mode
+  // cancel edit mode
   cancelBtn.onclick = () => {
     // reset input value to prevent stale text on edit
     input.value = span.textContent;
@@ -59,13 +56,12 @@ document.querySelectorAll("#task-list li").forEach((li) => {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       if (!input.classList.contains("d-none")) {
-        console.log("by");
         cancelBtn.onclick();
       }
     }
   });
 
-  // Save Mode
+  // save Mode
   saveBtn.onclick = async () => {
     const updatedTask = input.value.trim();
 
@@ -90,7 +86,7 @@ document.querySelectorAll("#task-list li").forEach((li) => {
 
   let isCompleted = checkbox.dataset.completed === "true";
 
-  // Update task completion status
+  // update task completion status
   checkbox.onclick = async () => {
     isCompleted = !isCompleted;
 
@@ -115,11 +111,11 @@ document.querySelectorAll("#task-list li").forEach((li) => {
   };
 });
 
-// DELETE TASK
+// delete task
 const trash = document.getElementsByClassName("fa-trash");
 Array.from(trash).forEach(function (element) {
   element.addEventListener("click", function () {
-    const _id = this.closest("li").querySelector("span").getAttribute("name");
+    const _id = this.closest("li").querySelector(".task-id").value;
     fetch(`/task/${_id}`, {
       method: "delete",
       headers: {
@@ -132,9 +128,11 @@ Array.from(trash).forEach(function (element) {
   });
 });
 
-
-//Home page - Show form to create a group 
-document.getElementById('showFormBtn').addEventListener('click', function() {
+//home page - show form to create a group 
+const showFormBtn = document.getElementById('showFormBtn');
+if (showFormBtn) {
+  showFormBtn.addEventListener('click', function() {
     this.style.display = 'none';
     document.getElementById('createGroupForm').style.display = 'block';
-});
+  });
+}

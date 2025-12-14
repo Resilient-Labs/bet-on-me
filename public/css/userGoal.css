@@ -239,7 +239,7 @@ a.btn.btn-default {
 }
 
 #task-list li:hover {
-    box-shadow: 0 0 10px (0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #task-list li .checkbox {
@@ -287,7 +287,6 @@ a.btn.btn-default {
 .task-buttons {
     display: flex;
     margin-right: auto;
-    gap: 10px;
 }
 
 .task-buttons button {
@@ -320,42 +319,44 @@ a.btn.btn-default {
 .edit-task-form {
     display: flex;
     width: 100%;
+    align-items: center;
+}
 
-    span {
-        display: flex;
-        justify-content: space-between;
-    }
+.edit-task-form span {
+    display: flex;
+    justify-content: space-between;
+}
 
-    .save-btn {
-        background-color: forestgreen;
-    }
+.edit-task-form .save-btn {
+    background-color: forestgreen;
+    margin-right: 8px;
+}
 
-    .cancel-btn {
-        background-color: slategrey;
-    }
+.edit-task-form .cancel-btn {
+    background-color: slategrey;
 }
 
 button.d-none,
 input.d-none,
 span.d-none,
 form.d-none {
-    display: none;
+    display: none !important;
 }
 
 input.task-input {
-    align-items: center;
+    flex: 1;
     background: transparent;
     padding: 8px 10px;
-    margin: -8px 4px -8px 0;
+    margin: 0 4px 0 0;
     border-radius: 30px;
     font-size: 1.2rem;
-    position: relative;
     color: #ddd;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 input.task-input:focus {
     outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 .goal-completed{
