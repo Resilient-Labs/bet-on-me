@@ -50,6 +50,9 @@ module.exports = {
       const posts = await Post.find({ user: req.user.id });
       const tasks = await Task.find({ user: req.user.id });
       const goals = await getUserGoals(req.user.id);
+      res.render("userGoal.ejs", { posts, user: req.user, tasks, goals, showProfileBubble: false });
+      const goals = await Goal.findOne({ user: req.user.id });
+      // const goals = await getUserGoals(req.user.id);
       res.render("userGoal.ejs", { posts, user: req.user, tasks, goals });
     } catch (err) {
       console.log(err);
