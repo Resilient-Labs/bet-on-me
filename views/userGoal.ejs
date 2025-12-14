@@ -26,15 +26,15 @@
             </p>
 
             <% if (goals) { %>
-                    <div class="big-thing">
-                        <%if(goals?.user==user.id){ %>
-                            <form class="input-area goal-setting" action="/goal/" method="POST">
-                                <input type="text" placeholder="Enter Your Goal" id="bigGoal" name="name"
-                                    value="<%= goals?.name %>" />
-                                    <!-- have the original inputed goal inside the input field -->
-                                <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                                <button class="add-btn" id="saveBigThing"><i class="fa-solid fa-plus"></i></button>
-                            </form>
+                <div class="big-thing">
+                    <%if(goals?.user==user.id){ %>
+                        <form class="input-area goal-setting" action="/goal/" method="POST">
+                            <input type="text" placeholder="Enter Your Goal" id="bigGoal" name="name"
+                                value="<%= goals?.name %>" />
+                            <!-- have the original inputed goal inside the input field -->
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="add-btn" id="saveBigThing"><i class="fa-solid fa-plus"></i></button>
+                        </form>
                         <%}%>
                 </div>
 
@@ -43,28 +43,29 @@
                     <div class="user-money">$<%= goals?.wagerAmount %>
                     </div>
                     <p style="color: #4CAF50; margin-top: 10px;"> Wager Placed</p>
-                <% } else { %>
-                    <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
-                        <input type="number" id="wager-amount" placeholder="Amount" min="1" step="1"
-                            style="width: 100px; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
-                        <button id="place-wager-btn" class="add-btn">
-                            <i class="fa-solid fa-dollar-sign"></i> Place Wager
-                        </button>
-                    </div>
-                <% } %>
-            <% } else { %>
-                <!-- add form -->
-                <div class="big-thing">
-                            <form class="input-area goal-setting" action="/goal/" method="POST">
-                                <input type="text" placeholder="Enter Your Goal" id="bigGoal" name="name"
-                                    value="<%= goals?.name %>" />
-                                <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                                <button class="add-btn" id="saveBigThing"><i class="fa-solid fa-plus"></i></button>
-                            </form>
-                </div>
-                <h4>Goal Wager</h4>
-                <p style="color: #999;">Create a goal first</p>
-            <% } %>
+                    <% } else { %>
+                        <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+                            <input type="number" id="wager-amount" placeholder="Amount" min="1" step="1"
+                                style="width: 100px; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+                            <button id="place-wager-btn" class="add-btn">
+                                <i class="fa-solid fa-dollar-sign"></i> Place Wager
+                            </button>
+                        </div>
+                        <% } %>
+                            <% } else { %>
+                                <!-- add form -->
+                                <div class="big-thing">
+                                    <form class="input-area goal-setting" action="/goal/" method="POST">
+                                        <input type="text" placeholder="Enter Your Goal" id="bigGoal" name="name"
+                                            value="<%= goals?.name %>" />
+                                        <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="add-btn" id="saveBigThing"><i
+                                                class="fa-solid fa-plus"></i></button>
+                                    </form>
+                                </div>
+                                <h4>Goal Wager</h4>
+                                <p style="color: #999;">Create a goal first</p>
+                                <% } %>
         </div>
     </div>
 
@@ -99,7 +100,11 @@
                                 <% } %>
                         </ul>
                     </div>
-                    <button class="goal-completed">Goal Completed</button>
+                    <!-- <button class="goal-completed">Goal Completed</button> -->
+                    <form method="POST" action="/goals/<%= goal._id %>?_method=PUT" style="display:inline;">
+                        <button type="submit" class="complete-btn">Complete</button>
+                    </form>
+
         </div>
     </div>
 
