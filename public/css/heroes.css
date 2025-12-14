@@ -1,3 +1,138 @@
+/* ===================================== */
+/* COLOR PALETTE                         */
+/* ===================================== */
+
+:root {
+    --color-golden-brown: rgb(187, 161, 117);
+    --color-pale-yellow: rgb(252, 237, 194);
+    --color-faded-yellow: rgb(153, 150, 143);
+    --color-light-coral: rgb(235, 153, 121);
+    --color-vibrant-coral: rgb(250, 137, 92);
+    --color-vibrant-gold: rgb(247, 174, 28);
+    --bg-dark-brown: rgb(51, 49, 49);
+    --bg-dark-gray: rgb(30, 30, 30);
+    --color-turqoise-blue: rgb(41, 188, 186);
+}
+
+/* ===================================== */
+/* GENERAL STYLES                        */
+/* ===================================== */
+
+.my-5 {
+  background-color: var(--bg-dark-brown);
+}
+
+.lead {
+  color: var(--color-pale-yellow);
+}
+
+.color-match {
+  color: var(--color-turqoise-blue);
+}
+
+/* ===================================== */
+/* BUTTONS                               */
+/* ===================================== */
+
+.join-btn, 
+.join-btn:hover {
+  color: black !important;
+  text-decoration: none !important;
+}
+
+.gold-btn {
+  border-color: var(--color-vibrant-gold) !important;
+  color: var(--color-vibrant-gold) !important;
+}
+
+.gold-btn:hover {
+  background-color: var(--color-vibrant-gold) !important;
+  border-color: var(--color-vibrant-gold) !important;
+  color: white !important; 
+}
+
+/* ===================================== */
+/* HERO IMAGE                            */
+/* ===================================== */
+
+.gold-border {
+  border: solid var(--color-vibrant-gold) 2px;
+}
+
+.hero-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===================================== */
+/* ABOUT SECTION                         */
+/* ===================================== */
+
+.about-section {
+  padding-top: 50px;
+  padding-bottom: 100px;
+  background: black;
+}
+
+.about-section h1 {
+  color: white !important;
+  padding-top: 20px;
+}
+
+.about-logo-box {
+  background-color: black;
+  border: 2px dashed var(--color-vibrant-gold);
+  border-radius: 10px;
+
+  /* Responsive sizing */
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 520 / 355;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px;
+}
+
+
+.about-logo-box img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+/* ===================================== */
+/* FEATURE CARDS                         */
+/* ===================================== */
+
+.feature-card {
+  background-color: var(--bg-dark-brown);
+  border: 2px solid var(--color-vibrant-gold);
+}
+
+.feature-card-image {
+  background-color: var(--bg-dark-gray);
+  border-top: 2px solid var(--color-vibrant-gold);
+  height: 160px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  transition: 0.3s ease;
+  box-shadow: 0 0 15px var(--color-vibrant-gold);
+}
+
+/* ===================================== */
+/* RESPONSIVE FIXES                      */
+/* ===================================== */
+
 @media (min-width: 992px) {
   .rounded-lg-3 { border-radius: .3rem; }
 }
