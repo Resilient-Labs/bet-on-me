@@ -5,9 +5,9 @@ const Task = require("../models/Task");
 module.exports = {
   getTeamPage: async (req, res) => {
     try {
-      const cluster = await Cluster.findById(req.params.clusterId)
-        .populate("cluster_members")
-        .lean();
+      const cluster = await Cluster.findOne({
+        cluster_members: req.user.id,
+      });
 
       if (!cluster) {
         return res.status(404).send("Team not found");

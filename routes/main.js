@@ -26,7 +26,7 @@ router.get("/createCluster", ensureAuth, postsController.getClusterCreationPage)
 
 
 
-router.get("/teamPage/:clusterId", ensureAuth, teamPageController.getTeamPage);
+router.get("/teamPage", ensureAuth, teamPageController.getTeamPage);
 
 
 
