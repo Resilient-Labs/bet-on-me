@@ -16,6 +16,7 @@ module.exports = {
 
       const updatedGoal = await Goal.findOneAndUpdate({
         user: req.user.id,
+        completed:false
       },{
         name
       })
