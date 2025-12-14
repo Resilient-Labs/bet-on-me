@@ -120,7 +120,8 @@ document.querySelectorAll("#task-list li").forEach((li) => {
 });
 
 // DELETE TASK
-const trash = document.getElementsByClassName("fa-trash");
+const trash = document.querySelectorAll("#task-list .fa-trash");
+
 Array.from(trash).forEach(function (element) {
   element.addEventListener("click", function () {
     const _id = this.closest("li").querySelector("span").getAttribute("name");
@@ -136,9 +137,8 @@ Array.from(trash).forEach(function (element) {
   });
 });
 
-
-//Home page - Show form to create a group 
-document.getElementById('showFormBtn').addEventListener('click', function() {
-    this.style.display = 'none';
-    document.getElementById('createGroupForm').style.display = 'block';
+//Home page - Show form to create a group
+document.getElementById("showFormBtn")?.addEventListener("click", function () {
+  this.style.display = "none";
+  document.getElementById("createGroupForm").style.display = "block";
 });

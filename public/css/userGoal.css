@@ -274,7 +274,8 @@ a.btn.btn-default {
 }
 
 .strike-through {
-    text-decoration: line-through;
+    text-decoration: 2px line-through aliceblue;
+    color: aliceblue;
     opacity: 0.6;
     font-style: italic;
 }
@@ -283,11 +284,6 @@ a.btn.btn-default {
     flex: 1;
     margin-left: 10px;
     word-wrap: break-word;
-}
-
-#task-list li.completed span {
-    text-decoration: 2px line-through aliceblue;
-    color: aliceblue;
 }
 
 .task-buttons {

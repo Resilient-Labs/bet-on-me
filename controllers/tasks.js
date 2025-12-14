@@ -66,6 +66,7 @@ module.exports = {
       res.status(500).send("Server error");
     }
   },
+
   createTask: async (req, res) => {
     try {
       // enforce 10-task-per-user limit
@@ -79,12 +80,20 @@ module.exports = {
         });
       }
 
+      const goal = await Goal.findOne({ user: req.user.id });
+
       // Create the task
       await Task.create({
         task_name: req.body.title,
         creator_user_id: req.user.id,
         task_is_completed: false,
         user: req.user.id,
+        goal_id: goal.id,
+      });
+
+      // reset goal to not completed when a new task is added
+      await Goal.findByIdAndUpdate(goal.id, {
+        completed: false,
       });
 
       console.log("Task has been added!");
