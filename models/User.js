@@ -14,14 +14,14 @@ const UserSchema = new mongoose.Schema({
   resetPasswordToken: { type: String },
   //sets the date a token was created, token expires within one day
   resetPasswordExpires: { type: Date }
-});
+}, { timestamps: true });
 
 // Password hash middleware.
 
 UserSchema.pre('save', async function () {
   if (!this.isModified('password')) return;
   this.password = await bcrypt.hash(this.password, 10);
-});
+}, { timestamps: true });
 
 // Helper method for validating user's password.
 
