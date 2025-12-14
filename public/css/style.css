@@ -90,13 +90,12 @@
     flex-direction: column;
     width: 100%;
     background-color: var(--bg-dark-gray);
-    margin-top: 5rem;
+    margin-bottom: -4rem;
 }
-
-
 
 .home-container .home-body {
     flex: 1;
+    margin-bottom: 4rem;
 }
 
 .home-header {
@@ -226,6 +225,10 @@ footer {
   padding-bottom: 60px; /* Adjust to your footer's height */
   /* Or use flexbox/grid for more complex layouts */
   background-color: black;
+}
+
+.landing-page-main .bright{
+  color: var(--color-pale-yellow);
 }
 
 
