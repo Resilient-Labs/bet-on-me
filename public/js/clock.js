@@ -34,6 +34,8 @@ Setting up a day to save this in localStorage so it doesn't go away as you navig
   //# sourceURL=coffeescript
 
 let countdown = null;
+let deleteCluster = document.getElementById('endGameBtn')
+deleteCluster.style.display = 'none'
 
 function initClock() {
   if (countdown) return; // already initialized
@@ -88,10 +90,17 @@ function clearClockState() {
   
   // Show leave button, hide start button
   const fetchBtn = document.getElementById('fetchButton');
-  const leaveBtn = document.getElementById('leaveButton');
-  
+  const teamProgressTitle = document.getElementById('teamProgressTitle');
+
   if (fetchBtn) fetchBtn.style.display = 'none';
-  if (leaveBtn) leaveBtn.style.display = 'block';
+  if (deleteCluster) {
+   setTimeout(() => {
+     deleteCluster.style.display = 'block';
+   }, 1000); // slight delay to ensure countdown UI updates first
+  }
+  if (teamProgressTitle) {  
+    teamProgressTitle.innerText = "Cluster Completed!";
+  }
 }
 
 function restoreCountdown() {

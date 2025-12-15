@@ -8,7 +8,7 @@
         <div class="col-lg-8 col-md-7">
           <div class="card shadow-lg border-0 team-card">
             <div class="text-center card-header team-card-header">
-              <h2 class="mb-0 text-dark fw-bold">
+              <h2 class="mb-0 text-dark fw-bold" id="teamProgressTitle">
                 <i class="bi me-2"></i>Team Progress
               </h2>
             </div>
@@ -74,9 +74,14 @@
                   <button id="fetchButton" class="btn btn-outline-dark ms-auto">Start Timer</button>
                   <% } %>
 
-                    <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                   
                       <button id="leaveButton" class="btn btn-outline-dark ms-auto">Leave Cluster</button>
-                      <% } %>
+                      
+                       <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                        <form action="/teamPage/deleteTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
+                          <button id="endGameBtn">Delete Cluster</button>
+                        </form>
+                        <% } %>
               </div>
 
 
