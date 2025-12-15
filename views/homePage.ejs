@@ -51,4 +51,17 @@
     </div>
     <script src="js/main.js"></script>
 
+    <!-- Innocent -->
+
+    <% if (messages.lateJoin) { %>
+  <div class="modal-overlay">
+    <div class="modal-box">
+      <h2>Too late to join the group!</h2>
+      <p><%= messages.lateJoin[0] %></p>
+      <button class="btn btn-primary" onclick="closeLateModal()">Okay</button>
+    </div>
+  </div>
+<% } %>
+
+
     <%- include('partials/footer') -%>
