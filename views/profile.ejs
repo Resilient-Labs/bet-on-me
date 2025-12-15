@@ -1,298 +1,247 @@
 <%- include('partials/header') -%>
 
-<div class="team-progress-container">
-  <div class="container py-5">
-    <div class="row g-4">
+  <div class="team-progress-container">
+    <div class="container py-5">
+      <div class="row g-4">
 
-      <!-- LEFT COLUMN -->
-      <div class="col-lg-4">
+        <!-- LEFT COLUMN -->
+        <div class="col-lg-4">
 
-        <!-- PROFILE CARD -->
-        <div class="card shadow-sm text-center mb-4 user-card">
-          <div class="card-body">
+          <!-- PROFILE CARD -->
+          <div class="card shadow-sm text-center mb-4 user-card">
+            <div class="card-body">
 
-            <!-- PROFILE IMAGE -->
-            <img
-src="<%= user.profile_image || 'https://via.placeholder.com/150' %>"
-              class="rounded-circle mb-3"
-              width="300"
-              height="300"
-              style="border: 3px solid var(--color-golden-brown);"
-            >
+              <!-- PROFILE IMAGE -->
+              <img src="<%= user.profile_image || 'https://via.placeholder.com/150' %>" class="rounded-circle mb-3"
+                width="300" height="300" style="border: 3px solid var(--color-golden-brown);">
 
-          <form
-          action="/users/update-picture"
-          method="POST"
-          enctype="multipart/form-data"
-          class="mt-2"
-        >
-          <input
-            type="file"
-            name="profile_image"
-            id="imageUpload"
-            class="d-none"
-            accept="image/*"
-          >
+              <form action="/users/update-picture" method="POST" enctype="multipart/form-data" class="mt-2">
+                <input type="file" name="profile_image" id="imageUpload" class="d-none" accept="image/*">
 
-          <label
-            for="imageUpload"
-            class="btn btn-sm w-100"
-            style="
-              cursor: pointer;
-              background-color: var(--color-golden-brown);
-              color: var(--bg-dark-gray);
-              border: none;
-              font-weight: 500;
-            "
-          >
-            Change Profile Photo
-          </label>
-        </form>
+                <label for="imageUpload" class="a1 btn btn-sm w-100 a1">
+                  Change Profile Photo
+                </label>
+              </form>
 
 
-            <h5 class="mb-1 text-white"><%= user.userName %></h5>
-            <p class="text-muted small"><%= user.email %></p>
-
-
-          </div>
-        </div>
-
-        <!-- ACCOUNT INFO -->
-        <div class="card shadow-sm mb-4 user-card">
-          <div class="card-body">
-            <h5 class="mb-3" style="color: var(--color-golden-brown);">Account Info</h5>
-
-            <p class="text-white"><strong style="color: var(--color-pale-yellow);">User Name:</strong> <%= user.userName %></p>
-            <p class="text-white"><strong style="color: var(--color-pale-yellow);">Email:</strong> <%= user.email %></p>
-            <p class="mb-0 text-white">
-              <strong style="color: var(--color-pale-yellow);">Member Since:</strong> <%= new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) %>
-            </p>
-          </div>
-        </div>
-
-        <!-- ACCOUNT ACTIONS -->
-        <div class="card shadow-sm user-card">
-          <div class="card-body">
-
-            <button
-              class="btn w-100 mb-2"
-              data-bs-toggle="modal"
-              data-bs-target="#changePasswordModal"
-              style="background-color: var(--color-light-coral); color: var(--bg-dark-gray); border: none; font-weight: 500;"
-            >
-              Change Password
-            </button>
-
-            <button
-              class="btn w-100"
-              data-bs-toggle="modal"
-              data-bs-target="#deleteAccountModal"
-              style="background-color: #dc3545; color: white; border: none; font-weight: 500;"
-            >
-              Delete Account
-            </button>
-
-          </div>
-        </div>
-
-      </div>
-
-      <!-- RIGHT COLUMN -->
-      <div class="col-lg-8">
-
-        <!-- GOAL CLUSTER -->
-        <div class="card shadow-sm mb-4" style="border: 2px solid var(--color-golden-brown);">
-          <div class="card-header" style="background-color: var(--color-golden-brown); border: none; padding: 1.5rem;">
-            <h4 class="mb-0" style="color: #000;">Your Goal Cluster</h4>
-          </div>
-          <div class="card-body" style="background-color: var(--color-pale-yellow);">
-
-            <!-- CLUSTER NAME -->
-            <div class="d-flex align-items-center mb-4">
-              <h5 class="mb-0 me-3" style="color: #000;">
-                <!-- cluster.cluster_name -->
-                CLUSTER_NAME_HERE
+              <h5 class="mb-1 text-white">
+                <%= user.userName %>
               </h5>
-              <span class="badge" style="background-color: #000; color: var(--color-golden-brown); width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem;">
-                <!-- cluster.member_count -->
-                MEMBER_COUNT
-              </span>
+
+
+
             </div>
+          </div>
 
-            <!-- MEMBERS HEADER -->
-            <h6 class="mb-3" style="color: #000; font-weight: 600;">Members</h6>
+          <!-- ACCOUNT INFO -->
+          <div class="card shadow-sm mb-4 user-card">
+            <div class="card-body">
+              <h5 class="mb-3" style="color: var(--color-golden-brown);">Account Info</h5>
 
-           <!-- MEMBERS LIST -->
-<div class="row g-3">
+              <p class="text-white"><strong style="color: var(--color-pale-yellow);">User Name:</strong>
+                <%= user.userName %>
+              </p>
+              <p class="text-white"><strong style="color: var(--color-pale-yellow);">Email:</strong>
+                <%= user.email %>
+              </p>
+              <p class="mb-0 text-white">
+                <strong style="color: var(--color-pale-yellow);">Member Since:</strong>
+                <!-- new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long' , year: 'numeric' })  -->
+              </p>
+            </div>
+          </div>
 
-  <div class="col-md-6">
-    <div
-      class="d-flex align-items-center p-3 rounded"
-      style="background-color: var(--color-golden-brown); border: 1px solid #000;"
-    >
+          <!-- ACCOUNT ACTIONS -->
+          <div class="card shadow-sm user-card">
+            <div class="card-body">
 
-      <img
-        src="<%= user.profile_image || 'https://via.placeholder.com/50' %>"
-        class="rounded-circle me-3"
-        width="50"
-        height="50"
-        style="border: 2px solid #000;"
-      />
+              <button class="a2 btn w-100 mb-2" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                Change Password
+              </button>
 
-      <span class="fw-semibold" style="color: #000;">
-        <%= user.userName %>
-        <span class="badge ms-2" style="background-color: #000; color: var(--color-golden-brown);">
-          You
-        </span>
-      </span>
+              <button class="a3 btn w-100" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                Delete Account
+              </button>
 
-    </div>
-  </div>
+            </div>
+          </div>
 
-</div>
+        </div>
 
-            <hr class="my-4" style="border-color: var(--color-golden-brown); border-width: 2px;">
+        <!-- RIGHT COLUMN -->
+        <div class="col-lg-8">
 
-            <!-- JOIN CODE -->
-            <p class="small mb-0" style="color: #000;">
-              Join Code: 
-              <strong style="color: #000; font-size: 1.1rem;">
+          <!-- GOAL CLUSTER -->
+          <div class="card shadow-sm mb-4" style="border: 2px solid var(--color-golden-brown);">
+            <div class="card-header"
+              style="background-color: var(--color-golden-brown); border: none; padding: 1.5rem;">
+              <h4 class="mb-0" style="color: #000;">Your Goal Cluster</h4>
+            </div>
+            <div class="card-body" style="background-color: var(--color-pale-yellow);">
+
+              <!-- CLUSTER NAME -->
+              <div class="d-flex align-items-center mb-4">
+                <h5 class="mb-0 me-3" style="color: #000;">
+                  <!-- cluster.cluster_name -->
+                  CLUSTER_NAME_HERE
+                </h5>
+
+              </div>
+
+              <!-- MEMBERS HEADER -->
+              <h6 class="mb-3">Members</h6>
+
+              <!-- MEMBERS LIST -->
+              <div class="row g-3">
+
+                <!-- cluster.members.forEach(member => {  -->
+                <div class="col-md-6">
+                  <div class="d-flex align-items-center p-3 rounded"
+                    style="background-color: var(--color-golden-brown); border: 1px solid #000;">
+
+                    <img src="<%= user.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
+                      width="50" height="50" style="border: 2px solid #000;" />
+
+                    <span class="fw-semibold">
+                      <!-- member.userName  -->
+
+                      <!-- if (member._id.toString() === user._id.toString()) {  -->
+                      <span class="badge ms-2" style="background-color: #000; color: var(--color-golden-brown);">
+                        You
+                      </span>
+
+                    </span>
+
+                  </div>
+                </div>
+
+
+              </div>
+
+              <hr class="my-4" style="border-color: var(--color-golden-brown); border-width: 2px;">
+
+              <!-- JOIN CODE -->
+              <p class=" mb-0">
+                Join Code:
+              <h3>
                 <!-- cluster.cluster_join_id -->
                 JOIN_CODE
-              </strong>
-            </p>
+              </h3>
+              </p>
 
+            </div>
           </div>
+
+          <!-- COMPLETED GOALS -->
+          <div class="card shadow-sm" style="border: 2px solid var(--color-golden-brown);">
+            <div class="card-header">
+              <h4 class="mb-0" style="color: #000;">Completed Goal History</h4>
+            </div>
+            <div class="card-body" style="background-color: var(--color-pale-yellow); padding: 1.5rem;">
+
+              <!-- MONTHLY GOALS SECTION (repeat for each month) -->
+              <div class="mb-4">
+                <!-- MONTH HEADER -->
+                <div class="d-flex align-items-center mb-3">
+                
+
+
+                  <h6 class="mb-0 me-3">
+                     Goals Completed :
+                     <!-- goalCount-->
+                  </h6>
+
+                </div>
+
+                <!-- LIST OF GOAL HISTORY -->
+                <div class="list-group">
+
+                  <!-- GOAL ITEM (repeat for each goal) -->
+                  <div class="list-group-item d-flex justify-content-between align-items-start"
+                    style="background-color: var(--color-golden-brown); border: 1px solid #000; margin-bottom: 0.5rem;">
+                    <div class="ms-2 me-auto">
+                      <div class="fw-bold" style="color: #000;">
+                        <!-- goal.title -->
+                        GOAL_TITLE
+                      </div>
+                      <small style="color: #000; opacity: 0.8;">
+                        Completed on
+                        <!-- goal.completedAt formatted date -->
+                        COMPLETION_DATE
+                      </small>
+                    </div>
+                    <span style="font-size: 1.5rem; color: #000;">✓</span>
+                  </div>
+                  <!-- END GOAL ITEM -->
+
+                </div>
+              </div>
+              <!-- END MONTHLY SECTION -->
+
+              <!-- IF NO COMPLETED GOALS -->
+              <div class="text-center py-4" style="color: #000; opacity: 0.7;">
+                <p class="mb-0">No completed goals yet. Keep working towards your goals!</p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+   
+    <script src="js/clock.js"></script>
+  </div>
+
+  <!-- CHANGE PASSWORD MODAL -->
+  <div class="modal fade" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content login-modal">
+
+        <div class="modal-header" style="border-bottom: 2px solid var(--color-golden-brown);">
+          <h5 class="modal-title" style="color: var(--color-pale-yellow); font-size: 1.5rem;">Change Password</h5>
+          <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
 
-        <!-- COMPLETED GOALS -->
-        <div class="card shadow-sm" style="border: 2px solid var(--color-golden-brown);">
-          <div class="card-header" style="background-color: var(--color-golden-brown); border: none; padding: 1.5rem;">
-            <h4 class="mb-0" style="color: #000;">Completed Goal History</h4>
-          </div>
-          <div class="card-body" style="background-color: var(--color-pale-yellow); padding: 1.5rem;">
+        <div class="modal-body">
+          <form action="/profile/changePassword" method="POST">
 
-            <!-- MONTHLY GOALS SECTION (repeat for each month) -->
-            <div class="mb-4">
-              <!-- MONTH HEADER -->
-              <div class="d-flex align-items-center mb-3">
-                <h6 class="mb-0 me-3" style="color: #000; font-weight: 600;">
-                  <!-- e.g., "December 2025" -->
-                  MONTH_YEAR
-                </h6>
-                <span class="badge" style="background-color: #000; color: var(--color-golden-brown); font-size: 0.9rem; padding: 0.5rem 1rem;">
-                  <!-- number of goals completed that month -->
-                  GOAL_COUNT
+            <div class="mb-3">
+              <label class="form-label" style="color: var(--color-pale-yellow);">Current Password</label>
+              <input type="password" class="form-control" name="currentPassword" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" style="color: var(--color-pale-yellow);">New Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" name="newPassword" id="newPassword"
+                  placeholder="Minimum 10 characters" required>
+                <span class="input-group-text" onclick="togglePassword('newPassword')"
+                  style="cursor: pointer; background-color: var(--color-pale-yellow);">
+                  👁️
                 </span>
               </div>
-
-              <!-- GOALS LIST -->
-              <div class="list-group">
-                
-                <!-- GOAL ITEM (repeat for each goal) -->
-                <div class="list-group-item d-flex justify-content-between align-items-start" style="background-color: var(--color-golden-brown); border: 1px solid #000; margin-bottom: 0.5rem;">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold" style="color: #000;">
-                      <!-- goal.title -->
-                      GOAL_TITLE
-                    </div>
-                    <small style="color: #000; opacity: 0.8;">
-                      Completed on 
-                      <!-- goal.completedAt formatted date -->
-                      COMPLETION_DATE
-                    </small>
-                  </div>
-                  <span style="font-size: 1.5rem; color: #000;">✓</span>
-                </div>
-                <!-- END GOAL ITEM -->
-
-              </div>
-            </div>
-            <!-- END MONTHLY SECTION -->
-
-            <!-- IF NO COMPLETED GOALS -->
-            <div class="text-center py-4" style="color: #000; opacity: 0.7;">
-              <p class="mb-0">No completed goals yet. Keep working towards your goals!</p>
             </div>
 
-          </div>
+            <div class="mb-3">
+              <label class="form-label" style="color: var(--color-pale-yellow);">Re-type Password</label>
+              <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" required>
+            </div>
+
+            <small class="form-text">
+              Password must be at least 10 characters.
+            </small>
+
+            <div class="modal-footer px-0 pb-0" style="border-top: none;">
+              <button type="button" class="btn" data-bs-dismiss="modal"
+                style="background-color: var(--color-faded-yellow); color: var(--bg-dark-gray);">Cancel</button>
+              <button type="submit" class="btn">Update Password</button>
+            </div>
+
+          </form>
         </div>
 
       </div>
     </div>
   </div>
-  <!-- <section class="showGoalHistory" style="color: white;">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <h2 class="text-center mb-4">Goal History</h2>
-          <% if (goals) { %>
-            <ul class="list-group">
-              <% goals.forEach(goal=> { %>
-                <li>
-                  <div>
-                    <strong>Goal:</strong> <%= goal.name %><br>
-                    <strong>Completed At:</strong> <%= goal.completedAt ? goal.completedAt.toDateString() : 'N/A' %>
-                  </div>
-                </li>
-              <% }); %>
-            </ul>
-          <% } else { %>
-            <p class="text-center">No completed goals yet.</p>
-          <% } %>
-        </div>
-      </div>
-    </div>
-  </section> -->
-    <script src="js/clock.js"></script>
-</div>
-
-<!-- CHANGE PASSWORD MODAL -->
-<div class="modal fade" id="changePasswordModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content login-modal">
-
-      <div class="modal-header" style="border-bottom: 2px solid var(--color-golden-brown);">
-        <h5 class="modal-title" style="color: var(--color-pale-yellow); font-size: 1.5rem;">Change Password</h5>
-        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-
-      <div class="modal-body">
-        <form action="/profile/changePassword" method="POST">
-
-          <div class="mb-3">
-            <label class="form-label" style="color: var(--color-pale-yellow);">Current Password</label>
-            <input type="password" class="form-control" name="currentPassword" required>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label" style="color: var(--color-pale-yellow);">New Password</label>
-            <div class="input-group">
-              <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Minimum 10 characters" required>
-              <span class="input-group-text" onclick="togglePassword('newPassword')" style="cursor: pointer; background-color: var(--color-pale-yellow);">
-                👁️
-              </span>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label" style="color: var(--color-pale-yellow);">Re-type Password</label>
-            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" required>
-          </div>
-
-          <small class="form-text">
-            Password must be at least 10 characters.
-          </small>
-
-          <div class="modal-footer px-0 pb-0" style="border-top: none;">
-            <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: var(--color-faded-yellow); color: var(--bg-dark-gray);">Cancel</button>
-            <button type="submit" class="btn">Update Password</button>
-          </div>
-
-        </form>
-      </div>
-
-    </div>
-  </div>
-</div>
-<%- include('partials/footer') -%>
+  <%- include('partials/footer') -%>
