@@ -1,10 +1,9 @@
-
 // Home page - Show form to create a group
-const showFormBtn = document.getElementById('showFormBtn');
+const showFormBtn = document.getElementById("showFormBtn");
 if (showFormBtn) {
-  showFormBtn.addEventListener('click', function () {
-    this.style.display = 'none';
-    document.getElementById('createGroupForm').style.display = 'block';
+  showFormBtn.addEventListener("click", function () {
+    this.style.display = "none";
+    document.getElementById("createGroupForm").style.display = "block";
   });
 }
 
@@ -15,4 +14,3 @@ function closeLateModal() {
     modal.remove();
   }
 }
-
