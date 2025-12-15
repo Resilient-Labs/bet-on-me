@@ -63,12 +63,17 @@
     /* margin-bottom: 30px; */
 }
 
+.pp {
+    text-decoration: none;
+}
+
 .user-name {
     font-size: 1.8rem;
     color: var(--color-pale-yellow);
     padding: .6rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
     font-weight: 400;
+    text-align: center;
 }
 
 .goal-label {
@@ -268,7 +273,8 @@ a.btn.btn-default {
     transition: all 0.2s ease;
 }
 
-.input-area button:hover {
+.input-area button:hover,
+.profile-picture:hover {
     transform: scale(1.1);
     background: #ff6f91;
 }

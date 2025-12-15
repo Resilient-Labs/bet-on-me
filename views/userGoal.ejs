@@ -25,12 +25,13 @@
                 <!-- Left Section: Profile -->
                 <div class="sub-container one">
                     <div class="profile-container">
+                        <a class="pp" href="/profile">
                         <div class="profile-picture">
-                            <span>Profile Picture</span>
+                            <span class="pp">Profile Picture</span>
                         </div>
+                        </a>
                         <h2 class="user-name">
                             <%= user.userName %>
-                                Bob Macbober
                         </h2>
                     </div>
                 </div>
@@ -49,7 +50,7 @@
                                             <input type="text" placeholder="Enter Your Goal" id="bigGoal" name="name"
                                                 value="<%= goals?.name %>" />
                                             <!-- have the original inputed goal inside the input field -->
-                                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                                            <!-- <button class="edit-btn"><i class="fa-solid fa-pen"></i></button> -->
                                             <button class="add-btn plus-btn" id="saveBigThing"><i
                                                     class="fa-solid fa-plus"></i></button>
                                         </form>
