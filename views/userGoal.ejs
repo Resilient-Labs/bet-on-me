@@ -6,33 +6,46 @@
     <script src="https://js.stripe.com/v3/"></script>
 </head>
 
-    <head>
-        <title>Bet On Me</title>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="/css/userGoal.css">
-        <link rel="stylesheet" href="/css/style.css">
-        <!-- Stripe.js -->
-        <script src="https://js.stripe.com/v3/"></script>
-    </head>
+<body>
+    <!-- Left Section: Profile -->
+    <div class="container">
+        <div class="profile-section">
+           <div class="profile-picture">
+  <a href="/profile" style="display: inline-block;">
+    <img
+      src="<%= user.profile_image || 'https://via.placeholder.com/120' %>"
+      alt="Profile Picture"
+      class="profile-pic"
+      style="
+        cursor: pointer;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+      "
+    />
+  </a>
+</div>
 
-    <body>
-        <main class="user-goal-container">
-            <div class="page-container">
-                <!-- Left Section: Profile -->
-                <div class="sub-container one">
-                    <div class="profile-container">
-                        <div class="profile-picture">
-                            <span>Profile Picture</span>
-                        </div>
-                        <h2 class="user-name">
-                            <%= user.userName %>
-                                Bob Macbober
-                        </h2>
-                    </div>
+
+            <h2 class="user-name">
+                <%= user.userName %>
+            </h2>
+            <p class="goal-label">
+                <%= goals?.name ? goals.name : "Big thing I want to accomplish!" %>
+            </p>
+
+            <% if (goals) { %>
+                <div class="big-thing">
+                    <%if(goals?.user==user.id){ %>
+                        <form class="input-area goal-setting" action="/goal/" method="POST">
+                            <input type="text" placeholder="Enter Your Goal" id="bigGoal" name="name"
+                                value="<%= goals?.name %>" />
+                            <!-- have the original inputed goal inside the input field -->
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="add-btn" id="saveBigThing"><i class="fa-solid fa-plus"></i></button>
+                        </form>
+                        <%}%>
                 </div>
                 <div class="sub-container goal">
                     <div class="profile-section">

@@ -6,29 +6,37 @@ const { getUserTasks } = require("./tasks");
 const Goal = require("../models/Goal");
 
 module.exports = {
-  getProfile: async (req, res) => {
-    try {
-      const posts = await Post.find({ user: req.user.id });
-      // compute memberSince on the server so the view can simply print it
-      let memberSince = 'Unknown';
-      const goals = await Goal.find({ user: req.user.id, completed: true});
-      console.log('goals in getProfile:', goals);
-      try {
-        if (req.user && req.user.createdAt) {
-          memberSince = new Date(req.user.createdAt).toLocaleDateString('en-US');
-        } else if (req.user && req.user._id) {
-          const hex = req.user._id.toString().substring(0, 8);
-          memberSince = new Date(parseInt(hex, 16) * 1000).toLocaleDateString('en-US');
-        }
-      } catch (e) {
-        memberSince = 'Unknown';
-      }
+  
+getProfile: async (req, res) => {
+  try {
+    // User posts!
+    const posts = await Post.find({ user: req.user.id }).lean();
 
-      res.render("profile.ejs", { posts: posts, user: req.user, memberSince, showProfileBubble: true, goals });
-    } catch (err) {
-      console.log(err);
+    // Member since
+    let memberSince = "Unknown";
+    if (req.user?.createdAt) {
+      memberSince = new Date(req.user.createdAt).toLocaleDateString("en-US");
     }
-  },
+
+    // FETCH CLUSTERS THE USER IS IN!!!!
+    const clusters = await Cluster.find({
+      cluster_members: req.user._id,
+    })
+      .populate("cluster_members")
+      .lean();
+
+    res.render("profile", {
+      posts,
+      user: req.user,
+      memberSince,
+      clusters, 
+      showProfileBubble: true,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error loading profile");
+  }
+},
   //this is the page that shows after successful login
   getHome: async (req, res) => {
     try {
