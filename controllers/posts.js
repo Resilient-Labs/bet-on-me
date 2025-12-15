@@ -73,16 +73,30 @@ getProfile: async (req, res) => {
   },
   getUserGoal: async (req, res) => {
     try{
-      const cluster = await Cluster.findOne({
+      let cluster = await Cluster.findOne({
         cluster_members: req.user.id
-      });
+      }).populate('cluster_members').lean();
 
       if(!cluster) {
         return res.redirect("/home");
       }
+
       const posts = await Post.find({ user: req.user.id });
       const tasks = await Task.find({ user: req.user.id }) || [];
       const goals = await Goal.findOne({ user: req.user.id }) || null;
+
+      // Compute simple member progress based on tasks: percent of completed tasks
+      const memberProgress = [];
+      for (const member of (cluster.cluster_members || [])) {
+        try {
+          const total = await Task.countDocuments({ user: member._id });
+          const completed = await Task.countDocuments({ user: member._id, task_is_completed: true });
+          const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+          memberProgress.push({ user: member, total, completed, percent });
+        } catch (e) {
+          memberProgress.push({ user: member, total: 0, completed: 0, percent: 0 });
+        }
+      }
 
       res.render("userGoal.ejs", {
         user: req.user,
@@ -90,7 +104,9 @@ getProfile: async (req, res) => {
         tasks,
         goals,
         cluster,
-        showProfileBubble: false
+        memberProgress,
+        showProfileBubble: false,
+        messages: req.flash()
       });
     } catch (err) {
       console.log("getUserGoal error:", err);

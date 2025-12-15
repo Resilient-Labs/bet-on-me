@@ -148,6 +148,23 @@ document.querySelectorAll("#task-list li").forEach((li) => {
     document.getElementById("goalCompletedBtn").disabled = !data.goalCompleted;
 
     checkbox.dataset.completed = isCompleted;
+
+    // update team preview bars if memberProgress provided
+    if (data && data.memberProgress && Array.isArray(data.memberProgress)) {
+      data.memberProgress.forEach(mp => {
+        try {
+          const sel = `.tp-progress-bar[data-user-id="${mp.userId}"]`;
+          const bar = document.querySelector(sel);
+          if (bar) {
+            bar.setAttribute('data-percent', mp.percent);
+            bar.style.width = Math.max(0, Math.min(100, mp.percent)) + '%';
+            // update small percent text sibling
+            const small = bar.closest('li')?.querySelector('small');
+            if (small) small.textContent = mp.percent + '%';
+          }
+        } catch (e) { console.error('update team preview failed', e); }
+      });
+    }
   };
 });
 

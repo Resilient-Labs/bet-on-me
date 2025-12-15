@@ -6,6 +6,7 @@
 
 const Task = require("../models/Task");
 const Goal = require("../models/Goal");
+const Cluster = require("../models/Cluster");
 
 module.exports = {
   // get all user's tasks
@@ -51,15 +52,49 @@ module.exports = {
           });
         }
 
+        // compute updated memberProgress for cluster
+        let memberProgress = [];
+        try {
+          const cluster = await Cluster.findOne({ cluster_members: req.user.id }).populate('cluster_members').lean();
+          if (cluster && cluster.cluster_members) {
+            for (const member of cluster.cluster_members) {
+              const total = await Task.countDocuments({ user: member._id });
+              const completed = await Task.countDocuments({ user: member._id, task_is_completed: true });
+              const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+              memberProgress.push({ userId: String(member._id), percent });
+            }
+          }
+        } catch (e) {
+          console.error('memberProgress compute failed', e);
+        }
+
         return res.status(200).json({
           message: "Task updated",
           goalCompleted,
+          memberProgress,
         });
+      }
+
+      // For non-goal-completing updates, still return memberProgress for realtime UI
+      let memberProgress = [];
+      try {
+        const cluster = await Cluster.findOne({ cluster_members: req.user.id }).populate('cluster_members').lean();
+        if (cluster && cluster.cluster_members) {
+          for (const member of cluster.cluster_members) {
+            const total = await Task.countDocuments({ user: member._id });
+            const completed = await Task.countDocuments({ user: member._id, task_is_completed: true });
+            const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+            memberProgress.push({ userId: String(member._id), percent });
+          }
+        }
+      } catch (e) {
+        console.error('memberProgress compute failed', e);
       }
 
       res.status(200).json({
         message: "Task updated",
         goalCompleted: false,
+        memberProgress,
       });
     } catch (err) {
       console.error(err);
@@ -72,12 +107,9 @@ module.exports = {
       // enforce 10-task-per-user limit
       const taskCount = await Task.countDocuments({ user: req.user.id });
       if (taskCount >= 10) {
-        const tasks = await Task.find({ user: req.user.id });
         console.log("User has reached the task limit");
-        return res.status(400).render("userGoal.ejs", {
-          tasks: tasks,
-          error: "Task limit reached (maximum 10 tasks).",
-        });
+        req.flash('error', 'Task limit reached (maximum 10 tasks).');
+        return res.redirect('/userGoal');
       }
 
       const goal = await Goal.findOne({ user: req.user.id });
