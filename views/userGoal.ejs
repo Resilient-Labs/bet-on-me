@@ -93,6 +93,21 @@
                                 <h4>Goal Wager</h4>
                                 <p style="color: #999;">Create a goal first</p>
                                 <% } %>
+                
+                                <!-- Team preview: show member progress (completed/total tasks) -->
+                                <% if (typeof teamPreview !== 'undefined' && teamPreview.length) { %>
+                                    <div class="team-preview mt-3">
+                                        <h4>Team Progress</h4>
+                                        <% teamPreview.forEach(function(tp){ var percent = tp.total ? Math.round((tp.completed / tp.total) * 100) : 0; %>
+                                            <div class="mb-2">
+                                                <div class="d-flex justify-content-between"><strong><%= tp.userName %></strong><small><%= tp.completed %>/<%= tp.total %></small></div>
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: 0%;" data-percent="<%= percent %>" aria-valuenow="<%= percent %>" aria-valuemin="0" aria-valuemax="100"><%= percent %>%</div>
+                                                </div>
+                                            </div>
+                                        <% }) %>
+                                    </div>
+                                <% } %>
         </div>
     </div>
 
@@ -139,4 +154,15 @@
 
     <script src="/js/goal.js"></script>
     <script src="/js/stripe.js"></script>
+        <script>
+            // apply percent widths to progress bars (keeps CSS linter happy)
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.progress-bar[data-percent]').forEach(function (pb) {
+                    var p = pb.getAttribute('data-percent') || '0';
+                    pb.style.width = p + '%';
+                    pb.setAttribute('aria-valuenow', p);
+                    pb.textContent = p + '%';
+                });
+            });
+        </script>
 </body>

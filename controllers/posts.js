@@ -49,7 +49,25 @@ module.exports = {
       const posts = await Post.find({ user: req.user.id });
       const tasks = await Task.find({ user: req.user.id });
       const goals = await Goal.findOne({ user: req.user.id });
-      res.render("userGoal.ejs", { posts, user: req.user, tasks, goals, showProfileBubble: false });
+      // build a small team preview: for the first cluster the user belongs to,
+      // compute each member's completed/total tasks so the view can render progress bars
+      let teamPreview = [];
+      try {
+        const cluster = await Cluster.findOne({ cluster_members: req.user.id }).populate('cluster_members', 'userName').lean();
+        if (cluster && Array.isArray(cluster.cluster_members)) {
+          teamPreview = await Promise.all(cluster.cluster_members.map(async (member) => {
+            const memberId = member._id;
+            const total = await Task.countDocuments({ user: memberId });
+            const completed = await Task.countDocuments({ user: memberId, task_is_completed: true });
+            return { userName: member.userName || 'Unknown', total, completed };
+          }));
+        }
+      } catch (e) {
+        console.log('Error building teamPreview', e);
+        teamPreview = [];
+      }
+
+      res.render("userGoal.ejs", { posts, user: req.user, tasks, goals, teamPreview, showProfileBubble: false });
     } catch (err) {
       console.log(err);
     }
