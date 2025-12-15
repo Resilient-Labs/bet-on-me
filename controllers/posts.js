@@ -11,7 +11,7 @@ module.exports = {
       const posts = await Post.find({ user: req.user.id });
       // compute memberSince on the server so the view can simply print it
       let memberSince = 'Unknown';
-      const goals = await Goal.find({ user: req.user.id, completed: true});
+      const goals = await Goal.find({ user: req.user.id, completed: true}).sort({ completedAt: -1 });
       console.log('goals in getProfile:', goals);
       try {
         if (req.user && req.user.createdAt) {
