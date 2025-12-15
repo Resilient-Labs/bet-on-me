@@ -15,4 +15,9 @@ router.post(
   userController.updateProfilePicture
 );
 
+//delete account route ---Innocent
+
+
+router.post("/delete-account", ensureAuth, userController.deleteAccount);
+
 module.exports = router;
