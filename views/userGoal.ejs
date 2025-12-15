@@ -15,9 +15,32 @@
     <!-- Left Section: Profile -->
     <div class="container">
         <div class="profile-section">
-            <div class="profile-picture">
-                <span>Profile Picture</span>
-            </div>
+           <div class="profile-picture">
+  <form
+    action="/users/update-picture"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <label for="profile_image">
+      <img
+        src="<%= user.profile_image %>"
+        alt="Profile Picture"
+        class="profile-pic"
+        style="cursor: pointer; width: 120px; height: 120px; border-radius: 50%; object-fit: cover;"
+      />
+    </label>
+
+    <input
+      type="file"
+      name="profile_image"
+      id="profile_image"
+      accept="image/*"
+      hidden
+      onchange="this.form.submit()"
+    />
+  </form>
+</div>
+
             <h2 class="user-name">
                 <%= user.userName %>
             </h2>
