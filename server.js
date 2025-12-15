@@ -38,10 +38,10 @@ app.use(methodOverride("_method"))
 //Body Parsing
 // Stripe webhook route MUST come before body parsing middleware
 // this is because Stripe needs the raw request body to verify signatures
-// app.post('/stripe/webhook', 
-//   express.raw({ type: 'application/json' }), 
-//   require('./controllers/stripe').handleWebhook
-// );
+app.post('/stripe/webhook',
+  express.raw({ type: 'application/json' }),
+  require('./controllers/stripe').handleWebhook
+);
 
 // body parsing middleware - comes AFTER webhook route
 app.use(express.urlencoded({ extended: true }));
@@ -85,7 +85,7 @@ app.use("/", mainRoutes);
 app.use("/post", postRoutes);
 app.use("/task", taskRoutes);
 app.use("/goal", goalRoutes);
-// app.use("/stripe", require("./routes/stripe"));
+app.use("/stripe", require("./routes/stripe"));
 
 // server running
 app.listen(process.env.PORT, () => {
