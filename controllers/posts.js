@@ -35,7 +35,6 @@ module.exports = {
       console.log(err);
     }
   },
-
   getTeamPage: async (req, res) => {
     try {
       res.render("teamPage.ejs", { user: req.user, showProfileBubble: true });
@@ -43,7 +42,6 @@ module.exports = {
       console.log(err);
     }
   },
-
   getUserGoal: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
@@ -116,30 +114,7 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
-
-    const randomCode = makeid(8);
-
-    const newCluster = await Cluster.create({
-      cluster_name: req.body.title,
-      user: req.user.id,
-      cluster_join_id: randomCode,
-      cluster_members: [req.user.id],
-      member_count: 1,
-    });
-
-    console.log("Cluster has been added!");
-
-    // 🔹 Redirect to the specific team page
-    res.redirect(`/teamPage/${newCluster._id}`);
-
-  } catch (err) {
-    console.log(err);
-  }
-},
-
-
-
-
+  },
   createPost: async (req, res) => {
     try {
       // upload image to cloudinary
@@ -224,9 +199,8 @@ module.exports = {
     });
 
     if (!cluster) {
-      req.flash("error_msg", "Cluster not found");
-      return res.redirect("/clusters/join");
-    }
+    return res.redirect("/404");
+  }
 
     //  Atomic MongoDB-level protection against duplicates
     const result = await Cluster.updateOne(
