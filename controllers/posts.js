@@ -11,6 +11,8 @@ module.exports = {
       const posts = await Post.find({ user: req.user.id });
       // compute memberSince on the server so the view can simply print it
       let memberSince = 'Unknown';
+      const goals = await Goal.find({ user: req.user.id, completed: true});
+      console.log('goals in getProfile:', goals);
       try {
         if (req.user && req.user.createdAt) {
           memberSince = new Date(req.user.createdAt).toLocaleDateString('en-US');
@@ -22,7 +24,7 @@ module.exports = {
         memberSince = 'Unknown';
       }
 
-      res.render("profile.ejs", { posts: posts, user: req.user, memberSince, showProfileBubble: true });
+      res.render("profile.ejs", { posts: posts, user: req.user, memberSince, showProfileBubble: true, goals });
     } catch (err) {
       console.log(err);
     }
@@ -56,6 +58,7 @@ module.exports = {
   getUserProfile: async (req, res) => {
     try {
       const tasks = await getUserTasks(req.user.id);
+      const goals = await Goal.findOne({ user: req.user.id });
       res.render("userProfile.ejs", { user: req.user, tasks, showProfileBubble: true });
     } catch (err) {
       console.log(err);
@@ -189,36 +192,40 @@ module.exports = {
   },
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
 
-  
- joinCluster: async (req, res) => {
-  try {
-    const joinCode = req.body.code;
 
-    const cluster = await Cluster.findOne({
-      cluster_join_id: joinCode,
-    });
+  joinCluster: async (req, res) => {
+    try {
+      const joinCode = req.body.code;
 
+      // No cluster found
     if (!cluster) {
-    return res.redirect("/404");
-  }
-
-    //  Atomic MongoDB-level protection against duplicates
-    const result = await Cluster.updateOne(
-      {
-        _id: cluster._id,
-        cluster_members: { $ne: req.user._id }, // only update if not already a member
-      },
-      {
-        $addToSet: { cluster_members: req.user._id },
-        $inc: { member_count: 1 },
-      }
-    );
-
-    // If no document was modified, user was already in the group
-    if (result.modifiedCount === 0) {
-      req.flash("error_msg", "Already in group");
-      return res.redirect("/clusters/join");
+      req.flash("lateJoin", "Invalid group code.");
+      return res.redirect("/home");
     }
+
+    // Denying the user to join because the challenge has alread started --- Innocent for denying part only
+    const now = new Date();
+    const challengeStart = new Date(cluster.challengeStartDate);
+
+    if (now > challengeStart) {
+      req.flash(
+        "lateJoin",
+        "You are late to join this challenge. You can join the next one!"
+      );
+      return res.redirect("/home");
+    }
+
+      //  Atomic MongoDB-level protection against duplicates
+      const result = await Cluster.updateOne(
+        {
+          _id: cluster._id,
+          cluster_members: { $ne: req.user._id }, // only update if not already a member
+        },
+        {
+          $addToSet: { cluster_members: req.user._id },
+          $inc: { member_count: 1 },
+        }
+      );
 
     req.flash("success_msg", "Joined cluster successfully");
     res.redirect("/userGoal");
