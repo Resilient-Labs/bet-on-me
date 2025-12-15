@@ -255,7 +255,9 @@ getProfile: async (req, res) => {
   joinCluster: async (req, res) => {
     try {
       const joinCode = req.body.code;
-
+      const cluster = await Cluster.findOne({
+        cluster_join_id: joinCode,
+      });
       // No cluster found
     if (!cluster) {
       req.flash("lateJoin", "Invalid group code.");
