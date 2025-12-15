@@ -218,20 +218,14 @@ module.exports = {
         }
       );
 
-      // If no document was modified, user was already in the group
-      if (result.modifiedCount === 0) {
-        req.flash("error_msg", "Already in group");
-        return res.redirect("/clusters/join");
-      }
-
-      req.flash("success_msg", "Joined cluster successfully");
-      res.redirect("/userProfile");
-    } catch (err) {
-      console.error(err);
-      req.flash("error_msg", "Error joining cluster");
-      res.redirect("/clusters/join");
-    }
-  },
+    req.flash("success_msg", "Joined cluster successfully");
+    res.redirect("/userGoal");
+  } catch (err) {
+    console.error(err);
+    req.flash("error_msg", "Error joining cluster");
+    res.redirect("/clusters/join");
+  }
+},
 
 
 
