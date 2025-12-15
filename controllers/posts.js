@@ -35,6 +35,7 @@ getProfile: async (req, res) => {
       clusters,
       goals,
       showProfileBubble: true,
+      messages: req.flash(),
     });
   } catch (err) {
     console.error(err);
