@@ -221,7 +221,7 @@ module.exports = {
     }
 
     req.flash("success_msg", "Joined cluster successfully");
-    res.redirect("/userProfile");
+    res.redirect("/userGoal");
   } catch (err) {
     console.error(err);
     req.flash("error_msg", "Error joining cluster");
