@@ -199,8 +199,9 @@ module.exports = {
     });
 
     if (!cluster) {
-    return res.redirect("/404");
-  }
+      req.flash("error_msg", "Cluster not found");
+      return res.redirect("/clusters/join");
+    }
 
     //  Atomic MongoDB-level protection against duplicates
     const result = await Cluster.updateOne(

@@ -17,7 +17,7 @@ const GoalSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  completed_at: {
+  completedAt: {
     type: Date,
     default:null
   },
