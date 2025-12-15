@@ -52,6 +52,7 @@ module.exports = {
           };
         })
       );
+      console.log(req.user);
 
       res.render("teamPage.ejs", {
         user: req.user,

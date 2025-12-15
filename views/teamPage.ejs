@@ -56,17 +56,7 @@
                             <%= duration.minutes%>
                               <%= duration.seconds%>
                         </h1>
-
-                        <form>
-                          <label>Set Up Your Challenge</label>
-                          <label>End Date</label>
-                          <input type="date" id="date-input" value="2026-01-01"></input>
-                          <input type="time" id="time-input" value="10:00">
-                          <button type="submit" id="challengeCall">Call Challenge</button>
-                        </form>
                         <button id="resetChallenge" /*style="display:none;" * />Reset Challenge (Testing)</button>
-                        <button id="fetchButton">Fetch</button>
-
             </div>
           </div>
         </div>
@@ -77,11 +67,19 @@
 
             <!-- Timeline -->
             <div class="card shadow-lg border-0 timeline-card">
-              <div class=" py-4 text-center team-card-header">
-                <h4 class="mb-0 text-dark fw-bold">
-                  Timeline
-                </h4>
+              <div class="py-4 team-card-header d-flex align-items-center">
+                <h4 class="mb-0 text-dark fw-bold flex-grow-1 text-center">Timeline</h4>
+
+                <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                  <button id="fetchButton" class="btn btn-outline-dark ms-auto">Start Timer</button>
+                  <% } %>
+
+                    <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                      <button id="leaveButton" class="btn btn-outline-dark ms-auto">Leave Cluster</button>
+                      <% } %>
               </div>
+
+
               <div class="card-body text-center p-5">
                 <div class="display-5 fw-bold mb-2 timeline-time">
                   <i class="bi me-2"></i>
