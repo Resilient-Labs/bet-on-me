@@ -1,243 +1,30 @@
 <%- include('partials/header') -%>
-
-<div class="container py-5">
-  <div class="row g-4">
-
-    <!-- LEFT COLUMN -->
-    <div class="col-lg-4">
-
-      <!-- PROFILE CARD -->
-      <div class="card shadow-sm text-center mb-4">
-        <div class="card-body">
-
-          <!-- PROFILE IMAGE -->
-          <img
-            src="<%= user.image || 'https://via.placeholder.com/150' %>"
-            class="rounded-circle mb-3"
-            width="150"
-            height="150"
-            alt="<%= user.userName %>'s Profile Picture"
-          >
-
-          <h5 class="mb-1"><%= user.userName %></h5>
-          <p class="text-muted small"><%= user.email %></p>
-
-          <!-- CHANGE PHOTO -->
-          <form action="/profile/uploadPhoto" method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" id="imageUpload" class="d-none" accept="image/*">
-            <label for="imageUpload" class="btn btn-outline-primary btn-sm w-100 mt-2" style="cursor: pointer;">
-              Change Profile Photo
-            </label>
-          </form>
-
-        </div>
-      </div>
-
-      <!-- ACCOUNT INFO -->
-      <div class="card shadow-sm mb-4">
-        <div class="card-body">
-          <h5 class="card-title mb-3">Account Info</h5>
-
-          <p><strong>User Name:</strong> <%= user.userName %></p>
-          <p><strong>Email:</strong> <%= user.email %></p>
-          <p class="mb-0">
-            <strong>Member Since:</strong> <%= new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) %>
-          </p>
-        </div>
-      </div>
-
-      <!-- ACCOUNT ACTIONS -->
-      <div class="card shadow-sm">
-        <div class="card-body">
-
-          <button
-            class="btn btn-outline-secondary w-100 mb-2"
-            data-bs-toggle="modal"
-            data-bs-target="#changePasswordModal"
-          >
-            Change Password
-          </button>
-
-          <button
-            class="btn btn-outline-danger w-100"
-            data-bs-toggle="modal"
-            data-bs-target="#deleteAccountModal"
-          >
-            Delete Account
-          </button>
-
-        </div>
-      </div>
-
-    </div>
-
-    <!-- RIGHT COLUMN -->
-    <div class="col-lg-8">
-
-<!-- GOAL CLUSTER -->
-<div class="card shadow-sm mb-4">
-  <div class="card-body">
-
-    <!-- CLUSTER TITLE -->
-    <h4 class="card-title mb-1">Your Goal Cluster</h4>
-
-    <!-- CLUSTER NAME -->
-    <p class="text-muted mb-3">
-      <strong>
-        <!-- cluster.cluster_name -->
-        CLUSTER_NAME_HERE
-      </strong>
-
-      <span class="badge bg-secondary ms-2">
-        <!-- cluster.member_count -->
-        MEMBER_COUNT
-      </span>
-    </p>
-
-    <!-- MEMBERS HEADER -->
-    <h6 class="mb-3">Members</h6>
-
-    <!-- MEMBERS LIST -->
-    <div class="row g-3">
-
-      <!-- MEMBER CARD (repeat for each member) -->
-      <div class="col-md-6">
-        <div class="d-flex align-items-center border rounded p-2">
-
-          <!-- MEMBER PROFILE IMAGE -->
-          <img
-            src="PROFILE_IMAGE_URL"
-            class="rounded-circle me-3"
-            width="50"
-            height="50"
-            alt="USERNAME profile picture"
-          >
-
-          <!-- MEMBER NAME -->
-          <span class="fw-semibold">
-            USERNAME
-
-            <!-- SHOW ONLY IF THIS MEMBER IS THE LOGGED-IN USER -->
-            <span class="badge bg-primary ms-2">You</span>
-          </span>
-
-        </div>
-      </div>
-      <!-- END MEMBER CARD -->
-
-    </div>
-
-    <hr class="my-3">
-
-    <!-- JOIN CODE -->
-    <p class="small text-muted mb-0">
-      Join Code:
-      <strong>
-        <!-- cluster.cluster_join_id -->
-        JOIN_CODE
-      </strong>
-    </p>
-
-  </div>
-</div>
-
-
-
-
-      
-    <!-- COMPLETED GOALS -->
-<div class="card shadow-sm">
-  <div class="card-body">
-    <h4 class="card-title mb-4">Completed Goals</h4>
-
-    <!-- MONTHLY GOALS SECTION (repeat for each month) -->
-    <div class="mb-4">
-      <!-- MONTH HEADER -->
-      <h6 class="text-muted mb-3">
-        <!-- e.g., "December 2025" -->
-        MONTH_YEAR
-        <span class="badge bg-success ms-2">
-          <!-- number of goals completed that month -->
-          GOAL_COUNT
-        </span>
-      </h6>
-
-      <!-- GOALS LIST -->
-      <div class="list-group">
-        
-        <!-- GOAL ITEM (repeat for each goal) -->
-        <div class="list-group-item d-flex justify-content-between align-items-start">
-          <div class="ms-2 me-auto">
-            <div class="fw-bold">
-              <!-- goal.title -->
-              GOAL_TITLE
+<div class="container">
+  <div class="row mt-5">
+      <div class="col-6">
+            <div>
+              <p><strong>User Name</strong>: <span class="user-name"><%= user.userName %></span></p>
+              <p><strong>Email</strong>: <span class="user-name"><%= user.email %></span></p>
+              <p><strong>Member Since</strong>: <span class="user-name"><%= typeof memberSince !== 'undefined' ? memberSince : 'Unknown' %></span></p>
+              <a href="/logout" class="col-3 btn btn-primary">Logout</a>
             </div>
-            <small class="text-muted">
-              Completed on 
-              <!-- goal.completedAt formatted date -->
-              COMPLETION_DATE
-            </small>
-          </div>
-          <span class="badge bg-success rounded-pill">✓</span>
-        </div>
-        <!-- END GOAL ITEM -->
-
-      </div>
-    </div>
-    <!-- END MONTHLY SECTION -->
-
-    <!-- IF NO COMPLETED GOALS -->
-    <div class="text-center text-muted py-4">
-      <p class="mb-0">No completed goals yet. Keep working towards your goals!</p>
-    </div>
-
-  </div>
-</div>
-
-    </div>
-  </div>
-</div>
-
-<!-- CHANGE PASSWORD MODAL -->
-<div class="modal fade" id="changePasswordModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title">Change Password</h5>
-        <button class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <div class="modal-body">
-        <form action="/profile/changePassword" method="POST">
-
-          <div class="mb-3">
-            <label class="form-label">Current Password</label>
-            <input type="password" class="form-control" name="currentPassword" required>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">New Password</label>
-            <div class="input-group">
-              <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Minimum 10 characters" required>
-              <span class="input-group-text" onclick="togglePassword('newPassword')" style="cursor: pointer;">
-                👁️
-              </span>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Re-type Password</label>
-            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" required>
-          </div>
-
-          <small class="text-muted">
-            Password must be at least 10 characters.
-          </small>
-
-          <div class="modal-footer px-0 pb-0">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary">Update Password</button>
+          <div class="mt-5">
+            <h2>Add a post</h2>
+            <form action="/post/createPost" enctype="multipart/form-data" method="POST">
+              <div class="mb-3">
+                  <label for="title" class="form-label">Title</label>
+                  <input type="text" class="form-control" id="title" name="title">
+              </div>
+              <div class="mb-3">
+                <label for="caption" class="form-label">Caption</label>
+                <textarea class="form-control" id="caption" name="caption"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="imgUpload" class="form-label">Image</label>
+                <input type="file" class="form-control" id="imageUpload" name="file">
+              </div>
+              <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
+            </form>
           </div>
 
         </form>

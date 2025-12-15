@@ -10,6 +10,35 @@ module.exports = {
     }
   },
 
+  createOrUpdateGoal : async (req, res) => {
+    try {
+      const { name, description, completed } = req.body;
+
+      const updatedGoal = await Goal.findOneAndUpdate({
+        user: req.user.id,
+        completed:false
+      },{
+        name
+      })
+      console.log(updatedGoal)
+
+      if (updatedGoal == null) {
+        const goal = await Goal.create({
+        name,
+        description,
+        completed: completed || false,
+        user: req.user.id,
+      });
+      }
+      res.redirect("/userGoal");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server error");
+    }
+  },
+
+  //on Backend - if the name is empty = ignore Goal value
+
   // create a goal
   createGoal: async (req, res) => {
     try {

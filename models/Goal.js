@@ -17,6 +17,10 @@ const GoalSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  completed_at: {
+    type: Date,
+    default:null
+  },
   // stripe payment fields
   wagerAmount: {
     type: Number,

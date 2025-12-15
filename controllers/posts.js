@@ -3,57 +3,53 @@ const Cluster = require("../models/Cluster");
 const Post = require("../models/Post");
 const Task = require("../models/Task");
 const { getUserTasks } = require("./tasks");
-const { getUserGoals } = require("./goals");
+const Goal = require("../models/Goal");
 
 module.exports = {
   getProfile: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
-      res.render("profile.ejs", { posts: posts, user: req.user });
+      // compute memberSince on the server so the view can simply print it
+      let memberSince = 'Unknown';
+      try {
+        if (req.user && req.user.createdAt) {
+          memberSince = new Date(req.user.createdAt).toLocaleDateString('en-US');
+        } else if (req.user && req.user._id) {
+          const hex = req.user._id.toString().substring(0, 8);
+          memberSince = new Date(parseInt(hex, 16) * 1000).toLocaleDateString('en-US');
+        }
+      } catch (e) {
+        memberSince = 'Unknown';
+      }
+
+      res.render("profile.ejs", { posts: posts, user: req.user, memberSince, showProfileBubble: true });
     } catch (err) {
       console.log(err);
     }
   },
-  //This is the page that shows after successful login
-   getHome: async (req, res) => {
+  //this is the page that shows after successful login
+  getHome: async (req, res) => {
     try {
-      res.render("homePage.ejs");
+      res.render("homePage.ejs", { user: req.user, showProfileBubble: true });
     } catch (err) {
       console.log(err);
     }
   },
-// getTeamPage: async (req, res) => {
-//   try {
-//     const cluster = await Cluster.findById(req.params.clusterId)
-//       .populate("cluster_members")
-//       .lean();
 
-//     if (!cluster) {
-//       return res.status(404).send("Team not found");
-//     }
+  getTeamPage: async (req, res) => {
+    try {
+      res.render("teamPage.ejs", { user: req.user, showProfileBubble: true });
+    } catch (err) {
+      console.log(err);
+    }
+  },
 
-//     res.render("teamPage.ejs", {
-//       user: req.user,
-//       cluster,
-//       members: cluster.cluster_members,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// },
-
-
-
-  
   getUserGoal: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
       const tasks = await Task.find({ user: req.user.id });
-      const goals = await getUserGoals(req.user.id);
-      res.render("userGoal.ejs", { posts, user: req.user, tasks, goals, showProfileBubble: false });
       const goals = await Goal.findOne({ user: req.user.id });
-      // const goals = await getUserGoals(req.user.id);
-      res.render("userGoal.ejs", { posts, user: req.user, tasks, goals });
+      res.render("userGoal.ejs", { posts, user: req.user, tasks, goals, showProfileBubble: false });
     } catch (err) {
       console.log(err);
     }
@@ -62,7 +58,7 @@ module.exports = {
   getUserProfile: async (req, res) => {
     try {
       const tasks = await getUserTasks(req.user.id);
-      res.render("userProfile.ejs", { user: req.user, tasks });
+      res.render("userProfile.ejs", { user: req.user, tasks, showProfileBubble: true });
     } catch (err) {
       console.log(err);
     }
@@ -70,7 +66,7 @@ module.exports = {
   //this function gets the cluster creation page!
   getClusterCreationPage: async (req, res) => {
     try {
-      res.render("clusterCreation.ejs", { user: req.user });
+      res.render("clusterCreation.ejs", { user: req.user, showProfileBubble: true });
     } catch (err) {
       console.log(err);
     }
@@ -78,7 +74,7 @@ module.exports = {
   getFeed: async (req, res) => {
     try {
       const posts = await Post.find().sort({ createdAt: "desc" }).lean();
-      res.render("feed.ejs", { posts: posts });
+      res.render("feed.ejs", { posts: posts, showProfileBubble: true });
     } catch (err) {
       console.log(err);
     }
@@ -86,23 +82,39 @@ module.exports = {
   getPost: async (req, res) => {
     try {
       const post = await Post.findById(req.params.id);
-      res.render("post.ejs", { post: post, user: req.user });
+      res.render("post.ejs", { post: post, user: req.user, showProfileBubble: true });
     } catch (err) {
       console.log(err);
     }
   },
   //this function updates a cluser
-createCluster: async (req, res) => {
-  console.log('request', req.body);
-  try {
-    function makeid(length) {
-      var result = '';
-      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      var charactersLength = characters.length;
-      for (var i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  createCluster: async (req, res) => {
+    console.log('request', req.body)
+    try {
+      //this function will make a pseudo-randomly generated code on cluster creation. users can use this code to join a cluster.
+      function makeid(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result
       }
-      return result;
+
+      const randomCode = makeid(8)
+      await Cluster.create({
+        cluster_name: req.body.title,
+        user: req.user.id,
+        cluster_join_id: randomCode,
+        cluster_members: [req.user.id],
+        member_count: 1,
+      });
+      console.log("Post has been added!");
+      //after creating a cluster the user is redirected to the group page
+      res.redirect("/teamPage");
+    } catch (err) {
+      console.log(err);
     }
 
     const randomCode = makeid(8);
@@ -130,7 +142,7 @@ createCluster: async (req, res) => {
 
   createPost: async (req, res) => {
     try {
-      // Upload image to cloudinary
+      // upload image to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
 
       console.log(req.body)
@@ -178,8 +190,7 @@ createCluster: async (req, res) => {
     } catch (err) {
       console.log(err);
     }
-  }
-  ,
+  },
   // delete a post (remove cloudinary image and DB record)
   deletePost: async (req, res) => {
     try {
@@ -195,7 +206,7 @@ createCluster: async (req, res) => {
       // Delete post from db
       await Post.findOneAndDelete({ _id: req.params.id });
       console.log("Deleted Post");
-      res.redirect("/useProfile");
+      res.redirect("/userProfile");
     } catch (err) {
       console.log(err);
       res.redirect("/userProfile");
@@ -204,100 +215,103 @@ createCluster: async (req, res) => {
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
 
   
-// users joing a cluster code - shawn
-
-joinCluster: async (req, res) => {
-  console.log('hi')
+ joinCluster: async (req, res) => {
   try {
     const joinCode = req.body.code;
-
-    console.log(joinCode)
 
     const cluster = await Cluster.findOne({
       cluster_join_id: joinCode,
     });
 
     if (!cluster) {
-      return res.status(404).send("Cluster not found");
+      req.flash("error_msg", "Cluster not found");
+      return res.redirect("/clusters/join");
     }
 
-    // prevent duplicate joins!!
-    if (cluster.cluster_members.includes(req.user.id)) {
-      return res.status(400).send("Already a member of this cluster");
-    }
-
-    cluster.cluster_members.push(req.user.id);
-    // update member count by 1
-    cluster.member_count += 1;
-
-    await cluster.save();
-
-    res.redirect("/userProfile");
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error joining cluster");
-  }
-},
-
-// letting users leave a cluster - shawn
-
-leaveCluster: async (req, res) => {
-  try {
-    // get cluster by its generated ID
-    const clusterId = req.params.id;
-
-    const cluster = await Cluster.findById(clusterId);
-
-    // if there's no cluster
-    if (!cluster) {
-      return res.status(404).send("Cluster doesn't exist!");
-    }
-
-    // Check membership
-    if (!cluster.cluster_members.includes(req.user.id)) {
-      return res.status(400).send("You are not a member of this cluster");
-    }
-
-    // Remove user
-    cluster.cluster_members = cluster.cluster_members.filter(
-      userId => userId !== req.user.id
+    //  Atomic MongoDB-level protection against duplicates
+    const result = await Cluster.updateOne(
+      {
+        _id: cluster._id,
+        cluster_members: { $ne: req.user._id }, // only update if not already a member
+      },
+      {
+        $addToSet: { cluster_members: req.user._id },
+        $inc: { member_count: 1 },
+      }
     );
 
-    cluster.member_count = cluster.cluster_members.length;
+    // If no document was modified, user was already in the group
+    if (result.modifiedCount === 0) {
+      req.flash("error_msg", "Already in group");
+      return res.redirect("/clusters/join");
+    }
 
-    await cluster.save();
-
+    req.flash("success_msg", "Joined cluster successfully");
     res.redirect("/userProfile");
   } catch (err) {
-    console.log(err);
-    res.status(500).send("Error leaving cluster");
-  }
-},
-
-// Search for a cluster by join ID
-searchCluster: async (req, res) => {
-  try {
-    const { joinCode } = req.query;
-
-    if (!joinCode) {
-      return res.status(400).json({ message: "Join code is required" });
-    }
-
-    const cluster = await Cluster.findOne({
-      cluster_join_id: joinCode,
-    }).lean();
-
-    if (!cluster) {
-      return res.status(404).json({ message: "Cluster not found" });
-    }
-
-    res.json(cluster);
-  } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Error searching for cluster" });
+    req.flash("error_msg", "Error joining cluster");
+    res.redirect("/clusters/join");
   }
 },
 
 
-};
 
+  // letting users leave a cluster - shawn
+  leaveCluster: async (req, res) => {
+    try {
+      // get cluster by its generated ID
+      const clusterId = req.params.id;
+
+      const cluster = await Cluster.findById(clusterId);
+
+      // if there's no cluster
+      if (!cluster) {
+        return res.status(404).send("Cluster doesn't exist!");
+      }
+
+      // Check membership
+      if (!cluster.cluster_members.includes(req.user.id)) {
+        return res.status(400).send("You are not a member of this cluster");
+      }
+
+      // Remove user
+      cluster.cluster_members = cluster.cluster_members.filter(
+        userId => userId !== req.user.id
+      );
+
+      cluster.member_count = cluster.cluster_members.length;
+
+      await cluster.save();
+
+      res.redirect("/userProfile");
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Error leaving cluster");
+    }
+  },
+
+  // Search for a cluster by join ID
+  searchCluster: async (req, res) => {
+    try {
+      const { joinCode } = req.query;
+
+      if (!joinCode) {
+        return res.status(400).json({ message: "Join code is required" });
+      }
+
+      const cluster = await Cluster.findOne({
+        cluster_join_id: joinCode,
+      }).lean();
+
+      if (!cluster) {
+        return res.status(404).json({ message: "Cluster not found" });
+      }
+
+      res.json(cluster);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Error searching for cluster" });
+    }
+  },
+};
