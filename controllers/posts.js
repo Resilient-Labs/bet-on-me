@@ -26,14 +26,16 @@ getProfile: async (req, res) => {
       .lean();
 
     // fetch user's goals as an array for the profile view
-    const goals = (await Goal.find({ user: req.user.id }).lean()) || [];
-
+    //dividing the goals into completed and incompleted just in case someone needed all the goals
+    const goals = (await Goal.find({ user: req.user.id , completed: false}).lean()) || [];
+    const completedGoals = (await Goal.find({ user: req.user.id , completed: true}).lean()) || [];
     res.render("profile", {
       posts,
       user: req.user,
       memberSince,
       clusters,
       goals,
+      completedGoals,
       showProfileBubble: true,
       messages: req.flash(),
     });
