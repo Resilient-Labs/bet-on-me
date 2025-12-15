@@ -12,11 +12,16 @@
     --bg-dark-brown: rgb(51, 49, 49);
     --bg-dark-gray: rgb(30, 30, 30);
     --color-turqoise-blue: rgb(41, 188, 186);
+    --color-mustard: rgb(255, 193, 7);
+    --color-blue: rgb(33, 112, 94);
 }
-
 /* ===================================== */
 /* GENERAL STYLES                        */
 /* ===================================== */
+
+#main-hero{
+  color: var(--color-vibrant-gold) !important;
+}
 
 .my-5 {
   background-color: var(--bg-dark-brown);
