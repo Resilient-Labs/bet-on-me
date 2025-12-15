@@ -301,7 +301,8 @@ a.btn.btn-default {
 
 #task-list li:hover {
     /* box-shadow: 0 0 10px (0, 0, 0, 0.1); */
-    background-color: rgb(41, 188, 186);
+    background-color: rgb(155, 164, 87);
+    border-color: var(--bg-dark-brown);
     color: var(--bg-dark-gray)
 }
 
