@@ -391,164 +391,133 @@ footer {
 
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! START !!!!!!!~~~~~~~~ */
-.card-body{
-    background: #1a1a1a;;
+
+:root {
+  --accent-teal: rgb(92, 154, 152);
+  --accent-yellow: #FFD700;
+  --text-dark: #333;
+  --bg-light: #ffffff;
+  --progress-light: #e0f0ef;
 }
 
+/* ============= GLOBAL BACKGROUND ============= */
+body {
+  background-color: var(--bg-light) !important;
+}
 
 .team-progress-container {
-  background: #000000;
   min-height: 100vh;
   padding: 3rem 0;
+  background-color: var(--bg-light) !important;
 }
 
+/* ============= LEFT SIDE - TEAM PROGRESS ============= */
+
+/* Main Team Card */
 .team-card {
-  background: #1a1a1a;
-  min-height: 85vh;
+  background: var(--bg-light) !important;
+  border: none !important;
+  border-radius: 2rem !important;
 }
 
+/* Team Card Header - TEAL BACKGROUND */
 .team-card-header {
-  background: linear-gradient(135deg, #DEB887 0%, #F5DEB3 100%);
-  border: none;
+  background-color: var(--accent-teal) !important;
+  border-top-left-radius: 2rem !important;
+  border-top-right-radius: 2rem !important;
   padding: 1.5rem;
+  color: #ffffff !important;
+  border: none !important;
 }
 
+/* Team Name Section */
 .group-name-section {
-  border-bottom: 2px solid #DEB887;
-  margin-bottom: 3rem;
+  border-bottom: 3px solid var(--accent-teal);
+  margin-bottom: 2rem;
   padding-bottom: 1.5rem;
 }
 
 .group-name-title {
-  color: #DEB887;
+  color: var(--accent-teal) !important;
   font-size: 2rem;
 }
 
+/* Individual User Cards */
 .user-card {
-  background: #2a2a2a;
-  border: none;
+  background: var(--bg-light) !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 1rem !important;
   margin-bottom: 1.5rem;
 }
 
-.user-badge {
-  width: 35px;
-  height: 35px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #DEB887;
-  color: #000;
-  font-size: 1rem;
-}
-
+/* YELLOW WAGER BADGE - Override Bootstrap */
 .wager-badge {
-  background: #DEB887;
-  color: #000;
-  font-size: 1.25rem;
-  padding: 0.5rem 1rem;
+  background-color: var(--accent-yellow) !important;
+  color: var(--text-dark) !important;
+  font-size: 1.25rem !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 700 !important;
+  border: 2px solid var(--accent-yellow) !important;
 }
 
+/* Progress Bar Container */
 .progress-container {
-  height: 35px;
-  background: #1a1a1a;
+  height: 25px !important;
+  background-color: var(--progress-light) !important;
+  border: 2px solid var(--accent-teal) !important;
+  border-radius: 0.5rem !important;
+  overflow: hidden;
 }
 
+/* TEAL Progress Bar with Animation */
 .progress-bar-gold {
-  background-color: var(--color-golden-brown);
-  background-image: linear-gradient(45deg,
-      rgba(255, 255, 255, 0.15) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.15) 75%,
-      transparent 75%,
-      transparent);
-  background-size: 1rem 1rem;
+  background-color: var(--accent-teal) !important;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  ) !important;
+  background-size: 1rem 1rem !important;
 }
 
+/* ============= RIGHT SIDE - TIMELINE & CASH JAR ============= */
 
-/* Right Side Cards */
+/* Timeline Card */
 .timeline-card {
-  background: #1a1a1a;
-  border: 2px solid #DEB887 !important;
-}
-
-.timeline-header {
-  background: #513a1a;
-  border: none;
-  padding: 1.5rem;
+  background: var(--bg-light) !important;
+  border: 2px solid var(--accent-teal) !important;
+  border-radius: 2rem !important;
 }
 
 .timeline-time {
-  color: #DEB887;
+  color: var(--accent-teal) !important;
+  font-size: 3rem !important;
 }
 
+/* Cash Jar Card */
 .cash-jar-card {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  border: 3px solid #DEB887 !important;
+  background: var(--bg-light) !important;
+  border: 2px solid var(--accent-teal) !important;
+  border-radius: 2rem !important;
 }
 
 .cash-jar-header {
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid #DEB887 !important;
+  background: var(--bg-light) !important;
+  border: none !important;
+  border-bottom: 3px solid var(--accent-teal) !important;
   padding: 1.5rem;
-  color: #DEB887;
+  color: var(--text-dark) !important;
+  border-top-left-radius: 2rem !important;
+  border-top-right-radius: 2rem !important;
 }
 
-.cash-jar-icon {
-  font-size: 4rem;
-  color: #DEB887;
-}
-
-.cash-jar-total {
-  color: #F5DEB3;
-}
-
-.cash-jar-label {
-  color: #DEB887;
-}
-
-.contributions-card {
-  background: #1a1a1a;
-  border: 2px solid #DEB887 !important;
-}
-
-.contributions-header {
-  background: #2a2a2a;
-  border-bottom: 2px solid #DEB887;
-  padding: 1.5rem;
-  color: #DEB887;
-}
-
-.contributions-body {
-  background: #1a1a1a;
-  padding: 1.5rem;
-}
-
-.contribution-item {
-  background: transparent;
-  border-color: #444;
-  color: #fff;
-  padding: 1rem 0.5rem;
-}
-
-.contribution-icon {
-  color: #DEB887;
-}
-
-.contribution-badge {
-  background: #DEB887;
-  color: #000;
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-}
-
-/* ~~~~~~~!!!!!!!!!!!!MONEY JAR CSS!!!!!!!~~~~~~~~ */
-/* ~~~~~~~!!!!!!!!!!!! START !!!!!!!~~~~~~~~ */
-
-
-/* Cash Jar Styles */
+/* Cash Jar Image and Animation */
 .cash-card {
   position: relative;
   display: inline-block;
@@ -567,7 +536,7 @@ footer {
   transform: scale(1.05);
 }
 
-/* Hover Overlay */
+/* Hover Overlay for Member Contributions */
 .hover-jar {
   position: absolute;
   top: 0;
@@ -583,60 +552,16 @@ footer {
   opacity: 1;
 }
 
-/* Big Coins Animation
-.big-coins {
-  position: absolute;
-  top: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-}
-
-.coin {
-  position: absolute;
-  font-size: 24px;
-  animation: coinDrop 1.5s ease-in infinite;
-}
-
-.coin-1 {
-  left: 30%;
-  animation-delay: 0s;
-}
-
-.coin-2 {
-  left: 50%;
-  animation-delay: 0.5s;
-}
-
-.coin-3 {
-  left: 70%;
-  animation-delay: 1s;
-} */
-
-@keyframes coinDrop {
-  0% {
-    top: -30px;
-    opacity: 1;
-    transform: rotate(0deg);
-  }
-
-  100% {
-    top: 150px;
-    opacity: 0;
-    transform: rotate(360deg);
-  }
-}
-
-/* Amount List (User Contributions) */
 .amount-list {
   position: absolute;
   bottom: 0px;
   left: 150%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.98);
   padding: 15px 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--accent-teal);
   min-width: 220px;
   z-index: 10;
 }
@@ -645,7 +570,7 @@ footer {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 5px 0;
+  padding: 8px 0;
   opacity: 0;
   animation: fadeInUp 0.5s ease forwards;
   animation-delay: var(--delay);
@@ -659,17 +584,28 @@ footer {
 
 .user-line p {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  color: #333;
+  color: var(--text-dark);
 }
 
+/* TEAL Cash Jar Total and Label */
+.cash-jar-total {
+  color: var(--accent-teal) !important;
+  font-weight: 900 !important;
+}
+
+.cash-jar-label {
+  color: var(--accent-teal) !important;
+  font-weight: 700 !important;
+}
+
+/* ============= ANIMATIONS ============= */
 @keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -680,22 +616,31 @@ footer {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
 }
 
-/* Cash Jar Total */
-.cash-jar-total {
-  color: #fada24;
+/* ============= UTILITY CLASSES ============= */
+.rounded-box {
+  border-radius: 2rem;
+  border: 2px solid var(--accent-teal);
 }
 
-.cash-jar-label {
-  color: #fada24;
+.card {
+  border-radius: 2rem !important;
 }
 
+/* ============= ADDITIONAL OVERRIDES ============= */
+/* Ensure Bootstrap doesn't interfere */
+.card-body {
+  background-color: var(--bg-light) !important;
+}
 
-/* ~~~~~~~!!!!!!!!!!!!MONEY JAR CSS!!!!!!!~~~~~~~~ */
+.card-header {
+  background-color: transparent;
+  border-bottom: none;
+}
+
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! END !!!!!!!~~~~~~~~ */
