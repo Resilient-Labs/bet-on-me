@@ -73,13 +73,21 @@
               <ul class="nav align-items-center gap-3">
 
                 <% if(isInGroup) { %>
-                  <li class="nav-item">
-                    <a href="/teamPage" class="nav-link text-white">My Group</a>
-                  </li>
 
-                  <li class="nav-item">
-                    <a href="/userGoal" class="nav-link text-white">My Goal</a>
-                  </li>
+                  <!-- show team page on every page but the my group page -->
+                   <% if (user && currentpath!== '/teamPage'){ %>
+                    <li class="nav-item">
+                    <a href="/teamPage" class="nav-link text-white">My Group</a>
+                    </li>
+                   <% } %>
+                  
+                    <!-- show user goal page on every page by my goals page -->
+                     <% if(user && currentpath !== '/userGoal') { %>
+                      <li class="nav-item">
+                      <a href="/userGoal" class="nav-link text-white">My Goal</a>
+                      </li>
+                     <% } %>
+                  
                 <% } %>
 
               </ul>
