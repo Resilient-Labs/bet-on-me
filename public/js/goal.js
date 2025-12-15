@@ -7,8 +7,30 @@ goalForm.addEventListener("submit", (e) => {
   if (goalInput.value.trim() !== '') {
     goalForm.submit()
   }
+  else {
+    alert ('Where\'s that goal at, huh?')
+  }
 });
 
+
+
+// Justin Jimenez worked on this logic here to make the button only appear when things are submitted.
+
+let goalButton = document.getElementById('submitTaskButton')
+goalButton.style.display = 'none'
+let bigGoal = document.getElementById('bigGoal')
+bigGoal.addEventListener('input', buttonLive )
+
+
+function buttonLive () {
+  let bigGoal = document.getElementById('bigGoal')
+bigGoal.addEventListener('input', buttonLive )
+if (bigGoal.value !== ''){  
+  goalButton.style.display = 'unset'
+} else {
+  goalButton.style.display = 'none'
+}
+}
 
 // INLINE EDITING
 document.querySelectorAll("#task-list li").forEach((li) => {
