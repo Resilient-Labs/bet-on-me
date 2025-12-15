@@ -1,19 +1,20 @@
 /* Keep :root and * at the top */
 
-:root { 
-    --color-golden-brown: rgb(187, 161, 117);
-    --color-pale-yellow: rgb(252, 237, 194);
-    --color-faded-yellow: rgb(153, 150, 143);
-    --color-light-coral: rgb(235, 153, 121);
-    --color-vibrant-coral: rgb(250, 137, 92);
-    --bg-dark-brown: rgb(51, 49, 49);
-    --bg-dark-gray: rgb(30, 30, 30);
-    --color-mustard: rgb(255, 193, 7);
+:root {
+  --color-golden-brown: rgb(158, 145, 106);
+  --color-pale-yellow: rgb(252, 237, 194);
+  --color-faded-yellow: rgb(153, 150, 143);
+  --color-light-coral: rgb(235, 153, 121);
+  --color-vibrant-coral: rgb(250, 137, 92);
+  --bg-dark-brown: rgb(63, 46, 34);
+  --bg-dark-gray: rgb(30, 30, 30);
+  --color-mustard: rgb(255, 193, 7);
+  --color-blue: rgb(33, 112, 94);
 }
 
 * {
-    box-sizing: border-box;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  box-sizing: border-box;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 /* This is connected to JS and controls the toggle on/off of the clock
@@ -21,63 +22,63 @@
   */
 
 #wholeClock {
-    display: none;
+  display: none;
 }
 
 /* This is connected to JS and controls the toggle on/off of the button for users to join the challenge */
 
 #joinChallenge {
-    display: none;
+  display: none;
 }
 
 /* login and sign up modals START */
 
 .login-modal {
-    background-color: var(--bg-dark-brown);
-    color: var(--color-pale-yellow);
-    border-radius: 1rem;
+  background-color: var(--bg-dark-brown);
+  color: var(--color-pale-yellow);
+  border-radius: 1rem;
 }
 
 .login-modal button[type="submit"] {
-    background-color: var(--color-light-coral);
-    color: var(--bg-dark-gray);
-    font-weight: 500;
-    font-size: 1.3rem;
-    border: none;
+  background-color: var(--color-light-coral);
+  color: var(--bg-dark-gray);
+  font-weight: 500;
+  font-size: 1.3rem;
+  border: none;
 }
 
 .login-modal button:hover {
-    background-color: var(--color-vibrant-coral);
-    color: var(--bg-dark-brown)
+  background-color: var(--color-vibrant-coral);
+  color: var(--bg-dark-brown)
 }
 
 .login-modal a {
-    color: var(--color-light-coral);
+  color: var(--color-light-coral);
 }
 
 .login-modal h5 {
-    font-size: 0;
-    padding: .5rem;
+  font-size: 0;
+  padding: .5rem;
 }
 
 .login-modal a:hover {
-    color: var(--color-vibrant-coral);
+  color: var(--color-vibrant-coral);
 }
 
 
 .login-modal input {
-    background-color: var(--color-pale-yellow);
+  background-color: var(--color-pale-yellow);
 }
 
 .login-modal input:focus,
 .home-container input:focus {
-    background-color: var(--color-pale-yellow);
-    border-color: var(--color-light-coral);
-    border-width: .1rem;
+  background-color: var(--color-pale-yellow);
+  border-color: var(--color-light-coral);
+  border-width: .1rem;
 }
 
 .login-modal .form-text {
-    color: var(--color-faded-yellow);
+  color: var(--color-faded-yellow);
 }
 
 /* login and sign up modals END */
@@ -85,140 +86,224 @@
 /* Home page START */
 
 .home-container {
-    min-height: 75vh;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    background-color: var(--bg-dark-gray);
-}
-
-.home-container .home-header {
-    flex: 1;
+  min-height: 81vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--bg-dark-brown);
+  margin-bottom: -4rem;
 }
 
 .home-container .home-body {
-    flex: 1;
+  flex: 1;
+  margin-bottom: 4rem;
 }
 
 .home-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  width: 60%;
+  margin: auto;
+  margin-top: 2rem;
+  min-width: 352px;
 }
 
 .home-header h1 {
-    text-align: center;
-    color: var(--color-pale-yellow);
-    font-size: 3.5rem;
-    font-weight: bold;
+  text-align: center;
+  color: var(--color-pale-yellow);
+  font-size: 3.5rem;
+  font-weight: bold;
 }
 
 .home-header p {
-    text-align: center;
-    color: var(--color-pale-yellow);
-    margin: 0;
+  text-align: center;
+  color: var(--color-pale-yellow);
+  margin: 0;
 }
 
 .home-body {
-    display: flex;
-    gap: 2rem;
-    padding: .5rem;
-    justify-content: center;
+  display: flex;
+  gap: 2rem;
+  padding: .5rem;
+  justify-content: center;
 }
 
 .home-body section {
-    border-radius: 2rem;
-    flex: 1;
-    padding: .5rem;
-    margin: 2rem 0;
-    background-color: var(--color-golden-brown);
-    max-width: 500px;
-    border: 1px solid rgb(241, 239, 227);
+  border-radius: 2rem;
+  flex: 1;
+  padding: .5rem;
+  margin: 2rem 0;
+  background-color: var(--color-golden-brown);
+  max-width: 500px;
+  border: 1px solid rgb(241, 239, 227);
 }
 
 .home-body section input {
-    max-width: 20rem;
-    background-color: var(--color-pale-yellow);
+  max-width: 20rem;
+  background-color: var(--color-pale-yellow);
 }
 
 .home-body .create,
 .home-body .join {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 292px;
-    min-width: 405px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+  min-width: 350px;
+}
+
+.home-body .create form {
+  width: 60%;
+  margin-bottom: 1.5rem;
+}
+
+.home-body .create #sendInviteBtn {
+  width: 100%;
 }
 
 .home-body button {
-    font-size: 1.4rem;
-    background-color: var(--color-mustard);
-    color: var(--bg-dark-gray);
-    border-color: var(--bg-dark-gray);
+  font-size: 1.4rem;
+  background-color: var(--color-mustard);
+  color: var(--bg-dark-gray);
+  border-color: var(--bg-dark-gray);
 }
 
 .home-body button:hover {
-    background-color: var(--color-pale-yellow);
-    color: var(--bg-dark-gray);
+  background-color: var(--color-pale-yellow);
+  color: var(--bg-dark-gray);
 }
 
 .home-body section {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .home-body section:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 @media screen and (max-width: 1000px) {
-    .home-container {
-        padding: 2rem 0;
-        padding-bottom: 10rem;
-    }
+  .home-container {
+    padding: 2rem 0;
+  }
 
-    .home-header {
-        padding: 0 2rem;
-    }
+  .home-container .create,
+  .home-container .join {
+    min-height: 252px;
+  }
 
-    .home-body {
-        flex-direction: column;
-        align-items: center;
-        gap: .3rem;
-    }
+  .home-body {
+    flex-direction: column;
+    align-items: center;
+    gap: .3rem;
+  }
 
-    .home-body section {
-        margin-bottom: 0;
-    }
+  .home-body section {
+    margin-bottom: 0;
+  }
+
+  .home-header {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .home-container .create form {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .home-container .create form {
+    width: 90%;
+  }
 }
 
 /* Home page END */
 /* CSS for Fixed Header & Footer */
 header {
   /* position: fixed; Makes it stick to the viewport */
-  top: 0;          /* Sticks to the top */
-  width: 100%;     /* Stretches across the screen */
-  z-index: 10;     /* Keeps it on top */
+  top: 0;
+  /* Sticks to the top */
+  width: 100%;
+  /* Stretches across the screen */
+  z-index: 10;
+  /* Keeps it on top */
   /* Add height, background, etc. */
 }
 
 footer {
   /* position: fixed; Makes it stick to the viewport */
-  bottom: 0;       /* Sticks to the bottom */
-  width: 100%;     /* Stretches across the screen */
-  z-index: 10;     /* Keeps it on top */
+  bottom: 0;
+  /* Sticks to the bottom */
+  width: 100%;
+  /* Stretches across the screen */
+  z-index: 10;
+  /* Keeps it on top */
   /* Add height, background, etc. */
 }
 
 .landing-page-main {
   /* Add padding to push content below the header and above the footer */
-  padding-top: 80px;  /* Adjust to your header's height */
-  padding-bottom: 60px; /* Adjust to your footer's height */
+  /* padding-top: 80px; */
+  /* Adjust to your header's height */
+  /* padding-bottom: 60px; */
+  /* Adjust to your footer's height */
   /* Or use flexbox/grid for more complex layouts */
   background-color: black;
 }
 
+.landing-page-main .bright {
+  color: var(--color-pale-yellow);
+}
+
+.landing-page-main .about-app{
+  background-color: var(--bg-dark-brown);
+}
+.landing-page-main .transparent{
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* 
+.landing-page-main h1{
+  font-size: 2.4rem;
+} */
+
+.landing-page-main .rounded-box{
+  border-radius: 2rem;
+  border: 2px solid var(--color-golden-brown);
+}
+
+.landing-page-main .dashed{
+  border: 2px dashed var(--color-golden-brown);
+}
+
+.landing-page-main .card-detail {
+  background-color: var(--bg-dark-gray);
+  border-top: 2px solid var(--color-golden-brown);
+  height: 160px;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem
+}
+
+.landing-page-main .card-content{
+  text-align: center;
+}
+
+.landing-page-main .card-detail{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.landing-page-main .about{
+  align-items: center;
+  justify-content: center;
+}
 
 
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
@@ -287,16 +372,14 @@ footer {
 
 .progress-bar-gold {
   background-color: var(--color-golden-brown);
-  background-image: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.15) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.15) 75%,
-    transparent 75%,
-    transparent
-  );
+  background-image: linear-gradient(45deg,
+      rgba(255, 255, 255, 0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.15) 75%,
+      transparent 75%,
+      transparent);
   background-size: 1rem 1rem;
 }
 
@@ -453,6 +536,7 @@ footer {
     opacity: 1;
     transform: rotate(0deg);
   }
+
   100% {
     top: 150px;
     opacity: 0;
@@ -502,6 +586,7 @@ footer {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -512,6 +597,7 @@ footer {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

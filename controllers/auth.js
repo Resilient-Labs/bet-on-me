@@ -38,7 +38,7 @@ exports.postLogin = (req, res, next) => {
     if (!user) {
       req.flash("errors", info);
       //redirect to landing page if user not logged in, and open correct modal
-      req.flash("modal", "login"); 
+      req.flash("modal", "login");
       return res.redirect("/");
     }
     req.logIn(user, (err) => {
@@ -123,13 +123,13 @@ exports.postSignup = async (req, res, next) => {
     { $or: [{ email: req.body.email }, { userName: req.body.userName }] }
   )
   if (existingUser) {
-        req.flash("errors", {
-          msg: "Account with that email address or username already exists.",
-        });
-        //redirect to landing page and open correct modal
-        req.flash("modal", "signup");
-        return res.redirect("/");
-      }
+    req.flash("errors", {
+      msg: "Account with that email address or username already exists.",
+    });
+    //redirect to landing page and open correct modal
+    req.flash("modal", "signup");
+    return res.redirect("/");
+  }
   user.save()
     .then(usr => {
       req.logIn(user, (err) => {
@@ -164,6 +164,9 @@ exports.forgotPassword = (req, res) => {
 
   const saveTokenToDatabase = async (email, token) => {
     const user = await User.findOne({ email });
+    if (!user) {
+      return; //Will show an error in the request password modal
+    }
     user.resetPasswordToken = token;
     user.resetPasswordExpires = Date.now() + 3600000; // Token expires in 1 hour
     await user.save();
@@ -189,7 +192,14 @@ exports.forgotPassword = (req, res) => {
     try {
       await transporter.sendMail(mailOptions);
       console.log('Password reset email sent');
+      //Show message in request reset modal
+      req.flash("success", { msg: "Password reset email sent!" });
+      res.redirect("/");
     } catch (error) {
+      //Show message in request reset modal
+      req.flash("errors", { msg: `${error}` });
+      req.flash("modal", "reset");
+      res.redirect("/");
       console.error('Error sending email:', error);
     }
   };
