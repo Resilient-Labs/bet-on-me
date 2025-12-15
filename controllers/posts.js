@@ -68,19 +68,19 @@ module.exports = {
         return res.redirect("/home");
       }
       const posts = await Post.find({ user: req.user.id });
-      const tasks = await task.find({ user: req.user.id });
-      const goals = await Goal.findOne({ user: req.user.id });
+      const tasks = await Task.find({ user: req.user.id }) || [];
+      const goals = await Goal.findOne({ user: req.user.id }) || null;
 
       res.render("userGoal.ejs", {
-        posts,
         user: req.user,
+        posts,
         tasks,
         goals,
         cluster,
         showProfileBubble: false
       });
     } catch (err) {
-      console.log(err);
+      console.log("getUserGoal error:", err);
       res.redirect("/home");
     }
   },
