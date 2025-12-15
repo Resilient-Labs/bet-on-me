@@ -1,6 +1,7 @@
 const Cluster = require("../models/Cluster");
 const Goal = require("../models/Goal");
 const Task = require("../models/Task");
+const User = require("../models/User");
 
 module.exports = {
   getTeamPage: async (req, res) => {
@@ -19,16 +20,17 @@ module.exports = {
           // Get member's main goal for wager amount
           const goals = await Goal.find({ user: member._id }).lean();
           const mainGoal = goals.length > 0 ? goals[0] : null;
+          const user = await User.findById(member);
 
           // Get member's tasks to calculate progress
           const tasks = await Task.find({ user: member._id }).lean();
-          const completedTasks = tasks.filter(task => task.completed).length;
-          const progress = tasks.length > 0 
-            ? Math.round((completedTasks / tasks.length) * 100) 
+          const completedTasks = tasks.filter(task => task.task_is_completed).length;
+          const progress = tasks.length > 0
+            ? Math.round((completedTasks / tasks.length) * 100)
             : 0;
 
           return {
-            ...member,
+            username: user.userName,
             wagerAmount: mainGoal?.wagerAmount || 0,
             wagerPaid: mainGoal?.wagerPaid || false,
             progress: progress,
