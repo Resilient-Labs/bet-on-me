@@ -68,8 +68,9 @@ module.exports = {
         return res.redirect("/home");
       }
       const posts = await Post.find({ user: req.user.id });
-      const tasks = await task.find({ user: req.user.id });
-      const goals = await Goal.findOne({ user: req.user.id });
+
+      const tasks = await Task.find({ user: req.user.id });
+      const goals = await Goal.findOne({ user: req.user.id, completed:false });
 
       res.render("userGoal.ejs", {
         posts,
@@ -79,6 +80,7 @@ module.exports = {
         cluster,
         showProfileBubble: false
       });
+
     } catch (err) {
       console.log(err);
       res.redirect("/home");
