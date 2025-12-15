@@ -94,3 +94,24 @@ document.addEventListener('click', function (e) {
     });
   } catch (e) { console.error('changePassword AJAX init failed', e); }
 })();
+
+// Set team preview progress widths from data-percent attributes
+function initTeamPreviewProgress() {
+  try {
+    document.querySelectorAll('.tp-progress-bar').forEach(bar => {
+      const p = parseInt(bar.getAttribute('data-percent')) || 0;
+      const percent = Math.max(0, Math.min(100, p));
+      bar.style.width = percent + '%';
+      bar.setAttribute('aria-valuenow', percent);
+    });
+  } catch (e) {
+    console.error('init team preview progress failed', e);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTeamPreviewProgress);
+} else {
+  // DOM already ready
+  initTeamPreviewProgress();
+}

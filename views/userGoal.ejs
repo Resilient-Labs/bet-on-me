@@ -110,7 +110,7 @@
                     </div>
                 </div>
             </div>
-
+        
             <!-- right section: steps -->
             <div class="sub-container steps">
                 <div class="user-step">
@@ -127,6 +127,22 @@
                             <i class="fa-solid fa-plus"></i>
                         </button>
                     </form>
+                    <% if (typeof messages !== 'undefined' && (messages.error || messages.success)) { %>
+                        <div class="mb-3" style="width:100%;">
+                            <% if (messages.error) { messages.error.forEach(function(msg){ %>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <%= msg %>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <% }) } %>
+                            <% if (messages.success) { messages.success.forEach(function(msg){ %>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <%= msg %>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <% }) } %>
+                        </div>
+                    <% } %>
                     <% if (typeof error !=='undefined' ) { %>
                         <div class="alert alert-danger">
                             <%= error %>
@@ -177,6 +193,32 @@
                     >
                         Goal Completed
                     </button>
+                </div>
+            </div>
+            <!-- Team Preview (spans goal + steps) -->
+            <div class="sub-container team-preview">
+                <div class="profile-section">
+                    <h5>Team Preview</h5>
+                    <% if (memberProgress && memberProgress.length) { %>
+                        <ul class="list-unstyled mb-0">
+                            <% memberProgress.forEach(mp => { %>
+                                <li class="d-flex align-items-center mb-3">
+                                    <img src="<%= mp.user.profile_image || 'https://via.placeholder.com/48' %>" alt="avatar" class="tp-avatar" />
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex justify-content-between">
+                                            <strong><%= mp.user.userName || mp.user.userName %></strong>
+                                            <small><%= mp.percent %>%</small>
+                                        </div>
+                                        <div class="progress tp-progress">
+                                            <div class="progress-bar tp-progress-bar" role="progressbar" data-user-id="<%= mp.user._id %>" data-percent="<%= mp.percent %>" aria-valuenow="<%= mp.percent %>" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <p class="text-muted mb-0">No team members yet.</p>
+                    <% } %>
                 </div>
             </div>
         </div>
