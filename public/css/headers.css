@@ -19,6 +19,13 @@
   background-color: var(--color-golden-brown);
   border-bottom: solid 4px black;
 }
+
+.custom-footer{
+  background-color: var(--color-golden-brown);
+  border-top: solid 4px black;
+}
+
+
 .text-small {
   font-size: 85%;
 }

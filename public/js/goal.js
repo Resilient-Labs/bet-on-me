@@ -14,9 +14,11 @@ goalForm.addEventListener("submit", (e) => {
 // Justin Jimenez worked on this logic here to make the button only appear when things are submitted.
 
 let goalButton = document.getElementById("submitTaskButton");
-goalButton.style.display = "none";
-let bigGoal = document.getElementById("bigGoal");
-bigGoal.addEventListener("input", buttonLive);
+if (goalButton) {
+  goalButton.style.display = "none";
+  let bigGoal = document.getElementById("bigGoal");
+  bigGoal.addEventListener("input", buttonLive);
+}
 
 function buttonLive() {
   let bigGoal = document.getElementById("bigGoal");
@@ -150,7 +152,7 @@ document.querySelectorAll("#task-list li").forEach((li) => {
 });
 
 // DELETE TASK
-const trash = document.querySelectorAll("#task-list .fa-trash");
+const trash = document.querySelectorAll("#task-list .delete-btn");
 
 Array.from(trash).forEach(function (element) {
   element.addEventListener("click", async function () {

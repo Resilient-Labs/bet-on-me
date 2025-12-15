@@ -38,20 +38,50 @@ module.exports = {
     }
   },
   getTeamPage: async (req, res) => {
-    try {
-      res.render("teamPage.ejs", { user: req.user, showProfileBubble: true });
+    try{
+      //checks is user is a member of a group for nav
+      const cluster = await Cluster.findOne({
+        cluster_members: req.user.id
+      });
+      //redirects to home if not in group
+      if(!cluster) {
+        return res.redirect("/home");
+      }
+
+      res.render("teamPage.ejs", {
+        user: req.user,
+        cluster,
+        showProfileBubble: true
+      });
     } catch (err) {
       console.log(err);
+      res.redirect("/home");
     }
   },
   getUserGoal: async (req, res) => {
-    try {
+    try{
+      const cluster = await Cluster.findOne({
+        cluster_members: req.user.id
+      });
+
+      if(!cluster) {
+        return res.redirect("/home");
+      }
       const posts = await Post.find({ user: req.user.id });
-      const tasks = await Task.find({ user: req.user.id });
-      const goals = await Goal.findOne({ user: req.user.id });
-      res.render("userGoal.ejs", { posts, user: req.user, tasks, goals, showProfileBubble: false });
+      const tasks = await Task.find({ user: req.user.id }) || [];
+      const goals = await Goal.findOne({ user: req.user.id }) || null;
+
+      res.render("userGoal.ejs", {
+        user: req.user,
+        posts,
+        tasks,
+        goals,
+        cluster,
+        showProfileBubble: false
+      });
     } catch (err) {
-      console.log(err);
+      console.log("getUserGoal error:", err);
+      res.redirect("/home");
     }
   },
   //this function gets the user profile, and the todo list of tasks!
