@@ -9,7 +9,22 @@ module.exports = {
   getProfile: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
-      res.render("profile.ejs", { posts: posts, user: req.user, showProfileBubble: true });
+      // compute memberSince on the server so the view can simply print it
+      let memberSince = 'Unknown';
+      const goals = await Goal.find({ user: req.user.id, completed: true});
+      console.log('goals in getProfile:', goals);
+      try {
+        if (req.user && req.user.createdAt) {
+          memberSince = new Date(req.user.createdAt).toLocaleDateString('en-US');
+        } else if (req.user && req.user._id) {
+          const hex = req.user._id.toString().substring(0, 8);
+          memberSince = new Date(parseInt(hex, 16) * 1000).toLocaleDateString('en-US');
+        }
+      } catch (e) {
+        memberSince = 'Unknown';
+      }
+
+      res.render("profile.ejs", { posts: posts, user: req.user, memberSince, showProfileBubble: true, goals });
     } catch (err) {
       console.log(err);
     }
@@ -73,6 +88,7 @@ module.exports = {
   getUserProfile: async (req, res) => {
     try {
       const tasks = await getUserTasks(req.user.id);
+      const goals = await Goal.findOne({ user: req.user.id });
       res.render("userProfile.ejs", { user: req.user, tasks, showProfileBubble: true });
     } catch (err) {
       console.log(err);
@@ -206,40 +222,51 @@ module.exports = {
   },
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
 
-  
-  // users joining a cluster code - shawn
+
   joinCluster: async (req, res) => {
-    console.log('hi')
     try {
       const joinCode = req.body.code;
 
-      console.log(joinCode)
-
-      const cluster = await Cluster.findOne({
-        cluster_join_id: joinCode,
-      });
-
-      if (!cluster) {
-        return res.status(404).send("Cluster not found");
-      }
-
-      // prevent duplicate joins!!
-      if (cluster.cluster_members.includes(req.user.id)) {
-        return res.status(400).send("Already a member of this cluster");
-      }
-
-      cluster.cluster_members.push(req.user.id);
-      // update member count by 1
-      cluster.member_count += 1;
-
-      await cluster.save();
-
-      res.redirect("/userProfile");
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Error joining cluster");
+      // No cluster found
+    if (!cluster) {
+      req.flash("lateJoin", "Invalid group code.");
+      return res.redirect("/home");
     }
-  },
+
+    // Denying the user to join because the challenge has alread started --- Innocent for denying part only
+    const now = new Date();
+    const challengeStart = new Date(cluster.challengeStartDate);
+
+    if (now > challengeStart) {
+      req.flash(
+        "lateJoin",
+        "You are late to join this challenge. You can join the next one!"
+      );
+      return res.redirect("/home");
+    }
+
+      //  Atomic MongoDB-level protection against duplicates
+      const result = await Cluster.updateOne(
+        {
+          _id: cluster._id,
+          cluster_members: { $ne: req.user._id }, // only update if not already a member
+        },
+        {
+          $addToSet: { cluster_members: req.user._id },
+          $inc: { member_count: 1 },
+        }
+      );
+
+    req.flash("success_msg", "Joined cluster successfully");
+    res.redirect("/userGoal");
+  } catch (err) {
+    console.error(err);
+    req.flash("error_msg", "Error joining cluster");
+    res.redirect("/clusters/join");
+  }
+},
+
+
 
   // letting users leave a cluster - shawn
   leaveCluster: async (req, res) => {

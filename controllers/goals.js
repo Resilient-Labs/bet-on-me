@@ -10,29 +10,58 @@ module.exports = {
     }
   },
 
-  createOrUpdateGoal : async (req, res) => {
+  createOrUpdateGoal: async (req, res) => {
     try {
       const { name, description, completed } = req.body;
 
       const updatedGoal = await Goal.findOneAndUpdate({
         user: req.user.id,
-      },{
+        completed: false
+      }, {
         name
       })
       console.log(updatedGoal)
 
       if (updatedGoal == null) {
         const goal = await Goal.create({
-        name,
-        description,
-        completed: completed || false,
-        user: req.user.id,
-      });
+          name,
+          description,
+          completed: completed || false,
+          user: req.user.id,
+        });
       }
       res.redirect("/userGoal");
     } catch (err) {
       console.error(err);
       res.status(500).send("Server error");
+    }
+  },
+  completeGoal: async (req, res) => {
+    try {
+      const goalId = req.params.id;
+
+      console.log("goalId:", goalId);
+
+      // Make sure missionId exists
+      if (!goalId || goalId.trim() === "") {
+        console.log("goalId is missing or empty");
+        return res.redirect("/userGoal");
+      }
+
+      const goal = await Goal.findByIdAndUpdate(goalId, { $set: { "completed": true, "completedAt": new Date() } });
+      console.log("goal from DB:", goal);
+
+      if (!goal) {
+        console.log("goal not found in database");
+        console.log("failed to update goal status");
+        return res.redirect("/userGoal");
+      }
+
+      console.log("Goal marked as complete:", goal);
+      res.redirect("/userGoal");
+    } catch (err) {
+      console.log("Error in completeStudentMission:", err);
+      return res.redirect("/userGoal");
     }
   },
 
@@ -48,6 +77,9 @@ module.exports = {
         description,
         completed: completed || false,
         user: req.user.id,
+
+        completed: false,
+        completedAt: null,
       });
 
       console.log("Goal created:", goal);
