@@ -262,27 +262,52 @@ src="<%= user.profile_image || 'https://via.placeholder.com/150' %>"
 
           <div class="mb-3">
             <label class="form-label" style="color: var(--color-pale-yellow);">Current Password</label>
-            <input type="password" class="form-control" name="currentPassword" required>
+            <div class="input-group">
+              <input type="password" class="form-control" name="currentPassword" id="profileCurrentPassword" autocomplete="current-password" required>
+              <button type="button" class="input-group-text toggle-password" data-target="profileCurrentPassword" style="cursor: pointer; background-color: var(--color-pale-yellow);">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
           </div>
 
           <div class="mb-3">
             <label class="form-label" style="color: var(--color-pale-yellow);">New Password</label>
             <div class="input-group">
-              <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Minimum 10 characters" required>
-              <span class="input-group-text" onclick="togglePassword('newPassword')" style="cursor: pointer; background-color: var(--color-pale-yellow);">
-                👁️
-              </span>
+              <input type="password" class="form-control" name="newPassword" id="profileNewPassword" placeholder="Minimum 8 characters" autocomplete="new-password" required>
+              <button type="button" class="input-group-text toggle-password" data-target="profileNewPassword" style="cursor: pointer; background-color: var(--color-pale-yellow);">
+                <i class="fa-solid fa-eye"></i>
+              </button>
             </div>
           </div>
 
           <div class="mb-3">
             <label class="form-label" style="color: var(--color-pale-yellow);">Re-type Password</label>
-            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" required>
+            <div class="input-group">
+              <input type="password" class="form-control" name="confirmPassword" id="profileConfirmPassword" autocomplete="new-password" required>
+              <button type="button" class="input-group-text toggle-password" data-target="profileConfirmPassword" style="cursor: pointer; background-color: var(--color-pale-yellow);">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
           </div>
 
           <small class="form-text">
-            Password must be at least 10 characters.
+            Password must be at least 8 characters.
           </small>
+          <!-- in-modal message container (shows flash messages after redirect) -->
+          <div id="passwordChangeMessage">
+            <% if (typeof messages !== 'undefined') { %>
+              <% if (messages.success) { %>
+                <% messages.success.forEach(function(s){ %>
+                  <div class="alert alert-success w-100 mt-2" role="alert"><%= (s.msg || s) %></div>
+                <% }) %>
+              <% } %>
+              <% if (messages.errors) { %>
+                <% messages.errors.forEach(function(e){ %>
+                  <div class="alert alert-danger w-100 mt-2" role="alert"><%= (e.msg || e) %></div>
+                <% }) %>
+              <% } %>
+            <% } %>
+          </div>
 
           <div class="modal-footer px-0 pb-0" style="border-top: none;">
             <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: var(--color-faded-yellow); color: var(--bg-dark-gray);">Cancel</button>
