@@ -206,3 +206,57 @@ exports.forgotPassword = (req, res) => {
   saveTokenToDatabase(req.body.resetEmail, token)
   sendResetEmail(req.body.resetEmail, token)
 }
+
+// Change password while user is logged in
+exports.changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+    const errors = [];
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      errors.push({ msg: 'Please fill out all password fields.' });
+    }
+    if (newPassword && newPassword.length < 8) {
+      errors.push({ msg: 'Password must be at least 8 characters long' });
+    }
+    if (newPassword !== confirmPassword) {
+      errors.push({ msg: 'New passwords do not match' });
+    }
+    const isAjax = req.xhr || req.get('X-Requested-With') === 'XMLHttpRequest' || req.accepts('json') === 'json';
+    if (errors.length) {
+      if (isAjax) return res.status(400).json({ success: false, errors });
+      errors.forEach(e => req.flash('errors', e));
+      return res.redirect('/profile');
+    }
+
+    const User = require('../models/User');
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      req.flash('errors', { msg: 'User not found' });
+      return res.redirect('/profile');
+    }
+
+    user.comparePassword(currentPassword, async (err, isMatch) => {
+      if (err) {
+        console.error(err);
+        if (isAjax) return res.status(500).json({ success: false, message: 'Error verifying password' });
+        req.flash('errors', { msg: 'Error verifying password' });
+        return res.redirect('/profile');
+      }
+      if (!isMatch) {
+        if (isAjax) return res.status(401).json({ success: false, message: 'Current password is incorrect' });
+        req.flash('errors', { msg: 'Current password is incorrect' });
+        return res.redirect('/profile');
+      }
+
+      user.password = newPassword;
+      await user.save();
+      if (isAjax) return res.json({ success: true, message: 'Password changed successfully' });
+      req.flash('success', { msg: 'Password changed successfully' });
+      return res.redirect('/profile');
+    });
+  } catch (err) {
+    console.error('changePassword error', err);
+    req.flash('errors', { msg: 'Could not change password' });
+    return res.redirect('/profile');
+  }
+};
