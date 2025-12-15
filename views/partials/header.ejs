@@ -84,8 +84,8 @@
 
               </ul>
 
-              <!-- Only show profile bubble on /home page, not on /userGoal -->
-              <% if (typeof showProfileBubble === 'undefined' || showProfileBubble) { %>
+              <!-- Show profile bubble on every page but the profile page -->
+              <% if (user && currentPath !== '/profile') { %>
                 <a href="/profile" class="profile-bubble">
                   <div class="profile-pic-circle">
                     <i class="fas fa-user"></i>
