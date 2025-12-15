@@ -391,8 +391,21 @@ footer {
 
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! START !!!!!!!~~~~~~~~ */
-.card-body{
-    background: #1a1a1a;;
+.cash-jar-card > .card-body,
+.timeline-card > .card-body,
+.team-card > .card-body{
+    background: #1a1a1a;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+
+.user-card.card{
+  background-color: var(--color-mustard);
+  color: var(--bg-dark-gray);
+}
+
+.timeline-card .card-body{
+  color: var(--color-pale-yellow);
 }
 
 
@@ -408,8 +421,9 @@ footer {
 }
 
 .team-card-header {
-  background: linear-gradient(135deg, #DEB887 0%, #F5DEB3 100%);
-  border: none;
+  background-color: var(--color-golden-brown);
+  border-top-left-radius: 2rem ;
+  border-top-right-radius: 2rem ;
   padding: 1.5rem;
 }
 
@@ -441,16 +455,18 @@ footer {
   font-size: 1rem;
 }
 
-.wager-badge {
-  background: #DEB887;
-  color: #000;
+.card .wager-badge {
+  background: var(--bg-dark-gray);
+  color: var(--color-pale-yellow);
   font-size: 1.25rem;
-  padding: 0.5rem 1rem;
+  padding: .5rem 1rem;
 }
 
-.progress-container {
+.card .progress-container {
   height: 35px;
-  background: #1a1a1a;
+  background: var(--color-pale-yellow);
+  border: 1px solid black;
+  height: 25px;
 }
 
 .progress-bar-gold {
@@ -470,7 +486,7 @@ footer {
 /* Right Side Cards */
 .timeline-card {
   background: #1a1a1a;
-  border: 2px solid #DEB887 !important;
+  border: 1px solid var(--color-pale-yellow) !important;
 }
 
 .timeline-header {
@@ -485,7 +501,7 @@ footer {
 
 .cash-jar-card {
   background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  border: 3px solid #DEB887 !important;
+  border: 1px solid var(--color-pale-yellow) !important;
 }
 
 .cash-jar-header {
@@ -565,6 +581,15 @@ footer {
 
 .cash-card:hover .jar-img {
   transform: scale(1.05);
+}
+
+.rounded-box{
+  border-radius: 2rem;
+  border: 2px solid var(--color-golden-brown);
+}
+
+.card{
+ border-radius: 2rem !important;
 }
 
 /* Hover Overlay */
