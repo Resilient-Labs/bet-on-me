@@ -1,4 +1,4 @@
-<%- include('partials/header') -%>
+<!-- <%- include('partials/header') -%> -->
 
 <div class="container-fluid team-progress-container">
   <div class="container-fluid px-5">
@@ -30,7 +30,7 @@
                   <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                       <h5 class="mb-0 fw-bold text-white">
-                        <%= member.username || member.email %>
+                        <%= member.userName || member.email %>
                       </h5>
                       <span class="badge wager-badge">
                         $<%= member.wagerAmount || 0 %>
@@ -100,7 +100,7 @@
                       <div class="user-line" style="--delay:<%= index * 0.2 %>s;">
                         <span class="coin-small">🟡</span>
                         <p>
-                          <%= member.username || member.email %>:
+                          <%= member.userName || member.email %>:
                           $<%= member.wagerAmount || 0 %>
                         </p>
                       </div>
