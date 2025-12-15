@@ -259,10 +259,11 @@ footer {
   color: var(--color-pale-yellow);
 }
 
-.landing-page-main .about-app{
+.landing-page-main .about-app {
   background-color: var(--bg-dark-brown);
 }
-.landing-page-main .transparent{
+
+.landing-page-main .transparent {
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -271,12 +272,12 @@ footer {
   font-size: 2.4rem;
 } */
 
-.landing-page-main .rounded-box{
+.landing-page-main .rounded-box {
   border-radius: 2rem;
   border: 2px solid var(--color-golden-brown);
 }
 
-.landing-page-main .dashed{
+.landing-page-main .dashed {
   border: 2px dashed var(--color-golden-brown);
 }
 
@@ -288,11 +289,11 @@ footer {
   border-bottom-right-radius: 2rem
 }
 
-.landing-page-main .card-content{
+.landing-page-main .card-content {
   text-align: center;
 }
 
-.landing-page-main .card-detail{
+.landing-page-main .card-detail {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -300,7 +301,7 @@ footer {
   font-size: 1.1rem;
 }
 
-.landing-page-main .about{
+.landing-page-main .about {
   align-items: center;
   justify-content: center;
 }
@@ -308,20 +309,21 @@ footer {
 
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! START !!!!!!!~~~~~~~~ */
-.cash-jar-card > .card-body,
-.timeline-card > .card-body,
-.team-card > .card-body{
-    background: #1a1a1a;
-    border-bottom-left-radius: 2rem;
-    border-bottom-right-radius: 2rem;
+.cash-jar-card>.card-body,
+.timeline-card>.card-body,
+.team-card>.card-body {
+  background: #1a1a1a;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  border: 1px solid var(--color-pale-yellow);
 }
 
-.user-card.card{
+.user-card.card {
   background-color: var(--color-mustard);
   color: var(--bg-dark-gray);
 }
 
-.timeline-card .card-body{
+.timeline-card .card-body {
   color: var(--color-pale-yellow);
 }
 
@@ -339,9 +341,14 @@ footer {
 
 .team-card-header {
   background-color: var(--color-golden-brown);
-  border-top-left-radius: 2rem ;
-  border-top-right-radius: 2rem ;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
   padding: 1.5rem;
+  border: 1px solid var(--color-pale-yellow);
+}
+
+.team-card-header * {
+  font-size: 2rem;
 }
 
 .group-name-section {
@@ -500,13 +507,13 @@ footer {
   transform: scale(1.05);
 }
 
-.rounded-box{
+.rounded-box {
   border-radius: 2rem;
   border: 2px solid var(--color-golden-brown);
 }
 
-.card{
- border-radius: 2rem !important;
+.card {
+  border-radius: 2rem !important;
 }
 
 /* Hover Overlay */
@@ -635,6 +642,34 @@ footer {
 
 .cash-jar-label {
   color: #fada24;
+}
+
+.col-lg-8,
+.col-lg-4 {
+  min-width: 355px;
+}
+
+@media screen and (max-width: 1139px) {
+  .flex-container {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: .5rem;
+    align-items: flex-start;
+  }
+
+  .flex-container>.col-auto {
+    align-self: flex-start;
+  }
+
+  .flex-container>.col .d-flex {
+    align-items: center !important;
+  }
+}
+
+@media screen and (min-width: 993px) and (max-width: 1200px) {
+  .team-progress-container .row {
+    flex-wrap: nowrap;
+  }
 }
 
 
