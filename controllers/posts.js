@@ -214,7 +214,7 @@ module.exports = {
     if (now > challengeStart) {
       req.flash(
         "lateJoin",
-        "You are too late to join this challenge. You can join the next one!"
+        "You are late to join this challenge. You can join the next one!"
       );
       return res.redirect("/home");
     }
