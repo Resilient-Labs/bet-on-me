@@ -17,15 +17,19 @@
         <main class="user-goal-container">
             <div class="page-container">
                 <!-- Left Section: Profile -->
-                <div class="sub-container">
-                    <div class="profile-section">
+                <div class="sub-container one">
+                    <div class="profile-container">
                         <div class="profile-picture">
                             <span>Profile Picture</span>
                         </div>
                         <h2 class="user-name">
                             <%= user.userName %>
-                            USERNAME
+                                Bob Macbober
                         </h2>
+                    </div>
+                </div>
+                <div class="sub-container goal">
+                    <div class="profile-section">
 
                         <div class="place-wager-container">
                             <p class="goal-label">
@@ -53,7 +57,8 @@
                                     <p style="color: #4CAF50; margin-top: 10px;"> Wager Placed</p>
                                     <% } else { %>
                                         <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
-                                            <input type="number" id="wager-amount" placeholder="Amount" min="1" step="1">
+                                            <input type="number" id="wager-amount" placeholder="Amount" min="1"
+                                                step="1">
                                             <button id="place-wager-btn" class="btn btn-lg px-4 me-md-2"
                                                 style=" background-color:rgb(41, 188, 186);">
                                                 <i class="fa-solid fa-dollar-sign"></i> Place Wager
@@ -81,13 +86,14 @@
                 </div>
 
                 <!-- right section: steps -->
-                <div class="sub-container">
+                <div class="sub-container steps">
                     <div class="user-step">
                         <form class="input-area" action="/task/createTask" method="POST">
                             <input type="text" id="task-input" placeholder="Enter the steps to get there" name="title"
                                 required>
                             <input type="text" id="hide-task" placeholder="Name" name="_id">
-                            <button type="submit" id="add-task-btn" class="plus-btn"><i class="fa-solid fa-plus"></i></button>
+                            <button type="submit" id="add-task-btn" class="plus-btn"><i
+                                    class="fa-solid fa-plus"></i></button>
                         </form>
                         <% if (typeof error !=='undefined' ) { %>
                             <div class="alert alert-danger">
