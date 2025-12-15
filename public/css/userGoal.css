@@ -273,6 +273,12 @@ a.btn.btn-default {
     background: #ff6f91;
 }
 
+.input-area button:disabled {
+    transform: unset;
+    background: grey;
+    cursor: not-allowed;
+}
+
 .user-steps {
     width: 100%;
     display: flex;
@@ -333,7 +339,8 @@ a.btn.btn-default {
 }
 
 .strike-through {
-    text-decoration: line-through;
+    text-decoration: 2px line-through aliceblue;
+    color: aliceblue;
     opacity: 0.6;
     font-style: italic;
 }
@@ -344,11 +351,6 @@ a.btn.btn-default {
     /* word-wrap: break-word; */
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-#task-list li.completed span {
-    text-decoration: 2px line-through aliceblue;
-    color: aliceblue;
 }
 
 .task-buttons {
@@ -504,6 +506,11 @@ input.task-input:focus {
     .input-area input {
         width: 50%;
     }
+}
+
+.goal-completed:disabled {
+    background: grey;
+    cursor: not-allowed;
 }
 
 /* ----------------------------------------------------

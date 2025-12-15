@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     wagerBtn.addEventListener('click', async () => {
       const amount = document.getElementById('wager-amount').value;
       const goalId = document.getElementById('goal-id').value;
-      const goalName = document.getElementById('bigThing').value;
+      const goalName = document.getElementById('bigGoal').value;
 
       if (!amount || amount <= 0) {
         alert('Please enter a valid wager amount');
