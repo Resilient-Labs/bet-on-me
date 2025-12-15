@@ -43,6 +43,29 @@
       </div>  
     </div>
   </div>
+  <section class="showGoalHistory" style="color: white;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="text-center mb-4">Goal History</h2>
+          <% if (goals) { %>
+            <ul class="list-group">
+              <% goals.forEach(goal=> { %>
+                <li>
+                  <div>
+                    <strong>Goal:</strong> <%= goal.name %><br>
+                    <strong>Completed At:</strong> <%= goal.completedAt ? goal.completedAt.toDateString() : 'N/A' %>
+                  </div>
+                </li>
+              <% }); %>
+            </ul>
+          <% } else { %>
+            <p class="text-center">No completed goals yet.</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </section>
     <script src="js/clock.js"></script>
 
   </div>
