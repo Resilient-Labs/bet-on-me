@@ -70,11 +70,11 @@ module.exports = {
       const posts = await Post.find({ user: req.user.id });
 
       const tasks = await Task.find({ user: req.user.id });
-      const goals = await Goal.findOne({ user: req.user.id, completed:false });
+      const goals = await Goal.findOne({ user: req.user.id, completed:false }) || null;
 
       res.render("userGoal.ejs", {
-        posts,
         user: req.user,
+        posts,
         tasks,
         goals,
         cluster,
@@ -82,7 +82,7 @@ module.exports = {
       });
 
     } catch (err) {
-      console.log(err);
+      console.log("getUserGoal error:", err);
       res.redirect("/home");
     }
   },
