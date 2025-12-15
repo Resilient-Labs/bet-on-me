@@ -15,10 +15,10 @@ const clusterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cluster_members: {
-  type: [String],
-  default: [],
-  },
+  cluster_members: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  }],
   member_count: {
     type: Number,
     default: 0,

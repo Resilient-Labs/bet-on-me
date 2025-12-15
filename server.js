@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const flash = require("express-flash");
 const logger = require("morgan");
 const connectDB = require("./config/database");
+const figlet = require("figlet")
 
 // ROUTES
 const mainRoutes = require("./routes/main");
@@ -16,6 +17,7 @@ const taskRoutes = require("./routes/task");
 const goalRoutes = require("./routes/goal");
 
 const userRoutes = require("./routes/users");
+const errorRoutes = require("./routes/error");
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
@@ -34,12 +36,13 @@ app.use(express.static("public"));
 
 // override before parsing 
 app.use(methodOverride("_method"))
+app.use(errorRoutes);
 
 //Body Parsing
 // Stripe webhook route MUST come before body parsing middleware
 // this is because Stripe needs the raw request body to verify signatures
-app.post('/stripe/webhook', 
-  express.raw({ type: 'application/json' }), 
+app.post('/stripe/webhook',
+  express.raw({ type: 'application/json' }),
   require('./controllers/stripe').handleWebhook
 );
 
@@ -86,6 +89,9 @@ app.use("/post", postRoutes);
 app.use("/task", taskRoutes);
 app.use("/goal", goalRoutes);
 app.use("/stripe", require("./routes/stripe"));
+
+// activate figlet
+app.locals.figlet = figlet;
 
 // server running
 app.listen(process.env.PORT, () => {
