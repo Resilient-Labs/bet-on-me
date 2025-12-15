@@ -188,10 +188,23 @@ module.exports = {
       const cluster = await Cluster.findOne({
         cluster_join_id: joinCode,
       });
+      // No cluster found
+    if (!cluster) {
+      req.flash("lateJoin", "Invalid group code.");
+      return res.redirect("/home");
+    }
 
-      if (!cluster) {
-        return res.status(404).send("Cluster not found");
-      }
+    // Denying the user to join because the challenge has alread started --- Innocent for denying part only
+    const now = new Date();
+    const challengeStart = new Date(cluster.challengeStartDate);
+
+    if (now > challengeStart) {
+      req.flash(
+        "lateJoin",
+        "You are too late to join this challenge. You can join the next one!"
+      );
+      return res.redirect("/home");
+    }
 
       // prevent duplicate joins!!
       if (cluster.cluster_members.includes(req.user.id)) {
