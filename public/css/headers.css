@@ -61,6 +61,10 @@
   border-top: solid 1px var(--bs-gray);
 }
 
+.custom-footer .footer-contact-btn{
+  background-color: var(--btn-color);
+  color: var(--color-gray)
+}
 
 .text-small {
   font-size: 85%;
