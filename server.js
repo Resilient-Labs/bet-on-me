@@ -77,6 +77,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  res.locals.currentpath = req.path
+  next()
+});
+
+
 //Make isInGroup available in all EJS files so conditional can be made for header; user && in group || !user && !isInGroup for Team Page/ User Goal in nav
 const setUserGroupStatus = require("./middleware/setUserGroupStatus");
 
