@@ -44,6 +44,15 @@ if (taskInput.value !== ''){
 } else {
   addTaskBtn.style.display = 'none'
 }
+
+function buttonLive() {
+  let bigGoal = document.getElementById("bigGoal");
+  bigGoal.addEventListener("input", buttonLive);
+  if (bigGoal.value !== "") {
+    goalButton.style.display = "unset";
+  } else {
+    goalButton.style.display = "none";
+  }
 }
 
 

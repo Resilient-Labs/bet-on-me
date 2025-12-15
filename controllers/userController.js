@@ -1,49 +1,41 @@
 const User = require("../models/User");
 const Cluster = require("../models/Cluster");
 const cloudinary = require("../middleware/cloudinary");
+const Goal = require("../models/Goal");
 
-
-exports.createTestUser = async (req, res) => {
-  try {
-    const testUser = await User.create({
-      userName: "testuser",
-      email: "test@example.com",
-      password: "password123",
-      name: "Test User",
-    });
-
-    res.redirect(`/users/profile/${testUser._id}`);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error creating test user");
-  }
-};
-
-// get user profile page
 exports.getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).lean();
-    if (!user) return res.status(404).send("User not found");
 
-    const userClusters = await Cluster.find({
+    if (!user) {
+      req.flash("error_msg", "User not found");
+      return res.redirect("/");
+    }
+
+    const clusters = await Cluster.find({
       cluster_members: req.params.id,
-    }).lean();
+    })
+      .populate("cluster_members")
+      .lean();
 
-    res.render("profilePage", {
+    const goals = (await Goal.find({ user: req.params.id }).lean()) || [];
+
+    res.render("profile", {
       user,
-      clusters: userClusters,
+      clusters,
+      goals,
     });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error loading profile");
+    req.flash("error_msg", "Could not load profile");
+    res.redirect("/");
   }
 };
 
-// update profile pic
 exports.updateProfilePicture = async (req, res) => {
   try {
     if (!req.file) {
-      return res.redirect("/userGoal");
+      return res.redirect("/profile");
     }
 
     const user = await User.findById(req.user.id);
@@ -51,7 +43,7 @@ exports.updateProfilePicture = async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    // delete old image
+    // delete old image if it exists
     if (user.image_id) {
       await cloudinary.uploader.destroy(user.image_id);
     }
@@ -66,9 +58,9 @@ exports.updateProfilePicture = async (req, res) => {
 
     await user.save();
 
-    res.redirect("/userGoal");
+    res.redirect("/profile");
   } catch (err) {
-    console.error(err);
+    console.error("Error updating profile picture:", err);
     res.status(500).send("Error updating profile picture");
   }
 };

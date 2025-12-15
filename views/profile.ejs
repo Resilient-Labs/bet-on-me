@@ -13,24 +13,46 @@
 
             <!-- PROFILE IMAGE -->
             <img
-              src="<%= user.image || 'https://via.placeholder.com/150' %>"
+src="<%= user.profile_image || 'https://via.placeholder.com/150' %>"
               class="rounded-circle mb-3"
-              width="150"
-              height="150"
-              alt="<%= user.userName %>'s Profile Picture"
+              width="300"
+              height="300"
               style="border: 3px solid var(--color-golden-brown);"
             >
+
+          <form
+          action="/users/update-picture"
+          method="POST"
+          enctype="multipart/form-data"
+          class="mt-2"
+        >
+          <input
+            type="file"
+            name="profile_image"
+            id="imageUpload"
+            class="d-none"
+            accept="image/*"
+          >
+
+          <label
+            for="imageUpload"
+            class="btn btn-sm w-100"
+            style="
+              cursor: pointer;
+              background-color: var(--color-golden-brown);
+              color: var(--bg-dark-gray);
+              border: none;
+              font-weight: 500;
+            "
+          >
+            Change Profile Photo
+          </label>
+        </form>
+
 
             <h5 class="mb-1 text-white"><%= user.userName %></h5>
             <p class="text-muted small"><%= user.email %></p>
 
-            <!-- CHANGE PHOTO -->
-            <form action="/profile/uploadPhoto" method="POST" enctype="multipart/form-data">
-              <input type="file" name="file" id="imageUpload" class="d-none" accept="image/*">
-              <label for="imageUpload" class="btn btn-sm w-100 mt-2" style="cursor: pointer; background-color: var(--color-golden-brown); color: var(--bg-dark-gray); border: none; font-weight: 500;">
-                Change Profile Photo
-              </label>
-            </form>
 
           </div>
         </div>
@@ -100,36 +122,34 @@
             <!-- MEMBERS HEADER -->
             <h6 class="mb-3" style="color: #000; font-weight: 600;">Members</h6>
 
-            <!-- MEMBERS LIST -->
-            <div class="row g-3">
+           <!-- MEMBERS LIST -->
+<div class="row g-3">
 
-              <!-- MEMBER CARD (repeat for each member) -->
-              <div class="col-md-6">
-                <div class="d-flex align-items-center p-3 rounded" style="background-color: var(--color-golden-brown); border: 1px solid #000;">
+  <div class="col-md-6">
+    <div
+      class="d-flex align-items-center p-3 rounded"
+      style="background-color: var(--color-golden-brown); border: 1px solid #000;"
+    >
 
-                  <!-- MEMBER PROFILE IMAGE -->
-                  <img
-                    src="PROFILE_IMAGE_URL"
-                    class="rounded-circle me-3"
-                    width="50"
-                    height="50"
-                    alt="USERNAME profile picture"
-                    style="border: 2px solid #000;"
-                  >
+      <img
+        src="<%= user.profile_image || 'https://via.placeholder.com/50' %>"
+        class="rounded-circle me-3"
+        width="50"
+        height="50"
+        style="border: 2px solid #000;"
+      />
 
-                  <!-- MEMBER NAME -->
-                  <span class="fw-semibold" style="color: #000;">
-                    USERNAME
+      <span class="fw-semibold" style="color: #000;">
+        <%= user.userName %>
+        <span class="badge ms-2" style="background-color: #000; color: var(--color-golden-brown);">
+          You
+        </span>
+      </span>
 
-                    <!-- SHOW ONLY IF THIS MEMBER IS THE LOGGED-IN USER -->
-                    <span class="badge ms-2" style="background-color: #000; color: var(--color-golden-brown);">You</span>
-                  </span>
+    </div>
+  </div>
 
-                </div>
-              </div>
-              <!-- END MEMBER CARD -->
-
-            </div>
+</div>
 
             <hr class="my-4" style="border-color: var(--color-golden-brown); border-width: 2px;">
 
@@ -148,7 +168,7 @@
         <!-- COMPLETED GOALS -->
         <div class="card shadow-sm" style="border: 2px solid var(--color-golden-brown);">
           <div class="card-header" style="background-color: var(--color-golden-brown); border: none; padding: 1.5rem;">
-            <h4 class="mb-0" style="color: #000;">Completed Goals</h4>
+            <h4 class="mb-0" style="color: #000;">Completed Goal History</h4>
           </div>
           <div class="card-body" style="background-color: var(--color-pale-yellow); padding: 1.5rem;">
 
@@ -201,7 +221,7 @@
       </div>
     </div>
   </div>
-  <section class="showGoalHistory" style="color: white;">
+  <!-- <section class="showGoalHistory" style="color: white;">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -223,7 +243,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
     <script src="js/clock.js"></script>
 </div>
 
