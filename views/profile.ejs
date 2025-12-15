@@ -171,79 +171,75 @@ src="<%= user.profile_image || 'https://via.placeholder.com/150' %>"
             <h4 class="mb-0" style="color: #000;">Completed Goal History</h4>
           </div>
           <div class="card-body" style="background-color: var(--color-pale-yellow); padding: 1.5rem;">
-
+          
             <!-- MONTHLY GOALS SECTION (repeat for each month) -->
+            <!-- IF NO COMPLETED GOALS -->
+            <% if (completedGoals.length == 0) { %> 
+              <div class="text-center py-4" style="color: #000; opacity: 0.7;">
+                <p class="mb-0">No completed goals yet. Keep working towards your goals!</p>
+              </div>
+            <% } else { %>
+          
+            <!-- Organize monthly goals by months-->
+            <% let monthlyGoals = {} %>
+            <% const monthNames = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"] %>
+            <% completedGoals.forEach(goal => { %>
+              <% const date = `${monthNames[goal.completedAt.getMonth()]}, ${goal.completedAt.getFullYear()}` %>
+              <% if (!monthlyGoals[date]) { %>
+                <% monthlyGoals[date] = [[ goal.name, goal.completedAt ]] %>
+              <% } else { %>
+                <% monthlyGoals[date].push([goal.name,goal.completedAt]) %>
+              <% } %>
+            <% }) %>
             <div class="mb-4">
+            <!-- For each month, make a header and list the goals -->
+              <% for (const [month, goalList] of Object.entries(monthlyGoals)) { %>
+              <% goalList.sort((a,b) => b[1] - a[1]) %>
+
               <!-- MONTH HEADER -->
               <div class="d-flex align-items-center mb-3">
                 <h6 class="mb-0 me-3" style="color: #000; font-weight: 600;">
                   <!-- e.g., "December 2025" -->
-                  MONTH_YEAR
+                  <%= month %>
                 </h6>
                 <span class="badge" style="background-color: #000; color: var(--color-golden-brown); font-size: 0.9rem; padding: 0.5rem 1rem;">
                   <!-- number of goals completed that month -->
-                  GOAL_COUNT
+                  <%= goalList.length %>
                 </span>
               </div>
 
               <!-- GOALS LIST -->
               <div class="list-group">
-                
+                <% goalList.forEach(ele => { %> 
                 <!-- GOAL ITEM (repeat for each goal) -->
                 <div class="list-group-item d-flex justify-content-between align-items-start" style="background-color: var(--color-golden-brown); border: 1px solid #000; margin-bottom: 0.5rem;">
                   <div class="ms-2 me-auto">
                     <div class="fw-bold" style="color: #000;">
                       <!-- goal.title -->
-                      GOAL_TITLE
+                      <%= ele[0] %>
                     </div>
                     <small style="color: #000; opacity: 0.8;">
                       Completed on 
                       <!-- goal.completedAt formatted date -->
-                      COMPLETION_DATE
+                      <%= ele[1] %>
                     </small>
                   </div>
                   <span style="font-size: 1.5rem; color: #000;">✓</span>
                 </div>
+                <%})%>
                 <!-- END GOAL ITEM -->
-
               </div>
             </div>
+            <% } %>
+            <% } %>
             <!-- END MONTHLY SECTION -->
-
-            <!-- IF NO COMPLETED GOALS -->
-            <div class="text-center py-4" style="color: #000; opacity: 0.7;">
-              <p class="mb-0">No completed goals yet. Keep working towards your goals!</p>
-            </div>
-
           </div>
         </div>
 
       </div>
     </div>
   </div>
-  <!-- <section class="showGoalHistory" style="color: white;">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <h2 class="text-center mb-4">Goal History</h2>
-          <% if (goals) { %>
-            <ul class="list-group">
-              <% goals.forEach(goal=> { %>
-                <li>
-                  <div>
-                    <strong>Goal:</strong> <%= goal.name %><br>
-                    <strong>Completed At:</strong> <%= goal.completedAt ? goal.completedAt.toDateString() : 'N/A' %>
-                  </div>
-                </li>
-              <% }); %>
-            </ul>
-          <% } else { %>
-            <p class="text-center">No completed goals yet.</p>
-          <% } %>
-        </div>
-      </div>
-    </div>
-  </section> -->
+
     <script src="js/clock.js"></script>
 </div>
 

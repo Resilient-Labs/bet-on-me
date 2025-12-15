@@ -186,13 +186,13 @@
                             <% }) %>
                         </ul>
                     </div>
-                    <button
+                    <form action="/goal/complete/<%= goals._id %>?_method=PUT" method="POST"><button
                         class="goal-completed btn btn-lg px-4 me-md-2 fw-bol" style=" background-color:rgb(41, 188, 186);"
                         id="goalCompletedBtn"
                         <%= tasks.length > 0 && tasks.every(t => t.task_is_completed) ? '' : 'disabled' %>
                     >
                         Goal Completed
-                    </button>
+                    </button></form>
                 </div>
             </div>
             <!-- Team Preview (spans goal + steps) -->
