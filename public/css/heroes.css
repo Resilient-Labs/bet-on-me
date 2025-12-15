@@ -102,22 +102,6 @@
   padding: 12px;
 }
 
-.about-img-box {
-  background-color: black;
-  border: 2px solid var(--color-vibrant-gold);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-   margin-bottom: 2rem;
-}
-.about-img-box img{
-  width: 100%;
- 
-}
-
-
 
 .about-logo-box img {
   width: 90%;
