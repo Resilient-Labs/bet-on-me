@@ -25,6 +25,10 @@
                 <%= goals?.name ? goals.name : "Big thing I want to accomplish!" %>
             </p>
 
+            <a href="/teamPage" class="view-group-btn">
+             View your group
+            </a>
+
             <% if (goals) { %>
                 <div class="big-thing">
                     <%if(goals?.user==user.id){ %>
