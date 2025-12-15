@@ -45,7 +45,7 @@ src="<%= user.profile_image || 'https://via.placeholder.com/150' %>"
               font-weight: 500;
             "
           >
-            Change Profile Photo
+            Upload Profile
           </label>
         </form>
 
@@ -363,5 +363,11 @@ src="<%= user.profile_image || 'https://via.placeholder.com/150' %>"
     </div>
   </div>
 </div>
+<script>
+  document.getElementById("imageUpload").addEventListener("change", function () {
+    this.form.submit();
+  });
+</script>
+
 
 <%- include('partials/footer') -%>
