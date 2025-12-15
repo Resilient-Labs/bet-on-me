@@ -16,6 +16,7 @@ module.exports = {
 
       const updatedGoal = await Goal.findOneAndUpdate({
         user: req.user.id,
+        completed: false
       }, {
         name
       })
@@ -47,35 +48,17 @@ module.exports = {
         return res.redirect("/userGoal");
       }
 
-      // Grab mission info
-      const goal = await Goal.findById(goalId).lean();
+      const goal = await Goal.findByIdAndUpdate(goalId, { $set: { "completed": true, "completedAt": new Date() } });
       console.log("goal from DB:", goal);
 
       if (!goal) {
         console.log("goal not found in database");
-        return res.redirect("userGoal");
-      }
-
-
-      // Update mission status
-      const updateGoal = await Goal.findOneAndUpdate(
-        {
-          _id: goalId,
-          "complete": false,
-        },
-        {
-          $set: { "completedAt": new Date(), "complete": true },
-        },
-        { new: true }
-      );
-
-      if (!updateGoal) {
         console.log("failed to update goal status");
         return res.redirect("/userGoal");
       }
 
-      console.log("Goal marked as complete:", updateGoal);
-
+      console.log("Goal marked as complete:", goal);
+      res.redirect("/userGoal");
     } catch (err) {
       console.log("Error in completeStudentMission:", err);
       return res.redirect("/userGoal");
@@ -94,6 +77,9 @@ module.exports = {
         description,
         completed: completed || false,
         user: req.user.id,
+
+        completed: false,
+        completedAt: null,
       });
 
       console.log("Goal created:", goal);
