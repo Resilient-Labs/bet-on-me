@@ -9,7 +9,20 @@ module.exports = {
   getProfile: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
-      res.render("profile.ejs", { posts: posts, user: req.user, showProfileBubble: true });
+      // compute memberSince on the server so the view can simply print it
+      let memberSince = 'Unknown';
+      try {
+        if (req.user && req.user.createdAt) {
+          memberSince = new Date(req.user.createdAt).toLocaleDateString('en-US');
+        } else if (req.user && req.user._id) {
+          const hex = req.user._id.toString().substring(0, 8);
+          memberSince = new Date(parseInt(hex, 16) * 1000).toLocaleDateString('en-US');
+        }
+      } catch (e) {
+        memberSince = 'Unknown';
+      }
+
+      res.render("profile.ejs", { posts: posts, user: req.user, memberSince, showProfileBubble: true });
     } catch (err) {
       console.log(err);
     }
@@ -177,13 +190,13 @@ module.exports = {
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
 
   
-  // users joining a cluster code - shawn
-  joinCluster: async (req, res) => {
-    console.log('hi')
-    try {
-      const joinCode = req.body.code;
+ joinCluster: async (req, res) => {
+  try {
+    const joinCode = req.body.code;
 
-      console.log(joinCode)
+    const cluster = await Cluster.findOne({
+      cluster_join_id: joinCode,
+    });
 
       const cluster = await Cluster.findOne({
         cluster_join_id: joinCode,
@@ -206,23 +219,22 @@ module.exports = {
       return res.redirect("/home");
     }
 
-      // prevent duplicate joins!!
-      if (cluster.cluster_members.includes(req.user.id)) {
-        return res.status(400).send("Already a member of this cluster");
-      }
-
-      cluster.cluster_members.push(req.user.id);
-      // update member count by 1
-      cluster.member_count += 1;
-
-      await cluster.save();
-
-      res.redirect("/userProfile");
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Error joining cluster");
+    // If no document was modified, user was already in the group
+    if (result.modifiedCount === 0) {
+      req.flash("error_msg", "Already in group");
+      return res.redirect("/clusters/join");
     }
-  },
+
+    req.flash("success_msg", "Joined cluster successfully");
+    res.redirect("/userGoal");
+  } catch (err) {
+    console.error(err);
+    req.flash("error_msg", "Error joining cluster");
+    res.redirect("/clusters/join");
+  }
+},
+
+
 
   // letting users leave a cluster - shawn
   leaveCluster: async (req, res) => {
