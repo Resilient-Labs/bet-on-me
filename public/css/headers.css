@@ -1,28 +1,64 @@
 :root {
-    --color-golden-brown: rgb(187, 161, 117);
-    --color-pale-yellow: rgb(252, 237, 194);
-    --color-faded-yellow: rgb(153, 150, 143);
-    --color-light-coral: rgb(235, 153, 121);
-    --color-vibrant-coral: rgb(250, 137, 92);
-    --bg-dark-brown: rgb(51, 49, 49);
-    --bg-dark-gray: rgb(30, 30, 30);
+  --color-golden-brown: rgb(187, 161, 117);
+  --color-pale-yellow: rgb(252, 237, 194);
+  --color-faded-yellow: rgb(153, 150, 143);
+  --color-light-coral: rgb(235, 153, 121);
+  --color-vibrant-coral: rgb(250, 137, 92);
+  --bg-dark-brown: rgb(51, 49, 49);
+  --bg-dark-gray: rgb(30, 30, 30);
+
+  --main-bg-color: white;
+  --text-color: rgb(44, 44, 44);;
+  --btn-color: rgb(60, 51, 77);
+
+  --color-mustard: rgb(255, 205, 26);
+  --color-gray: rgb(235, 232, 232);
+  --color-foam-green: rgb(174, 223, 194);
+  --color-sky-blue: rgb(182, 215, 284);
 }
 
 .form-control-dark {
   border-color: var(--bs-gray);
 }
+
+.header-logo{
+  border: 1px solid var(--btn-color);
+  width: 80px;
+  border-radius: 50%;
+  margin: .2rem 0;
+  padding: .3rem;
+  background-color: var(--color-mustard);
+  opacity: .9;
+}
+
 .form-control-dark:focus {
   border-color: #fff;
   box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
 }
-.custom-header{
-  background-color: var(--color-golden-brown);
-  border-bottom: solid 4px black;
+
+.custom-header {
+  background-color: var(--color-foam-green);
+  border-bottom: solid 1px var(--btn-color);
 }
 
-.custom-footer{
-  background-color: var(--color-golden-brown);
-  border-top: solid 4px black;
+.custom-header a{
+  color: var(--btn-color);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.custom-header a:hover{
+  color: var(--btn-color);
+  font-size: 1.4rem;
+}
+
+.custom-header .btn{
+  border: 1px solid var(--btn-color);
+}
+
+.custom-footer {
+  background-color: var(--color-foam-green);
+  border-top: solid 1px var(--bs-gray);
 }
 
 
@@ -33,24 +69,38 @@
 .dropdown-toggle:not(:focus) {
   outline: 0;
 }
-.text-end{
+
+.text-end {
   float: right;
 }
-.login{
+
+.login {
   color: white;
   text-decoration: none;
 }
-.signup{
+
+.signup {
   color: black;
   text-decoration: none;
 }
 
 a.login:hover {
-  color: black; 
+  color: black;
 }
+
 a.signup:hover {
-  color: black; 
+  color: black;
 }
+
+.custom-header .btn-hover:hover{
+  background-color: var(--btn-color);  
+}
+
+ .btn-hover a:hover {
+color: var(--main-bg-color);
+font-size: 1.2rem;
+}
+
 
 .profile-bubble {
   text-decoration: none;
@@ -62,21 +112,20 @@ a.signup:hover {
 }
 
 .profile-pic-circle {
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background-color: var(--color-golden-brown);
+  background-color: var(--color-sky-blue);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--color-pale-yellow);
+  border: 1px solid var(--btn-color);
   transition: all 0.3s ease;
 }
 
 .profile-pic-circle:hover {
-  background-color: var(--color-vibrant-coral);
-  border-color: var(--color-mustard);
-  box-shadow: 0 0 10px rgba(187, 161, 117, 0.5);
+  background-color: var(--color-mustard);
+  border-color: var(--bs-gray);
 }
 
 .profile-pic-circle i {
