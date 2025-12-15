@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Cluster = require("../models/Cluster");
 const cloudinary = require("../middleware/cloudinary");
+const Goal = require("../models/Goal");
 
 exports.getProfile = async (req, res) => {
   try {
@@ -17,9 +18,12 @@ exports.getProfile = async (req, res) => {
       .populate("cluster_members")
       .lean();
 
+    const goals = (await Goal.find({ user: req.params.id }).lean()) || [];
+
     res.render("profile", {
       user,
       clusters,
+      goals,
     });
   } catch (err) {
     console.error(err);

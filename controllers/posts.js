@@ -25,11 +25,15 @@ getProfile: async (req, res) => {
       .populate("cluster_members")
       .lean();
 
+    // fetch user's goals as an array for the profile view
+    const goals = (await Goal.find({ user: req.user.id }).lean()) || [];
+
     res.render("profile", {
       posts,
       user: req.user,
       memberSince,
-      clusters, 
+      clusters,
+      goals,
       showProfileBubble: true,
     });
   } catch (err) {
