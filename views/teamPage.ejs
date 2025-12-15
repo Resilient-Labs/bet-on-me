@@ -22,44 +22,58 @@
                   <%= cluster?.cluster_name || "No Team Yet" %>
                 </h3>
               </div>
+              <% if (cluster?.cluster_join_id) { %>
 
-              <!-- Users and Progress -->
-              <% if (members && members.length> 0) { %>
-                <% members.forEach((member, index)=> { %>
-                  <div class="card user-card mb-3">
-                    <div class="card-body p-4">
-                      <div class="row align-items-center flex-container">
-                        <!-- User Name -->
-                        <div class="col-auto mb-md-0">
-                          <h5 class="mb-0 fw-bold">
-                            <%= member.userName || member.email %>
-                          </h5>
-                        </div>
+                <!-- Making the join code appear on the team's page ---Innocent -->
+                <div class="groupCode">
+                  <span class="badge px-3 py-2" style="color: yellow; font-size:1rem;">
+                    Team Code:
+                    <strong>
+                      <%= cluster.cluster_join_id %>
+                    </strong>
+                  </span>
+                </div>
+                <% } %>
 
-                        <!-- Progress Bar and Wager Badge -->
-                        <div class="col">
-                          <div class="d-flex align-items-center gap-3">
-                            <!-- Progress Bar -->
-                            <div class="progress progress-container flex-grow-1">
-                              <div class="progress-bar progress-bar-animated progress-bar-gold" role="progressbar"
-                                style="width: <%= member.progress || 0 %>%" aria-valuenow="<%= member.progress || 0 %>"
-                                aria-valuemin="0" aria-valuemax="100">
-                              </div>
+
+
+                  <!-- Users and Progress -->
+                  <% if (members && members.length> 0) { %>
+                    <% members.forEach((member, index)=> { %>
+                      <div class="card user-card mb-3">
+                        <div class="card-body p-4">
+                          <div class="row align-items-center flex-container">
+                            <!-- User Name -->
+                            <div class="col-auto mb-md-0">
+                              <h5 class="mb-0 fw-bold">
+                                <%= member.userName || member.email %>
+                              </h5>
                             </div>
 
-                            <!-- Wager Badge -->
-                            <span class="badge wager-badge flex-shrink-0">
-                              $<%= member.wagerAmount || 0 %>
-                            </span>
+                            <!-- Progress Bar and Wager Badge -->
+                            <div class="col">
+                              <div class="d-flex align-items-center gap-3">
+                                <!-- Progress Bar -->
+                                <div class="progress progress-container flex-grow-1">
+                                  <div class="progress-bar progress-bar-animated progress-bar-gold" role="progressbar"
+                                    style="width: <%= member.progress || 0 %>%"
+                                    aria-valuenow="<%= member.progress || 0 %>" aria-valuemin="0" aria-valuemax="100">
+                                  </div>
+                                </div>
+
+                                <!-- Wager Badge -->
+                                <span class="badge wager-badge flex-shrink-0">
+                                  $<%= member.wagerAmount || 0 %>
+                                </span>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <% }) %>
-                    <% } else { %>
-                      <p class="text-muted text-center">No team members yet.</p>
-                      <% } %>
+                      <% }) %>
+                        <% } else { %>
+                          <p class="text-muted text-center">No team members yet.</p>
+                          <% } %>
 
             </div>
           </div>
@@ -88,10 +102,10 @@
             <!-- Cash Jar -->
             <div class="card shadow-lg border-0 cash-jar-card">
               <div class=" py-4 text-center team-card-header">
-              <h4 class="mb-0 text-dark fw-bold">
-                Cash Jar
-              </h4>
-            </div>
+                <h4 class="mb-0 text-dark fw-bold">
+                  Cash Jar
+                </h4>
+              </div>
 
               <div class="card-body text-center p-4">
                 <div class="cash-card">
