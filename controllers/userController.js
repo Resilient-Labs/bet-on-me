@@ -64,3 +64,29 @@ exports.updateProfilePicture = async (req, res) => {
     res.status(500).send("Error updating profile picture");
   }
 };
+//delete user account logic --Innocent
+exports.deleteAccount = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Delete user
+    await User.findByIdAndDelete(userId);
+
+    // OPTIONAL (recommended cleanup)
+    await Cluster.updateMany(
+      { cluster_members: userId },
+      { $pull: { cluster_members: userId }, $inc: { member_count: -1 } }
+    );
+
+    // Destroy session
+    req.logout(() => {
+      req.session.destroy(() => {
+        res.redirect("/");
+      });
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error deleting account");
+  }
+};

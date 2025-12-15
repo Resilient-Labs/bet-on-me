@@ -295,4 +295,48 @@ src="<%= user.profile_image || 'https://via.placeholder.com/150' %>"
     </div>
   </div>
 </div>
+
+<!-- DELETE ACCOUNT MODAL --Innocent -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content login-modal">
+
+      <div class="modal-header" style="border-bottom: 2px solid #dc3545;">
+        <h5 class="modal-title text-danger">Delete Account</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body text-white">
+        <p>
+          This action is <strong>permanent</strong> and cannot be undone.
+        </p>
+        <p>
+          Your account, goals, posts, and cluster memberships will be deleted.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn"
+          data-bs-dismiss="modal"
+          style="background-color: var(--color-faded-yellow);"
+        >
+          Cancel
+        </button>
+
+        <form action="/users/delete-account" method="POST">
+          <button
+            type="submit"
+            class="btn btn-danger"
+          >
+            Yes, Delete My Account
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <%- include('partials/footer') -%>
