@@ -6,12 +6,11 @@
           class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" 
         >
           <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-            <h1 class="display-4 fw-bold lh-1 text-body-emphasis">
-              Tired of setting goals you never actually follow through on?
+            <h1 id="main-hero" class="display-4 fw-bold lh-1 text-body-emphasis">
+              Tired of setting goals you never follow through on?
             </h1>
             <p class="lead">
-              Bet On Me makes your habits real by putting money on the line.
-              Commit to your goals, join group challenges, compete with friends, and unlock the version of you that finally sticks to it.
+              <stong>Bet On Me</stong> keeps you accountable!
               Fail your habits? Pay up.
               Crush them? Keep your cash — and maybe win your friends’.
             </p>
@@ -20,7 +19,7 @@
             >
               <button
                 type="button"
-                class="btn btn-lg px-4 me-md-2 fw-bold" style="background-color: rgb(41, 188, 186);"
+                class="btn btn-lg px-4 me-md-2 fw-bold hero-join-btn"
               >
                 <a href="#" type="button" data-bs-toggle="modal" class="join-btn" data-bs-target="#signupModal">
                   Join
@@ -29,9 +28,9 @@
               <button
                 type="button"
                 class="btn btn-outline-secondary btn-lg px-4 gold-btn"
+                onclick="location.href='#about-section'"
               >
                 About
-                <!-- I want this to lead to the bottom half of the page, I will make an about section -->
               </button>
               </div>
           </div>
@@ -44,6 +43,9 @@
             />
           </div>
         </div>
+        <div class="col-lg-4 offset-lg-1 p-0 shadow-lg mx-auto">
+          <img class="rounded-box gold-border" src="/imgs/mainHeroImg.jpg" alt="" width="450px" />
+        </div>
       </div>
   </main>
   <section class="about-section container my-5">
@@ -51,104 +53,90 @@
   <!-- ================================ -->
   <!--   WHAT IS BET ON ME? SECTION     -->
   <!-- ================================ -->
-  <div class="row p-4 p-lg-5 rounded-3 shadow-lg " 
-       style="border: 3px solid var(--color-golden-brown); background-color: var(--bg-dark-gray);">
+  <div id="about-section" class="row p-4 p-lg-5 rounded-3 shadow-lg ">
 
-    <div class="col-lg-7">
-      <h1 class="display-4 fw-bold text-light mb-4">What is Bet On Me?</h1>
+          <p class="text-light mb-4">
+            Every member’s progress is visible, making the process social, competitive, and motivating.
+            With friendly competition, group tracking, and real money on the line, Bet On Me gives you the push you’ve
+            been missing!
+          </p>
 
       <p class="lead text-light mb-4">
-        <strong>Bet On Me is a habit-building accountability app that turns your goals into real commitments.</strong>
-        Join or create a group, enter the goals you want to achieve, along with some tasks you will need to complete to finish your goal, and place a monetary wager on your success.
-        Stay consistent and keep your money, BUT, miss your habits, and it goes into the group money jar.
-      </p>
+        <strong>A habit-building accountability app that turns your goals into real commitments.</strong>
+        </p>
 
       <p class="text-light mb-4">
-        Every member’s progress is visible, making the process social, competitive, and motivating.  
-        With friendly competition, group tracking, and real money on the line, Bet On Me gives you the push you’ve been missing!
+        Every member’s progress is visible, making the process social and competitive.  
+        With friendly competition and real money on the line, Bet On Me gives you the push you’ve been missing!
       </p>
 
-    </div>
 
-    <div class="col-lg-5 text-center">
-      <div class="about-logo-box mt-4 mt-lg-0 mx-auto">
-      <img src="/imgs/BETonMeLogoBlack.png" alt="Bet On Me Logo">
       </div>
-    </div>
 
 
-  </div>
+      <!-- ================================ -->
+      <!--          FEATURE CARDS           -->
+      <!-- ================================ -->
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
 
-
-  <!-- ================================ -->
-  <!--          FEATURE CARDS           -->
-  <!-- ================================ -->
-  <div class="row row-cols-1 row-cols-md-3 g-4 mt-5 align-items-stretch">
-
-    <!-- CARD 1 -->
-    <div class="col">
-      <div class="card h-100"
-           style="background-color: var(--bg-dark-brown); border: 2px solid var(--color-golden-brown);">
-        <div class="card-body text-light d-flex flex-column gap-3">
-          <div class="d-inline-flex align-items-center justify-content-center rounded-circle"
-               style="width: 64px; height: 64px; background-color: rgba(255, 255, 255, 0.1); border: 2px solid var(--color-golden-brown);">
-            <span class="fw-bold fs-4 text-light">1</span>
+        <!-- CARD 1 -->
+        <div class="col">
+          <div class="card h-100 rounded-box feature-card">
+            <div class="card-body text-light card-content rounded-box">
+              <div class="d-inline-flex align-items-center justify-content-center rounded-circle feature-step">
+                <span class="fw-bold fs-4 text-light">1</span>
+              </div>
+              <h4 class="card-title fw-bold mb-3">Join or create groups</h4>
+              <p class="card-text">
+                Join an existing group with a code or create your own to stay accountable together.
+              </p>
+            </div>
           </div>
-          <h4 class="card-title fw-bold mb-3">Join or Create Groups</h4>
-          <p class="card-text">
-            Join an existing group with a code or create your own to stay accountable together.
-          </p>
         </div>
-      </div>
-    </div>
 
-    <!-- CARD 2 -->
-    <div class="col">
-      <div class="card h-100"
-           style="background-color: var(--bg-dark-brown); border: 2px solid var(--color-golden-brown);">
-        <div class="card-body text-light d-flex flex-column gap-3">
-          <div class="d-inline-flex align-items-center justify-content-center rounded-circle"
-               style="width: 64px; height: 64px; background-color: rgba(255, 255, 255, 0.1); border: 2px solid var(--color-golden-brown);">
-            <span class="fw-bold fs-4 text-light">2</span>
+        <!-- CARD 2 -->
+        <div class="col">
+          <div class="card h-100 rounded-box feature-card">
+            <div class="card-body text-light card-content rounded-box">
+              <div class="d-inline-flex align-items-center justify-content-center rounded-circle feature-step">
+                <span class="fw-bold fs-4 text-light">2</span>
+              </div>
+              <h4 class="card-title fw-bold mb-3">Bet on your goals</h4>
+              <p class="card-text">
+                Choose a goal, place your wager, and keep your money by following through.
+              </p>
+            </div>
+
           </div>
-          <h4 class="card-title fw-bold mb-3">Bet on Your Goals</h4>
-          <p class="card-text">
-            Choose a goal, place your wager, and keep your money by following through.
-          </p>
-    
         </div>
-      </div>
-    </div>
 
-    <!-- CARD 3 -->
-    <div class="col">
-      <div class="card h-100"
-           style="background-color: var(--bg-dark-brown); border: 2px solid var(--color-golden-brown);">
-        <div class="card-body text-light d-flex flex-column gap-3">
-          <div class="d-inline-flex align-items-center justify-content-center rounded-circle"
-               style="width: 64px; height: 64px; background-color: rgba(255, 255, 255, 0.1); border: 2px solid var(--color-golden-brown);">
-            <span class="fw-bold fs-4 text-light">3</span>
+        <!-- CARD 3 -->
+        <div class="col">
+          <div class="card h-100 rounded-box feature-card">
+            <div class="card-body text-light card-content rounded-box">
+              <div class="d-inline-flex align-items-center justify-content-center rounded-circle feature-step">
+                <span class="fw-bold fs-4 text-light">3</span>
+              </div>
+              <h4 class="card-title fw-bold mb-3">Track progress together</h4>
+              <p class="card-text">
+                Check off tasks, grow the money jar, and stay motivated through friendly competition.
+              </p>
+            </div>
           </div>
-          <h4 class="card-title fw-bold mb-3">Track Progress Together</h4>
-          <p class="card-text">
-            Check off tasks, grow the money jar, and stay motivated through friendly competition.
-          </p>
-    
         </div>
+
       </div>
-    </div>
+    </section>
+  </main>
 
-  </div>
-</section>
-  
+  <%- include('partials/footer') -%>
 
-<%- include('partials/footer') -%>
 
-<!-- Load modals back to screen to show validation errors -->
-<script>
+    <!-- Load modals back to screen to show validation errors -->
+    <script>
   <% if (locals.messages && locals.messages.modal) { %>
-    setTimeout(() => {
-      new bootstrap.Modal(document.getElementById('<%= locals.messages.modal[0] %>Modal')).show();
-    }, 100);
+        setTimeout(() => {
+          new bootstrap.Modal(document.getElementById('<%= locals.messages.modal[0] %>Modal')).show();
+        }, 100);
   <% } %>
-</script>
+    </script>

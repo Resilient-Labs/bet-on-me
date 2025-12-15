@@ -23,15 +23,14 @@
       integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
       crossorigin="anonymous"
     />
-
-    <link rel="stylesheet" href="/css/style.css" />
-
     <link 
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
     rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
     crossorigin="anonymous">
     <link href="/css/headers.css" rel="stylesheet" />
     <link href="/css/heroes.css" rel="stylesheet" />
+    <!-- Keep styles.css last, Add yours on the top ⬆︎⬆︎⬆︎⬆︎ -->
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   
  <body style="background-color: black;">
@@ -71,6 +70,20 @@
               <% } else { %>
               <!-- LOGGED IN -->
               
+              <ul class="nav align-items-center gap-3">
+
+                <% if(isInGroup) { %>
+                  <li class="nav-item">
+                    <a href="/teamPage" class="nav-link text-white">My Group</a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="/userGoal" class="nav-link text-white">My Goal</a>
+                  </li>
+                <% } %>
+
+              </ul>
+
               <!-- Only show profile bubble on /home page, not on /userGoal -->
               <% if (typeof showProfileBubble === 'undefined' || showProfileBubble) { %>
                 <a href="/profile" class="profile-bubble">
@@ -80,7 +93,7 @@
                 </a>
               <% } %>
               
-               <button type="button" class="btn btn-warning">
+               <button type="button" class="btn btn-warning border">
                   <a href="/logout" type="button" class="signup">Logout</a>
               </button>
               <% } %>
