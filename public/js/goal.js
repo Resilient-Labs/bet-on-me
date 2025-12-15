@@ -32,6 +32,23 @@ if (bigGoal.value !== ''){
 }
 }
 
+let taskInput = document.getElementById('task-input')
+taskInput.addEventListener ('input', submitLive )
+let addTaskBtn = document.getElementById('add-task-btn')
+addTaskBtn.style.display = 'none'
+
+function submitLive () {
+  let taskInput = document.getElementById('task-input')
+  let addTaskBtn = document.getElementById('add-task-btn')
+addTaskBtn.style.display = 'none'
+if (taskInput.value !== ''){  
+  addTaskBtn.style.display = 'flex'
+} else {
+  addTaskBtn.style.display = 'none'
+}
+}
+
+
 // INLINE EDITING
 document.querySelectorAll("#task-list li").forEach((li) => {
   const editBtn = li.querySelector(".edit-btn");

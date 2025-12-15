@@ -253,7 +253,7 @@ a.btn.btn-default {
     color: pink;
 } */
 
-.input-area button {
+#add-task-btn {
     display: flex;
     align-items: center;
     justify-content: center;
