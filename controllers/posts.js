@@ -198,9 +198,6 @@ module.exports = {
       cluster_join_id: joinCode,
     });
 
-      const cluster = await Cluster.findOne({
-        cluster_join_id: joinCode,
-      });
       // No cluster found
     if (!cluster) {
       req.flash("lateJoin", "Invalid group code.");
