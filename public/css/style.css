@@ -242,7 +242,47 @@ footer {
   /* Stretches across the screen */
   z-index: 10;
   /* Keeps it on top */
-  /* Add height, background, etc. */
+}
+
+.custom-footer {
+  color: var(--color-pale-yellow);
+  border-top: 3px solid var(--color-golden-brown);
+  box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.35);
+  padding: 1.5rem 0;
+}
+
+.custom-footer p,
+.custom-footer small {
+  color: var(--color-pale-yellow);
+  opacity: 0.85;
+}
+
+.custom-footer .footer-contact-btn {
+  background-color: transparent;
+  color: var(--color-pale-yellow);
+  border: 2px solid var(--color-pale-yellow);
+  letter-spacing: 0.05em;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.custom-footer .footer-contact-btn:hover,
+.custom-footer .footer-contact-btn:focus-visible {
+  background-color: var(--color-pale-yellow);
+  color: var(--bg-dark-brown);
+  transform: translateY(-1px);
+}
+
+.custom-footer .footer-social-links a {
+  color: var(--color-pale-yellow);
+  opacity: 0.8;
+  transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+}
+
+.custom-footer .footer-social-links a:hover,
+.custom-footer .footer-social-links a:focus-visible {
+  color: var(--color-mustard);
+  opacity: 1;
+  transform: translateY(-2px);
 }
 
 .landing-page-main {
@@ -303,6 +343,49 @@ footer {
 .landing-page-main .about{
   align-items: center;
   justify-content: center;
+}
+
+.hero-join-btn {
+  background-color: rgb(41, 188, 186);
+  border: none;
+  color: var(--bg-dark-gray);
+}
+
+.hero-join-btn:hover {
+  background-color: rgb(30, 161, 160);
+  color: var(--bg-dark-gray);
+}
+
+#about-section {
+  border: 3px solid var(--color-golden-brown);
+  background-color: var(--bg-dark-gray);
+}
+
+#about-section p {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  font-weight: 400;
+}
+
+#about-section .lead {
+  font-size: 1.15rem;
+  font-weight: 400;
+}
+
+#about-section strong {
+  font-weight: inherit;
+}
+
+.feature-card {
+  background-color: var(--bg-dark-brown);
+}
+
+.feature-card .feature-step {
+  width: 64px;
+  height: 64px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--color-golden-brown);
+  margin-bottom: 1rem;
 }
 
 
