@@ -29,6 +29,7 @@ router.get("/createCluster", ensureAuth, postsController.getClusterCreationPage)
 router.get("/teamPage", ensureAuth, teamPageController.getTeamPage);
 router.get("/api/data", ensureAuth, teamPageController.getTeamData);
 router.delete("/teamPage/deleteTeamData/:id", ensureAuth, teamPageController.deleteTeamData);
+router.delete("/leaveTeamData/:id", ensureAuth, teamPageController.leaveTeamData);
 
 //this route will lead to the user profile!
 router.get("/userProfile", ensureAuth, postsController.getUserProfile);

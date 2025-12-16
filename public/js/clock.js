@@ -236,3 +236,4 @@ if (resetBtn) {
     location.reload();
   });
 }
+

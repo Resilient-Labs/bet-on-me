@@ -89,6 +89,8 @@
               <div class="py-4 team-card-header d-flex align-items-center">
                 <h4 class="mb-0 text-dark fw-bold flex-grow-1 text-center">Timeline</h4>
 
+                <button id="resetChallenge">Reset</button>
+
                 <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
                   <button id="fetchButton" class="btn btn-outline-dark ms-auto">Start Timer</button>
                   <% } %>
@@ -96,11 +98,15 @@
                    
                       <button id="leaveButton" class="btn btn-outline-dark ms-auto">Leave Cluster</button>
                       
-                       <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                      <% if (isCreator) { %>
                         <form action="/teamPage/deleteTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
-                          <button id="endGameBtn">Delete Cluster</button>
+                          <button id="endGameBtn" class="btn btn-danger">Delete Cluster</button>
                         </form>
-                        <% } %>
+                      <% } else { %>
+                        <form action="/teamPage/leaveTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
+                          <button class="btn btn-warning">Leave Cluster</button>
+                        </form>
+                      <% } %>
               </div>
 
 

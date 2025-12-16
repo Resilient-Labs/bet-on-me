@@ -58,7 +58,8 @@ module.exports = {
         user: req.user,
         cluster,
         members: membersWithGoals,
-        duration
+        duration,
+        isCreator: cluster.user.toString() === req.user.id // Add this line
       });
     } catch (err) {
       console.log(err);
@@ -133,6 +134,37 @@ module.exports = {
       } catch (err) {
         console.log(err);
         res.status(500).send("Error deleting team");
+      }
+    },
+    leaveTeamData: async (req, res) => {
+      try {
+        const cluster = await Cluster.findById(req.params.id);
+        
+        if (!cluster) {
+          return res.status(404).send("Team not found");
+        }
+    
+        // Check if user is actually in the cluster
+        if (!cluster.cluster_members.some(member => member._id.toString() === req.user.id)) {
+          return res.status(403).send("You are not a member of this team");
+        }
+    
+        // Prevent creator from leaving (they must delete instead)
+        if (cluster.user.toString() === req.user.id) {
+          return res.status(403).send("Creator cannot leave. Please delete the team instead.");
+        }
+    
+        // Remove user from cluster_members array
+        cluster.cluster_members = cluster.cluster_members.filter(
+          member => member._id.toString() !== req.user.id
+        );
+        
+        await cluster.save();
+    
+        res.redirect("/profile");
+      } catch (err) {
+        console.log(err);
+        res.status(500).send("Error leaving team");
       }
     }
 };
