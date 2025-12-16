@@ -52,9 +52,27 @@
 
                   <!-- show team page on every page but the my group page -->
                   <% if (user && currentpath!=='/teamPage' ){ %>
+
+                    <%
+                    const safeGoals = typeof goals !== 'undefined' ? goals : null;
+                    const canAccessTeamPage = Boolean(safeGoals?.id && safeGoals?.wagerPaid);
+                    %>
+
                     <li class="nav-item">
-                      <a href="/teamPage" class="nav-link ">My Group</a>
+                      <a
+                        id="<%= canAccessTeamPage ? '' : 'team-page-disable' %>"
+                        class="nav-link"
+                        href="<%= canAccessTeamPage ? '/teamPage' : '#' %>"
+                        title="<%= canAccessTeamPage
+                          ? ''
+                          : 'Add a wager to your goal before accessing your Group Page' %>"
+                        <%= canAccessTeamPage ? '' : 'onclick="event.preventDefault()"' %>
+                        <%= canAccessTeamPage ? '' : 'aria-disabled="true"' %>
+                      >
+                        My Group
+                      </a>
                     </li>
+
                     <% } %>
 
                       <!-- show user goal page on every page by my goals page -->
