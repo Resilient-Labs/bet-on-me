@@ -8,13 +8,14 @@
   --color-vibrant-coral: rgb(250, 137, 92);
   --bg-dark-brown: rgb(63, 46, 34);
   --bg-dark-gray: rgb(30, 30, 30);
- 
-  --color-blue: rgb(33, 112, 94); */
+  --color-mustard: rgb(255, 193, 7);
+  --color-blue: rgb(33, 112, 94);
 
+
+  /* new color scheme  */
 
   --main-bg-color: white;
   --text-color: rgb(44, 44, 44);
-  ;
   --btn-color: rgb(60, 51, 77);
 
   --color-mustard: rgb(255, 205, 26);
@@ -341,17 +342,15 @@ footer {
 
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! START !!!!!!!~~~~~~~~ */
-.cash-jar-card>.card-body,
-.timeline-card>.card-body,
-.team-card>.card-body {
-  background: #1a1a1a;
+card-body {
+  background: var(--color-gray);
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
 }
 
 .user-card.card {
-  background-color: var(--color-mustard);
-  color: var(--bg-dark-gray);
+  background-color: var(--color-sky-blue);
+  color: var(--btn-color);
 }
 
 .timeline-card .card-body {
@@ -360,13 +359,13 @@ footer {
 
 
 .team-progress-container {
-  background: #000000;
+  background: var(--color-gray);
   min-height: 100vh;
   padding: 3rem 0;
 }
 
 .team-card {
-  background: #1a1a1a;
+  background: var(--color-sky-blue);
   min-height: 85vh;
 }
 
@@ -459,13 +458,7 @@ footer {
   border: 1px solid var(--color-pale-yellow) !important;
 }
 
-.cash-jar-header {
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid #DEB887 !important;
-  padding: 1.5rem;
-  color: #DEB887;
-}
+
 
 .cash-jar-icon {
   font-size: 4rem;
@@ -476,9 +469,7 @@ footer {
   color: #F5DEB3;
 }
 
-.cash-jar-label {
-  color: #DEB887;
-}
+
 
 .contributions-card {
   background: #1a1a1a;
@@ -707,3 +698,9 @@ footer {
 /* ~~~~~~~!!!!!!!!!!!!MONEY JAR CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! END !!!!!!!~~~~~~~~ */
+
+
+.pDiv{
+  background-color: var(--color-sky-blue);
+}
+

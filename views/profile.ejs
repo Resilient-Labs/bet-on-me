@@ -1,373 +1,334 @@
 <%- include('partials/header') -%>
 
-<div class="team-progress-container">
-  <div class="container py-5">
-    <div class="row g-4">
+  <div class="team-progress-container">
+    <div class="container py-5">
+      <div class="row g-4">
 
-      <!-- LEFT COLUMN -->
-      <div class="col-lg-4">
+        <!-- LEFT COLUMN -->
+        <div class="col-lg-4">
 
-        <!-- PROFILE CARD -->
-        <div class="card shadow-sm text-center mb-4 user-card">
-          <div class="card-body">
+          <!-- PROFILE CARD -->
+          <div class="card shadow-sm text-center mb-4 user-card">
+            <div class="card-body">
 
-            <!-- PROFILE IMAGE -->
-            <img
-src="<%= user.profile_image || 'https://via.placeholder.com/150' %>"
-              class="rounded-circle mb-3"
-              width="300"
-              height="300"
-              style="border: 3px solid var(--color-golden-brown);"
-            >
+              <!-- PROFILE IMAGE -->
+              <img src="<%= user.profile_image || 'https://via.placeholder.com/150' %>" class="rounded-circle mb-3"
+                width="300" height="300" style="border: 3px solid var(--color-white);">
+                <br>
+<button class="btn btn-primary">
+  
+              <form action="/users/update-picture" method="POST" enctype="multipart/form-data" class="mt-2">
+                <input type="file" name="profile_image" id="imageUpload" class="d-none" accept="image/*">
 
-          <form
-          action="/users/update-picture"
-          method="POST"
-          enctype="multipart/form-data"
-          class="mt-2"
-        >
-          <input
-            type="file"
-            name="profile_image"
-            id="imageUpload"
-            class="d-none"
-            accept="image/*"
-          >
-
-          <label
-            for="imageUpload"
-            class="btn btn-sm w-100"
-            style="
-              cursor: pointer;
-              background-color: var(--color-golden-brown);
-              color: var(--bg-dark-gray);
-              border: none;
-              font-weight: 500;
-            "
-          >
-            Upload Profile
-          </label>
-        </form>
-
-
-            <h5 class="mb-1 text-white"><%= user.userName %></h5>
-            <p class="text-muted small"><%= user.email %></p>
-
-
-          </div>
-        </div>
-
-        <!-- ACCOUNT INFO -->
-        <div class="card shadow-sm mb-4 user-card">
-          <div class="card-body">
-            <h5 class="mb-3" style="color: var(--color-golden-brown);">Account Info</h5>
-
-            <p class="text-white"><strong style="color: var(--color-pale-yellow);">User Name:</strong> <%= user.userName %></p>
-            <p class="text-white"><strong style="color: var(--color-pale-yellow);">Email:</strong> <%= user.email %></p>
-            <p class="mb-0 text-white">
-              <strong style="color: var(--color-pale-yellow);">Member Since:</strong> <%= new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) %>
-            </p>
-          </div>
-        </div>
-
-        <!-- ACCOUNT ACTIONS -->
-        <div class="card shadow-sm user-card">
-          <div class="card-body">
-
-            <button
-              class="btn w-100 mb-2"
-              data-bs-toggle="modal"
-              data-bs-target="#changePasswordModal"
-              style="background-color: var(--color-light-coral); color: var(--bg-dark-gray); border: none; font-weight: 500;"
-            >
-              Change Password
+                <label for="imageUpload" class="btn btn-sm w-100">
+                  Upload Profile Photo
+                </label>
+              </form>
             </button>
-
-            <button
-              class="btn w-100"
-              data-bs-toggle="modal"
-              data-bs-target="#deleteAccountModal"
-              style="background-color: #dc3545; color: white; border: none; font-weight: 500;"
-            >
-              Delete Account
-            </button>
-
+            </div>
           </div>
+
+          <!-- ACCOUNT INFO -->
+          <div class="card shadow-sm mb-4 user-card">
+            <div class="card-body">
+              <h5 class="mb-3" style="color: var(--color-white);">Account Info</h5>
+
+              <p class="text-white"><strong style="color: var(--btn-color);">User Name:</strong>
+                <%= user.userName %>
+              </p>
+              <p class="text-white"><strong style="color: var(--btn-color);">Email:</strong>
+                <%= user.email %>
+              </p>
+              <p class="mb-0 text-white">
+                <strong style="color: var(--btn-color);">Member Since:</strong>
+               <!--new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long' , year: 'numeric' })-->
+              </p>
+            </div>
+          </div>
+
+          <!-- ACCOUNT ACTIONS -->
+          <div class="card shadow-sm user-card">
+            <div class="card-body">
+
+              <button class="btn w-100 mb-2" data-bs-toggle="modal" data-bs-target="#changePasswordModal"
+                style="background-color: var( --color-foam-green); color: var(--bg-dark-gray); border: none; font-weight: 500;">
+                Change Password
+              </button>
+
+              <button class="btn w-100" data-bs-toggle="modal" data-bs-target="#deleteAccountModal"
+                style="background-color:rgb( 255, 205, 26); color: white; border: none; font-weight: 500;">
+                Delete Account
+              </button>
+
+            </div>
+          </div>
+
         </div>
 
-      </div>
+        <!-- RIGHT COLUMN -->
+        <div class="col-lg-8">
 
-      <!-- RIGHT COLUMN -->
-      <div class="col-lg-8">
+          <!-- GOAL CLUSTER -->
+          <div class="card shadow-sm user-card">
+            <div class="card-header">
+              <h4 class="mb-0" >Your Goal Cluster</h4>
+            </div>
+            <div class="card-body"">
 
-        <!-- GOAL CLUSTER -->
-        <div class="card shadow-sm mb-4" style="border: 2px solid var(--color-golden-brown);">
-          <div class="card-header" style="background-color: var(--color-golden-brown); border: none; padding: 1.5rem;">
-            <h4 class="mb-0" style="color: #000;">Your Goal Cluster</h4>
-          </div>
-          <div class="card-body" style="background-color: var(--color-pale-yellow);">
-            <% const cluster = clusters[0] %>
-            <span class="<%= cluster ? "d-none" : "" %>">You haven't joined a cluster yet :(</span>
-            <span class="<%= cluster ? "" : "d-none" %>">
               <!-- CLUSTER NAME -->
               <div class="d-flex align-items-center mb-4">
-                <h5 class="mb-0 me-3" style="color: #000;">
-                  <%= cluster?.cluster_name %>
+                <h5 class="mb-0 me-3">
+                  <!-- cluster.cluster_name -->
+                  CLUSTER_NAME_HERE
                 </h5>
-                <span class="badge" style="background-color: #000; color: var(--color-golden-brown); width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem;">
-                  <%= cluster?.member_count %>
-                </span>
-            </span>
-            </div>
+                </div>
 
-            <!-- MEMBERS HEADER -->
-            <h6 class="mb-3" style="color: #000; font-weight: 600;">Members</h6>
+              <!-- MEMBERS HEADER -->
+              <h6 class="mb-3">Members</h6>
 
-           <!-- MEMBERS LIST -->
-          <div class="row g-3">
-            <div class="col-md-6">
-              <% const members = cluster?.cluster_members %>
-              <% members?.forEach(member => {%>
-                <div
-                  class="d-flex align-items-center p-3 rounded"
-                  style="background-color: var(--color-golden-brown); border: 1px solid #000;"
-                >
-                  <img
-                    src="<%= member?.profile_image || 'https://via.placeholder.com/50' %>"
-                    class="rounded-circle me-3"
-                    width="50"
-                    height="50"
-                    style="border: 2px solid #000;"
-                  />
-                  <span class="fw-semibold" style="color: #000;">
-                    <%= member?.userName %>
-                    <span
-                      style="background-color: #000; color: var(--color-golden-brown);"
-                      class="<%= member?.userName === user.userName ? '' : 'd-none' %> badge ms-2"
-                    >
-                      You
+              <!-- MEMBERS LIST -->
+              <div class="row g-3">
+
+                <div class="col-md-6">
+                  <div class="d-flex align-items-center p-3 rounded"
+                    style=" border: 2px solid #000;">
+
+                    <img src="<%= user.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
+                      width="50" height="50" style="border: 2px solid;" />
+
+                    <h6 class="fw-semibold" >
+                      <%= user.userName %>
+                        <span>
+                          You
+                        </h6>
                     </span>
-                  </span>
 
-                </div>
-              <% }) %>
-
-            </div>
-
-          </div>
-
-            <hr class="my-4" style="border-color: var(--color-golden-brown); border-width: 2px;">
-
-            <!-- JOIN CODE -->
-            <p class="small mb-0" style="color: #000;">
-              Join Code: 
-              <strong style="color: #000; font-size: 1.1rem;">
-                <%= cluster?.cluster_join_id %>
-              </strong>
-            </p>
-
-          </div>
-        </div>
-
-        <!-- COMPLETED GOALS -->
-        <div class="card shadow-sm" style="border: 2px solid var(--color-golden-brown);">
-          <div class="card-header" style="background-color: var(--color-golden-brown); border: none; padding: 1.5rem;">
-            <h4 class="mb-0" style="color: #000;">Completed Goal History</h4>
-          </div>
-          <div class="card-body" style="background-color: var(--color-pale-yellow); padding: 1.5rem;">
-          
-            <!-- MONTHLY GOALS SECTION (repeat for each month) -->
-            <!-- IF NO COMPLETED GOALS -->
-            <% if (completedGoals.length == 0) { %> 
-              <div class="text-center py-4" style="color: #000; opacity: 0.7;">
-                <p class="mb-0">No completed goals yet. Keep working towards your goals!</p>
-              </div>
-            <% } else { %>
-          
-            <!-- Organize monthly goals by months-->
-            <% let monthlyGoals = {} %>
-            <% const monthNames = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"] %>
-            <% completedGoals.forEach(goal => { %>
-              <% const date = `${monthNames[goal?.completedAt?.getMonth()]}, ${goal?.completedAt?.getFullYear()}` %>
-              <% if (!monthlyGoals[date]) { %>
-                <% monthlyGoals[date] = [[ goal.name, goal.completedAt ]] %>
-              <% } else { %>
-                <% monthlyGoals[date].push([goal.name,goal.completedAt]) %>
-              <% } %>
-            <% }) %>
-            <div class="mb-4">
-            <!-- For each month, make a header and list the goals -->
-              <% for (const [month, goalList] of Object.entries(monthlyGoals)) { %>
-              <% goalList.sort((a,b) => b[1] - a[1]) %>
-
-              <!-- MONTH HEADER -->
-              <div class="d-flex align-items-center mb-3">
-                <h6 class="mb-0 me-3" style="color: #000; font-weight: 600;">
-                  <!-- e.g., "December 2025" -->
-                  <%= month %>
-                </h6>
-                <span class="badge" style="background-color: #000; color: var(--color-golden-brown); font-size: 0.9rem; padding: 0.5rem 1rem;">
-                  <!-- number of goals completed that month -->
-                  <%= goalList.length %>
-                </span>
-              </div>
-
-              <!-- GOALS LIST -->
-              <div class="list-group">
-                <% goalList.forEach(ele => { %> 
-                <!-- GOAL ITEM (repeat for each goal) -->
-                <div class="list-group-item d-flex justify-content-between align-items-start" style="background-color: var(--color-golden-brown); border: 1px solid #000; margin-bottom: 0.5rem;">
-                  <div class="ms-2 me-auto">
-                    <div class="fw-bold" style="color: #000;">
-                      <!-- goal.title -->
-                      <%= ele[0] %>
-                    </div>
-                    <small style="color: #000; opacity: 0.8;">
-                      Completed on 
-                      <!-- goal.completedAt formatted date -->
-                      <%= ele[1] %>
-                    </small>
                   </div>
-                  <span style="font-size: 1.5rem; color: #000;">✓</span>
                 </div>
-                <%})%>
-                <!-- END GOAL ITEM -->
-              </div>
-            </div>
-            <% } %>
-            <% } %>
-            <!-- END MONTHLY SECTION -->
-          </div>
-        </div>
 
+              </div>
+
+              <hr class="my-4">
+
+              <!-- JOIN CODE -->
+              <p class="small mb-0" ">
+                Join Code:
+                <strong style="color: #000; font-size: 1.1rem;">
+                  <!-- cluster.cluster_join_id -->
+                  JOIN_CODE
+                </strong>
+              </p>
+
+            </div>
+          </div>
+
+         <!-- COMPLETED GOALS -->
+         <div class="card shadow-sm user-card">
+          <div class="card-header ">
+            <h4 class="mb-0" >Completed Goal History</h4>
+          </div>
+          <div class="card-body" >
+
+              <!-- MONTHLY GOALS SECTION (repeat for each month) -->
+              <!-- IF NO COMPLETED GOALS -->
+              <% if (completedGoals.length==0) { %>
+                <div class="text-center ">
+                  <p class="mb-0">No completed goals yet. Keep working towards your goals!</p>
+                </div>
+                <% } else { %>
+
+                  <!-- Organize monthly goals by months-->
+                  <% let monthlyGoals={} %>
+                    <% const monthNames=["January", "February" , "March" , "April" , "May" ,"June","July", "August"
+                      , "September" , "October" , "November" ,"December"] %>
+                      <% completedGoals.forEach(goal=> { %>
+                        <% const date=`${monthNames[goal.completedAt.getMonth()]}, ${goal.completedAt.getFullYear()}` %>
+                          <% if (!monthlyGoals[date]) { %>
+                            <% monthlyGoals[date]=[[ goal.name, goal.completedAt ]] %>
+                              <% } else { %>
+                                <% monthlyGoals[date].push([goal.name,goal.completedAt]) %>
+                                  <% } %>
+                                    <% }) %>
+                                      <div class="mb-4">
+                                        <!-- For each month, make a header and list the goals -->
+                                        <% for (const [month, goalList] of Object.entries(monthlyGoals)) { %>
+                                          <% goalList.sort((a,b)=> b[1] - a[1]) %>
+
+                                            <!-- MONTH HEADER -->
+                                            <div class="d-flex align-items-center mb-3">
+                                              <h6 class="mb-0 me-3" style="color: #000; font-weight: 600;">
+                                                <!-- e.g., "December 2025" -->
+                                                <%= month %>
+                                              </h6>
+                                              <span class="badge"
+                                                style="background-color: #000; color: var(--color-golden-brown); font-size: 0.9rem; padding: 0.5rem 1rem;">
+                                                <!-- number of goals completed that month -->
+                                                <%= goalList.length %>
+                                              </span>
+                                            </div>
+
+                                            <!-- GOALS LIST -->
+                                            <div class="list-group">
+                                              <% goalList.forEach(ele=> { %>
+                                                <!-- GOAL ITEM (repeat for each goal) -->
+                                                <div
+                                                  class="list-group-item d-flex justify-content-between align-items-start"
+                                                  style="background-color: var(--color-golden-brown); border: 1px solid #000; margin-bottom: 0.5rem;">
+                                                  <div class="ms-2 me-auto">
+                                                    <div class="fw-bold" style="color: #000;">
+                                                      <!-- goal.title -->
+                                                      <%= ele[0] %>
+                                                    </div>
+                                                    <small style="color: #000; opacity: 0.8;">
+                                                      Completed on
+                                                      <!-- goal.completedAt formatted date -->
+                                                      <%= ele[1] %>
+                                                    </small>
+                                                  </div>
+                                                  <span style="font-size: 1.5rem; color: #000;">✓</span>
+                                                </div>
+                                                <%})%>
+                                                  <!-- END GOAL ITEM -->
+                                            </div>
+                                      </div>
+                                      <% } %>
+                                        <% } %>
+                                          <!-- END MONTHLY SECTION -->
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
-  </div>
 
     <script src="js/clock.js"></script>
-</div>
+  </div>
 
-<!-- CHANGE PASSWORD MODAL -->
-<div class="modal fade" id="changePasswordModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content login-modal">
+  <!-- CHANGE PASSWORD MODAL -->
+  <div class="modal fade" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content login-modal">
 
-      <div class="modal-header" style="border-bottom: 2px solid var(--color-golden-brown);">
-        <h5 class="modal-title" style="color: var(--color-pale-yellow); font-size: 1.5rem;">Change Password</h5>
-        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        <div class="modal-header" style="border-bottom: 2px solid var(--color-golden-brown);">
+          <h5 class="modal-title" style="color: var(--color-pale-yellow); font-size: 1.5rem;">Change Password</h5>
+          <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <form action="/profile/changePassword" method="POST">
+
+            <div class="mb-3">
+              <label class="form-label" style="color: var(--color-pale-yellow);">Current Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" name="currentPassword" id="profileCurrentPassword"
+                  autocomplete="current-password" required>
+                <button type="button" class="input-group-text toggle-password" data-target="profileCurrentPassword"
+                  style="cursor: pointer; background-color: var(--color-pale-yellow);">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" style="color: var(--color-pale-yellow);">New Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" name="newPassword" id="profileNewPassword"
+                  placeholder="Minimum 8 characters" autocomplete="new-password" required>
+                <button type="button" class="input-group-text toggle-password" data-target="profileNewPassword"
+                  style="cursor: pointer; background-color: var(--color-pale-yellow);">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" style="color: var(--color-pale-yellow);">Re-type Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" name="confirmPassword" id="profileConfirmPassword"
+                  autocomplete="new-password" required>
+                <button type="button" class="input-group-text toggle-password" data-target="profileConfirmPassword"
+                  style="cursor: pointer; background-color: var(--color-pale-yellow);">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <small class="form-text">
+              Password must be at least 8 characters.
+            </small>
+            <!-- in-modal message container (shows flash messages after redirect) -->
+            <div id="passwordChangeMessage">
+              <% if (typeof messages !=='undefined' ) { %>
+                <% if (messages.success) { %>
+                  <% messages.success.forEach(function(s){ %>
+                    <div class="alert alert-success w-100 mt-2" role="alert">
+                      <%= (s.msg || s) %>
+                    </div>
+                    <% }) %>
+                      <% } %>
+                        <% if (messages.errors) { %>
+                          <% messages.errors.forEach(function(e){ %>
+                            <div class="alert alert-danger w-100 mt-2" role="alert">
+                              <%= (e.msg || e) %>
+                            </div>
+                            <% }) %>
+                              <% } %>
+                                <% } %>
+            </div>
+
+            <div class="modal-footer px-0 pb-0" style="border-top: none;">
+              <button type="button" class="btn" data-bs-dismiss="modal"
+                style="background-color: var(--color-faded-yellow); color: var(--bg-dark-gray);">Cancel</button>
+              <button type="submit" class="btn">Update Password</button>
+            </div>
+
+          </form>
+        </div>
+
       </div>
-
-      <div class="modal-body">
-        <form action="/profile/changePassword" method="POST">
-
-          <div class="mb-3">
-            <label class="form-label" style="color: var(--color-pale-yellow);">Current Password</label>
-            <div class="input-group">
-              <input type="password" class="form-control" name="currentPassword" id="profileCurrentPassword" autocomplete="current-password" required>
-              <button type="button" class="input-group-text toggle-password" data-target="profileCurrentPassword" style="cursor: pointer; background-color: var(--color-pale-yellow);">
-                <i class="fa-solid fa-eye"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label" style="color: var(--color-pale-yellow);">New Password</label>
-            <div class="input-group">
-              <input type="password" class="form-control" name="newPassword" id="profileNewPassword" placeholder="Minimum 8 characters" autocomplete="new-password" required>
-              <button type="button" class="input-group-text toggle-password" data-target="profileNewPassword" style="cursor: pointer; background-color: var(--color-pale-yellow);">
-                <i class="fa-solid fa-eye"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label" style="color: var(--color-pale-yellow);">Re-type Password</label>
-            <div class="input-group">
-              <input type="password" class="form-control" name="confirmPassword" id="profileConfirmPassword" autocomplete="new-password" required>
-              <button type="button" class="input-group-text toggle-password" data-target="profileConfirmPassword" style="cursor: pointer; background-color: var(--color-pale-yellow);">
-                <i class="fa-solid fa-eye"></i>
-              </button>
-            </div>
-          </div>
-
-          <small class="form-text">
-            Password must be at least 8 characters.
-          </small>
-          <!-- in-modal message container (shows flash messages after redirect) -->
-          <div id="passwordChangeMessage">
-            <% if (typeof messages !== 'undefined') { %>
-              <% if (messages.success) { %>
-                <% messages.success.forEach(function(s){ %>
-                  <div class="alert alert-success w-100 mt-2" role="alert"><%= (s.msg || s) %></div>
-                <% }) %>
-              <% } %>
-              <% if (messages.errors) { %>
-                <% messages.errors.forEach(function(e){ %>
-                  <div class="alert alert-danger w-100 mt-2" role="alert"><%= (e.msg || e) %></div>
-                <% }) %>
-              <% } %>
-            <% } %>
-          </div>
-
-          <div class="modal-footer px-0 pb-0" style="border-top: none;">
-            <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: var(--color-faded-yellow); color: var(--bg-dark-gray);">Cancel</button>
-            <button type="submit" class="btn">Update Password</button>
-          </div>
-
-        </form>
-      </div>
-
     </div>
   </div>
-</div>
 
-<!-- DELETE ACCOUNT MODAL --Innocent -->
-<div class="modal fade" id="deleteAccountModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content login-modal">
+  <!-- DELETE ACCOUNT MODAL --Innocent -->
+  <div class="modal fade" id="deleteAccountModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content login-modal">
 
-      <div class="modal-header" style="border-bottom: 2px solid #dc3545;">
-        <h5 class="modal-title text-danger">Delete Account</h5>
-        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
+        <div class="modal-header" style="border-bottom: 2px solid #dc3545;">
+          <h5 class="modal-title text-danger">Delete Account</h5>
+          <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
 
-      <div class="modal-body text-white">
-        <p>
-          This action is <strong>permanent</strong> and cannot be undone.
-        </p>
-        <p>
-          Your account, goals, posts, and cluster memberships will be deleted.
-        </p>
-      </div>
+        <div class="modal-body text-white">
+          <p>
+            This action is <strong>permanent</strong> and cannot be undone.
+          </p>
+          <p>
+            Your account, goals, posts, and cluster memberships will be deleted.
+          </p>
+        </div>
 
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn"
-          data-bs-dismiss="modal"
-          style="background-color: var(--color-faded-yellow);"
-        >
-          Cancel
-        </button>
-
-        <form action="/users/delete-account" method="POST">
-          <button
-            type="submit"
-            class="btn btn-danger"
-          >
-            Yes, Delete My Account
+        <div class="modal-footer">
+          <button type="button" class="btn" data-bs-dismiss="modal"
+            style="background-color: var(--color-faded-yellow);">
+            Cancel
           </button>
-        </form>
-      </div>
 
+          <form action="/users/delete-account" method="POST">
+            <button type="submit" class="btn btn-danger">
+              Yes, Delete My Account
+            </button>
+          </form>
+        </div>
+
+      </div>
     </div>
   </div>
-</div>
-<script>
-  document.getElementById("imageUpload").addEventListener("change", function () {
-    this.form.submit();
-  });
-</script>
+  <script>
+    document.getElementById("imageUpload").addEventListener("change", function () {
+      this.form.submit();
+    });
+  </script>
 
 
-<%- include('partials/footer') -%>
+  <%- include('partials/footer') -%>
