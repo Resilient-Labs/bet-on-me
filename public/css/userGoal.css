@@ -150,6 +150,7 @@
     justify-content: center;
     font-size: larger;
 }
+
 .dollar {
     color: #fcedc2;
     font-size: x-large;
@@ -474,32 +475,31 @@ input.task-input:focus {
 
 
 /* Goal Completed Button - Special hover state when all tasks done */
+/* Goal Completed Button - Special hover state when all tasks done */
+.goal-completed.all-tasks-done {
+    position: relative;
+}
+
 .goal-completed.all-tasks-done:hover {
     background-color: #FFD700 !important;
     transform: scale(1.05);
     transition: all 0.3s ease;
-}
-
-.goal-completed.all-tasks-done:hover::after {
-    content: "Let's celebrate!";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: inherit;
-    padding: inherit;
-    border-radius: inherit;
-}
-
-.goal-completed.all-tasks-done:hover {
-    position: relative;
     color: transparent;
 }
 
 .goal-completed.all-tasks-done:hover::after {
+    content: "Let's Celebrate!";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #000;
     font-weight: bold;
+    border-radius: inherit;
 }
 
 
