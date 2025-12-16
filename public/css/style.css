@@ -50,7 +50,6 @@ html {
   background-color: var(--color-white);
 }
 
-.modal-body label {
 .modal-body  input {
   background-color: var(--color-white);
 }
