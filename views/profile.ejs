@@ -10,21 +10,23 @@
           <!-- PROFILE CARD -->
           <div class="card shadow-sm text-center mb-4 user-card">
             <div class="card-body">
+              
+              
 
               <!-- PROFILE IMAGE -->
               <img src="<%= user.profile_image || 'https://via.placeholder.com/150' %>" class="rounded-circle mb-3"
                 width="300" height="300" style="border: 3px solid var(--color-white);">
-                <br>
-<button class="btn btn-primary">
-  
-              <form action="/users/update-picture" method="POST" enctype="multipart/form-data" class="mt-2">
-                <input type="file" name="profile_image" id="imageUpload" class="d-none" accept="image/*">
+              <br>
+              <button class="btn w-100" style="background-color:rgb( 255, 205, 26); color: white; border: none; font-weight: 500;">
 
-                <label for="imageUpload" class="btn btn-sm w-100">
-                  Upload Profile Photo
-                </label>
-              </form>
-            </button>
+                <form action="/users/update-picture" method="POST" enctype="multipart/form-data" class="mt-2">
+                  <input type="file" name="profile_image" id="imageUpload" class="d-none" accept="image/*">
+
+                  <label for="imageUpload" class="btn btn-sm w-100">
+                    Upload Profile Photo
+                  </label>
+                </form>
+              </button>
             </div>
           </div>
 
@@ -41,7 +43,7 @@
               </p>
               <p class="mb-0 text-white">
                 <strong style="color: var(--btn-color);">Member Since:</strong>
-               <!--new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long' , year: 'numeric' })-->
+                <!--new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long' , year: 'numeric' })-->
               </p>
             </div>
           </div>
@@ -70,138 +72,135 @@
 
           <!-- GOAL CLUSTER -->
           <div class="card shadow-sm user-card">
-            <div class="card-header">
-              <h4 class="mb-0" >Your Goal Cluster</h4>
+            <div class="team-card-header">
+              <h4 class="mb-0">Your Goal Cluster</h4>
             </div>
             <div class="card-body"">
 
               <!-- CLUSTER NAME -->
-              <div class="d-flex align-items-center mb-4">
-                <h5 class="mb-0 me-3">
-                  <!-- cluster.cluster_name -->
-                  CLUSTER_NAME_HERE
-                </h5>
+              <div class=" d-flex align-items-center mb-4">
+              <h5 class="mb-0 me-3">
+                <!-- cluster.cluster_name -->
+                CLUSTER_NAME_HERE
+              </h5>
+            </div>
+
+            <!-- MEMBERS HEADER -->
+            <h6 class="mb-3">Members</h6>
+
+            <!-- MEMBERS LIST -->
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <div class="d-flex align-items-center p-3 rounded" style=" border: 2px solid; background-color: rgb(235, 232, 232);">
+
+                  <img src="<%= user.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
+                    width="50" height="50" style="border: 2px solid;" />
+
+                  <h6 class="fw-semibold">
+                    <%= user.userName %>
+                      <span>
+                        You
+                  </h6>
+                  </span>
+
                 </div>
-
-              <!-- MEMBERS HEADER -->
-              <h6 class="mb-3">Members</h6>
-
-              <!-- MEMBERS LIST -->
-              <div class="row g-3">
-
-                <div class="col-md-6">
-                  <div class="d-flex align-items-center p-3 rounded"
-                    style=" border: 2px solid #000;">
-
-                    <img src="<%= user.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
-                      width="50" height="50" style="border: 2px solid;" />
-
-                    <h6 class="fw-semibold" >
-                      <%= user.userName %>
-                        <span>
-                          You
-                        </h6>
-                    </span>
-
-                  </div>
-                </div>
-
               </div>
 
-              <hr class="my-4">
+            </div>
 
-              <!-- JOIN CODE -->
-              <p class="small mb-0" ">
+            <hr class="my-4">
+
+            <!-- JOIN CODE -->
+            <p class="small mb-0" >
                 Join Code:
-                <strong style="color: #000; font-size: 1.1rem;">
-                  <!-- cluster.cluster_join_id -->
-                  JOIN_CODE
-                </strong>
-              </p>
+                <strong style=" font-size: 1.1rem;">
+              <!-- cluster.cluster_join_id -->
+              JOIN_CODE
+              </strong>
+            </p>
 
-            </div>
           </div>
-
-         <!-- COMPLETED GOALS -->
-         <div class="card shadow-sm user-card">
-          <div class="card-header ">
-            <h4 class="mb-0" >Completed Goal History</h4>
-          </div>
-          <div class="card-body" >
-
-              <!-- MONTHLY GOALS SECTION (repeat for each month) -->
-              <!-- IF NO COMPLETED GOALS -->
-              <% if (completedGoals.length==0) { %>
-                <div class="text-center ">
-                  <p class="mb-0">No completed goals yet. Keep working towards your goals!</p>
-                </div>
-                <% } else { %>
-
-                  <!-- Organize monthly goals by months-->
-                  <% let monthlyGoals={} %>
-                    <% const monthNames=["January", "February" , "March" , "April" , "May" ,"June","July", "August"
-                      , "September" , "October" , "November" ,"December"] %>
-                      <% completedGoals.forEach(goal=> { %>
-                        <% const date=`${monthNames[goal.completedAt.getMonth()]}, ${goal.completedAt.getFullYear()}` %>
-                          <% if (!monthlyGoals[date]) { %>
-                            <% monthlyGoals[date]=[[ goal.name, goal.completedAt ]] %>
-                              <% } else { %>
-                                <% monthlyGoals[date].push([goal.name,goal.completedAt]) %>
-                                  <% } %>
-                                    <% }) %>
-                                      <div class="mb-4">
-                                        <!-- For each month, make a header and list the goals -->
-                                        <% for (const [month, goalList] of Object.entries(monthlyGoals)) { %>
-                                          <% goalList.sort((a,b)=> b[1] - a[1]) %>
-
-                                            <!-- MONTH HEADER -->
-                                            <div class="d-flex align-items-center mb-3">
-                                              <h6 class="mb-0 me-3" style="color: #000; font-weight: 600;">
-                                                <!-- e.g., "December 2025" -->
-                                                <%= month %>
-                                              </h6>
-                                              <span class="badge"
-                                                style="background-color: #000; color: var(--color-golden-brown); font-size: 0.9rem; padding: 0.5rem 1rem;">
-                                                <!-- number of goals completed that month -->
-                                                <%= goalList.length %>
-                                              </span>
-                                            </div>
-
-                                            <!-- GOALS LIST -->
-                                            <div class="list-group">
-                                              <% goalList.forEach(ele=> { %>
-                                                <!-- GOAL ITEM (repeat for each goal) -->
-                                                <div
-                                                  class="list-group-item d-flex justify-content-between align-items-start"
-                                                  style="background-color: var(--color-golden-brown); border: 1px solid #000; margin-bottom: 0.5rem;">
-                                                  <div class="ms-2 me-auto">
-                                                    <div class="fw-bold" style="color: #000;">
-                                                      <!-- goal.title -->
-                                                      <%= ele[0] %>
-                                                    </div>
-                                                    <small style="color: #000; opacity: 0.8;">
-                                                      Completed on
-                                                      <!-- goal.completedAt formatted date -->
-                                                      <%= ele[1] %>
-                                                    </small>
-                                                  </div>
-                                                  <span style="font-size: 1.5rem; color: #000;">✓</span>
-                                                </div>
-                                                <%})%>
-                                                  <!-- END GOAL ITEM -->
-                                            </div>
-                                      </div>
-                                      <% } %>
-                                        <% } %>
-                                          <!-- END MONTHLY SECTION -->
-            </div>
-          </div>
-
         </div>
+
+        <!-- COMPLETED GOALS -->
+        <div class="card shadow-sm user-card">
+          <div class="team-card-header ">
+            <h4 class="mb-0">Completed Goal History</h4>
+          </div>
+          <div class="card-body">
+
+            <!-- MONTHLY GOALS SECTION (repeat for each month) -->
+            <!-- IF NO COMPLETED GOALS -->
+            <% if (completedGoals.length==0) { %>
+              <div class="text-center ">
+                <p class="mb-0">No completed goals yet. Keep working towards your goals!</p>
+              </div>
+              <% } else { %>
+
+                <!-- Organize monthly goals by months-->
+                <% let monthlyGoals={} %>
+                  <% const monthNames=["January", "February" , "March" , "April" , "May" ,"June","July", "August"
+                    , "September" , "October" , "November" ,"December"] %>
+                    <% completedGoals.forEach(goal=> { %>
+                      <% const date=`${monthNames[goal.completedAt.getMonth()]}, ${goal.completedAt.getFullYear()}` %>
+                        <% if (!monthlyGoals[date]) { %>
+                          <% monthlyGoals[date]=[[ goal.name, goal.completedAt ]] %>
+                            <% } else { %>
+                              <% monthlyGoals[date].push([goal.name,goal.completedAt]) %>
+                                <% } %>
+                                  <% }) %>
+                                    <div class="mb-4">
+                                      <!-- For each month, make a header and list the goals -->
+                                      <% for (const [month, goalList] of Object.entries(monthlyGoals)) { %>
+                                        <% goalList.sort((a,b)=> b[1] - a[1]) %>
+
+                                          <!-- MONTH HEADER -->
+                                          <div class="d-flex align-items-center mb-3">
+                                            <h6 class="mb-0 me-3">
+                                              <!-- e.g., "December 2025" -->
+                                              <%= month %>
+                                            </h6>
+                                            <span class="badge">
+                                              <!-- number of goals completed that month -->
+                                              <%= goalList.length %>
+                                            </span>
+                                          </div>
+
+                                          <!-- GOALS LIST -->
+                                          <div class="list-group">
+                                            <% goalList.forEach(ele=> { %>
+                                              <!-- GOAL ITEM (repeat for each goal) -->
+                                              <div
+                                                class="list-group-item d-flex justify-content-between align-items-start" ; style="background-color: rgb(235, 232, 232)">
+                                                <div class="ms-2 me-auto">
+                                                  <div class="fw-bold" >
+                                                    <!-- goal.title -->
+                                                    <%= ele[0] %>
+                                                  </div>
+                                                  <small style="color: #000; opacity: 0.8;">
+                                                    Completed on
+                                                    <!-- goal.completedAt formatted date -->
+                                                    <%= ele[1] %>
+                                                  </small>
+                                                </div>
+                                                <span style="font-size: 1.5rem;">🏆</span>
+                                              </div>
+                                              <%})%>
+                                                <!-- END GOAL ITEM -->
+                                          </div>
+                                    </div>
+                                    <% } %>
+                                      <% } %>
+                                        <!-- END MONTHLY SECTION -->
+          </div>
+        </div>
+
       </div>
     </div>
+  </div>
 
-    <script src="js/clock.js"></script>
+  <script src="js/clock.js"></script>
   </div>
 
   <!-- CHANGE PASSWORD MODAL -->
