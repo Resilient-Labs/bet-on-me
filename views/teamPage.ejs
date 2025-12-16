@@ -1,190 +1,195 @@
 <%- include('partials/header') -%>
-<%- include('partials/clockHead') -%>
+  <%- include('partials/clockHead') -%>
 
-  <div class="container-fluid team-progress-container">
-    <div class="container-fluid px-lg-5 px-2">
-      <div class="row g-4">
+    <div class="container-fluid team-progress-container">
+      <div class="container-fluid px-lg-5 px-2">
+        <div class="row g-4">
 
-        <!-- LEFT SIDE - Team Progress -->
-        <div class="col-lg-8 col-12">
-          <div class="card shadow-lg border-0 team-card">
-            <div class=" py-4 text-center team-card-header">
-              <h4 class="mb-0 text-dark fw-bold">
-                Team Progress
-              </h4>
-            </div>
-
-            <div class="card-body p-4">
-
-              <!-- Team Name -->
-              <div class="group-name-section mb-4">
-                <h3 class="fw-bold mb-0 group-name-title">
-                  <i class="bi me-2"></i>
-                  <%= cluster?.cluster_name || "No Team Yet" %>
-                </h3>
+          <!-- LEFT SIDE - Team Progress -->
+          <div class="col-lg-8 col-12">
+            <div class="card shadow-lg border-0 team-card">
+              <div class=" py-4 text-center team-card-header">
+                <h4 class="mb-0 text-dark fw-bold">
+                  Team Progress
+                </h4>
               </div>
-              <% if (cluster?.cluster_join_id) { %>
 
-                <!-- Making the join code appear on the team's page ---Innocent -->
-                <div class="groupCode">
-                  <span class="badge px-3 py-2" style=" font-size:1rem;">
-                    Team Code:
-                    <strong>
-                      <%= cluster.cluster_join_id %>
-                    </strong>
-                  </span>
+              <div class="card-body p-4">
+
+                <!-- Team Name -->
+                <div class="group-name-section mb-4">
+                  <h3 class="fw-bold mb-0 group-name-title">
+                    <i class="bi me-2"></i>
+                    <%= cluster?.cluster_name || "No Team Yet" %>
+                  </h3>
                 </div>
-                <% } %>
+                <% if (cluster?.cluster_join_id) { %>
+
+                  <!-- Making the join code appear on the team's page ---Innocent -->
+                  <div class="groupCode">
+                    <span class="badge px-3 py-2" style=" font-size:1rem;">
+                      Team Code:
+                      <strong>
+                        <%= cluster.cluster_join_id %>
+                      </strong>
+                    </span>
+                  </div>
+                  <% } %>
 
 
 
-                  <!-- Users and Progress -->
-                  <% if (members && members.length> 0) { %>
-                    <% members.forEach((member, index)=> { %>
-                      <div class="card user-card mb-3">
-                        <div class="card-body p-4">
-                          <div class="row align-items-center flex-container">
-                            <!-- User Name -->
-                            <div class="col-auto mb-md-0">
-                              <h5 class="mb-0 fw-bold">
-                                <%= member.userName || member.email %>
-                              </h5>
-                            </div>
+                    <!-- Users and Progress -->
+                    <% if (members && members.length> 0) { %>
+                      <% members.forEach((member, index)=> { %>
+                        <div class="card user-card mb-3">
+                          <div class="card-body p-4">
+                            <div class="row align-items-center flex-container">
+                              <!-- User Name -->
+                              <div class="col-auto mb-md-0">
+                                <h5 class="mb-0 fw-bold">
+                                  <%= member.userName || member.email %>
+                                </h5>
+                              </div>
 
-                            <!-- Progress Bar and Wager Badge -->
-                            <div class="col">
-                              <div class="d-flex align-items-center gap-3">
-                                <!-- Progress Bar -->
-                                <div class="progress progress-container flex-grow-1">
-                                  <div class="progress-bar progress-bar-animated progress-bar-gold" role="progressbar"
-                                    style="width: <%= member.progress || 0 %>%"
-                                    aria-valuenow="<%= member.progress || 0 %>" aria-valuemin="0" aria-valuemax="100">
+                              <!-- Progress Bar and Wager Badge -->
+                              <div class="col">
+                                <div class="d-flex align-items-center gap-3">
+                                  <!-- Progress Bar -->
+                                  <div class="progress progress-container flex-grow-1">
+                                    <div class="progress-bar progress-bar-animated progress-bar-gold" role="progressbar"
+                                      style="width: <%= member.progress || 0 %>%"
+                                      aria-valuenow="<%= member.progress || 0 %>" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
                                   </div>
-                                </div>
 
-                                <!-- Wager Badge -->
-                                <span class="badge wager-badge flex-shrink-0">
-                                  $<%= member.wagerAmount || 0 %>
-                                </span>
+                                  <!-- Wager Badge -->
+                                  <span class="badge wager-badge flex-shrink-0">
+                                    $<%= member.wagerAmount || 0 %>
+                                  </span>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <% }) %>
-                        <% } else { %>
-                          <p class="text-muted text-center">No team members yet.</p>
-                          <% } %>
+                        <% }) %>
+                          <% } else { %>
+                            <p class="text-muted text-center">No team members yet.</p>
+                            <% } %>
 
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- RIGHT SIDE - Timeline & Cash Jar -->
-        <div class="col-lg-4 col-md-5">
-          <div class="d-flex flex-column gap-4">
+          <!-- RIGHT SIDE - Timeline & Cash Jar -->
+          <div class="col-lg-4 col-md-5">
+            <div class="d-flex flex-column gap-4">
 
-            <!-- Timeline -->
-            <div class="card shadow-lg border-0 timeline-card">
-              <div class="py-4 team-card-header d-flex align-items-center">
-                <h4 class="mb-0 text-dark fw-bold flex-grow-1 text-center">Timeline</h4>
+              <!-- Timeline -->
+              <div class="card shadow-lg border-0 timeline-card">
+                <div class="py-4 team-card-header d-flex align-items-center">
+                  <h4 class="mb-0 text-dark fw-bold flex-grow-1 text-center">Timeline</h4>
 
-                <button id="resetChallenge">Reset</button>
+                  <button id="resetChallenge" data-cluster-id="<%= cluster._id %>">
+                    Reset
+                  </button>
 
-                <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
-                  <button id="fetchButton" class="btn btn-outline-dark ms-auto">Start Timer</button>
-                  <% } %>
+                  <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                    <button id="fetchButton" class="btn btn-outline-dark ms-auto" data-cluster-id="<%= cluster._id %>">
+                      Start Timer
+                    </button>
+                    <% } %>
 
-                   
-                      <button id="leaveButton" class="btn btn-outline-dark ms-auto">Leave Cluster</button>
-                      
+
+
+                      <!-- <button id="leaveButton" class="btn btn-outline-dark ms-auto">Leave Cluster</button> -->
+
                       <% if (isCreator) { %>
                         <form action="/teamPage/deleteTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
                           <button id="endGameBtn" class="btn btn-danger">Delete Cluster</button>
                         </form>
-                      <% } else { %>
-                        <form action="/teamPage/leaveTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
-                          <button class="btn btn-warning">Leave Cluster</button>
-                        </form>
-                      <% } %>
-              </div>
-
-
-              <div class="card-body text-center p-5">
-                <div class="display-5 fw-bold mb-2 timeline-time">
-                  <i class="bi me-2"></i>
-                  <%= cluster?.duration %>
-                    <div class="countdown-wrapper" id="wholeClock">
-                      <div class="countdown"></div>
-                    </div>
+                        <% } else { %>
+                          <form action="/teamPage/leaveTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
+                            <button id="leaveButton" class="btn btn-warning">Leave Cluster</button>
+                          </form>
+                          <% } %>
                 </div>
-                <h4 class="mb-0 fw-bold">Challenge Duration</h4>
+
+
+                <div class="card-body text-center p-5">
+                  <div class="display-5 fw-bold mb-2 timeline-time">
+                    <i class="bi me-2"></i>
+                    <%= cluster?.duration %>
+                      <div class="countdown-wrapper" id="wholeClock">
+                        <div class="countdown"></div>
+                      </div>
+                  </div>
+                  <h4 class="mb-0 fw-bold">Challenge Duration</h4>
+                </div>
               </div>
-            </div>
 
-            <!-- Cash Jar -->
-            <div class="card shadow-lg border-0 cash-jar-card">
-              <div class=" py-4 text-center team-card-header">
-                <h4 class="mb-0 text-dark fw-bold">
-                  Cash Jar
-                </h4>
-              </div>
+              <!-- Cash Jar -->
+              <div class="card shadow-lg border-0 cash-jar-card">
+                <div class=" py-4 text-center team-card-header">
+                  <h4 class="mb-0 text-dark fw-bold">
+                    Cash Jar
+                  </h4>
+                </div>
 
-              <div class="card-body text-center p-4">
-                <div class="cash-card">
-                  <img src="https://res.cloudinary.com/dphggnlyy/image/upload/v1765558274/Untitled_design_redefb.gif"
-                    class="jar-img" alt="Cash Jar">
+                <div class="card-body text-center p-4">
+                  <div class="cash-card">
+                    <img src="https://res.cloudinary.com/dphggnlyy/image/upload/v1765558274/Untitled_design_redefb.gif"
+                      class="jar-img" alt="Cash Jar">
 
-                  <div class="hover-jar">
-                    <div class="amount-list">
-                      <% members.forEach((member, index)=> { %>
-                        <div class="user-line" style="--delay:<%= index * 0.2 %>s;">
-                          <span class="coin-small">🟡</span>
-                          <p>
-                            <%= member.userName || member.email %>:
-                              $<%= member.wagerAmount || 0 %>
-                          </p>
-                        </div>
-                        <% }) %>
+                    <div class="hover-jar">
+                      <div class="amount-list">
+                        <% members.forEach((member, index)=> { %>
+                          <div class="user-line" style="--delay:<%= index * 0.2 %>s;">
+                            <span class="coin-small">🟡</span>
+                            <p>
+                              <%= member.userName || member.email %>:
+                                $<%= member.wagerAmount || 0 %>
+                            </p>
+                          </div>
+                          <% }) %>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- Total Amount -->
-                <div class="mt-4">
-                  <h2 class="display-2 fw-bold mb-2 cash-jar-total">
-                    $
-                    <%= members.reduce((sum, m)=> sum + (m.wagerAmount || 0), 0) %>
-                  </h2>
-                  <p class="mb-0 mt-3 fs-5 fw-bold cash-jar-label">Total Pot</p>
+                  <!-- Total Amount -->
+                  <div class="mt-4">
+                    <h2 class="display-2 fw-bold mb-2 cash-jar-total">
+                      $
+                      <%= members.reduce((sum, m)=> sum + (m.wagerAmount || 0), 0) %>
+                    </h2>
+                    <p class="mb-0 mt-3 fs-5 fw-bold cash-jar-label">Total Pot</p>
+                  </div>
                 </div>
               </div>
+
             </div>
-
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- GIF Reload Script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const jarImg = document.querySelector('.jar-img');
+    <!-- GIF Reload Script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const jarImg = document.querySelector('.jar-img');
 
-      if (jarImg) {
-        jarImg.addEventListener('mouseenter', function () {
-          const src = this.src.split('?')[0];
-          this.src = src + '?t=' + new Date().getTime();
-        });
+        if (jarImg) {
+          jarImg.addEventListener('mouseenter', function () {
+            const src = this.src.split('?')[0];
+            this.src = src + '?t=' + new Date().getTime();
+          });
 
-        jarImg.addEventListener('click', function () {
-          const src = this.src.split('?')[0];
-          this.src = src + '?t=' + new Date().getTime();
-        });
-      }
-    });
-  </script>
-  <%- include('partials/clockFoot') -%>
-    <%- include('partials/footer') -%>
+          jarImg.addEventListener('click', function () {
+            const src = this.src.split('?')[0];
+            this.src = src + '?t=' + new Date().getTime();
+          });
+        }
+      });
+    </script>
+    <%- include('partials/clockFoot') -%>
+      <%- include('partials/footer') -%>
