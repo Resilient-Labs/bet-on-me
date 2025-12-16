@@ -52,6 +52,7 @@ module.exports = {
           };
         })
       );
+      console.log(req.user);
 
       res.render("teamPage.ejs", {
         user: req.user,
@@ -110,4 +111,28 @@ module.exports = {
       console.log(err);
       res.status(500).send("Error loading team data");
     }},
+        deleteTeamData: async (req, res) => {
+      try {
+        // Find the cluster by ID
+        const cluster = await Cluster.findById(req.params.id);
+        
+        if (!cluster) {
+          return res.status(404).send("Team not found");
+        }
+    
+        // Optional: Verify the user has permission to delete (e.g., is the cluster creator)
+        if (cluster.user.toString() !== req.user.id) {
+          return res.status(403).send("Unauthorized to delete this team");
+        }
+    
+        // Delete the cluster
+        await Cluster.deleteOne({ _id: req.params.id });
+    
+        // Redirect to profile or success page
+        res.redirect("/profile");
+      } catch (err) {
+        console.log(err);
+        res.status(500).send("Error deleting team");
+      }
+    }
 };

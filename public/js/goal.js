@@ -47,24 +47,23 @@ goalForm.addEventListener("submit", (e) => {
   }
 });
 
-
-
 // Justin Jimenez worked on this logic here to make the button only appear when things are submitted.
 
-let goalButton = document.getElementById('submitTaskButton')
-goalButton.style.display = 'none'
-let bigGoal = document.getElementById('bigGoal')
-bigGoal.addEventListener('input', buttonLive )
-
-
-function buttonLive () {
-  let bigGoal = document.getElementById('bigGoal')
-bigGoal.addEventListener('input', buttonLive )
-if (bigGoal.value !== ''){  
-  goalButton.style.display = 'unset'
-} else {
-  goalButton.style.display = 'none'
+let goalButton = document.getElementById("submitTaskButton");
+if (goalButton) {
+  goalButton.style.display = "none";
+  let bigGoal = document.getElementById("bigGoal");
+  bigGoal.addEventListener("input", buttonLive);
 }
+
+function buttonLive() {
+  let bigGoal = document.getElementById("bigGoal");
+  bigGoal.addEventListener("input", buttonLive);
+  if (bigGoal.value !== "") {
+    goalButton.style.display = "unset";
+  } else {
+    goalButton.style.display = "none";
+  }
 }
 
 // INLINE EDITING
@@ -78,7 +77,6 @@ document.querySelectorAll("#task-list li").forEach((li) => {
   const input = li.querySelector(".task-input");
   const editForm = li.querySelector(".edit-task-form");
   const taskId = li.dataset.id;
-
 
   // prevent page refresh
   editForm.addEventListener("submit", (e) => {
@@ -103,7 +101,6 @@ document.querySelectorAll("#task-list li").forEach((li) => {
 
     input.focus();
   };
-
 
   const toggleDefaultView = () => {
     // hide input, save & cancel button
@@ -182,23 +179,56 @@ document.querySelectorAll("#task-list li").forEach((li) => {
       ? span.classList.add("strike-through")
       : span.classList.remove("strike-through");
 
+    const data = await response.json();
+
+    document.getElementById("goalCompletedBtn").disabled = !data.goalCompleted;
+
     checkbox.dataset.completed = isCompleted;
+
+    // update team preview bars if memberProgress provided
+    if (data && data.memberProgress && Array.isArray(data.memberProgress)) {
+      data.memberProgress.forEach(mp => {
+        try {
+          const sel = `.tp-progress-bar[data-user-id="${mp.userId}"]`;
+          const bar = document.querySelector(sel);
+          if (bar) {
+            bar.setAttribute('data-percent', mp.percent);
+            bar.style.width = Math.max(0, Math.min(100, mp.percent)) + '%';
+            // update small percent text sibling
+            const small = bar.closest('li')?.querySelector('small');
+            if (small) small.textContent = mp.percent + '%';
+          }
+        } catch (e) { console.error('update team preview failed', e); }
+      });
+    }
   };
 });
 
 // DELETE TASK
-const trash = document.getElementsByClassName("fa-trash");
+const trash = document.querySelectorAll("#task-list .delete-btn");
+
 Array.from(trash).forEach(function (element) {
-  element.addEventListener("click", function () {
+  element.addEventListener("click", async function () {
     const _id = this.closest("li").querySelector("span").getAttribute("name");
-    fetch(`/task/${_id}`, {
+
+    // confirmation before deleting
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this task? This action cannot be undone."
+    );
+    if (!confirmed) return;
+
+    const response = await fetch(`/task/${_id}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({}),
-    }).then(function (response) {
-      window.location.reload();
     });
+
+    if (response.ok) {
+      window.location.reload();
+    } else {
+      console.error("Failed to delete task");
+    }
   });
 });

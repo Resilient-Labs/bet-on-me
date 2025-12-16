@@ -34,7 +34,8 @@ Setting up a day to save this in localStorage so it doesn't go away as you navig
   //# sourceURL=coffeescript
 
 let countdown = null;
-let switchTimer = false;
+let deleteCluster = document.getElementById('endGameBtn')
+deleteCluster.style.display = 'none'
 
 function initClock() {
   if (countdown) return; // already initialized
@@ -45,48 +46,29 @@ function initClock() {
     autoStart: false,
     countdown: true,
     callbacks: {
-      start() { console.log('The clock has started!'); },
+      start() { 
+        console.log('The clock has started!'); 
+      },
       stop() { 
-        console.log('The clock has stopped!');
-        // MINIMAL CHANGE: Auto-start next phase when countdown reaches 0
-        handleCountdownComplete();
+        console.log('The clock has stopped!'); 
       },
       interval() {
         const time = this.factory.getTime().time;
+        
         if (time <= 0) {
-          handleCountdownComplete();
+          console.log('Countdown reached zero!');
+          clearClockState();
+          this.stop();
         }
       }
     }
   });
 }
 
-// NEW FUNCTION: Handle automatic transition
-function handleCountdownComplete() {
-  const initialComplete = $.cookie('initialCountdownComplete');
-  
-  if (!initialComplete) {
-    // First countdown done - mark it and start target date countdown
-    console.log('Initial countdown complete, starting target date countdown');
-    $.cookie('initialCountdownComplete', 'true', { expires: 365 });
-    switchTimer = true;
-    
-    // Start the real countdown to target date
-    const targetDateStr = $.cookie('userTargetDate');
-    if (targetDateStr) {
-      const targetDate = new Date(parseInt(targetDateStr));
-      const diffSeconds = Math.floor((targetDate - Date.now()) / 1000);
-      if (diffSeconds > 0) {
-        setCountdownSeconds(diffSeconds);
-      }
-    }
-  } else {
-    console.log('Challenge complete!');
-  }
-}
-
 function setCountdownSeconds(totalSeconds) {
   initClock();
+  if (!countdown) return;
+  
   countdown.setTime(Math.max(0, Math.floor(totalSeconds)));
   countdown.start();
 }
@@ -94,62 +76,163 @@ function setCountdownSeconds(totalSeconds) {
 function clockStart(hours, minutes, seconds) {
   const totalSeconds = (Number(hours) * 3600) + (Number(minutes) * 60) + Number(seconds);
   setCountdownSeconds(totalSeconds);
+  
+  // Save the start time and total duration
+  localStorage.setItem('countdownStartTime', Date.now().toString());
+  localStorage.setItem('countdownDuration', totalSeconds.toString());
+  localStorage.setItem('countdownActive', 'true');
 }
 
-// Fetch button
-const fetchBtn = document.querySelector('#fetchButton');
-fetchBtn.addEventListener('click', async () => {
-  try {
-    const res = await fetch('/api/data');
-    const data = await res.json();
-    console.log('Data fetched from server:', data);
-    clockStart(data.duration.hours, data.duration.minutes, data.duration.seconds);
-  } catch (error) {
-    console.error('Error fetching data:', error);
+function clearClockState() {
+  localStorage.removeItem('countdownStartTime');
+  localStorage.removeItem('countdownDuration');
+  localStorage.removeItem('countdownActive');
+  
+  // Show leave button, hide start button
+  const fetchBtn = document.getElementById('fetchButton');
+  const teamProgressTitle = document.getElementById('teamProgressTitle');
+
+  if (fetchBtn) fetchBtn.style.display = 'none';
+  if (deleteCluster) {
+   setTimeout(() => {
+     deleteCluster.style.display = 'block';
+   }, 1000); // slight delay to ensure countdown UI updates first
   }
-});
+  if (teamProgressTitle) {  
+    teamProgressTitle.innerText = "Cluster Completed!";
+  }
+}
 
-// Form submission
-$('form').on('submit', function (e) {
-  e.preventDefault();
-
-  document.getElementById('wholeClock').style.display = 'unset';
-  document.getElementById('challengeCall').disabled = true;
-  document.getElementById('joinChallenge').style.display = 'unset';
-
-  // const userDateInput = $('#date-input').val();
-  // const userTimeInput = $('#time-input').val() || "10:00";
-
-  // if (!userDateInput) return console.warn("No date selected");
-
-  // const targetDate = new Date(`${userDateInput}T${userTimeInput}`);
-  // if (isNaN(targetDate.getTime())) return console.error("Invalid target date");
-
-  // $.cookie('userTargetDate', targetDate.getTime().toString(), { expires: 365 });
-
-  const initialComplete = $.cookie('initialCountdownComplete');
-
-  if (!initialComplete) {
-    console.log("Starting initial 48-hour countdown");
-    setCountdownSeconds(48 * 60 * 60); // Change back to: 48 * 60 * 60
+function restoreCountdown() {
+  const isActive = localStorage.getItem('countdownActive');
+  const startTime = localStorage.getItem('countdownStartTime');
+  const duration = localStorage.getItem('countdownDuration');
+  
+  if (!isActive || !startTime || !duration) {
+    console.log('No active countdown to restore');
+    return false;
+  }
+  
+  const elapsed = Math.floor((Date.now() - parseInt(startTime)) / 1000);
+  const remaining = parseInt(duration) - elapsed;
+  
+  if (remaining > 0) {
+    console.log('Restoring countdown:', remaining, 'seconds remaining');
+    
+    // Show clock UI
+    const wholeClock = document.getElementById('wholeClock');
+    const challengeCall = document.getElementById('challengeCall');
+    const joinChallenge = document.getElementById('joinChallenge');
+    
+    if (wholeClock) wholeClock.style.display = 'unset';
+    if (challengeCall) challengeCall.disabled = true;
+    if (joinChallenge) joinChallenge.style.display = 'unset';
+    
+    // Start countdown with remaining time
+    setCountdownSeconds(remaining);
+    return true;
   } else {
-    const diffSeconds = Math.floor((targetDate - new Date()) / 1000);
-    if (diffSeconds > 0) {
-      console.log("Starting target date countdown");
-      setCountdownSeconds(diffSeconds);
+    // Timer already finished
+    console.log('Countdown already completed');
+    clearClockState();
+    
+    // Show clock at 0
+    const wholeClock = document.getElementById('wholeClock');
+    if (wholeClock) wholeClock.style.display = 'unset';
+    
+    initClock();
+    countdown.setTime(0);
+    return false;
+  }
+}
+
+// Try to restore countdown immediately when script loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    restoreCountdown();
+    updateButtonVisibility();
+  });
+} else {
+  // DOM already loaded
+  restoreCountdown();
+  updateButtonVisibility();
+}
+
+function updateButtonVisibility() {
+  const fetchBtn = document.getElementById('fetchButton');
+  const leaveBtn = document.getElementById('leaveButton');
+  const isActive = localStorage.getItem('countdownActive');
+  
+  if (isActive === 'true') {
+    // Timer is running - hide both buttons
+    if (fetchBtn) fetchBtn.style.display = 'none';
+    if (leaveBtn) leaveBtn.style.display = 'none';
+  } else {
+    // Timer not active - check if it ever ran
+    const hasRun = localStorage.getItem('countdownStartTime');
+    if (hasRun) {
+      // Timer finished - show leave button only
+      if (fetchBtn) fetchBtn.style.display = 'none';
+      if (leaveBtn) leaveBtn.style.display = 'block';
     } else {
-      console.warn("Target date already passed");
-      initClock();
-      countdown.setTime(0);
+      // Never started - show start button only
+      if (fetchBtn) fetchBtn.style.display = 'block';
+      if (leaveBtn) leaveBtn.style.display = 'none';
     }
   }
-});
+}
 
-// Reset button
-$('#resetChallenge').on('click', function () {
-  $.removeCookie('clockTime');
-  $.removeCookie('clockLastUpdate');
-  $.removeCookie('userTargetDate');
-  $.removeCookie('initialCountdownComplete');
-  location.reload();
-});
+// Fetch button - starts the timer
+const fetchBtn = document.querySelector('#fetchButton');
+if (fetchBtn) {
+  fetchBtn.addEventListener('click', async () => {
+    // Prevent starting if already active
+    if (localStorage.getItem('countdownActive') === 'true') {
+      console.log('Countdown already running');
+      return;
+    }
+    
+    try {
+      const res = await fetch('/api/data');
+      const data = await res.json();
+
+      console.log('Data fetched from server:', data);
+
+      // Hide the fetch button
+      fetchBtn.style.display = 'none';
+
+      // Show clock UI
+      const wholeClock = document.getElementById('wholeClock');
+      const challengeCall = document.getElementById('challengeCall');
+      const joinChallenge = document.getElementById('joinChallenge');
+      
+      if (wholeClock) wholeClock.style.display = 'unset';
+      if (challengeCall) challengeCall.disabled = true;
+      if (joinChallenge) joinChallenge.style.display = 'unset';
+
+      // Start the countdown with fetched data
+      clockStart(data.duration.hours, data.duration.minutes, data.duration.seconds);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  });
+}
+
+// Reset button - force resets timer
+const resetBtn = document.querySelector('#resetChallenge');
+if (resetBtn) {
+  resetBtn.addEventListener('click', function () {
+    console.log('Resetting countdown');
+    
+    // Stop the countdown if running
+    if (countdown && countdown.running) {
+      countdown.stop();
+    }
+    
+    // Clear all saved state
+    clearClockState();
+    
+    // Reload page to reset everything
+    location.reload();
+  });
+}

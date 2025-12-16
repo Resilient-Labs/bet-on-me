@@ -4,19 +4,20 @@ const upload = require("../middleware/multer");
 const userController = require("../controllers/userController");
 const { ensureAuth } = require("../middleware/auth");
 
+// Profile page
+router.get("/profile/:id", ensureAuth, userController.getProfile);
 
-// keep test route if you still want it
-router.get("/create-test", userController.createTestUser);
-
-// existing profile page (unchanged)
-router.get("/profile/:id", userController.getProfile);
-
-// ✅ NEW: update profile picture for logged-in user
+// Update profile picture
 router.post(
   "/update-picture",
   ensureAuth,
   upload.single("profile_image"),
   userController.updateProfilePicture
 );
+
+//delete account route ---Innocent
+
+
+router.post("/delete-account", ensureAuth, userController.deleteAccount);
 
 module.exports = router;
