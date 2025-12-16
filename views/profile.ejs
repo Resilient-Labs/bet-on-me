@@ -14,7 +14,9 @@
               <!-- PROFILE IMAGE -->
               <img src="<%= user.profile_image || 'https://via.placeholder.com/150' %>" class="rounded-circle mb-3"
                 width="300" height="300" style="border: 3px solid var(--color-white);">
-
+                <br>
+<button class="btn btn-primary">
+  
               <form action="/users/update-picture" method="POST" enctype="multipart/form-data" class="mt-2">
                 <input type="file" name="profile_image" id="imageUpload" class="d-none" accept="image/*">
 
@@ -22,14 +24,7 @@
                   Upload Profile Photo
                 </label>
               </form>
-
-
-              <h5 class="mb-1 text-white">
-                <%= user.userName %>
-              </h5>
-           
-
-
+            </button>
             </div>
           </div>
 
@@ -38,14 +33,14 @@
             <div class="card-body">
               <h5 class="mb-3" style="color: var(--color-white);">Account Info</h5>
 
-              <p class="text-white"><strong style="color: var(--color-pale-yellow);">User Name:</strong>
+              <p class="text-white"><strong style="color: var(--btn-color);">User Name:</strong>
                 <%= user.userName %>
               </p>
-              <p class="text-white"><strong style="color: var(--color-pale-yellow);">Email:</strong>
+              <p class="text-white"><strong style="color: var(--btn-color);">Email:</strong>
                 <%= user.email %>
               </p>
               <p class="mb-0 text-white">
-                <strong style="color: var(--color-pale-yellow);">Member Since:</strong>
+                <strong style="color: var(--btn-color);">Member Since:</strong>
                <!--new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long' , year: 'numeric' })-->
               </p>
             </div>
@@ -56,12 +51,12 @@
             <div class="card-body">
 
               <button class="btn w-100 mb-2" data-bs-toggle="modal" data-bs-target="#changePasswordModal"
-                style="background-color: var(--color-light-coral); color: var(--bg-dark-gray); border: none; font-weight: 500;">
+                style="background-color: var( --color-foam-green); color: var(--bg-dark-gray); border: none; font-weight: 500;">
                 Change Password
               </button>
 
               <button class="btn w-100" data-bs-toggle="modal" data-bs-target="#deleteAccountModal"
-                style="background-color: #dc3545; color: white; border: none; font-weight: 500;">
+                style="background-color:rgb( 255, 205, 26); color: white; border: none; font-weight: 500;">
                 Delete Account
               </button>
 
@@ -74,44 +69,38 @@
         <div class="col-lg-8">
 
           <!-- GOAL CLUSTER -->
-          <div class="card shadow-sm mb-4" style="border: 2px solid var(--color-golden-brown);">
-            <div class="card-header"
-              style="background-color: var(--color-golden-brown); border: none; padding: 1.5rem;">
-              <h4 class="mb-0" style="color: #000;">Your Goal Cluster</h4>
+          <div class="card shadow-sm user-card">
+            <div class="card-header">
+              <h4 class="mb-0" >Your Goal Cluster</h4>
             </div>
-            <div class="card-body" style="background-color: var(--color-pale-yellow);">
+            <div class="card-body"">
 
               <!-- CLUSTER NAME -->
               <div class="d-flex align-items-center mb-4">
-                <h5 class="mb-0 me-3" style="color: #000;">
+                <h5 class="mb-0 me-3">
                   <!-- cluster.cluster_name -->
                   CLUSTER_NAME_HERE
                 </h5>
-                <span class="badge"
-                  style="background-color: #000; color: var(--color-golden-brown); width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem;">
-                  <!-- cluster.member_count -->
-                  MEMBER_COUNT
-                </span>
-              </div>
+                </div>
 
               <!-- MEMBERS HEADER -->
-              <h6 class="mb-3" style="color: #000; font-weight: 600;">Members</h6>
+              <h6 class="mb-3">Members</h6>
 
               <!-- MEMBERS LIST -->
               <div class="row g-3">
 
                 <div class="col-md-6">
                   <div class="d-flex align-items-center p-3 rounded"
-                    style="background-color: var(--color-golden-brown); border: 1px solid #000;">
+                    style=" border: 2px solid #000;">
 
                     <img src="<%= user.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
-                      width="50" height="50" style="border: 2px solid #000;" />
+                      width="50" height="50" style="border: 2px solid;" />
 
-                    <span class="fw-semibold" style="color: #000;">
+                    <h6 class="fw-semibold" >
                       <%= user.userName %>
-                        <span class="badge ms-2" style="background-color: #000; color: var(--color-golden-brown);">
+                        <span>
                           You
-                        </span>
+                        </h6>
                     </span>
 
                   </div>
@@ -119,10 +108,10 @@
 
               </div>
 
-              <hr class="my-4" style="border-color: var(--color-golden-brown); border-width: 2px;">
+              <hr class="my-4">
 
               <!-- JOIN CODE -->
-              <p class="small mb-0" style="color: #000;">
+              <p class="small mb-0" ">
                 Join Code:
                 <strong style="color: #000; font-size: 1.1rem;">
                   <!-- cluster.cluster_join_id -->
@@ -134,16 +123,16 @@
           </div>
 
          <!-- COMPLETED GOALS -->
-         <div class="card shadow-sm" style="border: 2px solid var(--color-golden-brown);">
-          <div class="card-header">
-            <h4 class="mb-0" style="color: #000;">Completed Goal History</h4>
+         <div class="card shadow-sm user-card">
+          <div class="card-header ">
+            <h4 class="mb-0" >Completed Goal History</h4>
           </div>
-          <div class="card-body" style="background-color: var(--color-pale-yellow); padding: 1.5rem;">
+          <div class="card-body" >
 
               <!-- MONTHLY GOALS SECTION (repeat for each month) -->
               <!-- IF NO COMPLETED GOALS -->
               <% if (completedGoals.length==0) { %>
-                <div class="text-center py-4" style="color: #000; opacity: 0.7;">
+                <div class="text-center ">
                   <p class="mb-0">No completed goals yet. Keep working towards your goals!</p>
                 </div>
                 <% } else { %>

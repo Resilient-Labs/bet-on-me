@@ -322,7 +322,7 @@ footer {
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! START !!!!!!!~~~~~~~~ */
 card-body {
-  background: #1a1a1a;
+  background: var(--color-gray);
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
   border: 1px solid var(--color-pale-yellow);
@@ -339,13 +339,13 @@ card-body {
 
 
 .team-progress-container {
-  background: #000000;
+  background: var(--color-gray);
   min-height: 100vh;
   padding: 3rem 0;
 }
 
 .team-card {
-  background: #1a1a1a;
+  background: var(--color-sky-blue);
   min-height: 85vh;
 }
 
@@ -678,3 +678,9 @@ card-body {
 /* ~~~~~~~!!!!!!!!!!!!MONEY JAR CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! END !!!!!!!~~~~~~~~ */
+
+
+.pDiv{
+  background-color: var(--color-sky-blue);
+}
+
