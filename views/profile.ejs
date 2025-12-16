@@ -10,14 +10,15 @@
           <!-- PROFILE CARD -->
           <div class="card shadow-sm text-center mb-4 user-card">
             <div class="card-body">
-              
-              
+
+
 
               <!-- PROFILE IMAGE -->
               <img src="<%= user.profile_image || 'https://via.placeholder.com/150' %>" class="rounded-circle mb-3"
                 width="300" height="300" style="border: 3px solid var(--color-white);">
               <br>
-              <button class="btn w-100" style="background-color:rgb( 255, 205, 26); color: white; border: none; font-weight: 500;">
+              <button class="btn w-100"
+                style="background-color:rgb( 255, 205, 26); color: white; border: none; font-weight: 500;">
 
                 <form action="/users/update-picture" method="POST" enctype="multipart/form-data" class="mt-2">
                   <input type="file" name="profile_image" id="imageUpload" class="d-none" accept="image/*">
@@ -75,13 +76,14 @@
             <div class="team-card-header">
               <h4 class="mb-0">Your Goal Cluster</h4>
             </div>
+            <% const cluster=clusters[0] %>
             <div class="card-body"">
 
               <!-- CLUSTER NAME -->
               <div class=" d-flex align-items-center mb-4">
               <h5 class="mb-0 me-3">
-                <!-- cluster.cluster_name -->
-                CLUSTER_NAME_HERE
+                <%= cluster?.cluster_name %>    
+                <%= console.log(cluster)   %>        
               </h5>
             </div>
 
@@ -92,19 +94,21 @@
             <div class="row g-3">
 
               <div class="col-md-6">
-                <div class="d-flex align-items-center p-3 rounded" style=" border: 2px solid; background-color: rgb(235, 232, 232);">
-
-                  <img src="<%= user.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
-                    width="50" height="50" style="border: 2px solid;" />
-
-                  <h6 class="fw-semibold">
-                    <%= user.userName %>
-                      <span>
-                        You
-                  </h6>
-                  </span>
-
-                </div>
+                <% const members=cluster?.cluster_members %>
+                  <% members?.forEach(member=> {%>
+                    <div class="d-flex align-items-center p-3 rounded"
+                      style="background-color: var(--color-gray); border: 1px solid #000;">
+                      <img src="<%= member?.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
+                        width="50" height="50" style="border: 2px solid #000;" />
+                      <span class="fw-semibold" style="color: var(--btn-color);">
+                        <%= member?.userName %>
+                          <span style="color: #ffffff; background-color: var(--color-foam-green);"
+                            class="<%= member?.userName === user.userName ? '' : 'd-none' %> badge ms-2">
+                            You
+                          </span>
+                      </span>
+                    </div>
+                    <% }) %>
               </div>
 
             </div>
@@ -112,13 +116,15 @@
             <hr class="my-4">
 
             <!-- JOIN CODE -->
-            <p class="small mb-0" >
-                Join Code:
-                <strong style=" font-size: 1.1rem;">
-              <!-- cluster.cluster_join_id -->
-              JOIN_CODE
+            <p class="small mb-0">
+              Join Code:
+              <strong style="font-size: 1.1rem;">
+                <%= cluster?.cluster_join_id %>
+                <%= cluster?.cluster_join_id %>
+                  <!-- JOIN_CODE -->
               </strong>
             </p>
+
 
           </div>
         </div>
@@ -172,9 +178,10 @@
                                             <% goalList.forEach(ele=> { %>
                                               <!-- GOAL ITEM (repeat for each goal) -->
                                               <div
-                                                class="list-group-item d-flex justify-content-between align-items-start" ; style="background-color: rgb(235, 232, 232)">
+                                                class="list-group-item d-flex justify-content-between align-items-start"
+                                                ; style="background-color: rgb(235, 232, 232)">
                                                 <div class="ms-2 me-auto">
-                                                  <div class="fw-bold" >
+                                                  <div class="fw-bold">
                                                     <!-- goal.title -->
                                                     <%= ele[0] %>
                                                   </div>
