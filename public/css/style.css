@@ -30,7 +30,7 @@
   color: var(--btn-color);
 }
 
-body{
+body {
   background-color: var(--color-gray);
 }
 
@@ -221,7 +221,7 @@ body{
     min-height: 252px;
   }
 
- .home-container .home-body {
+  .home-container .home-body {
     flex-direction: column;
     align-items: center;
     gap: .3rem;
@@ -232,12 +232,12 @@ body{
     margin-bottom: 0;
   }
 
-  .home-header{
-    padding: 6rem 2rem ;
+  .home-header {
+    padding: 6rem 2rem;
   }
 
   .custom-header,
-  .custom-footer{
+  .custom-footer {
     padding: 1rem 0;
   }
 }
@@ -279,35 +279,51 @@ footer {
 }
 
 .landing-page-main {
-  /* Add padding to push content below the header and above the footer */
-  /* padding-top: 80px; */
-  /* Adjust to your header's height */
-  /* padding-bottom: 60px; */
-  /* Adjust to your footer's height */
-  /* Or use flexbox/grid for more complex layouts */
-  background-color: black;
+
+  background-color: var(--color-gray);
 }
 
 .landing-page-main .bright {
-  color: var(--color-pale-yellow);
+  color: var(--btn-color);
+}
+
+.landing-page-main .lead {
+  color: var(--btn-color);
 }
 
 .landing-page-main .about-app {
-  background-color: var(--bg-dark-brown);
+  background-color: var(--color-gray);
 }
 
 .landing-page-main .transparent {
   background-color: rgba(0, 0, 0, 0);
 }
 
-/* 
-.landing-page-main h1{
-  font-size: 2.4rem;
-} */
 
-.landing-page-main .rounded-box {
+/* .landing-page-main .rounded-box {
   border-radius: 2rem;
   border: 2px solid var(--color-golden-brown);
+} */
+
+.landing-page-top {
+  background-color: var(--color-sky-blue);
+  width: 100%;
+  padding: 4rem 2rem;
+  color: var(--btn-color)
+}
+
+.landing-page-top .btn-hero {
+  border: 1px solid var(--btn-color);
+  background-color: var(--color-foam-green);
+  padding: .5rem 2rem;
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: var(--btn-color);
+}
+
+.landing-page-top .btn-hero:hover {
+  background-color: var(--btn-color);
+  color: var(--main-bg-color);
 }
 
 .landing-page-main .dashed {
@@ -534,8 +550,27 @@ card-body {
   border: 2px solid var(--color-golden-brown);
 }
 
-.card {
-  border-radius: 2rem !important;
+.main-cards{
+  background-color: var(--color-sky-blue);
+  width: 100%;
+  padding: 6rem 2rem;
+}
+
+.main-cards .card {
+  /* background-color: var(--color-sky-blue); */
+  background-color: var(--color-gray);
+  color: var(--btn-color);
+  border-radius: 0;
+  border: 1px solid var(--btn-color);
+}
+
+.main-cards .rounded-number {
+  width: 64px;
+  height: 64px;
+  background-color: var(--color-mustard);
+  border: 2px solid var(--btn-color);
+  margin-bottom: 1rem;
+  border-radius: 50%;
 }
 
 /* Hover Overlay */

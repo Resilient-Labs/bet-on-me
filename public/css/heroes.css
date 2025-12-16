@@ -3,15 +3,24 @@
 /* ===================================== */
 
 :root {
-    --color-golden-brown: rgb(187, 161, 117);
-    --color-pale-yellow: rgb(252, 237, 194);
-    --color-faded-yellow: rgb(153, 150, 143);
-    --color-light-coral: rgb(235, 153, 121);
-    --color-vibrant-coral: rgb(250, 137, 92);
-    --color-vibrant-gold: rgb(247, 174, 28);
-    --bg-dark-brown: rgb(51, 49, 49);
-    --bg-dark-gray: rgb(30, 30, 30);
-    --color-turqoise-blue: rgb(41, 188, 186);
+  --color-golden-brown: rgb(187, 161, 117);
+  --color-pale-yellow: rgb(252, 237, 194);
+  --color-faded-yellow: rgb(153, 150, 143);
+  --color-light-coral: rgb(235, 153, 121);
+  --color-vibrant-coral: rgb(250, 137, 92);
+  --color-vibrant-gold: rgb(247, 174, 28);
+  --bg-dark-brown: rgb(51, 49, 49);
+  --bg-dark-gray: rgb(30, 30, 30);
+  --color-turqoise-blue: rgb(41, 188, 186);
+
+  --main-bg-color: white;
+  --text-color: rgb(44, 44, 44);
+  --btn-color: rgb(60, 51, 77);
+
+  --color-mustard: rgb(255, 205, 26);
+  --color-gray: rgb(235, 232, 232);
+  --color-foam-green: rgb(174, 223, 194);
+  --color-sky-blue: rgb(182, 215, 284);
 }
 
 /* ===================================== */
@@ -34,7 +43,7 @@
 /* BUTTONS                               */
 /* ===================================== */
 
-.join-btn, 
+.join-btn,
 .join-btn:hover {
   color: black !important;
   text-decoration: none !important;
@@ -48,7 +57,7 @@
 .gold-btn:hover {
   background-color: var(--color-vibrant-gold) !important;
   border-color: var(--color-vibrant-gold) !important;
-  color: white !important; 
+  color: white !important;
 }
 
 /* ===================================== */
@@ -68,28 +77,35 @@
 /* ===================================== */
 /* ABOUT SECTION                         */
 /* ===================================== */
-
 .about-section {
-  /* padding-top: 50px; */
-  /* padding-bottom: 100px; */
-  background: black;
+  width: 100%;
+  padding: 0;
+}
+
+.about-section .row {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 1.6rem;
+}
+
+.about-section .about-app {
+  width: 100%;
 }
 
 .about-section h1 {
-  color: white !important;
   padding-top: 20px;
+  color: var(--btn-color);
 }
 
 .about-logo-box {
-  background-color: black;
-  border: 2px dashed var(--color-vibrant-gold);
-  border-radius: 10px;
-
+  background-color: var(--btn-color);
+  border: 1px solid var(--btn-color);
   /* Responsive sizing */
   width: 100%;
-  max-width: 520px;
+  height: 350px;
+  width: 350px;
+  border-radius: 50%;
   aspect-ratio: 520 / 355;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,26 +114,24 @@
 }
 
 .about-img-box {
-  background-color: black;
-  border: 2px solid var(--color-vibrant-gold);
-  border-radius: 10px;
+  /* border: 1px solid var(--btn-color); */
   display: flex;
   align-items: center;
   justify-content: center;
   width: fit-content;
-   margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
-.about-img-box img{
+
+.about-img-box img {
   width: 100%;
- 
+
 }
-
-
 
 .about-logo-box img {
   width: 90%;
   height: 90%;
   object-fit: contain;
+  border: none;
 }
 
 /* ===================================== */
@@ -150,5 +164,14 @@
 /* ===================================== */
 
 @media (min-width: 992px) {
-  .rounded-lg-3 { border-radius: .3rem; }
+  .rounded-lg-3 {
+    border-radius: .3rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .about-logo-box {
+    height: 250px;
+    width: 250px;
+  }
 }
