@@ -97,11 +97,10 @@
                     Reset
                   </button>
 
-                  <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
-                    <button id="fetchButton" class="btn btn-outline-dark ms-auto" data-cluster-id="<%= cluster._id %>">
-                      Start Timer
-                    </button>
-                    <% } %>
+                <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                  <button id="fetchButton" class="btn btn-outline-dark ms-auto">Start Timer</button>
+                  <button id="resetChallenge" class="btn btn-outline-dark ms-auto">Reset Timer</button>
+                  <% } %>
 
 
 
