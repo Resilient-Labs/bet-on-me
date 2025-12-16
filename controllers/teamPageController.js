@@ -169,6 +169,7 @@ module.exports = {
    */
   startTeamTimer: async (req, res) => {
     try {
+      console.log(req.params.id)
       const cluster = await Cluster.findOne({
         _id: req.params.id,
         user: req.user.id,          // only creator can start
