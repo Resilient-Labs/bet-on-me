@@ -64,9 +64,51 @@ body {
   border: none;
 }
 
+<<<<<<< Updated upstream
 .login-modal button:hover {
   background-color: var(--color-vibrant-coral);
   color: var(--bg-dark-brown)
+=======
+.modal-body input {
+  background-color: var(--color-white);
+}
+
+.modal-body input:focus {
+  background-color: var(--color-white);
+}
+
+.modal-body label {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: .02rem;
+}
+
+
+.login-modal {
+  border: 2px solid var(--color-black);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.modal-body {
+  background-color: var(--color-foam-green);
+  color: var(--color-yellow);
+
+}
+
+.modal-body button {
+  background-color: var(--color-yellow);
+  border: 1px solid var(--color-black);
+  color: var(--color-black);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.modal-body button:hover {
+  background-color: var(--color-sky-blue);
+  border: 1px solid var(--color-black);
+  color: var(--color-black);
+>>>>>>> Stashed changes
 }
 
 .login-modal a {
@@ -79,7 +121,15 @@ body {
 }
 
 .login-modal a:hover {
+<<<<<<< Updated upstream
   color: var(--color-vibrant-coral);
+=======
+  color: var(--color-back);
+}
+
+.login-modal .btn-close {
+  background-color: var(--color-back);
+>>>>>>> Stashed changes
 }
 
 
@@ -360,8 +410,7 @@ footer {
 /* ~~~~~~~!!!!!!!!!!!! START !!!!!!!~~~~~~~~ */
 card-body {
   background: var(--color-gray);
-  border-bottom-left-radius: 2rem;
-  border-bottom-right-radius: 2rem;
+  
 }
 
 .user-card.card {
@@ -383,13 +432,18 @@ card-body {
 .team-card {
   background: var(--color-sky-blue);
   min-height: 85vh;
+
 }
 
 .team-card-header {
   background-color: var(--color-foam-green);
+<<<<<<< Updated upstream
   
   padding: 1.5rem;
  
+=======
+  padding: 1.5rem;
+>>>>>>> Stashed changes
 }
 
 .team-card-header * {
@@ -408,7 +462,7 @@ card-body {
 }
 
 .user-card {
-  background:var(--color-gray);
+  background: var(--color-gray);
   border: none;
   margin-bottom: 1.5rem;
 }
@@ -440,24 +494,22 @@ card-body {
 
 .progress .progress-bar {
   background-color: var(--color-foam-green);
-  background-image: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.15) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.15) 75%,
-    transparent 75%,
-    transparent
-  );
+  background-image: linear-gradient(45deg,
+      rgba(255, 255, 255, 0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.15) 75%,
+      transparent 75%,
+      transparent);
   background-size: 1rem 1rem;
 }
 
 
 /* Right Side Cards */
 .timeline-card {
-  background:var(--color-gray);
- 
+  background: var(--color-gray);
+
 }
 
 .timeline-header {
@@ -469,18 +521,19 @@ card-body {
 .timeline-time {
   color: #DEB887;
 }
+
 #leaveButton {
   background-color: var(--color-mustard);
-  color: var(--btn-color); 
+  color: var(--btn-color);
   border: 1px solid var(--btn-color);
   transition: background-color 0.2s, border-color 0.2s;
 }
 
 #leaveButton:hover {
-  background-color:var(--btn-color) ;
+  background-color: var(--btn-color);
   border-color: var(--btn-color);
-  color: white; 
-  cursor: pointer; 
+  color: white;
+  cursor: pointer;
 }
 
 .cash-jar-card {
@@ -590,15 +643,19 @@ card-body {
 .hover-jar {
   position: relative;
   height: 100%;
-  width: 100%;           /* fill parent container */
-  
-  opacity: 0;            /* start hidden */
+  width: 100%;
+  /* fill parent container */
+
+  opacity: 0;
+  /* start hidden */
   transition: opacity 0.3s ease;
 }
 
 .hover-jar:hover {
-  opacity: 0.2;          /* visible on hover */
-  pointer-events: auto;  /* allow interactions if needed */
+  opacity: 0.2;
+  /* visible on hover */
+  pointer-events: auto;
+  /* allow interactions if needed */
 }
 
 
