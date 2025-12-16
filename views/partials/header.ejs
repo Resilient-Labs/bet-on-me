@@ -40,9 +40,7 @@
               class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
             >
               <img
-                class="bi me-2"
-                width="100"
-                height="100"
+                class="bi me-2 header-logo"
                 role="img"
                 aria-label="Bootstrap"
                 src="/imgs/BETonMe.png"
@@ -73,14 +71,14 @@
                   <!-- show team page on every page but the my group page -->
                    <% if (user && currentpath!== '/teamPage'){ %>
                     <li class="nav-item">
-                    <a href="/teamPage" class="nav-link text-white">My Group</a>
+                    <a href="/teamPage" class="nav-link ">My Group</a>
                     </li>
                    <% } %>
                   
                     <!-- show user goal page on every page by my goals page -->
                      <% if(user && currentpath !== '/userGoal') { %>
                       <li class="nav-item">
-                      <a href="/userGoal" class="nav-link text-white">My Goal</a>
+                      <a href="/userGoal" class="nav-link ">My Goal</a>
                       </li>
                      <% } %>
                   
@@ -97,7 +95,7 @@
                 </a>
               <% } %>
               
-               <button type="button" class="btn btn-warning border">
+               <button type="button" class="btn btn-warning btn-hover">
                   <a href="/logout" type="button" class="signup">Logout</a>
               </button>
               <% } %>

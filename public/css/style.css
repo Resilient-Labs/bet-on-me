@@ -1,7 +1,7 @@
 /* Keep :root and * at the top */
 
 :root {
-  --color-golden-brown: rgb(158, 145, 106);
+  /* --color-golden-brown: rgb(158, 145, 106);
   --color-pale-yellow: rgb(252, 237, 194);
   --color-faded-yellow: rgb(153, 150, 143);
   --color-light-coral: rgb(235, 153, 121);
@@ -27,6 +27,11 @@
 * {
   box-sizing: border-box;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: var(--btn-color);
+}
+
+body{
+  background-color: var(--color-gray);
 }
 
 /* This is connected to JS and controls the toggle on/off of the clock
@@ -79,13 +84,13 @@
 
 
 .login-modal input {
-  background-color: var(--color-pale-yellow);
+  /* background-color: var(--color-pale-yellow); */
 }
 
 .login-modal input:focus,
 .home-container input:focus {
-  background-color: var(--color-pale-yellow);
-  border-color: var(--color-light-coral);
+  /* background-color: var(--color-pale-yellow); */
+  /* border-color: var(--color-light-coral); */
   border-width: .1rem;
 }
 
@@ -102,13 +107,16 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: var(--bg-dark-brown);
+  background-color: var(--main-bg-color);
   margin-bottom: -4rem;
 }
 
 .home-container .home-body {
   flex: 1;
   margin-bottom: 4rem;
+  background-color: var(--color-gray);
+  /* border-top: 1px solid var(--btn-color); */
+  padding: 4rem 1.5rem 4rem 1.5rem;
 }
 
 .home-header {
@@ -117,20 +125,26 @@
   flex: 1;
   width: 60%;
   margin: auto;
-  margin-top: 2rem;
   min-width: 352px;
+  background-color: var(--color-mustard);
+  width: 100%;
+  padding: 8rem;
 }
 
 .home-header h1 {
   text-align: center;
-  color: var(--color-pale-yellow);
+  color: var(--btn-color);
   font-size: 3.5rem;
   font-weight: bold;
+  /* color: white;
+  -webkit-text-stroke: 6px var(--btn-color);
+  paint-order: stroke fill;
+  letter-spacing: 2px; */
 }
 
 .home-header p {
   text-align: center;
-  color: var(--color-pale-yellow);
+  color: var(--btn-color);
   margin: 0;
 }
 
@@ -146,14 +160,15 @@
   flex: 1;
   padding: .5rem;
   margin: 2rem 0;
-  background-color: var(--color-golden-brown);
+  background-color: var(--color-sky-blue);
   max-width: 500px;
-  border: 1px solid rgb(241, 239, 227);
+  border: 1px solid var(--btn-color);
 }
 
 .home-body section input {
   max-width: 20rem;
-  background-color: var(--color-pale-yellow);
+  /* background-color: var(--color-pale-yellow); */
+  border: 1px solid var(--btn-color);
 }
 
 .home-body .create,
@@ -162,7 +177,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 150px;
+  min-height: 269px;
   min-width: 350px;
 }
 
@@ -179,12 +194,12 @@
   font-size: 1.4rem;
   background-color: var(--color-mustard);
   color: var(--bg-dark-gray);
-  border-color: var(--bg-dark-gray);
+  border-color: var(--btn-color);
 }
 
 .home-body button:hover {
-  background-color: var(--color-pale-yellow);
-  color: var(--bg-dark-gray);
+  background-color: var(--btn-color);
+  color: var(--main-bg-color);
 }
 
 .home-body section {
@@ -198,7 +213,7 @@
 
 @media screen and (max-width: 1000px) {
   .home-container {
-    padding: 2rem 0;
+    padding-bottom: 2rem;
   }
 
   .home-container .create,
@@ -206,18 +221,24 @@
     min-height: 252px;
   }
 
-  .home-body {
+ .home-container .home-body {
     flex-direction: column;
     align-items: center;
     gap: .3rem;
+    margin-bottom: 2rem;
   }
 
   .home-body section {
     margin-bottom: 0;
   }
 
-  .home-header {
-    width: 80%;
+  .home-header{
+    padding: 6rem 2rem ;
+  }
+
+  .custom-header,
+  .custom-footer{
+    padding: 1rem 0;
   }
 }
 
@@ -325,7 +346,6 @@ card-body {
   background: var(--color-gray);
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
-  border: 1px solid var(--color-pale-yellow);
 }
 
 .user-card.card {

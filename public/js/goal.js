@@ -2,12 +2,48 @@
 let goalForm = document.querySelector(".goal-setting");
 goalForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  document.querySelector("#bigGoal");
-  const goalInput = document.querySelector("#bigGoal");
-  if (goalInput.value.trim() !== "") {
-    goalForm.submit();
-  } else {
-    alert("Where's that goal at, huh?");
+  document.querySelector("#bigGoal")
+  const goalInput = document.querySelector("#bigGoal")
+  if (goalInput.value.trim() !== '') {
+    goalForm.submit()
+  }
+  else {
+  // Create the dialog
+  const dialog = document.createElement("dialog");
+
+  // Add content
+  dialog.innerHTML =
+ `<h2>Invalid Input</h2>
+  <p>Where's that goal at? Huh???</p>
+  <button onclick="this.closest('dialog').close()">Close</button>`;
+  dialog.style.padding = "20px";
+  dialog.style.borderRadius = "8px";
+  dialog.style.border = "1px solid #ccc";
+  dialog.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
+  dialog.style.fontFamily = "Arial, sans-serif";
+  dialog.style.textAlign = "center";
+  dialog.querySelector("h2").style.marginBottom = "10px";
+  dialog.querySelector("p").style.marginBottom = "20px";
+  dialog.querySelector("button").style.padding = "8px 16px";
+  dialog.querySelector("button").style.border = "none";
+  dialog.querySelector("button").style.borderRadius = "4px";
+  dialog.querySelector("button").style.backgroundColor = "#007BFF";
+  dialog.querySelector("button").style.color = "#fff";
+  dialog.querySelector("button").style.cursor = "pointer";
+  dialog.querySelector("button").addEventListener("mouseover", function() {
+    this.style.backgroundColor = "#0056b3";
+  });
+  dialog.querySelector("button").addEventListener("mouseout", function() {
+    this.style.backgroundColor = "#007BFF";
+  });
+  dialog.style.maxWidth = "300px";
+  dialog.style.width = "80%";
+  dialog.style.margin = " 10% auto";
+  // Append to body
+  document.body.appendChild(dialog);
+
+  // Show it
+  dialog.showModal();
   }
 });
 

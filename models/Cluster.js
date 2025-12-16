@@ -31,6 +31,9 @@ const clusterSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  endDate: {
+    type: Date,
+  },
 });
 
 module.exports = mongoose.model("Cluster", clusterSchema);
