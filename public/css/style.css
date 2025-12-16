@@ -92,7 +92,6 @@ html {
 
 .login-modal a:hover {
   color: var(--color-back);
-  -moz-text-decoration-style: ;
 }
 .login-modal .btn-close{
  background-color: var(--color-back);
