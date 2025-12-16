@@ -143,7 +143,12 @@
                   <% const monthNames=["January", "February" , "March" , "April" , "May" ,"June","July", "August"
                     , "September" , "October" , "November" ,"December"] %>
                     <% completedGoals.forEach(goal=> { %>
-                      <% const date=`${monthNames[goal.completedAt.getMonth()]}, ${goal.completedAt.getFullYear()}` %>
+                      <% let date %>
+                      <% if (goal.completedAt === null) { %> 
+                        <% date = 'unknown date' %>
+                      <% } else { %>
+                        <% date=`${monthNames[goal.completedAt.getMonth()]}, ${goal.completedAt.getFullYear()}` %>
+                      <% } %>
                         <% if (!monthlyGoals[date]) { %>
                           <% monthlyGoals[date]=[[ goal.name, goal.completedAt ]] %>
                             <% } else { %>
@@ -181,7 +186,7 @@
                                                   <small style="color: #000; opacity: 0.8;">
                                                     Completed on
                                                     <!-- goal.completedAt formatted date -->
-                                                    <%= ele[1] %>
+                                                    <%= ele[1] ? ele[1] : 'unknown date'%>
                                                   </small>
                                                 </div>
                                                 <span style="font-size: 1.5rem;">🏆</span>
