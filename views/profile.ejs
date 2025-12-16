@@ -15,7 +15,14 @@
 
               <!-- PROFILE IMAGE -->
               <img src="<%= user.profile_image || 'https://via.placeholder.com/150' %>" class="rounded-circle mb-3"
-                width="300" height="300" style="border: 3px solid var(--color-white);">
+                style="
+                        width: 300px;
+                        height: 300px;
+                        object-fit: cover;
+                        border-radius: 50%;
+                        border: 3px solid var(--color-white);
+                      ">
+
               <br>
               <button class="btn w-100"
                 style="background-color:rgb( 255, 205, 26); color: white; border: none; font-weight: 500;">
@@ -31,20 +38,33 @@
             </div>
           </div>
 
-          <!-- ACCOUNT INFO -->
-          <div class="card shadow-sm mb-4 user-card">
-            <div class="card-body">
-              <h5 class="mb-3" style="color: var(--color-white);">Account Info</h5>
 
-              <p class="text-white"><strong style="color: var(--btn-color);">User Name:</strong>
+
+
+          
+          <!-- ACCOUNT INFO -->
+          <div class="card shadow-sm user-card">
+
+            <div class="team-card-header">
+              <h4 class="mb-0">Account Info</h4>
+            </div>
+
+
+            <div class="card-body">
+
+ <p><strong style="color: var(--btn-color);">User Name:</strong>
                 <%= user.userName %>
               </p>
-              <p class="text-white"><strong style="color: var(--btn-color);">Email:</strong>
+              <p ><strong style="color: var(--btn-color);">Email:</strong>
                 <%= user.email %>
               </p>
-              <p class="mb-0 text-white">
+              <p class="mb-0">
                 <strong style="color: var(--btn-color);">Member Since:</strong>
-                <%= user.createdAt %>
+                <%= new Date(user.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric"
+                }) %>
               </p>
             </div>
           </div>
@@ -94,21 +114,24 @@
             <div class="row g-3">
 
               <div class="col-md-6">
-                <% const members=cluster?.cluster_members %>
-                  <% members?.forEach(member=> {%>
-                    <div class="d-flex align-items-center p-3 rounded"
-                      style="background-color: var(--color-gray); border: 1px solid #000;">
-                      <img src="<%= member?.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
-                        width="50" height="50" style="border: 2px solid #000;" />
-                      <span class="fw-semibold" style="color: var(--btn-color);">
-                        <%= member?.userName %>
-                          <span style="color: #ffffff; background-color: var(--color-foam-green);"
-                            class="<%= member?.userName === user.userName ? '' : 'd-none' %> badge ms-2">
-                            You
-                          </span>
-                      </span>
-                    </div>
-                    <% }) %>
+                <div class="d-flex align-items-center p-3 rounded"
+                  style=" border: 2px solid; background-color: rgb(235, 232, 232);">
+
+                  <img src="<%= user.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
+                    style="
+                            width: 50px;
+                            height: 50px;
+                            object-fit: cover;
+                            border: 2px solid;
+                          " />
+                  <h6 class="fw-semibold">
+                    <%= user.userName %>
+                      <span>
+                        You
+                  </h6>
+                  </span>
+
+                </div>
               </div>
 
             </div>
@@ -149,7 +172,12 @@
                   <% const monthNames=["January", "February" , "March" , "April" , "May" ,"June","July", "August"
                     , "September" , "October" , "November" ,"December"] %>
                     <% completedGoals.forEach(goal=> { %>
-                      <% const date=`${monthNames[goal.completedAt.getMonth()]}, ${goal.completedAt.getFullYear()}` %>
+                      <% let date %>
+                      <% if (goal.completedAt === null) { %> 
+                        <% date = 'unknown date' %>
+                      <% } else { %>
+                        <% date=`${monthNames[goal.completedAt.getMonth()]}, ${goal.completedAt.getFullYear()}` %>
+                      <% } %>
                         <% if (!monthlyGoals[date]) { %>
                           <% monthlyGoals[date]=[[ goal.name, goal.completedAt ]] %>
                             <% } else { %>
@@ -185,7 +213,7 @@
                                                   <small style="color: #000; opacity: 0.8;">
                                                     Completed on
                                                     <!-- goal.completedAt formatted date -->
-                                                    <%= ele[1] %>
+                                                    <%= ele[1] ? ele[1] : 'unknown date'%>
                                                   </small>
                                                 </div>
                                                 <span style="font-size: 1.5rem;">🏆</span>
