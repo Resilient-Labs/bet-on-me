@@ -136,6 +136,16 @@ a.signup:hover {
   font-size: 20px;
 }
 
+#team-page-disable{
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+#team-page-disable:hover{
+  font-size: inherit;
+  color: var(--color-black);
+}
+
 /* ensure the text-end div items are vertically centered */
 .text-end {
   display: flex;
