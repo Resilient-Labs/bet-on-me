@@ -104,11 +104,11 @@ module.exports = {
 
   createTask: async (req, res) => {
     try {
-      // enforce 10-task-per-user limit
+      // enforce 6-task-per-user limit
       const taskCount = await Task.countDocuments({ user: req.user.id });
-      if (taskCount >= 10) {
+      if (taskCount >= 6) {
         console.log("User has reached the task limit");
-        req.flash('error', 'Task limit reached (maximum 10 tasks).');
+        req.flash('error', 'Task limit reached (maximum 6 tasks).');
         return res.redirect('/userGoal');
       }
 
@@ -153,7 +153,7 @@ module.exports = {
   limitTask: async (userID) => {
     try {
       const taskCount = await Task.countDocuments({ user: userID });
-      return taskCount < 10;
+      return taskCount < 6;
     } catch (err) {
       console.error(err);
       return false;
