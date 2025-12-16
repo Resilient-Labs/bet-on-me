@@ -649,7 +649,6 @@ card-body {
 
 /* Amount List (User Contributions) */
 .amount-list {
-  position: absolute;
   bottom: 0px;
   left: -25%;
   transform: translateX(-50%);

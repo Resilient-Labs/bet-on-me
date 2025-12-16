@@ -1,5 +1,19 @@
+<<<<<<< Updated upstream
+<!-- <%- include('partials/header') -%> -->
+=======
+<style>
+  .profile-pic-small {
+  width: 60px; 
+  height:60px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;   
+}
+
+</style>
+
 <%- include('partials/header') -%>
-  <%- include('partials/clockHead') -%>
+>>>>>>> Stashed changes
 
     <div class="container-fluid team-progress-container">
       <div class="container-fluid  px-2">
@@ -137,20 +151,20 @@
                     <img src="https://res.cloudinary.com/dphggnlyy/image/upload/v1765558274/Untitled_design_redefb.gif"
                       class="jar-img" >
 
-                    <div class="hover-jar">
-                      <div class="amount-list">
-                        <% members.forEach((member, index)=> { %>
-                          <div class="user-line" style="--delay:<%= index * 0.2 %>s;">
-                            <span class="coin-small"> 🟡 </span>
-                            <p>
-                              <%= member.username || member.email %>:
-                                $<%= member.wagerAmount || 0 %>
-                            </p>
-                          </div>
-                          <% }) %>
+                <div class="hover-jar">
+                  <div class="amount-list">
+                    <% members.forEach((member, index) => { %>
+                      <div class="user-line" style="--delay:<%= index * 0.2 %>s;">
+                        <span class="coin-small">🟡</span>
+                        <p>
+                          <%= member.userName || member.email %>:
+                          $<%= member.wagerAmount || 0 %>
+                        </p>
                       </div>
-                    </div>
+                    <% }) %>
                   </div>
+                </div>
+              </div>
 
                   <!-- Total Amount -->
                   <div>
