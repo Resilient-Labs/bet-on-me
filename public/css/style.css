@@ -1,25 +1,9 @@
 /* Keep :root and * at the top */
 
 :root {
-  /* --color-golden-brown: rgb(158, 145, 106);
-  --color-pale-yellow: rgb(252, 237, 194);
-  --color-faded-yellow: rgb(153, 150, 143);
-  --color-light-coral: rgb(235, 153, 121);
-  --color-vibrant-coral: rgb(250, 137, 92);
-  --bg-dark-brown: rgb(63, 46, 34);
-  --bg-dark-gray: rgb(30, 30, 30);
-  --color-mustard: rgb(255, 193, 7);
-  --color-blue: rgb(33, 112, 94);
-
-
-  /* new color scheme  */
-
-  --main-bg-color: white;
-  --text-color: rgb(44, 44, 44);
-  --btn-color: rgb(60, 51, 77);
-
-  --color-mustard: rgb(255, 205, 26);
-  --color-gray: rgb(235, 232, 232);
+  --color-black: rgb(60, 51, 77);
+  --color-white: rgb(235, 232, 232);
+  --color-yellow: rgb(255, 205, 26);
   --color-foam-green: rgb(174, 223, 194);
   --color-sky-blue: rgb(182, 215, 284);
 }
@@ -27,11 +11,11 @@
 * {
   box-sizing: border-box;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  color: var(--btn-color);
+  color: var(--color-black);
 }
 
-body {
-  background-color: var(--color-gray);
+html {
+  background-color: var(--color-foam-green);
 }
 
 /* This is connected to JS and controls the toggle on/off of the clock
@@ -50,13 +34,7 @@ body {
 
 /* login and sign up modals START */
 
-.login-modal {
-  background-color: var(--bg-dark-brown);
-  color: var(--color-pale-yellow);
-  border-radius: 1rem;
-}
-
-.login-modal button[type="submit"] {
+#login-modal button[type="submit"] {
   background-color: var(--color-light-coral);
   color: var(--bg-dark-gray);
   font-weight: 500;
@@ -64,9 +42,43 @@ body {
   border: none;
 }
 
-.login-modal button:hover {
-  background-color: var(--color-vibrant-coral);
-  color: var(--bg-dark-brown)
+.modal-body  input {
+  background-color: var(--color-white);
+}
+.modal-body  input:focus {
+  background-color: var(--color-white);
+}
+.modal-body  label {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: .02rem;
+}
+
+
+.login-modal {
+  border: 2px solid var(--color-black);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.modal-body {
+  background-color: var(--color-foam-green);
+  color: var(--color-yellow);
+  
+}
+
+.modal-body button {
+  background-color: var(--color-yellow);
+  border: 1px solid var(--color-black);
+  color: var(--color-black);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.modal-body button:hover {
+  background-color: var(--color-sky-blue);
+  border: 1px solid var(--color-black);
+  color: var(--color-black);
 }
 
 .login-modal a {
@@ -79,13 +91,12 @@ body {
 }
 
 .login-modal a:hover {
-  color: var(--color-vibrant-coral);
+  color: var(--color-back);
+}
+.login-modal .btn-close{
+ background-color: var(--color-back);
 }
 
-
-.login-modal input {
-  /* background-color: var(--color-pale-yellow); */
-}
 
 .login-modal input:focus,
 .home-container input:focus {
@@ -95,7 +106,7 @@ body {
 }
 
 .login-modal .form-text {
-  color: var(--color-faded-yellow);
+  color: var(--color-black);
 }
 
 /* login and sign up modals END */
@@ -107,15 +118,15 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: var(--main-bg-color);
+  background-color: var(--color-white);
   margin-bottom: -4rem;
 }
 
 .home-container .home-body {
   flex: 1;
   margin-bottom: 4rem;
-  background-color: var(--color-gray);
-  /* border-top: 1px solid var(--btn-color); */
+  background-color: var(--color-white);
+  /* border-top: 1px solid var(--color-black); */
   padding: 4rem 1.5rem 4rem 1.5rem;
 }
 
@@ -126,25 +137,25 @@ body {
   width: 60%;
   margin: auto;
   min-width: 352px;
-  background-color: var(--color-mustard);
+  background-color: var(--color-yellow);
   width: 100%;
   padding: 8rem;
 }
 
 .home-header h1 {
   text-align: center;
-  color: var(--btn-color);
+  color: var(--color-black);
   font-size: 3.5rem;
   font-weight: bold;
   /* color: white;
-  -webkit-text-stroke: 6px var(--btn-color);
+  -webkit-text-stroke: 6px var(--color-black);
   paint-order: stroke fill;
   letter-spacing: 2px; */
 }
 
 .home-header p {
   text-align: center;
-  color: var(--btn-color);
+  color: var(--color-black);
   margin: 0;
 }
 
@@ -162,13 +173,12 @@ body {
   margin: 2rem 0;
   background-color: var(--color-sky-blue);
   max-width: 500px;
-  border: 1px solid var(--btn-color);
+  border: 1px solid var(--color-black);
 }
 
 .home-body section input {
   max-width: 20rem;
-  /* background-color: var(--color-pale-yellow); */
-  border: 1px solid var(--btn-color);
+  border: 1px solid var(--color-black);
 }
 
 .home-body .create,
@@ -192,14 +202,14 @@ body {
 
 .home-body button {
   font-size: 1.4rem;
-  background-color: var(--color-mustard);
-  color: var(--bg-dark-gray);
-  border-color: var(--btn-color);
+  background-color: var(--color-yellow);
+  color: var(--color-black);
+  border-color: var(--color-black);
 }
 
 .home-body button:hover {
-  background-color: var(--btn-color);
-  color: var(--main-bg-color);
+  background-color: var(--color-black);
+  color: var(--color-white);
 }
 
 .home-body section {
@@ -280,19 +290,19 @@ footer {
 
 .landing-page-main {
 
-  background-color: var(--color-gray);
+  background-color: var(--color-white);
 }
 
 .landing-page-main .bright {
-  color: var(--btn-color);
+  color: var(--color-black);
 }
 
 .landing-page-main .lead {
-  color: var(--btn-color);
+  color: var(--color-black);
 }
 
 .landing-page-main .about-app {
-  background-color: var(--color-gray);
+  background-color: var(--color-white);
 }
 
 .landing-page-main .transparent {
@@ -309,21 +319,21 @@ footer {
   background-color: var(--color-sky-blue);
   width: 100%;
   padding: 4rem 2rem;
-  color: var(--btn-color)
+  color: var(--color-black)
 }
 
 .landing-page-top .btn-hero {
-  border: 1px solid var(--btn-color);
+  border: 1px solid var(--color-black);
   background-color: var(--color-foam-green);
   padding: .5rem 2rem;
   font-weight: bold;
   font-size: 1.3rem;
-  color: var(--btn-color);
+  color: var(--color-black);
 }
 
 .landing-page-top .btn-hero:hover {
-  background-color: var(--btn-color);
-  color: var(--main-bg-color);
+  background-color: var(--color-black);
+  color: var(--color-white);
 }
 
 .landing-page-main .dashed {
@@ -370,7 +380,7 @@ card-body {
 }
 
 .timeline-card .card-body {
-  color: var(--color-pale-yellow);
+  color: var(--color-yellow);
 }
 
 
@@ -387,9 +397,9 @@ card-body {
 
 .team-card-header {
   background-color: var(--color-foam-green);
-  
+
   padding: 1.5rem;
-  border: 1px solid var(--color-pale-yellow);
+  border: 1px solid var(--color-yellow);
 }
 
 .team-card-header * {
@@ -426,14 +436,14 @@ card-body {
 
 .card .wager-badge {
   background: var(--bg-dark-gray);
-  color: var(--color-pale-yellow);
+  color: var(--color-yellow);
   font-size: 1.25rem;
   padding: .5rem 1rem;
 }
 
 .card .progress-container {
   height: 35px;
-  background: var(--color-pale-yellow);
+  background: var(--color-yellow);
   border: 1px solid black;
   height: 25px;
 }
@@ -549,7 +559,7 @@ card-body {
   border: 2px solid var(--color-golden-brown);
 }
 
-.main-cards{
+.main-cards {
   background-color: var(--color-sky-blue);
   width: 100%;
   padding: 6rem 2rem;
@@ -557,17 +567,17 @@ card-body {
 
 .main-cards .card {
   /* background-color: var(--color-sky-blue); */
-  background-color: var(--color-gray);
-  color: var(--btn-color);
+  background-color: var(--color-white);
+  color: var(--color-black);
   border-radius: 0;
-  border: 1px solid var(--btn-color);
+  border: 1px solid var(--color-black);
 }
 
 .main-cards .rounded-number {
   width: 64px;
   height: 64px;
-  background-color: var(--color-mustard);
-  border: 2px solid var(--btn-color);
+  background-color: var(--color-yellow);
+  border: 2px solid var(--color-black);
   margin-bottom: 1rem;
   border-radius: 50%;
 }
@@ -734,7 +744,6 @@ card-body {
 /* ~~~~~~~!!!!!!!!!!!! END !!!!!!!~~~~~~~~ */
 
 
-.pDiv{
+.pDiv {
   background-color: var(--color-sky-blue);
 }
-

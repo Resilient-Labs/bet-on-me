@@ -1,35 +1,33 @@
 :root {
-  --color-golden-brown: rgb(187, 161, 117);
-  --color-pale-yellow: rgb(252, 237, 194);
-  --color-faded-yellow: rgb(153, 150, 143);
-  --color-light-coral: rgb(235, 153, 121);
-  --color-vibrant-coral: rgb(250, 137, 92);
-  --bg-dark-brown: rgb(51, 49, 49);
-  --bg-dark-gray: rgb(30, 30, 30);
-
-  --main-bg-color: white;
-  --text-color: rgb(44, 44, 44);;
-  --btn-color: rgb(60, 51, 77);
-
-  --color-mustard: rgb(255, 234, 157);
-  /* --color-mustard: rgb(255, 205, 26); */
-  --color-gray: rgb(235, 232, 232);
+  --color-black: rgb(60, 51, 77);
+  --color-white: rgb(235, 232, 232);
+  --color-yellow: rgb(255, 205, 26);
   --color-foam-green: rgb(174, 223, 194);
   --color-sky-blue: rgb(182, 215, 284);
 }
 
 .form-control-dark {
-  border-color: var(--bs-gray);
+  border-color: var(--color-black);
 }
 
-.header-logo{
-  border: 1px solid var(--btn-color);
-  width: 80px;
+.header-logo {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   margin: .2rem 0;
   padding: .3rem;
-  background-color: var(--color-mustard);
-  opacity: .9;
+  background-color: var(--color-black);
+  object-fit: contain;
+  position: relative;
+  left: 4px;
+}
+
+.logo-container {
+  padding: .01rem;
+  border: 2px solid var(--color-black);
+  border-radius: 50%;
+  background-color: var(--color-yellow);
+  margin: .3rem 0;
 }
 
 .form-control-dark:focus {
@@ -39,32 +37,32 @@
 
 .custom-header {
   background-color: var(--color-foam-green);
-  border-bottom: solid 1px var(--btn-color);
+  border-bottom: solid 1px var(--color-black);
 }
 
-.custom-header a{
-  color: var(--btn-color);
+.custom-header a {
+  color: var(--color-black);
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-.custom-header a:hover{
-  color: var(--btn-color);
+.custom-header a:hover {
+  color: var(--color-black);
   font-size: 1.4rem;
 }
 
-.custom-header .btn{
-  border: 1px solid var(--btn-color);
+.custom-header .btn {
+  border: 1px solid var(--color-black);
 }
 
 .custom-footer {
   background-color: var(--color-foam-green);
-  border-top: solid 1px var(--bs-gray);
+  border-top: solid 1px var(--color-black);
 }
 
-.custom-footer .footer-contact-btn{
-  background-color: var(--btn-color);
-  color: var(--color-gray)
+.custom-footer .footer-contact-btn {
+  background-color: var(--color-black);
+  color: var(--color-white)
 }
 
 .text-small {
@@ -80,30 +78,30 @@
 }
 
 .login {
-  color: white;
+  color: var(--color-white);
   text-decoration: none;
 }
 
 .signup {
-  color: black;
+  color: var(--color-black);
   text-decoration: none;
 }
 
 a.login:hover {
-  color: black;
+  color: var(--color-black);
 }
 
 a.signup:hover {
-  color: black;
+  color: var(--color-black);
 }
 
-.custom-header .btn-hover:hover{
-  background-color: var(--btn-color);  
+.custom-header .btn-hover:hover {
+  background-color: var(--color-black);
 }
 
- .btn-hover a:hover {
-color: var(--main-bg-color);
-font-size: 1.2rem;
+.btn-hover a:hover {
+  color: var(--color-white);
+  font-size: 1.2rem;
 }
 
 
@@ -124,17 +122,17 @@ font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--btn-color);
+  border: 1px solid var(--color-black);
   transition: all 0.3s ease;
 }
 
 .profile-pic-circle:hover {
-  background-color: var(--color-mustard);
-  border-color: var(--bs-gray);
+  background-color: var(--color-yellow);
+  border-color: var(--color-black);
 }
 
 .profile-pic-circle i {
-  color: var(--bg-dark-gray);
+  color: var(--color-black);
   font-size: 20px;
 }
 
