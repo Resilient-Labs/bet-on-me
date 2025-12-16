@@ -175,7 +175,8 @@ const confetti = () => {
 
 const goalCompletedBtn = document.querySelector("#goalCompletedBtn");
 
-// after clicking goal complete, the user will see confetti for 5 seconds, then navigate to the /teamGoal page
+// after clicking goal complete, the user will see confetti for 2.5 seconds,
+// then will be redirected to the /teamGoal page
 goalCompletedBtn.addEventListener("click", () => {
   // start confetti
   confetti();
