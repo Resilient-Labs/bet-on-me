@@ -15,7 +15,14 @@
 
               <!-- PROFILE IMAGE -->
               <img src="<%= user.profile_image || 'https://via.placeholder.com/150' %>" class="rounded-circle mb-3"
-                width="300" height="300" style="border: 3px solid var(--color-white);">
+                style="
+                        width: 300px;
+                        height: 300px;
+                        object-fit: cover;
+                        border-radius: 50%;
+                        border: 3px solid var(--color-white);
+                      ">
+
               <br>
               <button class="btn w-100"
                 style="background-color:rgb( 255, 205, 26); color: white; border: none; font-weight: 500;">
@@ -107,21 +114,24 @@
             <div class="row g-3">
 
               <div class="col-md-6">
-                <% const members=cluster?.cluster_members %>
-                  <% members?.forEach(member=> {%>
-                    <div class="d-flex align-items-center p-3 rounded"
-                      style="background-color: var(--color-gray); border: 1px solid #000;">
-                      <img src="<%= member?.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
-                        width="50" height="50" style="border: 2px solid #000;" />
-                      <span class="fw-semibold" style="color: var(--btn-color);">
-                        <%= member?.userName %>
-                          <span style="color: #ffffff; background-color: var(--color-foam-green);"
-                            class="<%= member?.userName === user.userName ? '' : 'd-none' %> badge ms-2">
-                            You
-                          </span>
-                      </span>
-                    </div>
-                    <% }) %>
+                <div class="d-flex align-items-center p-3 rounded"
+                  style=" border: 2px solid; background-color: rgb(235, 232, 232);">
+
+                  <img src="<%= user.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
+                    style="
+                            width: 50px;
+                            height: 50px;
+                            object-fit: cover;
+                            border: 2px solid;
+                          " />
+                  <h6 class="fw-semibold">
+                    <%= user.userName %>
+                      <span>
+                        You
+                  </h6>
+                  </span>
+
+                </div>
               </div>
 
             </div>

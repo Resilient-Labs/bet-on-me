@@ -2,15 +2,15 @@
   <%- include('partials/clockHead') -%>
 
     <div class="container-fluid team-progress-container">
-      <div class="container-fluid px-lg-5 px-2">
+      <div class="container-fluid  px-2">
         <div class="row g-4">
 
           <!-- LEFT SIDE - Team Progress -->
-          <div class="col-lg-8 col-12">
-            <div class="card shadow-lg border-0 team-card">
-              <div class=" py-4 text-center team-card-header">
-                <h4 class="mb-0 text-dark fw-bold">
-                  Team Progress
+          <div class="col-lg-8 col-12 rounded-1">
+            <div class="card  team-card rounded-1">
+              <div class="py-4  team-card-header rounded-1">
+                <h4 class="mb-0 text-dark ">
+                  Group Progress
                 </h4>
               </div>
 
@@ -18,58 +18,62 @@
 
                 <!-- Team Name -->
                 <div class="group-name-section mb-4">
-                  <h3 class="fw-bold mb-0 group-name-title">
-                    <i class="bi me-2"></i>
+                  <h3 class="fw-bold mb-0 ">
                     <%= cluster?.cluster_name || "No Team Yet" %>
                   </h3>
-                </div>
-                <% if (cluster?.cluster_join_id) { %>
 
-                  <!-- Making the join code appear on the team's page ---Innocent -->
-                  <div class="groupCode">
-                    <span class="badge px-3 py-2" style=" font-size:1rem;">
-                      Team Code:
+                  <% if (cluster?.cluster_join_id) { %>
+                    <span class=" py-2 fs-5">
+                      Group Code:
                       <strong>
-                        <%= cluster.cluster_join_id %>
+                        <%=cluster.cluster_join_id %>
                       </strong>
                     </span>
-                  </div>
-                  <% } %>
+                </div>
+                <!-- Making the join code appear on the team's page ---Innocent -->
+                <!-- <div class="groupCode">
+                  <span class="badge px-3 py-2" style=" font-size:1rem;">
+                    Team Code:
+                    <strong>
+                      <%= cluster.cluster_join_id %>
+                    </strong>
+                  </span>
+                </div> -->
+                <% } %>
 
 
 
-                    <!-- Users and Progress -->
-                    <% if (members && members.length> 0) { %>
-                      <% members.forEach((member, index)=> { %>
-                        <div class="card user-card mb-3">
-                          <div class="card-body p-4">
-                            <div class="row align-items-center flex-container">
-                              <!-- User Name -->
-                              <div class="col-auto mb-md-0">
-                                <h5 class="mb-0 fw-bold">
-                                  <%= member.userName || member.email %>
-                                </h5>
-                              </div>
+                  <!-- Users and Progress -->
+                  <% if (members && members.length> 0) { %>
+                    <% members.forEach((member, index)=> { %>
+                      <div class="card user-card mb-3">
+                        <div class="card-body p-4">
+                          <div class="d-flex align-items-center mb-3">
+                            <!-- User Name -->
+                            <div class="me-3" style="width: 150px;">
+                              <h5 class="mb-0 fw-bold text-truncate">
+                                <%= member.username %>
+                              </h5>
+                            </div>
 
-                              <!-- Progress Bar and Wager Badge -->
-                              <div class="col">
-                                <div class="d-flex align-items-center gap-3">
-                                  <!-- Progress Bar -->
-                                  <div class="progress progress-container flex-grow-1">
-                                    <div class="progress-bar progress-bar-animated progress-bar-gold" role="progressbar"
-                                      style="width: <%= member.progress || 0 %>%"
-                                      aria-valuenow="<%= member.progress || 0 %>" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                  </div>
-
-                                  <!-- Wager Badge -->
-                                  <span class="badge wager-badge flex-shrink-0">
-                                    $<%= member.wagerAmount || 0 %>
-                                  </span>
+                            <!-- Progress Bar -->
+                            <div class="flex-grow-1 me-3">
+                              <div class="progress" style="height: 1.5rem; border-radius: 0.5rem; overflow: hidden;">
+                                <div class="progress-bar progress-bar-animated" role="progressbar"
+                                  style="width: <%= member.progress || 0 %>%"
+                                  aria-valuenow="<%= member.progress || 0 %>" aria-valuemin="0" aria-valuemax="100">
                                 </div>
                               </div>
                             </div>
+
+                            <!-- Wager Badge -->
+                            <div style="width: 60px; text-align: right;">
+                              <span class="badge wager-badge">
+                                $<%= member.wagerAmount || 0 %>
+                              </span>
+                            </div>
                           </div>
+
                         </div>
                         <% }) %>
                           <% } else { %>
@@ -128,25 +132,25 @@
               </div>
 
               <!-- Cash Jar -->
-              <div class="card shadow-lg border-0 cash-jar-card">
-                <div class=" py-4 text-center team-card-header">
-                  <h4 class="mb-0 text-dark fw-bold">
+              <div class="card rounded-1 cash-jar-card ">
+                <div class=" py-4 team-card-header ">
+                  <h4 class="mb-0 text-dark ">
                     Cash Jar
                   </h4>
                 </div>
 
-                <div class="card-body text-center p-4">
+                <div class="card-body text-center ">
                   <div class="cash-card">
                     <img src="https://res.cloudinary.com/dphggnlyy/image/upload/v1765558274/Untitled_design_redefb.gif"
-                      class="jar-img" alt="Cash Jar">
+                      class="jar-img" >
 
                     <div class="hover-jar">
                       <div class="amount-list">
                         <% members.forEach((member, index)=> { %>
                           <div class="user-line" style="--delay:<%= index * 0.2 %>s;">
-                            <span class="coin-small">🟡</span>
+                            <span class="coin-small"> 🟡 </span>
                             <p>
-                              <%= member.userName || member.email %>:
+                              <%= member.username || member.email %>:
                                 $<%= member.wagerAmount || 0 %>
                             </p>
                           </div>
@@ -156,12 +160,13 @@
                   </div>
 
                   <!-- Total Amount -->
-                  <div class="mt-4">
-                    <h2 class="display-2 fw-bold mb-2 cash-jar-total">
+                  <div>
+                    <p class="mb-0 mt-1 fs-5 fw-bold cash-jar-label">Total Pot</p>
+                    <h2 class="display-5 fw-bold  cash-jar-total">
                       $
                       <%= members.reduce((sum, m)=> sum + (m.wagerAmount || 0), 0) %>
                     </h2>
-                    <p class="mb-0 mt-3 fs-5 fw-bold cash-jar-label">Total Pot</p>
+                    
                   </div>
                 </div>
               </div>
