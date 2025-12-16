@@ -6,9 +6,9 @@
         <div class="row g-4">
 
           <!-- LEFT SIDE - Team Progress -->
-          <div class="col-lg-8 col-12 rounded-1">
-            <div class="card  team-card rounded-1">
-              <div class="py-4  team-card-header rounded-1">
+          <div class="col-lg-8 col-12">
+            <div class="card  team-card">
+              <div class="py-4  team-card-header">
                 <h4 class="mb-0 text-dark ">
                   Group Progress
                 </h4>
@@ -24,7 +24,7 @@
 
                   <% if (cluster?.cluster_join_id) { %>
                     <span class=" py-2 fs-5">
-                      Group Code:
+                      Group Code
                       <strong>
                         <%=cluster.cluster_join_id %>
                       </strong>
@@ -48,9 +48,9 @@
                     <% members.forEach((member, index)=> { %>
                       <div class="card user-card mb-3">
                         <div class="card-body p-4">
-                          <div class="d-flex align-items-center mb-3">
+                          <div class="d-flex align-items-center">
                             <!-- User Name -->
-                            <div class="me-3" style="width: 150px;">
+                            <div class="me-3 username" style="width: 150px;">
                               <h5 class="mb-0 fw-bold text-truncate">
                                 <%= member.username %>
                               </h5>
@@ -75,27 +75,27 @@
                           </div>
 
                         </div>
-                        <% }) %>
-                          <% } else { %>
-                            <p class="text-muted text-center">No team members yet.</p>
-                            <% } %>
+                      </div>
+                      <% }) %>
+                        <% } else { %>
+                          <p class="text-muted text-center">No team members yet.</p>
+                          <% } %>
 
               </div>
             </div>
           </div>
 
+
+
+          
           <!-- RIGHT SIDE - Timeline & Cash Jar -->
           <div class="col-lg-4 col-md-5">
-            <div class="d-flex flex-column gap-4">
+            <div class="d-flex flex-column gap-4" >
 
               <!-- Timeline -->
-              <div class="card shadow-lg border-0 timeline-card">
+              <div class="card timeline-card ">
                 <div class="py-4 team-card-header d-flex align-items-center">
-                  <h4 class="mb-0 text-dark fw-bold flex-grow-1 text-center">Timeline</h4>
-
-                  <button id="resetChallenge" data-cluster-id="<%= cluster._id %>">
-                    Reset
-                  </button>
+                  <h4 class="mb-0 text-dark flex-grow-1 ">Timeline</h4>
 
                 <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
                   <button id="fetchButton" class="btn btn-outline-dark ms-auto">Start Timer</button>
@@ -103,35 +103,30 @@
                   <% } %>
 
 
+                      <button id="leaveButton" class="btn fw-bold ms-auto">Leave Group</button>
 
-                      <!-- <button id="leaveButton" class="btn btn-outline-dark ms-auto">Leave Cluster</button> -->
-
-                      <% if (isCreator) { %>
+                      <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
                         <form action="/teamPage/deleteTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
-                          <button id="endGameBtn" class="btn btn-danger">Delete Cluster</button>
+                          <button id="endGameBtn">Delete Group</button>
                         </form>
-                        <% } else { %>
-                          <form action="/teamPage/leaveTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
-                            <button id="leaveButton" class="btn btn-warning">Leave Cluster</button>
-                          </form>
-                          <% } %>
+                        <% } %>
                 </div>
 
 
-                <div class="card-body text-center p-5">
-                  <div class="display-5 fw-bold mb-2 timeline-time">
-                    <i class="bi me-2"></i>
+                <div class="card-body text-center p-4">
+                  <div class="display-5 fw-bold mb-2 timeline-time ">
+                   
                     <%= cluster?.duration %>
                       <div class="countdown-wrapper" id="wholeClock">
                         <div class="countdown"></div>
                       </div>
                   </div>
-                  <h4 class="mb-0 fw-bold">Challenge Duration</h4>
+                  <h4 class="mb-0">Challenge Duration</h4>
                 </div>
               </div>
 
               <!-- Cash Jar -->
-              <div class="card rounded-1 cash-jar-card ">
+              <div class="card cash-jar-card ">
                 <div class=" py-4 team-card-header ">
                   <h4 class="mb-0 text-dark ">
                     Cash Jar
@@ -147,7 +142,7 @@
                       <div class="amount-list">
                         <% members.forEach((member, index)=> { %>
                           <div class="user-line" style="--delay:<%= index * 0.2 %>s;">
-                            <span class="coin-small"> 🟡 </span>
+                            <span class="coin-small">🟡</span>
                             <p>
                               <%= member.username || member.email %>:
                                 $<%= member.wagerAmount || 0 %>

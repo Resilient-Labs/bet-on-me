@@ -1,4 +1,4 @@
-/* Get the bourbon mixin from http://bourbon.io */
+Get the bourbon mixin from http://bourbon.io
 /* Reset */
 .flip-clock-wrapper * {
     -webkit-box-sizing: border-box;
@@ -438,7 +438,7 @@
         .flip-clock-wrapper{
             margin: -3em;
             margin-left: -2em;
-            padding-top: 10em;
+            padding: 6em;
         }
     }
 
@@ -446,6 +446,6 @@
       .flip-clock-wrapper {
           margin: -5em;
           margin-left: -2em;
-          padding-top: 13em;
+          padding-top: 6em;
       }
   }

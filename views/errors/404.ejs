@@ -1,22 +1,71 @@
+<style>
+
+  *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+  }
+
+/* whole error page */
+.error-page {
+  min-height: 100vh;
+  background-color: #141414;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Figlet ASCII text */
+.figlet-text {
+  color: #2ec4b6;
+  font-family: monospace;
+  font-size: 0.7rem;
+  line-height: 1.1;
+  text-align: center;
+  white-space: pre;
+  margin: 0;
+}
+
+/* Space between figlet blocks */
+.figlet-text + .figlet-text {
+  margin-top: 1.5rem;
+}
+
+/* Go back button!! */
+.back-btn {
+  margin-top: 2rem;
+  background-color: transparent;
+  color: #2ec4b6;
+  border: 2px solid #2ec4b6;
+  padding: 10px 18px;
+  font-family: monospace;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  background-color: #2ec4b6;
+  color: #1f1f1f;
+  transform: translateY(-1px);
+}
+
+</style>
+
 <div class="error-page">
-  <pre>
+  <pre class="figlet-text">
 <%= figlet.textSync("404", { horizontalLayout: "default" }) %>
   </pre>
 
-  <pre>
+  <pre class="figlet-text">
 <%= figlet.textSync(message, { horizontalLayout: "default" }) %>
   </pre>
 
-  <button
-    onclick="history.back()"
-    style="
-      margin-top: 20px;
-      padding: 10px 16px;
-      font-family: monospace;
-      font-size: 14px;
-      cursor: pointer;
-    "
-  >
+  <button class="back-btn" onclick="history.back()">
     ← Go Back
   </button>
 </div>

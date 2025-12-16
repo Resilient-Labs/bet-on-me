@@ -305,6 +305,7 @@ if (fetchBtn) {
   fetchBtn.addEventListener('click', async () => {
     try {
       const clusterId = fetchBtn.dataset.clusterId;
+      console.log(clusterId)
       // Start timer on server (only creator can do this)
       await fetch(`/teamPage/${clusterId}/startTimer`, {
         method: 'POST',

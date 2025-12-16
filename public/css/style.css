@@ -50,13 +50,7 @@ html {
   background-color: var(--color-white);
 }
 
-.modal-body  input {
-  background-color: var(--color-white);
-}
-.modal-body  input:focus {
-  background-color: var(--color-white);
-}
-.modal-body  label {
+.modal-body label {
   font-weight: bold;
   font-size: 1.1rem;
   margin-bottom: .02rem;
@@ -72,7 +66,7 @@ html {
 .modal-body {
   background-color: var(--color-foam-green);
   color: var(--color-yellow);
-  
+
 }
 
 .modal-body button {
@@ -87,8 +81,6 @@ html {
   background-color: var(--color-sky-blue);
   border: 1px solid var(--color-black);
   color: var(--color-black);
-
-
 }
 
 .login-modal a {
@@ -106,12 +98,6 @@ html {
 
 .login-modal .btn-close {
   background-color: var(--color-back);
-
-  color: var(--color-back);
-
-}
-.login-modal .btn-close{
- background-color: var(--color-back);
 }
 
 
@@ -387,16 +373,14 @@ footer {
 /* ~~~~~~~!!!!!!!!!!!! START !!!!!!!~~~~~~~~ */
 card-body {
   background: var(--color-gray);
-  
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
 }
 
 .user-card.card {
   background-color: var(--color-sky-blue);
-  color: var(--btn-color);
-}
-
-.timeline-card .card-body {
-  color: var(--color-yellow);
+  color: var(--color-black);
+  border: 1px solid var(--color-black)
 }
 
 
@@ -406,30 +390,52 @@ card-body {
   padding: 3rem 0;
 }
 
+.team-progress-container .card-body {
+  border: 1px solid var(--color-black);
+}
+
 .team-card {
   background: var(--color-sky-blue);
   min-height: 85vh;
-
 }
 
 .team-card-header {
   background-color: var(--color-foam-green);
   padding: 1.5rem;
-
-
-  padding: 1.5rem;
-  border: 1px solid var(--color-yellow);
-
+  border-left: 1px solid var(--color-black);
+  border-right: 1px solid var(--color-black);
+  border-top: 1px solid var(--color-black);
 }
 
 .team-card-header * {
   font-size: 2rem;
 }
 
+
 .group-name-section {
   border-bottom: 2px solid rgb(60, 51, 77);
   margin-bottom: 3rem;
   padding-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-black);
+}
+
+.group-name-section h3 {
+  font-size: 2rem;
+}
+
+.group-name-section span:not(strong) {
+  color: gray;
+}
+
+.group-name-section span strong {
+  font-weight: bolder;
+  font-size: 1.5rem;
+  border: 2px dashed var(--color-black);
+  padding: .4rem .8rem;
+  margin-left: .3rem;
 }
 
 .group-name-title {
@@ -455,21 +461,29 @@ card-body {
 }
 
 .card .wager-badge {
-  background: var(--bg-dark-gray);
-  color: var(--color-yellow);
+  background: var(--color-black);
+  color: var(--color-white);
   font-size: 1.25rem;
   padding: .5rem 1rem;
+  min-width: 4rem;
+}
+
+.card .username h5 {
+  font-size: 1.5rem;
 }
 
 .card .progress-container {
   height: 35px;
   background: var(--color-yellow);
-  border: 1px solid black;
   height: 25px;
 }
 
+.progress {
+  border: 2px solid var(--color-black);
+}
+
 .progress .progress-bar {
-  background-color: var(--color-foam-green);
+  background-color: var(--color-yellow);
   background-image: linear-gradient(45deg,
       rgba(255, 255, 255, 0.15) 25%,
       transparent 25%,
@@ -478,14 +492,14 @@ card-body {
       rgba(255, 255, 255, 0.15) 75%,
       transparent 75%,
       transparent);
-  background-size: 1rem 1rem;
+  background-size: 1.3rem 1.3rem;
 }
 
 
 /* Right Side Cards */
 .timeline-card {
   background: var(--color-gray);
-
+  border: 2px solid blue;
 }
 
 .timeline-header {
@@ -494,8 +508,16 @@ card-body {
   padding: 1.5rem;
 }
 
-.timeline-time {
-  color: #DEB887;
+.timeline-time .flip-clock-divider {
+  margin-right: 1rem;
+}
+
+/* .timeline-time .flip {
+  margin-right: 1rem;
+} */
+
+.timeline-time+h4 {
+  color: gray;
 }
 
 #leaveButton {
@@ -676,10 +698,10 @@ card-body {
   bottom: 0px;
   left: -25%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--color-white);
+  opacity: .9;
   padding: 15px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-black);
   min-width: 220px;
   z-index: 10;
 }
@@ -774,4 +796,69 @@ card-body {
 
 .pDiv {
   background-color: var(--color-sky-blue);
+}
+
+.timeline-card,
+.cash-jar-card {
+  min-width: 432px;
+}
+
+.col-lg-4 {
+  min-width: 432px;
+}
+
+.team-card,
+.timeline-card,
+.cash-jar-card {
+  min-width: 333px;
+}
+
+.col-lg-8,
+.col-lg-4 {
+  min-width: 333px;
+}
+
+
+@media screen and (max-width: 1199px) {
+  .team-progress-container .row {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 589px) {
+  .user-card .card-body>div {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .user-card .username {
+    width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+
+  .user-card .flex-grow-1 {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 484px) {
+  .group-name-section {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .group-name-section span {
+    margin-top: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 431px) {
+
+  .timeline-card,
+  .cash-jar-card,
+  .col-lg-4 {
+    min-width: 100%;
+  }
 }
