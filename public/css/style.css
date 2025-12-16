@@ -13,7 +13,8 @@
 
 
   --main-bg-color: white;
-  --text-color: rgb(44, 44, 44);;
+  --text-color: rgb(44, 44, 44);
+  ;
   --btn-color: rgb(60, 51, 77);
 
   --color-mustard: rgb(255, 205, 26);
@@ -26,6 +27,10 @@
   box-sizing: border-box;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   color: var(--btn-color);
+}
+
+body{
+  background-color: var(--color-gray);
 }
 
 /* This is connected to JS and controls the toggle on/off of the clock
@@ -130,6 +135,10 @@
   color: var(--btn-color);
   font-size: 3.5rem;
   font-weight: bold;
+  /* color: white;
+  -webkit-text-stroke: 6px var(--btn-color);
+  paint-order: stroke fill;
+  letter-spacing: 2px; */
 }
 
 .home-header p {
@@ -203,7 +212,7 @@
 
 @media screen and (max-width: 1000px) {
   .home-container {
-    padding: 2rem 0;
+    padding-bottom: 2rem;
   }
 
   .home-container .create,
@@ -211,18 +220,24 @@
     min-height: 252px;
   }
 
-  .home-body {
+ .home-container .home-body {
     flex-direction: column;
     align-items: center;
     gap: .3rem;
+    margin-bottom: 2rem;
   }
 
   .home-body section {
     margin-bottom: 0;
   }
 
-  .home-header {
-    width: 80%;
+  .home-header{
+    padding: 6rem 2rem ;
+  }
+
+  .custom-header,
+  .custom-footer{
+    padding: 1rem 0;
   }
 }
 
@@ -332,7 +347,6 @@ footer {
   background: #1a1a1a;
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
-  border: 1px solid var(--color-pale-yellow);
 }
 
 .user-card.card {
