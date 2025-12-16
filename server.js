@@ -9,6 +9,7 @@ const flash = require("express-flash");
 const logger = require("morgan");
 const connectDB = require("./config/database");
 const figlet = require("figlet");
+const Goal = require("./models/Goal")
 
 // ROUTES
 const mainRoutes = require("./routes/main");
@@ -67,6 +68,27 @@ app.use(passport.session());
 
 // use flash messages for errors, info, etc...
 // Make user available in all EJS templates so conditional can be made for header; user || !user for login/logout buttons in nav
+
+app.use(async (req, res,next) => {
+  res.locals.hasWager = false;
+
+  if(!req.user) return next();
+
+  try{
+    const goal = await Goal.findOne({
+      user: req.user.id,
+      completed: flase,
+    }).lean();
+
+    res.locals.hasWager = !!goal?.wagerPaid;
+  }catch (err) {
+    console.error("hasWager middleware error:", err);
+    res.locals.hasWager = false;
+  }
+
+  next();
+});
+
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
   next();

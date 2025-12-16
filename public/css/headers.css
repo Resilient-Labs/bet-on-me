@@ -143,3 +143,8 @@ font-size: 1.2rem;
   display: flex;
   align-items: center;
 }
+
+.disabled-link {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

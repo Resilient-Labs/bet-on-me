@@ -71,7 +71,13 @@
                   <!-- show team page on every page but the my group page -->
                    <% if (user && currentpath!== '/teamPage'){ %>
                     <li class="nav-item">
-                    <a href="/teamPage" class="nav-link ">My Group</a>
+                    <a 
+                      href="<%= hasWager ? '/teamPage' : '#' %>" 
+                      class="nav-link <%= !hasWager ? 'disabled-link' : '' %>"
+                      title="<%= !hasWager ? 'Place a wager on your goal to access your group' : '' %>"
+                      >
+                      My Group
+                    </a>
                     </li>
                    <% } %>
                   
