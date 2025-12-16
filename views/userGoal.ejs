@@ -1,241 +1,243 @@
 <%- include ('partials/header') -%>
-<head>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="/css/userGoal.css">
-    <!-- Stripe.js -->
-    <script src="https://js.stripe.com/v3/"></script>
-</head>
-<body>
-    <main class="user-goal-container">
-        <div class="page-container">
-            <!-- Left Section: Profile -->
-            <div class="sub-container one">
-                <div class="profile-container">
-                    <div class="profile-section">
-                        <a href="/profile" style="display: inline-block;">
-                            <img
-                            src="<%= user.profile_image || 'https://via.placeholder.com/120' %>"
-                            alt="Profile Picture"
-                            class="profile-pic"
-                            style="
+
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="/css/userGoal.css">
+        <!-- Stripe.js -->
+        <script src="https://js.stripe.com/v3/"></script>
+    </head>
+
+    <body>
+        <main class="user-goal-container">
+            <div class="page-container">
+                <!-- Left Section: Profile -->
+                <div class="sub-container one">
+                    <div class="profile-container">
+                        <div class="profile-section">
+                            <a href="/profile" style="display: inline-block;">
+                                <img src="<%= user.profile_image || 'https://via.placeholder.com/120' %>"
+                                    alt="Profile Picture" class="profile-pic" style="
                                 cursor: pointer;
                                 width: 120px;
                                 height: 120px;
                                 border-radius: 50%;
                                 object-fit: cover;
-                            "
-                            />
-                        </a>
-                    </div>
-                    <h2 class="user-name">
-                        <%= user.userName %>
-                    </h2>
-                </div>
-            </div>
-            
-            <div class="sub-container goal">
-                <div class="profile-section">
-                    <div class="place-wager-container">
-                        <p class="goal-label">
-                            <%= goals?.name ? goals.name : "Big thing I want to accomplish!" %>
-                        </p>
-                        <% if (goals?.completed === true) { %>
-                            <h4>Goal Completed! Get Dat Money!</h4>
-                        <% } else { %>
-                            <h4>Update or start your goal here!</h4>
-                        <% } %>
-
-                        <% if (goals) { %>
-                            <div class="big-thing">
-                                <%if(goals?.user==user.id){ %>
-                                    <form class="input-area goal-setting" action="/goal/" method="POST">
-                                        <input
-                                            type="text"
-                                            placeholder="Enter Your Goal"
-                                            id="bigGoal"
-                                            name="name"
-                                            value="<%= goals?.name %>"
-                                        />
-                                        <!-- have the original inputed goal inside the input field -->
-                                        <input type="hidden" id="goal-id" value="<%= goals._id %>">
-                                        <!-- <button class="edit-btn"><i class="fa-solid fa-pen"></i></button> -->
-                                        <button class="add-btn plus-btn" id="saveBigThing">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </form>
-                                <%}%>
-                            </div>
-
-                            <h4>Goal Wager</h4>
-                            <% if (goals?.wagerPaid) { %>
-                                <div class="user-money">$<%= goals?.wagerAmount %></div>
-                                <p style="color: #4CAF50; margin-top: 10px;"> Wager Placed</p>
-                            <% } else { %>
-                                <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
-                                    <input
-                                        type="number"
-                                        id="wager-amount"
-                                        placeholder="Amount"
-                                        min="1"
-                                        step="1"
-                                    />
-                                    <button
-                                        id="place-wager-btn"
-                                        class="btn btn-lg px-4 me-md-2"
-                                        style=" background-color:rgb(41, 188, 186);"
-                                    >
-                                        <i class="fa-solid fa-dollar-sign"></i> Place Wager
-                                    </button>
-                                </div>
-                            <% } %>
-                        <% } else { %>
-                            <!-- add form -->
-                            <div class="big-thing">
-                                <form class="input-area goal-setting" action="/goal/" method="POST">
-                                    <input
-                                        type="text"
-                                        placeholder="Enter Your Goal"
-                                        id="bigGoal"
-                                        name="name"
-                                        value="<%= goals?.name %>"
-                                    />
-                                    <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                                    <button class="add-btn" id="saveBigThing"><i class="fa-solid fa-plus"></i></button>
-                                </form>
-                            </div>
-                            <h4>Goal Wager</h4>
-                            <p style="color: #999;">Create a goal first</p>
-                        <% } %>
-                    </div>
-                </div>
-            </div>
-        
-            <!-- right section: steps -->
-            <div class="sub-container steps">
-                <div class="user-step">
-                    <form class="input-area" action="/task/createTask" method="POST">
-                        <input
-                            type="text"
-                            id="task-input"
-                            placeholder="Enter the steps to get there"
-                            name="title"
-                            required
-                        />
-                        <input type="text" id="hide-task" placeholder="Name" name="_id" />
-                        <button
-                            type="submit"
-                            id="add-task-btn"
-                            class="plus-btn"
-                            <%= (goals?.id && goals?.wagerPaid) ? '' : 'disabled' %>
-                            title="<%= (goals?.id && goals?.wagerPaid) ? 'Add task' : 'Add goal and wager before creating tasks' %>"
-                        >
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </form>
-                    <% if (typeof messages !== 'undefined' && (messages.error || messages.success)) { %>
-                        <div class="mb-3" style="width:100%;">
-                            <% if (messages.error) { messages.error.forEach(function(msg){ %>
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <%= msg %>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            <% }) } %>
-                            <% if (messages.success) { messages.success.forEach(function(msg){ %>
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <%= msg %>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            <% }) } %>
+                            " />
+                            </a>
                         </div>
-                    <% } %>
-                    <% if (typeof error !=='undefined' ) { %>
-                        <div class="alert alert-danger">
-                            <%= error %>
-                        </div>
-                    <% } %>
-                    <div class="user-steps">
-                        <!-- Task List -->
-                        <ul id="task-list">
-                            <% tasks.forEach(task => {%>
-                                <li class="task-buttons <%= task.task_is_completed ? 'completed' : '' %>" data-id="<%= task._id %>">
-                                    <input
-                                        name="checkbox"
-                                        type="checkbox"
-                                        class="checkbox"
-                                        <%=task.task_is_completed ? 'checked' : '' %>
-                                        data-completed="<%= task.task_is_completed %>"
-                                    />
-                                    <span name="<%= task._id %>" class="task-text <%= task.task_is_completed ? 'strike-through' : '' %>">
-                                        <%= task.task_name %>
-                                    </span>
-
-                                    <!-- Default buttons -->
-                                    <button class="edit-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
-                                    <button class="delete-btn" title="Delete"><i class="fa-solid fa-trash"></i></button>
-                                    <input type="hidden" class="task-id" value="<%= task._id %>">
-
-                                    <!-- Edit view-->
-                                    <form class="edit-task-form d-none">
-                                        <input
-                                            name="task-input"
-                                            class="task-input d-none"
-                                            type="text"
-                                            value="<%= task.task_name %>"
-                                        />
-                                        <span>
-                                            <button class="save-btn d-none" title="Save"><i class="fa-solid fa-check"></i></button>
-                                            <button class="cancel-btn d-none" title="Cancel"><i class="fa-solid fa-xmark"></i></button>
-                                        </span>
-                                    </form>
-                                </li>
-                            <% }) %>
-                        </ul>
+                        <h2 class="user-name">
+                            <%= user.userName %>
+                        </h2>
                     </div>
-                    <form action="goal/complete/<%= goals=== null ? '' : goals._id %>?_method=PUT" method="POST"><button
-                        class="goal-completed btn btn-lg px-4 me-md-2 fw-bol" style=" background-color:rgb(41, 188, 186);"
-                        id="goalCompletedBtn"
-                        <%= tasks.length > 0 && tasks.every(t => t.task_is_completed) ? '' : 'disabled' %>
-                        type = "<%= goals=== null ? "button" : "submit" %>" 
-                    >
-                        Goal Completed
-                    </button></form>
                 </div>
-            </div>
-            <!-- Team Preview (spans goal + steps) -->
-            <div class="sub-container team-preview">
-                <div class="profile-section">
-                    <h5>Team Preview</h5>
-                    <% if (memberProgress && memberProgress.length) { %>
-                        <ul class="list-unstyled mb-0">
-                            <% memberProgress.forEach(mp => { %>
-                                <li class="d-flex align-items-center mb-3">
-                                    <img src="<%= mp.user.profile_image || 'https://via.placeholder.com/48' %>" alt="avatar" class="tp-avatar" />
-                                    <div class="flex-grow-1">
-                                        <div class="d-flex justify-content-between">
-                                            <strong><%= mp.user.userName || mp.user.userName %></strong>
-                                            <small><%= mp.percent %>%</small>
-                                        </div>
-                                        <div class="progress tp-progress">
-                                            <div class="progress-bar tp-progress-bar" role="progressbar" data-user-id="<%= mp.user._id %>" data-percent="<%= mp.percent %>" aria-valuenow="<%= mp.percent %>" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+
+                <div class="sub-container goal">
+                    <div class="profile-section">
+                        <div class="place-wager-container">
+                            <p class="goal-label">
+                                <%= goals?.name ? goals.name : "Big thing I want to accomplish!" %>
+                            </p>
+                            <% if (goals?.completed===true) { %>
+                                <h4>Goal Completed! Get Dat Money!</h4>
+                                <% } else { %>
+                                    <h4>Start your goal here!</h4>
+                                    <% } %>
+
+                                        <% if (goals) { %>
+                                            <div class="big-thing">
+                                                <%if(goals?.user==user.id){ %>
+                                                    <form class="input-area goal-setting" action="/goal/" method="POST">
+                                                        <input type="text" placeholder="Enter Your Goal" id="bigGoal"
+                                                            name="name" value="<%= goals?.name %>" />
+                                                        <!-- have the original inputed goal inside the input field -->
+                                                        <input type="hidden" id="goal-id" value="<%= goals._id %>">
+                                                        <!-- <button class="edit-btn"><i class="fa-solid fa-pen"></i></button> -->
+                                                        <!-- <button class="add-btn plus-btn" id="saveBigThing">
+                                                            <i class="fa-solid fa-plus"></i>
+                                                        </button> -->
+                                                    </form>
+                                                    <%}%>
+                                            </div>
+
+                                            <h4>Goal Wager</h4>
+                                            <% if (goals?.wagerPaid) { %>
+                                                <div class="user-money">$<%= goals?.wagerAmount %>
+                                                </div>
+                                                <p style="color: #4CAF50; margin-top: 10px;"> Wager Placed</p>
+                                                <% } else { %>
+                                                    <div
+                                                        style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+                                                        <input type="number" id="wager-amount" placeholder="Amount"
+                                                            min="1" step="1" />
+                                                        <button id="place-wager-btn" class="user-wager-btn">
+                                                            Place &nbsp; <span class="dollar">$</span> &nbsp; Wager
+                                                        </button>
+                                                    </div>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <!-- add form -->
+                                                            <div class="big-thing">
+                                                                <form class="input-area goal-setting" action="/goal/"
+                                                                    method="POST">
+                                                                    <input type="text" placeholder="Enter Your Goal"
+                                                                        id="bigGoal" name="name"
+                                                                        value="<%= goals?.name %>" />
+                                                                    <button class="edit-btn"><i
+                                                                            class="fa-solid fa-pen"></i></button>
+                                                                    <button class="add-btn" id="saveBigThing"><i
+                                                                            class="fa-solid fa-plus"></i></button>
+                                                                </form>
+                                                            </div>
+                                                            <h4>Goal Wager</h4>
+                                                            <p style="color: #999;">Create a goal first</p>
+                                                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- right section: steps -->
+                <div class="sub-container steps">
+                    <div class="user-step">
+                        <form class="input-area" action="/task/createTask" method="POST">
+                            <input type="text" id="task-input" placeholder="Enter task" name="title"
+                                required />
+                            <input type="text" id="hide-task" placeholder="Name" name="_id" />
+                            <button
+                                type="submit"
+                                id="add-task-btn"
+                                class="plus-btn"
+                                <%= (goals?.id && goals?.wagerPaid) ? '' : 'disabled' %>
+                                title="<%= (goals?.id && goals?.wagerPaid) ? 'Add task' : 'Add goal and wager before creating tasks' %>"
+                            >
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </form>
+                        <% if (typeof messages !=='undefined' && (messages.error || messages.success)) { %>
+                            <div class="mb-3" style="width:100%;">
+                                <% if (messages.error) { messages.error.forEach(function(msg){ %>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <%= msg %>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
                                     </div>
-                                </li>
-                            <% }) %>
-                        </ul>
-                    <% } else { %>
-                        <p class="text-muted mb-0">No team members yet.</p>
-                    <% } %>
+                                    <% }) } %>
+                                        <% if (messages.success) { messages.success.forEach(function(msg){ %>
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <%= msg %>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <% }) } %>
+                            </div>
+                            <% } %>
+                                <% if (typeof error !=='undefined' ) { %>
+                                    <div class="alert alert-danger">
+                                        <%= error %>
+                                    </div>
+                                    <% } %>
+                                        <div class="user-steps">
+                                            <!-- Task List -->
+                                            <ul id="task-list">
+                                                <% tasks.forEach(task=> {%>
+                                                    <li class="task-buttons <%= task.task_is_completed ? 'completed' : '' %>"
+                                                        data-id="<%= task._id %>">
+                                                        <input name="checkbox" type="checkbox" class="checkbox"
+                                                            <%=task.task_is_completed ? 'checked' : '' %>
+                                                        data-completed="<%= task.task_is_completed %>"
+                                                            />
+                                                            <span name="<%= task._id %>"
+                                                                class="task-text <%= task.task_is_completed ? 'strike-through' : '' %>">
+                                                                <%= task.task_name %>
+                                                            </span>
+
+                                                            <!-- Default buttons -->
+                                                            <button class="edit-btn" title="Edit"><i
+                                                                    class="fa-solid fa-pen"></i></button>
+                                                            <button class="delete-btn" title="Delete"><i
+                                                                    class="fa-solid fa-trash"></i></button>
+                                                            <input type="hidden" class="task-id"
+                                                                value="<%= task._id %>">
+
+                                                            <!-- Edit view-->
+                                                            <form class="edit-task-form d-none">
+                                                                <input name="task-input" class="task-input d-none"
+                                                                    type="text" value="<%= task.task_name %>" />
+                                                                <span>
+                                                                    <button class="save-btn d-none" title="Save"><i
+                                                                            class="fa-solid fa-check"></i></button>
+                                                                    <button class="cancel-btn d-none" title="Cancel"><i
+                                                                            class="fa-solid fa-xmark"></i></button>
+                                                                </span>
+                                                            </form>
+                                                    </li>
+                                                    <% }) %>
+                                            </ul>
+                                        </div>
+                                        <form action="goal/complete/<%= goals=== null ? '' : goals._id %>?_method=PUT"
+                                            method="POST"><button class="goal-completed btn btn-lg px-4 me-md-2 fw-bol"
+                                                style=" background-color:rgb(41, 188, 186);" id="goalCompletedBtn"
+                                                <%=tasks.length> 0 && tasks.every(t => t.task_is_completed) ? '' :
+                                                'disabled' %>
+                                                type = "<%= goals===null ? "button" : "submit" %>"
+                                                    >
+                                                    Goal Completed
+                                            </button></form>
+                    </div>
+                </div>
+                <!-- Team Preview (spans goal + steps) -->
+                <div class="sub-container team-preview">
+                    <div class="profile-section">
+                        <h5>Team Preview</h5>
+                        <% if (memberProgress && memberProgress.length) { %>
+                            <ul class="list-unstyled mb-0">
+                                <% memberProgress.forEach(mp=> { %>
+                                    <li class="d-flex align-items-center mb-3">
+                                        <img src="<%= mp.user.profile_image || 'https://via.placeholder.com/48' %>"
+                                            alt="avatar" class="tp-avatar" />
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between">
+                                                <strong>
+                                                    <%= mp.user.userName || mp.user.userName %>
+                                                </strong>
+                                                <small>
+                                                    <%= mp.percent %>%
+                                                </small>
+                                            </div>
+                                            <div class="progress tp-progress">
+                                                <div class="progress-bar tp-progress-bar" role="progressbar"
+                                                    data-user-id="<%= mp.user._id %>" data-percent="<%= mp.percent %>"
+                                                    aria-valuenow="<%= mp.percent %>" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                            <% } else { %>
+                                <p class="text-muted mb-0">No team members yet.</p>
+                                <% } %>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-    <script src="/js/goal.js"></script>
-    <script src="/js/stripe.js"></script>
-</body>
-<%- include ('partials/footer') -%>
+
+            <!-- Delete Confirmation Modal -->
+            <dialog id="deleteModal" class="delete-modal">
+                <div class="modal-content">
+                    <h2>Delete Task</h2>
+                    <p>Are you sure you want to delete this task?<br>
+                        This action cannot be undone.</p>
+                    <div class="modal-buttons">
+                        <button class="modal-btn cancel-modal-btn" id="cancelDelete">Cancel</button>
+                        <button class="modal-btn confirm-modal-btn" id="confirmDelete">Delete</button>
+                    </div>
+                </div>
+            </dialog>
+
+
+        </main>
+        <script src="/js/goal.js"></script>
+        <script src="/js/stripe.js"></script>
+    </body>
+    <%- include ('partials/footer') -%>

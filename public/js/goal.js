@@ -213,30 +213,83 @@ document.querySelectorAll("#task-list li").forEach((li) => {
 });
 
 // DELETE TASK
+// const trash = document.querySelectorAll("#task-list .delete-btn");
+
+// Array.from(trash).forEach(function (element) {
+//   element.addEventListener("click", async function () {
+//     const _id = this.closest("li").querySelector("span").getAttribute("name");
+
+//     // confirmation before deleting
+//     const confirmed = window.confirm(
+//       "Are you sure you want to delete this task? This action cannot be undone."
+//     );
+//     if (!confirmed) return;
+
+//     const response = await fetch(`/task/${_id}`, {
+//       method: "delete",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({}),
+//     });
+
+//     if (response.ok) {
+//       window.location.reload();
+//     } else {
+//       console.error("Failed to delete task");
+//     }
+//   });
+// });
+
+// DELETE TASK
 const trash = document.querySelectorAll("#task-list .delete-btn");
+const deleteModal = document.getElementById("deleteModal");
+const confirmDeleteBtn = document.getElementById("confirmDelete");
+const cancelDeleteBtn = document.getElementById("cancelDelete");
+let taskToDelete = null;
 
 Array.from(trash).forEach(function (element) {
-  element.addEventListener("click", async function () {
+  element.addEventListener("click", function () {
     const _id = this.closest("li").querySelector("span").getAttribute("name");
-
-    // confirmation before deleting
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this task? This action cannot be undone."
-    );
-    if (!confirmed) return;
-
-    const response = await fetch(`/task/${_id}`, {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    });
-
-    if (response.ok) {
-      window.location.reload();
-    } else {
-      console.error("Failed to delete task");
-    }
+    taskToDelete = _id;
+    
+    // Show modal
+    deleteModal.showModal();
   });
+});
+
+// Cancel delete
+cancelDeleteBtn.addEventListener("click", () => {
+  deleteModal.close();
+  taskToDelete = null;
+});
+
+// Confirm delete
+confirmDeleteBtn.addEventListener("click", async () => {
+  if (!taskToDelete) return;
+  
+  const response = await fetch(`/task/${taskToDelete}`, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  });
+
+  if (response.ok) {
+    window.location.reload();
+  } else {
+    console.error("Failed to delete task");
+  }
+  
+  deleteModal.close();
+  taskToDelete = null;
+});
+
+// Close modal when clicking outside
+deleteModal.addEventListener("click", (e) => {
+  if (e.target === deleteModal) {
+    deleteModal.close();
+    taskToDelete = null;
+  }
 });
