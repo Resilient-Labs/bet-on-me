@@ -75,46 +75,53 @@
                           </div>
 
                         </div>
-                      </div>
-                      <% }) %>
-                        <% } else { %>
-                          <p class="text-muted text-center">No team members yet.</p>
-                          <% } %>
+                        <% }) %>
+                          <% } else { %>
+                            <p class="text-muted text-center">No team members yet.</p>
+                            <% } %>
 
               </div>
             </div>
           </div>
 
-
-
-          
           <!-- RIGHT SIDE - Timeline & Cash Jar -->
           <div class="col-lg-4 col-md-5">
-            <div class="d-flex flex-column gap-4 rounded-1" >
+            <div class="d-flex flex-column gap-4">
 
               <!-- Timeline -->
-              <div class="card rounded-1 timeline-card ">
+              <div class="card shadow-lg border-0 timeline-card">
                 <div class="py-4 team-card-header d-flex align-items-center">
-                  <h4 class="mb-0 text-dark flex-grow-1 ">Timeline</h4>
+                  <h4 class="mb-0 text-dark fw-bold flex-grow-1 text-center">Timeline</h4>
+
+                  <button id="resetChallenge" data-cluster-id="<%= cluster._id %>">
+                    Reset
+                  </button>
 
                   <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
-                    <button id="fetchButton" class="btn btn-outline-dark ms-auto">Start Timer</button>
+                    <button id="fetchButton" class="btn btn-outline-dark ms-auto" data-cluster-id="<%= cluster._id %>">
+                      Start Timer
+                    </button>
                     <% } %>
 
 
-                      <button id="leaveButton" class="btn fw-bold ms-auto">Leave Group</button>
 
-                      <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                      <!-- <button id="leaveButton" class="btn btn-outline-dark ms-auto">Leave Cluster</button> -->
+
+                      <% if (isCreator) { %>
                         <form action="/teamPage/deleteTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
-                          <button id="endGameBtn">Delete Group</button>
+                          <button id="endGameBtn" class="btn btn-danger">Delete Cluster</button>
                         </form>
-                        <% } %>
+                        <% } else { %>
+                          <form action="/teamPage/leaveTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
+                            <button id="leaveButton" class="btn btn-warning">Leave Cluster</button>
+                          </form>
+                          <% } %>
                 </div>
 
 
-                <div class="card-body text-center p-5 rounded-1">
-                  <div class="display-5 fw-bold mb-2 timeline-time ">
-                   
+                <div class="card-body text-center p-5">
+                  <div class="display-5 fw-bold mb-2 timeline-time">
+                    <i class="bi me-2"></i>
                     <%= cluster?.duration %>
                       <div class="countdown-wrapper" id="wholeClock">
                         <div class="countdown"></div>
