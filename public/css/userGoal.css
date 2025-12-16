@@ -137,6 +137,24 @@
     background-color: var(--color-pale-yellow);
 }
 
+.user-wager-btn {
+    color: #757575;
+    background: #85BB65;
+    border: 1px solid grey;
+    margin: 5% 0;
+    width: 160px;
+    height: 45px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+}
+.dollar {
+    color: #fcedc2;
+    font-size: x-large;
+}
+
 .edit-btn,
 .add-btn,
 .delete-btn {
