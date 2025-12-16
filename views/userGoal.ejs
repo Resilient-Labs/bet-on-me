@@ -128,7 +128,13 @@
                             required
                         />
                         <input type="text" id="hide-task" placeholder="Name" name="_id" />
-                        <button type="submit" id="add-task-btn" class="plus-btn">
+                        <button
+                            type="submit"
+                            id="add-task-btn"
+                            class="plus-btn"
+                            <%= (goals?.id && goals?.wagerPaid) ? '' : 'disabled' %>
+                            title="<%= (goals?.id && goals?.wagerPaid) ? 'Add task' : 'Add goal and wager before creating tasks' %>"
+                        >
                             <i class="fa-solid fa-plus"></i>
                         </button>
                     </form>
