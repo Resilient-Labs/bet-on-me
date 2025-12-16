@@ -77,9 +77,9 @@
 /* ===================================== */
 /* ABOUT SECTION                         */
 /* ===================================== */
-.about-section{
+.about-section {
   width: 100%;
-  padding:0;
+  padding: 0;
 }
 
 .about-section .row {
@@ -88,7 +88,7 @@
   margin-top: 1.6rem;
 }
 
-.about-section .about-app{
+.about-section .about-app {
   width: 100%;
 }
 
@@ -166,5 +166,12 @@
 @media (min-width: 992px) {
   .rounded-lg-3 {
     border-radius: .3rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .about-logo-box {
+    height: 250px;
+    width: 250px;
   }
 }
