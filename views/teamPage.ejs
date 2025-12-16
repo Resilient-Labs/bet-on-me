@@ -1,4 +1,5 @@
 <%- include('partials/header') -%>
+<%- include('partials/clockHead') -%>
 
   <div class="container-fluid team-progress-container">
     <div class="container-fluid px-lg-5 px-2">
@@ -26,7 +27,7 @@
 
                 <!-- Making the join code appear on the team's page ---Innocent -->
                 <div class="groupCode">
-                  <span class="badge px-3 py-2" style="color: yellow; font-size:1rem;">
+                  <span class="badge px-3 py-2" style=" font-size:1rem;">
                     Team Code:
                     <strong>
                       <%= cluster.cluster_join_id %>
@@ -80,20 +81,36 @@
         </div>
 
         <!-- RIGHT SIDE - Timeline & Cash Jar -->
-        <div class="col-lg-4 col-12">
+        <div class="col-lg-4 col-md-5">
           <div class="d-flex flex-column gap-4">
 
             <!-- Timeline -->
             <div class="card shadow-lg border-0 timeline-card">
-              <div class=" py-4 text-center team-card-header">
-                <h4 class="mb-0 text-dark fw-bold">
-                  Timeline
-                </h4>
+              <div class="py-4 team-card-header d-flex align-items-center">
+                <h4 class="mb-0 text-dark fw-bold flex-grow-1 text-center">Timeline</h4>
+
+                <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                  <button id="fetchButton" class="btn btn-outline-dark ms-auto">Start Timer</button>
+                  <% } %>
+
+                   
+                      <button id="leaveButton" class="btn btn-outline-dark ms-auto">Leave Cluster</button>
+                      
+                       <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                        <form action="/teamPage/deleteTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
+                          <button id="endGameBtn">Delete Cluster</button>
+                        </form>
+                        <% } %>
               </div>
+
+
               <div class="card-body text-center p-5">
                 <div class="display-5 fw-bold mb-2 timeline-time">
                   <i class="bi me-2"></i>
-                  <%= cluster?.duration || "TBD" %>
+                  <%= cluster?.duration %>
+                    <div class="countdown-wrapper" id="wholeClock">
+                      <div class="countdown"></div>
+                    </div>
                 </div>
                 <h4 class="mb-0 fw-bold">Challenge Duration</h4>
               </div>
@@ -163,5 +180,5 @@
       }
     });
   </script>
-
-  <%- include('partials/footer') -%>
+  <%- include('partials/clockFoot') -%>
+    <%- include('partials/footer') -%>
