@@ -48,6 +48,7 @@ let _threeConfettiStarted = false;
 // Load and fire a lightweight confetti effect (canvas-confetti)
 // Three.js confetti will be used (fancier). Canvas-confetti loader removed.
 
+// Whether the timer is currently running (from server)
 function initClock() {
   if (countdown) return; // already initialized
 
