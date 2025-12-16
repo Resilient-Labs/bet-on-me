@@ -29,7 +29,7 @@
     <script src="/js/main.js" defer></script>
   </head>
   
- <body style="background-color: black;">
+ <body>
       <header class="custom-header">
         <div class="container">
           <div
@@ -54,10 +54,10 @@
 
               <% if (!user) { %>
                 <!-- NOT LOGGED IN -->
-              <button type="button" class="btn btn-outline-light me-2">
+              <button type="button" class="btn btn-warning btn-hover">
                   <a href="#" type="button" data-bs-toggle="modal" class="login" data-bs-target="#loginModal">Login</a>
               </button>
-              <button type="button" class="btn btn-warning">
+              <button type="button" class="btn btn-warning btn-hover">
                   <a href="#" type="button" data-bs-toggle="modal" class="signup" data-bs-target="#signupModal">Signup</a>
               </button>
 
