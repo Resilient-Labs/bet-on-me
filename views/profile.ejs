@@ -31,20 +31,33 @@
             </div>
           </div>
 
-          <!-- ACCOUNT INFO -->
-          <div class="card shadow-sm mb-4 user-card">
-            <div class="card-body">
-              <h5 class="mb-3" style="color: var(--color-white);">Account Info</h5>
 
-              <p class="text-white"><strong style="color: var(--btn-color);">User Name:</strong>
+
+
+          
+          <!-- ACCOUNT INFO -->
+          <div class="card shadow-sm user-card">
+
+            <div class="team-card-header">
+              <h4 class="mb-0">Account Info</h4>
+            </div>
+
+
+            <div class="card-body">
+
+ <p><strong style="color: var(--btn-color);">User Name:</strong>
                 <%= user.userName %>
               </p>
-              <p class="text-white"><strong style="color: var(--btn-color);">Email:</strong>
+              <p ><strong style="color: var(--btn-color);">Email:</strong>
                 <%= user.email %>
               </p>
-              <p class="mb-0 text-white">
+              <p class="mb-0">
                 <strong style="color: var(--btn-color);">Member Since:</strong>
-                <%= user.createdAt %>
+                <%= new Date(user.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric"
+                }) %>
               </p>
             </div>
           </div>
