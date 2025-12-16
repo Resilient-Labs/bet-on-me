@@ -98,7 +98,7 @@
                   <h4 class="mb-0 text-dark flex-grow-1 ">Timeline</h4>
 
                   <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
-                    <button id="fetchButton" class="btn btn-outline-dark ms-auto">Start Timer</button>
+                    <button id="fetchButton" class="btn btn-outline-dark ms-auto" data-cluster-id="<%=cluster._id%>">Start Timer</button>
                     <% } %>
 
 
