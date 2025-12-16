@@ -175,15 +175,14 @@
                                                     <% }) %>
                                             </ul>
                                         </div>
-                                        <form action="goal/complete/<%= goals=== null ? '' : goals._id %>?_method=PUT"
-                                            method="POST"><button class="goal-completed btn btn-lg px-4 me-md-2 fw-bol"
-                                                style=" background-color:rgb(41, 188, 186);" id="goalCompletedBtn"
-                                                <%=tasks.length> 0 && tasks.every(t => t.task_is_completed) ? '' :
-                                                'disabled' %>
-                                                type = "<%= goals===null ? "button" : "submit" %>"
-                                                    >
-                                                    Goal Completed
-                                            </button></form>
+                                        <button class="goal-completed btn btn-lg px-4 me-md-2 fw-bol"
+                                            style=" background-color:rgb(41, 188, 186);" id="goalCompletedBtn"
+                                            <%=tasks.length> 0 && tasks.every(t => t.task_is_completed) ? '' :
+                                            'disabled' %>
+                                            type = "<%= goals===null ? "button" : "submit" %>"
+                                                >
+                                                Goal Completed
+                                        </button>
                     </div>
                 </div>
                 <!-- Team Preview (spans goal + steps) -->
@@ -237,6 +236,16 @@
 
 
         </main>
+        <script async src="https://ga.jspm.io/npm:es-module-shims@1.6.3/dist/es-module-shims.js" crossorigin="anonymous"></script>
+        <script type="importmap">
+        {
+            "imports": {
+            "three": "https://unpkg.com/three@0.159.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.159.0/examples/jsm/"
+            }
+        }
+        </script>
+        <script type="module" src="/js/confetti.js"></script>
         <script src="/js/goal.js"></script>
         <script src="/js/stripe.js"></script>
     </body>
