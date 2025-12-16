@@ -726,3 +726,20 @@ input.task-input:focus {
     display: flex;
     justify-content: flex-start;
 }
+
+/*
+Confetti
+
+Copyright (c) 2023 by Wakana Y.K. (https://codepen.io/wakana-k/pen/gOqqWdY) */
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
