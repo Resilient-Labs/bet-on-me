@@ -407,7 +407,7 @@ card-body {
 }
 
 .group-name-section {
-  border-bottom: 2px solid #DEB887;
+  border-bottom: 2px solid rgb(60, 51, 77);
   margin-bottom: 3rem;
   padding-bottom: 1.5rem;
 }
@@ -418,7 +418,7 @@ card-body {
 }
 
 .user-card {
-  background: #2a2a2a;
+  background:var(--color-gray);
   border: none;
   margin-bottom: 1.5rem;
 }
@@ -448,24 +448,26 @@ card-body {
   height: 25px;
 }
 
-.progress-bar-gold {
-  background-color: var(--color-golden-brown);
-  background-image: linear-gradient(45deg,
-      rgba(255, 255, 255, 0.15) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.15) 50%,
-      rgba(255, 255, 255, 0.15) 75%,
-      transparent 75%,
-      transparent);
+.progress .progress-bar {
+  background-color: var(--color-foam-green);
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
   background-size: 1rem 1rem;
 }
 
 
 /* Right Side Cards */
 .timeline-card {
-  background: #1a1a1a;
-  border: 1px solid var(--color-pale-yellow) !important;
+  background:var(--color-gray);
+ 
 }
 
 .timeline-header {
@@ -477,10 +479,22 @@ card-body {
 .timeline-time {
   color: #DEB887;
 }
+#leaveButton {
+  background-color: var(--color-mustard);
+  color: var(--btn-color); 
+  border: 1px solid var(--btn-color);
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+#leaveButton:hover {
+  background-color:var(--btn-color) ;
+  border-color: var(--btn-color);
+  color: white; 
+  cursor: pointer; 
+}
 
 .cash-jar-card {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  border: 1px solid var(--color-pale-yellow) !important;
+  background: var(--color-gray);
 }
 
 
@@ -543,7 +557,7 @@ card-body {
 }
 
 .jar-img {
-  width: 300px;
+  width: 250px;
   height: auto;
   display: block;
   transition: transform 0.3s ease;
@@ -556,7 +570,7 @@ card-body {
 
 .rounded-box {
   border-radius: 2rem;
-  border: 2px solid var(--color-golden-brown);
+  border: 2px solid var(--btn-color);
 }
 
 .main-cards {
@@ -584,15 +598,19 @@ card-body {
 
 /* Hover Overlay */
 .hover-jar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  position: relative;
   height: 100%;
-  opacity: 0;
+  width: 100%;           /* fill parent container */
+  
+  opacity: 0;            /* start hidden */
   transition: opacity 0.3s ease;
-  pointer-events: none;
 }
+
+.hover-jar:hover {
+  opacity: 0.2;          /* visible on hover */
+  pointer-events: auto;  /* allow interactions if needed */
+}
+
 
 .cash-card:hover .hover-jar {
   opacity: 1;
@@ -628,25 +646,12 @@ card-body {
   animation-delay: 1s;
 } */
 
-@keyframes coinDrop {
-  0% {
-    top: -30px;
-    opacity: 1;
-    transform: rotate(0deg);
-  }
-
-  100% {
-    top: 150px;
-    opacity: 0;
-    transform: rotate(360deg);
-  }
-}
 
 /* Amount List (User Contributions) */
 .amount-list {
   position: absolute;
   bottom: 0px;
-  left: 150%;
+  left: -25%;
   transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.95);
   padding: 15px 20px;
@@ -703,11 +708,11 @@ card-body {
 
 /* Cash Jar Total */
 .cash-jar-total {
-  color: #fada24;
+  color: var(--color-mustard);
 }
 
 .cash-jar-label {
-  color: #fada24;
+  color: var(--color-mustard);
 }
 
 .col-lg-8,
