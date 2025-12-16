@@ -106,50 +106,55 @@ src="<%= user.profile_image || 'https://via.placeholder.com/150' %>"
             <h4 class="mb-0" style="color: #000;">Your Goal Cluster</h4>
           </div>
           <div class="card-body" style="background-color: var(--color-pale-yellow);">
-
-            <!-- CLUSTER NAME -->
-            <div class="d-flex align-items-center mb-4">
-              <h5 class="mb-0 me-3" style="color: #000;">
-                <!-- cluster.cluster_name -->
-                CLUSTER_NAME_HERE
-              </h5>
-              <span class="badge" style="background-color: #000; color: var(--color-golden-brown); width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem;">
-                <!-- cluster.member_count -->
-                MEMBER_COUNT
-              </span>
+            <% const cluster = clusters[0] %>
+            <span class="<%= cluster ? "d-none" : "" %>">You haven't joined a cluster yet :(</span>
+            <span class="<%= cluster ? "" : "d-none" %>">
+              <!-- CLUSTER NAME -->
+              <div class="d-flex align-items-center mb-4">
+                <h5 class="mb-0 me-3" style="color: #000;">
+                  <%= cluster?.cluster_name %>
+                </h5>
+                <span class="badge" style="background-color: #000; color: var(--color-golden-brown); width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem;">
+                  <%= cluster?.member_count %>
+                </span>
+            </span>
             </div>
 
             <!-- MEMBERS HEADER -->
             <h6 class="mb-3" style="color: #000; font-weight: 600;">Members</h6>
 
            <!-- MEMBERS LIST -->
-<div class="row g-3">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <% const members = cluster?.cluster_members %>
+              <% members?.forEach(member => {%>
+                <div
+                  class="d-flex align-items-center p-3 rounded"
+                  style="background-color: var(--color-golden-brown); border: 1px solid #000;"
+                >
+                  <img
+                    src="<%= member?.profile_image || 'https://via.placeholder.com/50' %>"
+                    class="rounded-circle me-3"
+                    width="50"
+                    height="50"
+                    style="border: 2px solid #000;"
+                  />
+                  <span class="fw-semibold" style="color: #000;">
+                    <%= member?.userName %>
+                    <span
+                      style="background-color: #000; color: var(--color-golden-brown);"
+                      class="<%= member?.userName === user.userName ? '' : 'd-none' %> badge ms-2"
+                    >
+                      You
+                    </span>
+                  </span>
 
-  <div class="col-md-6">
-    <div
-      class="d-flex align-items-center p-3 rounded"
-      style="background-color: var(--color-golden-brown); border: 1px solid #000;"
-    >
+                </div>
+              <% }) %>
 
-      <img
-        src="<%= user.profile_image || 'https://via.placeholder.com/50' %>"
-        class="rounded-circle me-3"
-        width="50"
-        height="50"
-        style="border: 2px solid #000;"
-      />
+            </div>
 
-      <span class="fw-semibold" style="color: #000;">
-        <%= user.userName %>
-        <span class="badge ms-2" style="background-color: #000; color: var(--color-golden-brown);">
-          You
-        </span>
-      </span>
-
-    </div>
-  </div>
-
-</div>
+          </div>
 
             <hr class="my-4" style="border-color: var(--color-golden-brown); border-width: 2px;">
 
@@ -157,8 +162,7 @@ src="<%= user.profile_image || 'https://via.placeholder.com/150' %>"
             <p class="small mb-0" style="color: #000;">
               Join Code: 
               <strong style="color: #000; font-size: 1.1rem;">
-                <!-- cluster.cluster_join_id -->
-                JOIN_CODE
+                <%= cluster?.cluster_join_id %>
               </strong>
             </p>
 
@@ -184,7 +188,7 @@ src="<%= user.profile_image || 'https://via.placeholder.com/150' %>"
             <% let monthlyGoals = {} %>
             <% const monthNames = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"] %>
             <% completedGoals.forEach(goal => { %>
-              <% const date = `${monthNames[goal.completedAt.getMonth()]}, ${goal.completedAt.getFullYear()}` %>
+              <% const date = `${monthNames[goal?.completedAt?.getMonth()]}, ${goal?.completedAt?.getFullYear()}` %>
               <% if (!monthlyGoals[date]) { %>
                 <% monthlyGoals[date] = [[ goal.name, goal.completedAt ]] %>
               <% } else { %>
