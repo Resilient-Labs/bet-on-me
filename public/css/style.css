@@ -806,12 +806,13 @@ card-body {
 
 .error-page button{
   border : 1px solid var(--color-black);
+  border: 1px solid #2ec4b6;
   font-size: 1.3rem;
 }
 
 .error-page button:hover{
-  background-color: var(--color-black);
-  color: var(--color-gray);
+  background-color: var(--color-foam-green);
+  color: var(--color-black);
 }
 
 .error-page pre + pre {
