@@ -45,6 +45,11 @@
                         <p class="goal-label">
                             <%= goals?.name ? goals.name : "Big thing I want to accomplish!" %>
                         </p>
+                        <% if (goals?.completed === true) { %>
+                            <h4>Goal Completed! Get Dat Money!</h4>
+                        <% } else { %>
+                            <h4>Update or start your goal here!</h4>
+                        <% } %>
 
                         <% if (goals) { %>
                             <div class="big-thing">
