@@ -44,7 +44,7 @@
               </p>
               <p class="mb-0 text-white">
                 <strong style="color: var(--btn-color);">Member Since:</strong>
-                <!--new Date(user.createdAt).toLocaleDateString('en-US', { month: 'long' , year: 'numeric' })-->
+                <%= user.createdAt %>
               </p>
             </div>
           </div>
@@ -83,7 +83,7 @@
               <div class=" d-flex align-items-center mb-4">
               <h5 class="mb-0 me-3">
                 <%= cluster?.cluster_name %>    
-                <%= console.log(cluster)   %>        
+                    
               </h5>
             </div>
 
@@ -120,7 +120,7 @@
               Join Code:
               <strong style="font-size: 1.1rem;">
                 <%= cluster?.cluster_join_id %>
-                <%= cluster?.cluster_join_id %>
+            
                   <!-- JOIN_CODE -->
               </strong>
             </p>
@@ -167,10 +167,7 @@
                                               <!-- e.g., "December 2025" -->
                                               <%= month %>
                                             </h6>
-                                            <span class="badge">
-                                              <!-- number of goals completed that month -->
-                                              <%= goalList.length %>
-                                            </span>
+                                            
                                           </div>
 
                                           <!-- GOALS LIST -->
