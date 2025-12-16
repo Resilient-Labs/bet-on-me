@@ -34,10 +34,10 @@ const clusterSchema = new mongoose.Schema({
   endDate: {
     type: Date,
   },
-  timerStartAt:{
+  timerStartAt:{ // to track when the timer was started on the backend
     type: Date
   },    
-  timerDurationSec: {
+  timerDurationSec: { // so it tracks how long the timer is set for on the backend
     type: Number
   } 
 });

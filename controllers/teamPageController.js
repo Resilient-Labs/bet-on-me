@@ -150,15 +150,23 @@ module.exports = {
         cluster,
         members: membersWithGoals,
         duration,                // remaining time; 0/0/0 if not started
-        timerStartAt: cluster.timerStartAt,
-        timerDurationSec: cluster.timerDurationSec,
-        timerRunning: remainingSec > 0,
+        timerStartAt: cluster.timerStartAt, // may be null
+        timerDurationSec: cluster.timerDurationSec, // may be null
+        timerRunning: remainingSec > 0, // true if timer is active
       });
     } catch (err) {
       console.log(err);
       res.status(500).send("Error loading team data");
     }
   },
+  /**
+   * 
+   * POST /team/:id/startTimer
+   * Starts the shared timer for the cluster.
+   * @param {*} req 
+   * @param {*} res 
+   * @returns 
+   */
   startTeamTimer: async (req, res) => {
     try {
       const cluster = await Cluster.findOne({
@@ -204,6 +212,14 @@ module.exports = {
       res.status(500).send("Error starting team timer");
     }
   },
+  /**
+   * 
+   * POST /team/:id/resetTimer
+   * Resets the shared timer for the cluster.
+   * @param {*} req 
+   * @param {*} res 
+   * @returns 
+   */
   resetTeamTimer: async (req, res) => {
     try {
       const cluster = await Cluster.findOne({
