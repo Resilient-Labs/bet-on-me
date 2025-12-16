@@ -86,19 +86,21 @@
 
               </ul>
 
-              <!--Show profile bubble on everypage but profile page -->
-              <% if (user && currentpath !=='/profile' ) { %>
-                <a href="/profile" class="profile-bubble">
-                  <div class="profile-pic-circle">
-                    <i class="fas fa-user"></i>
-                  </div>
-                </a>
-                <% } %>
+              <a href="/profile" class="profile-bubble d-flex align-items-center">
+                <img src="<%= user.profile_image || 'https://via.placeholder.com/50' %>" alt="Profile"
+                  class="rounded-circle" style="
+                  width: 50px;
+                  height: 50px;
+                  object-fit: cover;
+                  border: 2px solid;
+                " />
+                          </a>
 
-                  <button type="button" class="btn btn-warning btn-hover">
-                    <a href="/logout" type="button" class="signup">Logout</a>
-                  </button>
-                  <% } %>
+
+              <button type="button" class="btn btn-warning btn-hover">
+                <a href="/logout" type="button" class="signup">Logout</a>
+              </button>
+              <% } %>
         </div>
       </div>
     </div>

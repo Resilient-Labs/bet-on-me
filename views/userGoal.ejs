@@ -71,9 +71,8 @@
                                                         style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
                                                         <input type="number" id="wager-amount" placeholder="Amount"
                                                             min="1" step="1" />
-                                                        <button id="place-wager-btn" class="btn btn-lg px-4 me-md-2"
-                                                            style=" background-color:rgb(41, 188, 186);">
-                                                            <i class="fa-solid fa-dollar-sign"></i> Place Wager
+                                                        <button id="place-wager-btn" class="user-wager-btn">
+                                                            Place &nbsp; <span class="dollar">$</span> &nbsp; Wager
                                                         </button>
                                                     </div>
                                                     <% } %>
@@ -105,7 +104,13 @@
                             <input type="text" id="task-input" placeholder="Enter task" name="title"
                                 required />
                             <input type="text" id="hide-task" placeholder="Name" name="_id" />
-                            <button type="submit" id="add-task-btn" class="plus-btn">
+                            <button
+                                type="submit"
+                                id="add-task-btn"
+                                class="plus-btn"
+                                <%= (goals?.id && goals?.wagerPaid) ? '' : 'disabled' %>
+                                title="<%= (goals?.id && goals?.wagerPaid) ? 'Add task' : 'Add goal and wager before creating tasks' %>"
+                            >
                                 <i class="fa-solid fa-plus"></i>
                             </button>
                         </form>
