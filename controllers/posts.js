@@ -171,6 +171,7 @@ getProfile: async (req, res) => {
         cluster_join_id: randomCode,
         cluster_members: [req.user.id],
         member_count: 1,
+        endDate: req.body.challengeDate
       });
       console.log("Post has been added!");
       //after creating a cluster the user is redirected to the group page
@@ -252,7 +253,6 @@ getProfile: async (req, res) => {
     }
   },
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
-
 
   joinCluster: async (req, res) => {
     try {
