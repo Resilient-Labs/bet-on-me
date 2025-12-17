@@ -31,6 +31,7 @@
                 <button type="button" class="btn btn-secondary" id="showFormBtn">Get started!</button>
 
                 <form action="/post/createCluster" method="POST" id="createGroupForm" style="display: none;">
+                    <p class="max-users">8 Users Max</p>
                     <div class="form-group">
                         <label for="title" class="form-label">Group name</label>
                         <input type="text" class="form-control" name="title" id="title"
@@ -49,5 +50,17 @@
         </section>
     </div>
     <script src="js/main.js"></script>
+
+    <% if (messages.lateJoin && messages.lateJoin[0].includes('full')) { %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const maxUsersModal = new bootstrap.Modal(
+        document.getElementById("maxUsersModal")
+      );
+      maxUsersModal.show();
+    });
+  </script>
+<% } %>
+
 
 <%- include('partials/footer') -%>
