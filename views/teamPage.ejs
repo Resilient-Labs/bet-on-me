@@ -60,7 +60,7 @@
                             <div class="flex-grow-1 me-3">
                               <div class="progress" style="height: 1.5rem; border-radius: 0.5rem; overflow: hidden;">
                                 <div class="progress-bar progress-bar-animated" role="progressbar"
-                                  style="width: <%= member.progress || 0 %>%"
+                                  data-progress="<%= member.progress || 0 %>"
                                   aria-valuenow="<%= member.progress || 0 %>" aria-valuemin="0" aria-valuemax="100">
                                 </div>
                               </div>
@@ -87,34 +87,43 @@
 
 
 
-          
+
           <!-- RIGHT SIDE - Timeline & Cash Jar -->
           <div class="col-lg-4 col-md-5">
-            <div class="d-flex flex-column gap-4" >
+            <div class="d-flex flex-column gap-4">
 
               <!-- Timeline -->
               <div class="card timeline-card ">
                 <div class="py-4 team-card-header d-flex align-items-center">
                   <h4 class="mb-0 text-dark flex-grow-1 ">Timeline</h4>
 
+                  <!-- /teamPage/${clusterId}/resetTimer -->
+                  <form action="/teamPage/<%= cluster._id %>/resetTimer" method="POST">
+                    <button id="resetChallenge">Reset</button>
+                  </form>
+
                   <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
-                    <button id="fetchButton" class="btn btn-outline-dark ms-auto" data-cluster-id="<%=cluster._id%>">Start Timer</button>
+                    <button id="fetchButton" class="btn btn-outline-dark ms-auto"
+                      data-cluster-id="<%=cluster._id%>">Start Timer</button>
                     <% } %>
 
 
-                      <button id="leaveButton" class="btn fw-bold ms-auto">Leave Group</button>
 
                       <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
                         <form action="/teamPage/deleteTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
                           <button id="endGameBtn">Delete Group</button>
                         </form>
-                        <% } %>
+                        <% } else { %>
+                          <form action="/teamPage/leaveTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
+                            <button id="leaveTeamBtn">Leave Group</button>
+                          </form>
+                          <% } %>
                 </div>
 
 
                 <div class="card-body text-center p-4">
                   <div class="display-5 fw-bold mb-2 timeline-time ">
-                   
+
                     <%= cluster?.duration %>
                       <div class="countdown-wrapper" id="wholeClock">
                         <div class="countdown"></div>
@@ -135,12 +144,12 @@
                 <div class="card-body text-center ">
                   <div class="cash-card">
                     <img src="https://res.cloudinary.com/dphggnlyy/image/upload/v1765558274/Untitled_design_redefb.gif"
-                      class="jar-img" >
+                      class="jar-img">
 
                     <div class="hover-jar">
                       <div class="amount-list">
                         <% members.forEach((member, index)=> { %>
-                          <div class="user-line" style="--delay:<%= index * 0.2 %>s;">
+                          <div class="user-line" data-delay="<%= index * 0.2 %>s">
                             <span class="coin-small">🟡</span>
                             <p>
                               <%= member.username || member.email %>:
@@ -159,7 +168,7 @@
                       $
                       <%= members.reduce((sum, m)=> sum + (m.wagerAmount || 0), 0) %>
                     </h2>
-                    
+
                   </div>
                 </div>
               </div>
@@ -187,6 +196,21 @@
             this.src = src + '?t=' + new Date().getTime();
           });
         }
+      });
+    </script>
+    <script>
+      // Apply data-driven styles to avoid inline EJS in style attributes
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.progress-bar[data-progress]').forEach(el => {
+          const v = el.getAttribute('data-progress') || '0';
+          el.style.width = v + '%';
+          el.setAttribute('aria-valuenow', v);
+        });
+
+        document.querySelectorAll('.user-line[data-delay]').forEach(el => {
+          const d = el.getAttribute('data-delay') || '0s';
+          el.style.setProperty('--delay', d);
+        });
       });
     </script>
     <%- include('partials/clockFoot') -%>
