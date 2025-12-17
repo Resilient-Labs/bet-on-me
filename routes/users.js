@@ -2,9 +2,22 @@ const express = require("express");
 const router = express.Router();
 const upload = require("../middleware/multer");
 const userController = require("../controllers/userController");
+const { ensureAuth } = require("../middleware/auth");
 
-router.get("/create-test", userController.createTestUser);
-router.get("/profile/:id", userController.getProfile);
-router.post("/update-picture/:id", upload.single("profile_image"), userController.updateProfilePicture);
+// Profile page
+router.get("/profile/:id", ensureAuth, userController.getProfile);
+
+// Update profile picture
+router.post(
+  "/update-picture",
+  ensureAuth,
+  upload.single("profile_image"),
+  userController.updateProfilePicture
+);
+
+//delete account route ---Innocent
+
+
+router.post("/delete-account", ensureAuth, userController.deleteAccount);
 
 module.exports = router;

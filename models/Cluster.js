@@ -15,10 +15,10 @@ const clusterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cluster_members: {
-  type: [String],
-  default: [],
-  },
+  cluster_members: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  }],
   member_count: {
     type: Number,
     default: 0,
@@ -31,6 +31,15 @@ const clusterSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  endDate: {
+    type: Date,
+  },
+  timerStartAt:{ // to track when the timer was started on the backend
+    type: Date
+  },    
+  timerDurationSec: { // so it tracks how long the timer is set for on the backend
+    type: Number
+  } 
 });
 
 module.exports = mongoose.model("Cluster", clusterSchema);

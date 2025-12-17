@@ -1,316 +1,468 @@
-/* 
-This is the functionality for the clock
-@author Justin Jimenez
-How it works:
-It sets up the first countdown as 48 hours.
-The additional 0.16 is so that the user can see it is 2 days, otherwise it starts from 1 day, 23:59 hours.
-On the second go around it will calculate time elapsed from time.now to when challengeCaller set the challenge till.
+/*
+  Shared cluster countdown logic
 
-Next Steps:
-Setting up a day to save this in localStorage so it doesn't go away as you navigate the app.
-
+  - The countdown is owned by the server (Cluster.timerStartAt + Cluster.timerDurationSec).
+  - This script only:
+      * Renders the remaining time using FlipClock.
+      * Fetches /api/team-data to get the shared remaining duration.
+      * Adjusts UI (buttons, labels) based on whether the timer is running or finished.
+  - No timing data is stored in localStorage anymore; the server is the single source of truth.
 */
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiPGFub255bW91cz4iXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQSxNQUFBLFNBQUEsRUFBQSxjQUFBLEVBQUE7O0VBQUEsU0FBQSxHQUFZLGNBQUEsR0FBaUIsUUFBQSxDQUFBLENBQUE7SUFDekIsU0FBQSxHQUFZLElBQUksU0FBSixDQUFjLENBQUEsQ0FBRSxZQUFGLENBQWQsRUFDWjtNQUFBLFNBQUEsRUFBVyxXQUFYO01BQ0EsUUFBQSxFQUFVLElBRFY7TUFFQSxTQUFBLEVBQVcsS0FGWDtNQUdBLFNBQUEsRUFBVyxJQUhYO01BSUEsV0FBQSxFQUFhLElBSmI7TUFLQSxTQUFBLEVBQ0U7UUFBQSxLQUFBLEVBQU8sUUFBQSxDQUFBLENBQUE7aUJBQ0wsT0FBTyxDQUFDLEdBQVIsQ0FBWSx3QkFBWjtRQURLLENBQVA7UUFFQSxJQUFBLEVBQU0sUUFBQSxDQUFBLENBQUE7aUJBQ0osT0FBTyxDQUFDLEdBQVIsQ0FBWSx3QkFBWjtRQURJLENBRk47UUFJQSxRQUFBLEVBQVUsUUFBQSxDQUFBLENBQUE7QUFDaEIsY0FBQTtVQUFRLElBQUEsR0FBTyxJQUFJLENBQUMsT0FBTyxDQUFDLE9BQWIsQ0FBQSxDQUFzQixDQUFDO1VBQzlCLElBQUcsSUFBSDttQkFDRSxPQUFPLENBQUMsR0FBUixDQUFZLGdCQUFaLEVBQThCLElBQTlCLEVBREY7O1FBRlE7TUFKVjtJQU5GLENBRFk7QUFnQlosV0FBTztFQWpCa0I7O0VBb0I3QixhQUFBLEdBQWdCLFFBQUEsQ0FBQyxPQUFELEVBQVUsS0FBVixDQUFBO0FBRWhCLFFBQUEsT0FBQSxFQUFBLEdBQUEsRUFBQSxTQUFBLEVBQUEsR0FBQSxFQUFBO0lBQUksSUFBRyxTQUFTLENBQUMsT0FBYjtBQUNFLGFBREY7O0lBR0EsT0FBQSxHQUFVLE9BQUEsR0FBVTtJQUVwQixHQUFBLEdBQU0sSUFBSSxJQUFKLENBQUE7SUFDTixLQUFBLEdBQVEsSUFBSSxJQUFKLENBQVMsS0FBVDtJQUNSLEdBQUEsR0FBTSxLQUFLLENBQUMsT0FBTixDQUFBLENBQUEsR0FBa0IsT0FBQSxHQUFVO0lBRWxDLFNBQUEsR0FBWSxJQUFJLENBQUMsS0FBTCxDQUFXLENBQUMsR0FBQSxHQUFNLEdBQUcsQ0FBQyxPQUFKLENBQUEsQ0FBUCxDQUFBLEdBQXdCLElBQW5DO0lBRVosT0FBQSxHQUFVO0lBQ1YsSUFBRyxTQUFBLEdBQVksQ0FBZjtNQUNFLFNBQUEsSUFBYSxDQUFDO01BQ2QsT0FBQSxHQUFVLEtBRlo7O0lBSUEsU0FBUyxDQUFDLE9BQVYsQ0FBa0IsU0FBbEI7V0FDQSxTQUFTLENBQUMsS0FBVixDQUFBO0VBbkJZOztFQXFCaEIsY0FBQSxDQUFBOztFQUNBLGFBQUEsQ0FBYyxJQUFkLEVBQW9CLElBQUksSUFBSixDQUFBLENBQXBCO0FBMUNBIiwic291cmNlc0NvbnRlbnQiOlsiY291bnRkb3duID0gaW5pdF9jb3VudGRvd24gPSAoKSAtPlxuICAgIGNvdW50ZG93biA9IG5ldyBGbGlwQ2xvY2sgJCgnLmNvdW50ZG93bicpLFxuICAgIGNsb2NrRmFjZTogJ2NvdW50ZG93bicsXG4gICAgbGFuZ3VhZ2U6ICdlbicsXG4gICAgYXV0b1N0YXJ0OiBmYWxzZSxcbiAgICBjb3VudGRvd246IHRydWUsXG4gICAgc2hvd1NlY29uZHM6IHRydWVcbiAgICBjYWxsYmFja3M6XG4gICAgICBzdGFydDogKCkgLT5cbiAgICAgICAgY29uc29sZS5sb2cgJ1RoZSBjbG9jayBoYXMgc3RhcnRlZCEnXG4gICAgICBzdG9wOiAoKSAtPlxuICAgICAgICBjb25zb2xlLmxvZyAnVGhlIGNsb2NrIGhhcyBzdG9wcGVkISdcbiAgICAgIGludGVydmFsOiAoKSAtPlxuICAgICAgICB0aW1lID0gdGhpcy5mYWN0b3J5LmdldFRpbWUoKS50aW1lXG4gICAgICAgIGlmIHRpbWUgXG4gICAgICAgICAgY29uc29sZS5sb2cgJ0Nsb2NrIGludGVydmFsJywgdGltZVxuXG4gICAgcmV0dXJuIGNvdW50ZG93blxuICBcblxuc2V0X2NvdW50ZG93biA9IChtaW51dGVzLCBzdGFydCkgLT5cblxuICAgIGlmIGNvdW50ZG93bi5ydW5uaW5nXG4gICAgICByZXR1cm5cblxuICAgIHNlY29uZHMgPSBtaW51dGVzICogNjBcblxuICAgIG5vdyA9IG5ldyBEYXRlXG4gICAgc3RhcnQgPSBuZXcgRGF0ZSBzdGFydFxuICAgIGVuZCA9IHN0YXJ0LmdldFRpbWUoKSArIHNlY29uZHMgKiAxMDAwXG5cbiAgICBsZWZ0X3NlY3MgPSBNYXRoLnJvdW5kIChlbmQgLSBub3cuZ2V0VGltZSgpKSAvIDEwMDBcblxuICAgIGVsYXBzZWQgPSBmYWxzZVxuICAgIGlmIGxlZnRfc2VjcyA8IDBcbiAgICAgIGxlZnRfc2VjcyAqPSAtMVxuICAgICAgZWxhcHNlZCA9IHRydWVcblxuICAgIGNvdW50ZG93bi5zZXRUaW1lKGxlZnRfc2VjcylcbiAgICBjb3VudGRvd24uc3RhcnQoKVxuICAgIFxuaW5pdF9jb3VudGRvd24oKVxuc2V0X2NvdW50ZG93bigyODgwLCBuZXcgRGF0ZSgpKVxuIl19
-  //# sourceURL=coffeescript
+import * as THREE from 'https://unpkg.com/three@0.159.0/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.159.0/examples/jsm/controls/OrbitControls.js';
 
+let countdown = null;
+const deleteCluster = document.getElementById('endGameBtn');
+if (deleteCluster) {
+  deleteCluster.style.display = 'none';
+}
 
-  (function() {
-    var countdown, init_countdown, set_countdown, saveClockState, loadClockState;
-  
-    countdown = init_countdown = function() {
-      countdown = new FlipClock($('.countdown'), {
-        clockFace: 'DailyCounter',
-        language: 'en',
-        autoStart: false,
-        countdown: true,
-        callbacks: {
-          start: function() {
-            console.log('The clock has started!');
-          },
-          stop: function() {
-            console.log('The clock has stopped!');
-            
-            // Check if we need to switch to the final countdown
-            var initialComplete = $.cookie('initialCountdownComplete');
-            var userTargetDate = $.cookie('userTargetDate');
-            
-            if (!initialComplete && userTargetDate) {
-              // Mark initial countdown as complete
-              $.cookie('initialCountdownComplete', 'true', { expires: 365 });
-              
-              setTimeout(function() {
-                var currentDate = new Date();
-                var targetDate = new Date(parseInt(userTargetDate));
-                var diff = (targetDate.getTime() - currentDate.getTime()) / 1000;
-                
-                if (diff > 0) {
-                  set_countdown(diff / 60, new Date());
-                  console.log('Switching to target date countdown');
-                } else {
-                  console.log('Target date has passed');
-                  countdown.setTime(0);
-                }
-              }, 1000);
-            }
-          },
-          interval: function() {
-            var time = this.factory.getTime().time;
-            
-            // Save current state every interval
-            saveClockState();
-            
-            if (time <= 0) {
-              console.log('Countdown reached 0!');
-            }
-          }
+// Expose test helpers on window for quick manual testing from the console
+// (Removed test helpers for confetti/popup)
+
+// Prevent multiple confetti in same session
+let _threeConfettiStarted = false;
+// Track whether countdown has actually finished (only then allow celebration)
+let _countdownHasFinished = false;
+
+// Temporary dev helper: force the countdown-finished flow from the console.
+// Call `window.__forceCountdownFinish()` after reloading the page to run the same logic
+// that runs when a real countdown finishes. Remove this helper when finished testing.
+if (typeof window !== 'undefined') {
+  window.__forceCountdownFinish = function () {
+    try {
+      // Ensure the FlipClock UI shows 0
+      initClock();
+      if (countdown) {
+        try { countdown.setTime(0); countdown.stop(); } catch (e) { /* ignore */ }
+      }
+      handleCountdownFinished();
+    } catch (e) {
+      console.warn('forceCountdownFinish failed', e);
+    }
+  };
+}
+
+/**
+ * Initialize FlipClock instance once.
+ */
+function initClock() {
+  if (countdown) return; // already initialized
+
+  countdown = new FlipClock($('.countdown'), {
+    clockFace: 'DailyCounter',
+    language: 'en',
+    autoStart: false,
+    countdown: true,
+    callbacks: {
+      start() {
+        console.log('The clock has started!');
+      },
+      stop() {
+        console.log('The clock has stopped!');
+      },
+      interval() {
+        const time = this.factory.getTime().time;
+
+        if (time <= 0) {
+          console.log('Countdown reached zero!');
+          this.stop();
+            handleCountdownFinished();
         }
-      });
-      return countdown;
-    };
-  
-    // Save the current clock state to cookies
-    saveClockState = function() {
-      if (countdown && countdown.running) {
-        var currentTime = countdown.getTime().time;
-        var now = new Date().getTime();
-        
-        $.cookie('clockTime', currentTime.toString(), { expires: 365 });
-        $.cookie('clockLastUpdate', now.toString(), { expires: 365 });
-      }
-    };
-  
-    // Load and resume clock state from cookies
-    loadClockState = function() {
-      var savedTime = $.cookie('clockTime');
-      var lastUpdate = $.cookie('clockLastUpdate');
-      var userTargetDate = $.cookie('userTargetDate');
-      var initialComplete = $.cookie('initialCountdownComplete');
-      
-      if (savedTime && lastUpdate) {
-        var now = new Date().getTime();
-        var elapsed = Math.floor((now - parseInt(lastUpdate)) / 1000);
-        var remainingTime = parseInt(savedTime) - elapsed;
-        
-        if (remainingTime > 0) {
-          console.log('Resuming clock with ' + remainingTime + ' seconds remaining');
-          document.getElementById('wholeClock').style.display = 'unset';
-          document.getElementById('challengeCall').disabled = true;
-          document.getElementById('joinChallenge').style.display = 'unset';
-          
-          countdown.setTime(remainingTime);
-          countdown.start();
-          return true;
-        } else if (initialComplete && userTargetDate) {
-          // Initial countdown finished, check if we should show final countdown
-          var currentDate = new Date();
-          var targetDate = new Date(parseInt(userTargetDate));
-          var diff = (targetDate.getTime() - currentDate.getTime()) / 1000;
-          
-          if (diff > 0) {
-            console.log('Resuming final countdown');
-            document.getElementById('wholeClock').style.display = 'unset';
-            document.getElementById('challengeCall').disabled = true;
-            document.getElementById('joinChallenge').style.display = 'unset';
-            
-            set_countdown(diff / 60, new Date());
-            return true;
-          }
-        }
-      }
-      return false;
-    };
-  
-    set_countdown = function(minutes, start) {
-      var elapsed, end, left_secs, now, seconds;
-      
-      seconds = minutes * 60;
-      now = new Date();
-      start = new Date(start);
-      end = start.getTime() + seconds * 1000;
-      left_secs = Math.round((end - now.getTime()) / 1000);
-      elapsed = false;
-      
-      if (left_secs < 0) {
-        left_secs *= -1;
-        elapsed = true;
-      }
-      
-      countdown.setTime(left_secs);
-      countdown.start();
-      saveClockState();
-    };
-  
-    // Initialize countdown
-    init_countdown();
-    
-    // Try to load existing clock state on page load
-    loadClockState();
-  
-    // Form submission handler
-    $('form').on('submit', function(e) {
-      e.preventDefault();
-      
-      document.getElementById('wholeClock').style.display = 'unset';
-      document.getElementById('challengeCall').disabled = true;
-      document.getElementById('joinChallenge').style.display = 'unset';
-      
-      // Get user input date and time
-      var userDateInput = $('#date-input').val();
-      var userTimeInput = $('#time-input').val() || "10:00";
-      
-      // Create target date (assuming EST/EDT timezone)
-      var targetDateStr = userDateInput + " " + userTimeInput;
-      var targetDate = new Date(targetDateStr);
-      
-      // Store the target date timestamp
-      $.cookie('userTargetDate', targetDate.getTime().toString(), { expires: 365 });
-      console.log("Target date set to: " + targetDate.toString());
-      
-      // Check if initial countdown has been completed
-      var initialComplete = $.cookie('initialCountdownComplete');
-      
-      if (!initialComplete) {
-        // Start initial 48-hour countdown (2880.016 minutes)
-        set_countdown(2880.016, new Date());
-        console.log("Starting initial countdown: 2880.016 minutes (48 hours)");
+      },
+    },
+  });
+}
+
+/**
+ * Set the FlipClock time in seconds and start it.
+ * totalSeconds should come from the server duration.
+ */
+function setCountdownSeconds(totalSeconds) {
+  initClock();
+  if (!countdown) return;
+
+  // starting a new countdown -> clear finished flag
+  _countdownHasFinished = false;
+  countdown.setTime(Math.max(0, Math.floor(totalSeconds)));
+  countdown.start();
+}
+
+/**
+ * When the countdown reaches zero (or server says it's done),
+ * update UI elements accordingly.
+ */
+function handleCountdownFinished({ suppressCelebration = false } = {}) {
+  // Show leave button, hide start button
+  const fetchBtn = document.getElementById('fetchButton');
+  const teamProgressTitle = document.getElementById('teamProgressTitle');
+  const leaveBtn = document.getElementById('leaveButton');
+
+  if (fetchBtn) fetchBtn.style.display = 'none';
+  if (leaveBtn) leaveBtn.style.display = 'block';
+
+  if (deleteCluster) {
+    setTimeout(() => {
+      deleteCluster.style.display = 'block';
+    }, 1000); // slight delay to ensure countdown UI updates first
+  }
+
+  if (teamProgressTitle) {
+    teamProgressTitle.innerText = 'Cluster Completed!';
+  }
+  // mark finished so confetti/popup only run when appropriate
+  _countdownHasFinished = true;
+
+  // Trigger celebration UI and confetti from one central place unless suppressed
+  try {
+    if (!_countdownHasFinished) {
+      console.log('handleCountdownFinished: finished flag not set, nothing to do');
+      return;
+    }
+    if (!suppressCelebration) {
+      if (typeof launchThreeConfetti === 'function') launchThreeConfetti();
+      showCelebrationPopup();
+    } else {
+      console.log('handleCountdownFinished: celebration suppressed (UI-only)');
+    }
+  } catch (e) {
+    console.warn('handleCountdownFinished celebration error', e);
+  }
+}
+
+/**
+ * Convert duration { hours, minutes, seconds } into total seconds.
+ */
+function hmsToSeconds(duration) {
+  return (
+    Number(duration.hours || 0) * 3600 +
+    Number(duration.minutes || 0) * 60 +
+    Number(duration.seconds || 0)
+  );
+}
+
+/**
+ * Fetch the shared timer state for this cluster from the server
+ * and sync the FlipClock + buttons/UI to it.
+ */
+async function syncTimerFromServer() {
+  try {
+    const res = await fetch('/api/data');
+    const data = await res.json();
+
+    console.log('Team data from server:', data);
+
+    const duration = data.duration || { hours: 0, minutes: 0, seconds: 0 };
+    const totalSeconds = hmsToSeconds(duration);
+    const timerRunning = data.timerRunning === true;
+
+    const wholeClock = document.getElementById('wholeClock');
+    const challengeCall = document.getElementById('challengeCall');
+    const joinChallenge = document.getElementById('joinChallenge');
+
+    // If there is remaining time, show and start the clock
+    if (totalSeconds > 0 && timerRunning) {
+      if (wholeClock) wholeClock.style.display = 'unset';
+      if (challengeCall) challengeCall.disabled = true;
+      if (joinChallenge) joinChallenge.style.display = 'unset';
+
+      setCountdownSeconds(totalSeconds);
+      updateButtonVisibility({ running: true, hasRun: true });
+    } else {
+      // Timer finished or not started
+      initClock();
+      countdown.setTime(0);
+      countdown.stop();
+
+      if (wholeClock) wholeClock.style.display = 'unset';
+
+      // If the server says timer has run but is now finished
+      if (data.timerStartAt && !timerRunning) {
+        handleCountdownFinished();
+        updateButtonVisibility({ running: false, hasRun: true });
       } else {
-        // Initial countdown already done, go straight to target date
-        var currentDate = new Date();
-        var diff = (targetDate.getTime() - currentDate.getTime()) / 1000;
-        
-        if (diff > 0) {
-          set_countdown(diff / 60, new Date());
-          console.log("Starting target date countdown");
-        } else {
-          console.log("Target date has already passed!");
-          countdown.setTime(0);
-        }
+        // Never started
+        updateButtonVisibility({ running: false, hasRun: false });
       }
+    }
+  } catch (error) {
+    console.error('Error syncing timer from server:', error);
+  }
+}
+
+// Three.js confetti (adapted, simplified)
+function launchThreeConfetti() {
+  if (_threeConfettiStarted) return;
+  _threeConfettiStarted = true;
+
+  const worldRadius = 5;
+  const confettiSize = 0.08;
+  const confettiNum = 400;
+
+  let camera, scene, renderer, controls;
+  let confettiMesh;
+  const dummy = new THREE.Object3D();
+  const matrix = new THREE.Matrix4();
+  const color = new THREE.Color();
+
+  console.log('launchThreeConfetti() starting');
+  init();
+
+  function init() {
+    camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, worldRadius * 10);
+    camera.position.z = worldRadius * 3;
+
+    scene = new THREE.Scene();
+
+    
+    const confettiGeometry = new THREE.PlaneGeometry(confettiSize / 2, confettiSize);
+    const confettiMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+    confettiMesh = new THREE.InstancedMesh(confettiGeometry, confettiMaterial, confettiNum);
+
+    function getRandomColor() {
+      const hue = Math.floor(Math.random() * 360);
+      return `hsl(${hue}, 80%, 50%)`;
+    }
+
+    for (let i = 0; i < confettiNum; i++) {
+      matrix.makeRotationFromEuler(new THREE.Euler(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI));
+      matrix.setPosition(
+        THREE.MathUtils.randFloatSpread(worldRadius * 2),
+        THREE.MathUtils.randFloatSpread(worldRadius * 2),
+        THREE.MathUtils.randFloatSpread(worldRadius * 2)
+      );
+      confettiMesh.setMatrixAt(i, matrix);
+      confettiMesh.setColorAt(i, color.set(getRandomColor()));
+    }
+    scene.add(confettiMesh);
+
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    
+    renderer.domElement.style.position = 'fixed';
+    renderer.domElement.style.top = '0';
+    renderer.domElement.style.left = '0';
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
+    renderer.domElement.style.zIndex = '999999';
+    renderer.domElement.style.pointerEvents = 'none';
+    document.body.appendChild(renderer.domElement);
+
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1;
+
+    animate();
+    window.addEventListener('resize', onWindowResize);
+  }
+
+  function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+
+    // simple fall simulation
+    if (confettiMesh) {
+      for (let i = 0; i < confettiNum; i++) {
+        confettiMesh.getMatrixAt(i, matrix);
+        matrix.decompose(dummy.position, dummy.quaternion, dummy.scale);
+        dummy.position.y -= 0.02 * ((i % 4) + 1);
+        if (dummy.position.y < -worldRadius) dummy.position.y = worldRadius;
+        dummy.rotation.x += 0.01;
+        dummy.updateMatrix();
+        confettiMesh.setMatrixAt(i, dummy.matrix);
+      }
+      confettiMesh.instanceMatrix.needsUpdate = true;
+    }
+    renderer.render(scene, camera);
+  }
+}
+
+// Celebration popup: list usernames who reached 100%
+function showCelebrationPopup() {
+  try {
+    const userCards = Array.from(document.querySelectorAll('.user-card'));
+    const winners = [];
+    userCards.forEach(card => {
+      const nameEl = card.querySelector('h5');
+      const progressBar = card.querySelector('.progress-bar');
+      const name = nameEl ? nameEl.innerText.trim() : null;
+      const progress = progressBar ? Number(progressBar.getAttribute('aria-valuenow') || 0) : 0;
+      if (name && progress >= 100) winners.push(name);
     });
-  
-    // Optional: Clear all cookies button (for testing)
-    $('#resetChallenge').on('click', function() {
-      $.removeCookie('clockTime');
-      $.removeCookie('clockLastUpdate');
-      $.removeCookie('userTargetDate');
-      $.removeCookie('initialCountdownComplete');
-      location.reload();
-    });
-  
-  }).call(this);
+
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.inset = '0';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.style.background = 'rgba(0,0,0,0.45)';
+    overlay.style.zIndex = '1000001';
+
+    const box = document.createElement('div');
+    box.style.background = '#fff';
+    box.style.borderRadius = '12px';
+    box.style.padding = '20px';
+    box.style.maxWidth = '480px';
+    box.style.textAlign = 'center';
+
+    const title = document.createElement('h2');
+    title.innerText = winners.length ? 'Congratulations!' : 'Well done';
+    box.appendChild(title);
+
+    const msg = document.createElement('p');
+    if (winners.length) msg.innerText = 'The following teammates completed their goals:';
+    else msg.innerText = 'No teammates reached 100% — good job everyone!';
+    box.appendChild(msg);
+
+    if (winners.length) {
+      const list = document.createElement('ul');
+      list.style.listStyle = 'none';
+      list.style.padding = '0';
+      winners.forEach(n => {
+        const li = document.createElement('li');
+        li.innerText = n;
+        li.style.fontWeight = '600';
+        li.style.margin = '6px 0';
+        list.appendChild(li);
+      });
+      box.appendChild(list);
+    }
+
+    const close = document.createElement('button');
+    close.innerText = 'Close';
+    close.style.marginTop = '12px';
+    close.addEventListener('click', () => overlay.remove());
+    box.appendChild(close);
+
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    // auto remove after 10s
+    setTimeout(() => { if (document.body.contains(overlay)) overlay.remove(); }, 10000);
+  } catch (e) {
+    console.warn('showCelebrationPopup error', e);
+  }
+}
+
+/**
+ * Update button visibility based on whether the timer is running
+ * or has ever been started.
+ *
+ * options.running: boolean (timer currently running)
+ * options.hasRun: boolean (timer has ever been started)
+ */
+function updateButtonVisibility({ running, hasRun }) {
+  const fetchBtn = document.getElementById('fetchButton');
+  const leaveBtn = document.getElementById('leaveButton');
+  const endBtn = document.getElementById('endGameBtn');
+
+  if (running) {
+    // Timer is running - hide start and leave, hide delete
+    if (fetchBtn) fetchBtn.style.display = 'none';
+    if (leaveBtn) leaveBtn.style.display = 'none';
+    if (endBtn) endBtn.style.display = 'none';
+  } else if (hasRun) {
+    // Timer finished - show leave and delete, hide start
+    if (fetchBtn) fetchBtn.style.display = 'none';
+    if (leaveBtn) leaveBtn.style.display = 'block';
+    if (endBtn) endBtn.style.display = 'unset';
+  } else {
+    // Never started - show start only
+    if (fetchBtn) fetchBtn.style.display = 'block';
+    if (leaveBtn) leaveBtn.style.display = 'none';
+    if (endBtn) endBtn.style.display = 'none';
+  }
+}
+
+/**
+ * Fetch button: triggers server-side timer initialization (if not set)
+ * and then syncs the client to the shared timer state.
+ */
+const fetchBtn = document.querySelector('#fetchButton');
+if (fetchBtn) {
+  fetchBtn.addEventListener('click', async () => {
+    try {
+      const clusterId = fetchBtn.dataset.clusterId;
+      console.log(clusterId)
+      // Start timer on server (only creator can do this)
+      await fetch(`/teamPage/${clusterId}/startTimer`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      // After starting, load the shared remaining time and start clock
+      await syncTimerFromServer();
+    } catch (error) {
+      console.error('Error starting timer via server:', error);
+    }
+  });
+}
+
+// Test Finish button - sets the clock to 0 and triggers the finished flow (confetti + popup)
+// (Removed Test Finish handler for confetti testing)
 
 
+/**
+ * Reset button - optional: if you want to truly reset the cluster timer,
+ * this should call a dedicated server endpoint that clears/resets
+ * timerStartAt and timerDurationSec, then re-sync.
+ *
+ * For now, this only clears the UI and reloads.
+ */
+const resetBtn = document.querySelector('#resetChallenge');
+if (resetBtn) {
+  resetBtn.addEventListener('click', async () => {
+    console.log('Resetting cluster timer');
 
-  // (function() {
-  //   var countdown, init_countdown, set_countdown, userTargetDate, initialCountdownComplete;
-  
-  //   initialCountdownComplete = false;
-  
-  //   countdown = init_countdown = function() {
-  //     countdown = new FlipClock($('.countdown'), {
-  //       clockFace: 'DailyCounter',
-  //       language: 'en',
-  //       autoStart: false,
-  //       countdown: true,
-  //       callbacks: {
-  //         start: function() {
-  //           return console.log('The clock has started!');
+    const clusterId = resetBtn.dataset.clusterId;
 
-  //         },
-  //         stop: function() {
-  //           console.log('The clock has stopped!');
-            
-  //           // Mark initial countdown as complete
-  //           initialCountdownComplete = true;
-            
-  //           // Reset with countdown to user's target date when it reaches 0
-  //           if (!$.cookie('userTargetDate')) {
-  //             setTimeout(function() {
-  //               let currentDate = new Date();
-  //               let diff = userTargetDate / 1000 - currentDate.getTime() / 1000; 
-  //               // Might have to store line above in cookies //
+    try {
+      // Ask server to clear the shared timer
+      const res = await fetch(`/teamPage/${clusterId}/resetTimer`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-                
-  //               if (diff > 0) {
-  //                 set_countdown(diff / 60, new Date());
-  //                 console.log('Resetting to target date countdown');
-  //               } else {
-  //                 console.log('Target date has passed, cannot restart');
-  //               }
-  //             }, 1000);
-  //           }
-  //         },
-  //         interval: function() {
-  //           var time;
-  //           time = this.factory.getTime().time;
-  //           if (time <= 0) {
-  //             console.log('Countdown reached 0!');
-  //           }
-  //         }
-  //       }
-  //     });
-  //     return countdown;
-  //   };
-  
-  //   set_countdown = function(minutes, start) {
-  //     var elapsed, end, left_secs, now, seconds;
+      if (!res.ok) {
+        console.error('Failed to reset timer');
+        return;
+      }
+
+      // Stop the countdown UI
+      if (countdown && countdown.running) {
+        countdown.stop();
+      }
+      initClock();
+      countdown.setTime(0);
+
+      // Optionally update buttons: show Start again, hide Leave/Delete
+      updateButtonVisibility({ running: false, hasRun: false });
       
-  //     seconds = minutes * 60;
-  //     now = new Date();
-  //     start = new Date(start);
-  //     end = start.getTime() + seconds * 1000;
-  //     left_secs = Math.round((end - now.getTime()) / 1000);
-  //     elapsed = false;
-      
-  //     if (left_secs < 0) {
-  //       left_secs *= -1;
-  //       elapsed = true;
-  //     }
-      
-  //     countdown.setTime(left_secs);
-  //     countdown.start();
-  //   };
-  
-  //   init_countdown();
-  
-  //   $('form').on('submit', function(e) {
-  //     document.getElementById('wholeClock').style.display = 'unset'
-  //     document.getElementById('challengeCall').disabled = true
-  //     document.getElementById('joinChallenge').style.display = 'unset'
-  //     e.preventDefault();
-      
-  //     // Get user input date and time
-  //     let userDateInput = $('#date-input').val(); // Format: "2026-01-01"
-  //     let userTimeInput = $('#time-input').val() || "10:00"; // Format: "10:00"
-      
-  //     // Set timezone
-  //     moment.tz.add('America/New_York|EST EDT|50 40|0101|1Lz50 1zb0 Op0');
-      
-  //     // Store the user's target date for later reset
-  //     userTargetDate = $.cookie(moment.tz(userDateInput + " " + userTimeInput, "America/New_York"));
-      
-  //     console.log("Target date set to: " + userTargetDate.format());
-      
-  //     // Always start with 2880.016 minutes on first run
-  //     if (!initialCountdownComplete) {
-  //      let joinChallengeCountdown = $.cookie(set_countdown(2880.016, new Date()));
-  //       console.log("Starting initial countdown: 2880.016 minutes");
-  //     } else {
-  //       // If already completed once, go straight to target date countdown
-  //       let currentDate = new Date();
-  //       $.removeCookie('joinChallengeCountdown')
-  //       let diff = $.cookie('userTargetDate ')/ 1000 - currentDate.getTime() / 1000;
-        
-  //       if (diff > 0) {
-  //         set_countdown(diff / 60, new Date());
-  //         console.log("Starting target date countdown");
-  //       } else {
-  //         console.log("Target date has already passed!");
-  //         $.removeCookie('userTargetDate');
-  //         countdown.setTime(0);
-  //       }
-  //     }
-  //   });
-  
-  // }).call(this);
+    } catch (err) {
+      console.error('Error resetting timer:', err);
+    }
+  });
+}
+
+/**
+ * On initial load, sync from server so every user sees the same remaining time.
+ */
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    syncTimerFromServer();
+  });
+} else {
+  syncTimerFromServer();
+}
+
+// Developer helper: if the user has set the following localStorage keys as a quick test,
+// (Removed localStorage dev simulation helper)

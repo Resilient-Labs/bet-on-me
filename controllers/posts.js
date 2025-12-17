@@ -6,14 +6,44 @@ const { getUserTasks } = require("./tasks");
 const Goal = require("../models/Goal");
 
 module.exports = {
-  getProfile: async (req, res) => {
-    try {
-      const posts = await Post.find({ user: req.user.id });
-      res.render("profile.ejs", { posts: posts, user: req.user, showProfileBubble: true });
-    } catch (err) {
-      console.log(err);
+  
+getProfile: async (req, res) => {
+  try {
+    // User posts!
+    const posts = await Post.find({ user: req.user.id }).lean();
+
+    // Member since
+    let memberSince = "Unknown";
+    if (req.user?.createdAt) {
+      memberSince = new Date(req.user.createdAt).toLocaleDateString("en-US");
     }
-  },
+
+    // FETCH CLUSTERS THE USER IS IN!!!!
+    const clusters = await Cluster.find({
+      cluster_members: req.user._id,
+    })
+      .populate("cluster_members")
+      .lean();
+
+    // fetch user's goals as an array for the profile view
+    //dividing the goals into completed and incompleted just in case someone needed all the goals
+    const goals = (await Goal.find({ user: req.user.id , completed: false}).lean()) || [];
+    const completedGoals = (await Goal.find({ user: req.user.id , completed: true}).lean()) || [];
+    res.render("profile", {
+      posts,
+      user: req.user,
+      memberSince,
+      clusters,
+      goals,
+      completedGoals,
+      showProfileBubble: true,
+      messages: req.flash(),
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error loading profile");
+  }
+},
   //this is the page that shows after successful login
   getHome: async (req, res) => {
     try {
@@ -23,26 +53,73 @@ module.exports = {
     }
   },
   getTeamPage: async (req, res) => {
-    try {
-      res.render("teamPage.ejs", { user: req.user, showProfileBubble: true });
+    try{
+      //checks is user is a member of a group for nav
+      const cluster = await Cluster.findOne({
+        cluster_members: req.user.id
+      });
+      //redirects to home if not in group
+      if(!cluster) {
+        return res.redirect("/home");
+      }
+
+      res.render("teamPage.ejs", {
+        user: req.user,
+        cluster,
+        showProfileBubble: true
+      });
     } catch (err) {
       console.log(err);
+      res.redirect("/home");
     }
   },
   getUserGoal: async (req, res) => {
-    try {
+    try{
+      let cluster = await Cluster.findOne({
+        cluster_members: req.user.id
+      }).populate('cluster_members').lean();
+
+      if(!cluster) {
+        return res.redirect("/home");
+      }
+
       const posts = await Post.find({ user: req.user.id });
-      const tasks = await Task.find({ user: req.user.id });
-      const goals = await Goal.findOne({ user: req.user.id });
-      res.render("userGoal.ejs", { posts, user: req.user, tasks, goals, showProfileBubble: false });
+      const tasks = await Task.find({ user: req.user.id }) || [];
+      const goals = await Goal.findOne({ user: req.user.id }) || null;
+
+      // Compute simple member progress based on tasks: percent of completed tasks
+      const memberProgress = [];
+      for (const member of (cluster.cluster_members || [])) {
+        try {
+          const total = await Task.countDocuments({ user: member._id });
+          const completed = await Task.countDocuments({ user: member._id, task_is_completed: true });
+          const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+          memberProgress.push({ user: member, total, completed, percent });
+        } catch (e) {
+          memberProgress.push({ user: member, total: 0, completed: 0, percent: 0 });
+        }
+      }
+
+      res.render("userGoal.ejs", {
+        user: req.user,
+        posts,
+        tasks,
+        goals,
+        cluster,
+        memberProgress,
+        showProfileBubble: false,
+        messages: req.flash()
+      });
     } catch (err) {
-      console.log(err);
+      console.log("getUserGoal error:", err);
+      res.redirect("/home");
     }
   },
   //this function gets the user profile, and the todo list of tasks!
   getUserProfile: async (req, res) => {
     try {
       const tasks = await getUserTasks(req.user.id);
+      const goals = await Goal.findOne({ user: req.user.id });
       res.render("userProfile.ejs", { user: req.user, tasks, showProfileBubble: true });
     } catch (err) {
       console.log(err);
@@ -94,6 +171,7 @@ module.exports = {
         cluster_join_id: randomCode,
         cluster_members: [req.user.id],
         member_count: 1,
+        endDate: req.body.challengeDate
       });
       console.log("Post has been added!");
       //after creating a cluster the user is redirected to the group page
@@ -176,16 +254,13 @@ module.exports = {
   },
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
 
-  
- joinCluster: async (req, res) => {
-  try {
-    const joinCode = req.body.code;
-
-    const cluster = await Cluster.findOne({
-      cluster_join_id: joinCode,
-    });
-
-    // No cluster found
+  joinCluster: async (req, res) => {
+    try {
+      const joinCode = req.body.code;
+      const cluster = await Cluster.findOne({
+        cluster_join_id: joinCode,
+      });
+      // No cluster found
     if (!cluster) {
       req.flash("lateJoin", "Invalid group code.");
       return res.redirect("/home");
