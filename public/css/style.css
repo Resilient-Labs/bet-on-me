@@ -10,8 +10,8 @@
 
 * {
   box-sizing: border-box;
-  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
-  font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  /* font-family: "Helvetica Neue", helvetica, arial, sans-serif; */
   line-height: 1.4;
   color: var(--color-black);
 }
@@ -195,7 +195,6 @@ html {
   justify-content: center;
   min-height: 269px;
   min-width: 350px;
-  max-height: 300px;
   border-radius: .5rem;
   border: 1px solid var(--color-black);
 }
@@ -505,7 +504,7 @@ card-body {
   color: var(--color-white);
   font-size: 1.25rem;
   padding: .5rem 1rem;
-  min-width: 4rem;
+  min-width: 5rem;
 }
 
 .card .username h5 {
