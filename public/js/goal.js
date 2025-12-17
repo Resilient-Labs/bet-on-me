@@ -194,9 +194,13 @@ document.querySelectorAll("#task-list li").forEach((li) => {
           if (bar) {
             bar.setAttribute('data-percent', mp.percent);
             bar.style.width = Math.max(0, Math.min(100, mp.percent)) + '%';
-            // update small percent text sibling
-            const small = bar.closest('li')?.querySelector('small');
-            if (small) small.textContent = mp.percent + '%';
+            bar.setAttribute('aria-valuenow', mp.percent);
+            
+            // update small percent text - find by matching user-id in the team-member-card
+            const percentText = document.querySelector(`.member-percent[data-user-id="${mp.userId}"]`);
+            if (percentText) {
+              percentText.textContent = mp.percent + '% Complete';
+            }
           }
         } catch (e) { console.error('update team preview failed', e); }
       });

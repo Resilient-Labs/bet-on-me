@@ -60,14 +60,27 @@
   border-top: solid 1px var(--color-black);
 }
 
+.custom-footer .btn:hover{
+  background-color: var(--color-sky-blue);
+  border: 1px solid var(--color-black);
+}
+
 .custom-footer .footer-contact-btn {
   background-color: var(--color-black);
-  color: var(--color-white)
+  color: var(--color-white);
 }
 
 .text-small {
   font-size: 85%;
 }
+
+.custom-footer .small-text{
+  font-size: 1rem;
+}
+.custom-footer .small-text + small{
+  font-size: .8rem;
+}
+
 
 .dropdown-toggle:not(:focus) {
   outline: 0;
@@ -97,6 +110,7 @@ a.signup:hover {
 
 .custom-header .btn-hover:hover {
   background-color: var(--color-black);
+  color: var(--color-white);
 }
 
 .btn-hover a:hover {
@@ -140,4 +154,55 @@ a.signup:hover {
 .text-end {
   display: flex;
   align-items: center;
+}
+
+#profile-nav{
+  padding-left: 20px
+}
+
+.page-disable{
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+ul > li > a.page-disable:hover{
+  font-size: 1.2rem; /* revert hover affects when disabled */
+}
+
+/* Mobile burger menu styling */
+@media (max-width: 990px) {
+  .navbar-collapse {
+    width: 100%;
+  }
+
+  .navbar-collapse .navbar-nav {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+    flex-direction: column;
+  }
+
+  .navbar-collapse .nav-item {
+    width: 100%;
+  }
+
+  .navbar-collapse .nav-link {
+    display: block;
+    border-bottom: 1px solid var(--color-black); /* line between items */
+    padding: 0.75rem 0;
+  }
+
+  .navbar-collapse .nav-item:last-child .nav-link {
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width:992px){
+  .custom-footer .small-text{
+  font-size: .8rem;
+}
+.custom-footer .small-text + small{
+  font-size: .6rem;
+}
+
 }

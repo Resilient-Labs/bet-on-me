@@ -13,13 +13,14 @@ async function initiateWagerPayment(amount, goalId, goalName) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        amount: parseFloat(amount),
+        amount: parseInt(amount),
         goalId: goalId,
         goalName: goalName,
       }),
     });
 
     if (!response.ok) {
+      const errorData = await response.json();
       throw new Error('Failed to create checkout session');
     }
 
@@ -30,7 +31,7 @@ async function initiateWagerPayment(amount, goalId, goalName) {
     
   } catch (error) {
     console.error('Error:', error);
-    alert('Payment failed. Please try again.');
+    alert('error.message');
     
     // reset button
     const wagerBtn = document.getElementById('place-wager-btn');
@@ -45,12 +46,34 @@ document.addEventListener('DOMContentLoaded', () => {
   
   if (wagerBtn) {
     wagerBtn.addEventListener('click', async () => {
-      const amount = document.getElementById('wager-amount').value;
+      const amountInput = document.getElementById('wager-amount').value;
       const goalId = document.getElementById('goal-id').value;
       const goalName = document.getElementById('bigGoal').value;
 
-      if (!amount || amount <= 0) {
+      // validate amount is provided
+      if (!amountInput || amountInput <= 0) {
         alert('Please enter a valid wager amount');
+        return;
+      }
+
+      // convert to integer and validate
+      const amount = parseInt(amountInput);
+      
+      // check if it's a whole number
+      if (amount !== parseFloat(amountInput)) {
+        alert('Please enter a whole dollar amount (no cents)');
+        return;
+      }
+
+      // check maximum
+      if (amount > 999) {
+        alert('Maximum wager amount is $999');
+        return;
+      }
+
+      // check minimum
+      if (amount < 1) {
+        alert('Minimum wager amount is $1');
         return;
       }
 

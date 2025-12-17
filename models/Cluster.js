@@ -34,6 +34,12 @@ const clusterSchema = new mongoose.Schema({
   endDate: {
     type: Date,
   },
+  timerStartAt:{ // to track when the timer was started on the backend
+    type: Date
+  },    
+  timerDurationSec: { // so it tracks how long the timer is set for on the backend
+    type: Number
+  } 
 });
 
 module.exports = mongoose.model("Cluster", clusterSchema);

@@ -11,6 +11,8 @@
 * {
   box-sizing: border-box;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  /* font-family: "Helvetica Neue", helvetica, arial, sans-serif; */
+  line-height: 1.4;
   color: var(--color-black);
 }
 
@@ -42,13 +44,15 @@ html {
   border: none;
 }
 
-.modal-body  input {
+.modal-body input {
   background-color: var(--color-white);
 }
-.modal-body  input:focus {
+
+.modal-body input:focus {
   background-color: var(--color-white);
 }
-.modal-body  label {
+
+.modal-body label {
   font-weight: bold;
   font-size: 1.1rem;
   margin-bottom: .02rem;
@@ -64,7 +68,7 @@ html {
 .modal-body {
   background-color: var(--color-foam-green);
   color: var(--color-yellow);
-  
+
 }
 
 .modal-body button {
@@ -93,10 +97,13 @@ html {
 .login-modal a:hover {
   color: var(--color-back);
 }
-.login-modal .btn-close{
- background-color: var(--color-back);
-}
 
+.login-modal .btn-close {
+  background-color: var(--color-back);
+  height: .8rem;
+  width: .8rem;
+
+}
 
 .login-modal input:focus,
 .home-container input:focus {
@@ -125,14 +132,15 @@ html {
 .home-container .home-body {
   flex: 1;
   margin-bottom: 4rem;
+  align-items: center;
   background-color: var(--color-white);
-  /* border-top: 1px solid var(--color-black); */
   padding: 4rem 1.5rem 4rem 1.5rem;
 }
 
 .home-header {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex: 1;
   width: 60%;
   margin: auto;
@@ -189,6 +197,8 @@ html {
   justify-content: center;
   min-height: 269px;
   min-width: 350px;
+  border-radius: .5rem;
+  border: 1px solid var(--color-black);
 }
 
 .home-body .create form {
@@ -233,9 +243,9 @@ html {
 
   .home-container .home-body {
     flex-direction: column;
-    align-items: center;
     gap: .3rem;
     margin-bottom: 2rem;
+    align-items: center;
   }
 
   .home-body section {
@@ -289,12 +299,17 @@ footer {
 }
 
 .landing-page-main {
-
-  background-color: var(--color-white);
+  background-color: var(--color-foam-green);
+  /* max-width: 1470px; */
+  /* margin: 0 auto; */
 }
 
 .landing-page-main .bright {
   color: var(--color-black);
+}
+
+.about-section .row {
+  margin: 0;
 }
 
 .landing-page-main .lead {
@@ -332,6 +347,34 @@ footer {
 }
 
 .landing-page-top .btn-hero:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.timeline-card .btns-container {
+  display: flex;
+  gap: .3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+#resetChallenge,
+#fetchButton,
+#endGameBtn,
+#leaveTeamBtn {
+  border: 1px solid var(--color-black);
+  background-color: var(--color-yellow);
+  font-weight: bold;
+  font-size: 1rem;
+  padding: .4rem;
+  color: var(--color-black);
+  display: block;
+  border-radius: 6px;
+}
+
+#resetChallenge:hover,
+#fetchButton:hover,
+#endGameBtn:hover #leaveTeamBtn:hover {
   background-color: var(--color-black);
   color: var(--color-white);
 }
@@ -376,11 +419,8 @@ card-body {
 
 .user-card.card {
   background-color: var(--color-sky-blue);
-  color: var(--btn-color);
-}
-
-.timeline-card .card-body {
-  color: var(--color-yellow);
+  color: var(--color-black);
+  border: 1px solid var(--color-black)
 }
 
 
@@ -390,6 +430,10 @@ card-body {
   padding: 3rem 0;
 }
 
+.team-progress-container .card-body {
+  border: 1px solid var(--color-black);
+}
+
 .team-card {
   background: var(--color-sky-blue);
   min-height: 85vh;
@@ -397,19 +441,43 @@ card-body {
 
 .team-card-header {
   background-color: var(--color-foam-green);
-
   padding: 1.5rem;
-  border: 1px solid var(--color-yellow);
+  border-left: 1px solid var(--color-black);
+  border-right: 1px solid var(--color-black);
+  border-top: 1px solid var(--color-black);
 }
 
 .team-card-header * {
   font-size: 2rem;
 }
 
+
 .group-name-section {
   border-bottom: 2px solid rgb(60, 51, 77);
   margin-bottom: 3rem;
   padding-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-black);
+}
+
+.group-name-section h3 {
+  font-size: 2rem;
+}
+
+.group-name-section span:not(strong),
+.code-container .small {
+  color: gray;
+}
+
+.group-name-section span strong,
+.code-container strong {
+  font-weight: bolder;
+  font-size: 1.5rem;
+  border: 2px dashed var(--color-black);
+  padding: .4rem .8rem;
+  margin-left: .3rem;
 }
 
 .group-name-title {
@@ -418,7 +486,7 @@ card-body {
 }
 
 .user-card {
-  background:var(--color-gray);
+  background: var(--color-gray);
   border: none;
   margin-bottom: 1.5rem;
 }
@@ -435,39 +503,45 @@ card-body {
 }
 
 .card .wager-badge {
-  background: var(--bg-dark-gray);
-  color: var(--color-yellow);
+  background: var(--color-black);
+  color: var(--color-white);
   font-size: 1.25rem;
   padding: .5rem 1rem;
+  min-width: 5rem;
+}
+
+.card .username h5 {
+  font-size: 1.5rem;
 }
 
 .card .progress-container {
   height: 35px;
   background: var(--color-yellow);
-  border: 1px solid black;
   height: 25px;
 }
 
+.progress {
+  border: 2px solid var(--color-black);
+}
+
 .progress .progress-bar {
-  background-color: var(--color-foam-green);
-  background-image: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.15) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.15) 75%,
-    transparent 75%,
-    transparent
-  );
-  background-size: 1rem 1rem;
+  background-color: var(--color-yellow);
+  background-image: linear-gradient(45deg,
+      rgba(255, 255, 255, 0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.15) 75%,
+      transparent 75%,
+      transparent);
+  background-size: 1.3rem 1.3rem;
 }
 
 
 /* Right Side Cards */
 .timeline-card {
-  background:var(--color-gray);
- 
+  background: var(--color-gray);
+  border: 2px solid blue;
 }
 
 .timeline-header {
@@ -476,21 +550,30 @@ card-body {
   padding: 1.5rem;
 }
 
-.timeline-time {
-  color: #DEB887;
+.timeline-time .flip-clock-divider {
+  margin-right: 1rem;
 }
+
+/* .timeline-time .flip {
+  margin-right: 1rem;
+} */
+
+.timeline-time+h4 {
+  color: gray;
+}
+
 #leaveButton {
   background-color: var(--color-mustard);
-  color: var(--btn-color); 
+  color: var(--btn-color);
   border: 1px solid var(--btn-color);
   transition: background-color 0.2s, border-color 0.2s;
 }
 
 #leaveButton:hover {
-  background-color:var(--btn-color) ;
+  background-color: var(--btn-color);
   border-color: var(--btn-color);
-  color: white; 
-  cursor: pointer; 
+  color: white;
+  cursor: pointer;
 }
 
 .cash-jar-card {
@@ -600,15 +683,19 @@ card-body {
 .hover-jar {
   position: absolute;
   height: 100%;
-  width: 100%;           /* fill parent container */
-  
-  opacity: 0;            /* start hidden */
+  width: 100%;
+  /* fill parent container */
+
+  opacity: 0;
+  /* start hidden */
   transition: opacity 0.3s ease;
 }
 
 .hover-jar:hover {
-  opacity: 0.2;          /* visible on hover */
-  pointer-events: auto;  /* allow interactions if needed */
+  opacity: 0.2;
+  /* visible on hover */
+  pointer-events: auto;
+  /* allow interactions if needed */
 }
 
 
@@ -650,12 +737,12 @@ card-body {
 /* Amount List (User Contributions) */
 .amount-list {
   bottom: 0px;
-  left: -25%;
+  left: 50%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.95);
-  padding: 15px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background: var(--color-white);
+  opacity: .9;
+  padding: 15px;
+  border: 1px solid var(--color-black);
   min-width: 220px;
   z-index: 10;
 }
@@ -747,7 +834,125 @@ card-body {
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! END !!!!!!!~~~~~~~~ */
 
+.error-page {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 100vw;
+  background-color: var(--color-gray);
+  font-weight: bolder;
+}
+
+.error-page button {
+  border: 1px solid var(--color-black);
+  border: 1px solid #2ec4b6;
+  font-size: 1.3rem;
+}
+
+.error-page button:hover {
+  background-color: var(--color-foam-green);
+  color: var(--color-black);
+}
+
+.error-page pre+pre {
+  transform: scale(0.5);
+  transform-origin: center;
+}
 
 .pDiv {
   background-color: var(--color-sky-blue);
+}
+
+.user-card .btn-profile {
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+
+.user-card .btn-profile label,
+.user-card .btn-config {
+  background-color: var(--color-yellow);
+  color: var(--color-black);
+  font-weight: 500;
+  border: 1px solid var(--color-black);
+  font-size: 1.2rem;
+  padding: .5rem;
+}
+
+.user-card .btn-profile label:hover,
+.user-card .btn-config:hover {
+  background-color: var(--color-black);
+  color: white;
+}
+
+.user-card .btn-foam {
+  background-color: var(--color-foam-green);
+}
+
+.timeline-card,
+.cash-jar-card {
+  min-width: 432px;
+}
+
+.col-lg-4 {
+  min-width: 432px;
+}
+
+.team-card,
+.timeline-card,
+.cash-jar-card {
+  min-width: 333px;
+}
+
+.col-lg-8,
+.col-lg-4 {
+  min-width: 333px;
+}
+
+
+@media screen and (max-width: 1199px) {
+  .team-progress-container .row {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 589px) {
+  .user-card .card-body>div {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .user-card .username {
+    width: 100% !important;
+    margin-bottom: 0.5rem;
+  }
+
+  .user-card .flex-grow-1 {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 484px) {
+  .group-name-section {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .group-name-section span {
+    margin-top: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 431px) {
+
+  .timeline-card,
+  .cash-jar-card,
+  .col-lg-4 {
+    min-width: 100%;
+  }
 }
