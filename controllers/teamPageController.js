@@ -2,6 +2,7 @@ const Cluster = require("../models/Cluster");
 const Goal = require("../models/Goal");
 const Task = require("../models/Task");
 const User = require("../models/User");
+const MoneyJar = require("../models/moneyjar");
 
 function getDuration(createdAt, endAt) {
   const diffMs = endAt - createdAt;

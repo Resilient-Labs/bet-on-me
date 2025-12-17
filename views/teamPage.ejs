@@ -109,18 +109,17 @@
                   <div class="amount-list">
                     <% members.forEach((member, index) => { %>
                       <div class="user-line" style="--delay:<%= index * 0.2 %>s;">
-  <img
-    src="<%= member.profile_image || '/images/default-avatar.png' %>"
-    alt="<%= member.userName || 'User' %> profile picture"
-    class="profile-pic-small"
-  />
+                          <img
+                            src="<%= member.profile_image || '/images/default-avatar.png' %>"
+                            alt="<%= member.userName || 'User' %> profile picture"
+                            class="profile-pic-small"
+                          />
 
-  <p>
-    <%= member.userName || member.email %>:
-    $<%= member.wagerAmount || 0 %>
-  </p>
-</div>
-
+                          <p>
+                            <%= member.userName || member.email %>:
+                            $<%= member.wagerAmount || 0 %>
+                          </p>
+                        </div>
                     <% }) %>
                   </div>
                 </div>
