@@ -82,10 +82,11 @@ getProfile: async (req, res) => {
       if(!cluster) {
         return res.redirect("/home");
       }
-
-      const posts = await Post.find({ user: req.user.id });
+      console.log('user cluster', req.user.joined_clusters)
+      
       const tasks = await Task.find({ user: req.user.id }) || [];
-      const goals = await Goal.findOne({ user: req.user.id }) || null;
+      const goals = await Goal.findOne({ user: req.user.id, cluster_id: req.user.joined_clusters[0] }) || null;
+      console.log('searched goal', goals)
 
       // Compute simple member progress based on tasks: percent of completed tasks
       const memberProgress = [];
@@ -102,7 +103,6 @@ getProfile: async (req, res) => {
 
       res.render("userGoal.ejs", {
         user: req.user,
-        posts,
         tasks,
         goals,
         cluster,
