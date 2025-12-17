@@ -80,14 +80,14 @@ getProfile: async (req, res) => {
         cluster_members: req.user.id
       }).populate('cluster_members').lean();
 
-     if (!cluster) {
-  return res.redirect("/404?reason=invalid-code");
-}
+      if (!cluster) {
+        return res.redirect("/404?reason=invalid-code");
+      }
 
-
+      
       const posts = await Post.find({ user: req.user.id });
       const tasks = await Task.find({ user: req.user.id }) || [];
-      const goals = await Goal.findOne({ user: req.user.id, cluster_id: req.user.joined_clusters[0] }) || null;
+      const goals = await Goal.findOne({ user: req.user.id, cluster_id: cluster._id}) || null;
       console.log('searched goal', goals)
 
       // Compute simple member progress based on tasks: percent of completed tasks

@@ -21,7 +21,7 @@ module.exports = {
       }, {
         name
       })
-      console.log(updatedGoal)
+      console.log('searched cluster: ', req.user.joined_clusters)
 
       if (updatedGoal == null) {
         
