@@ -8,11 +8,17 @@
   --color-sky-blue: rgb(182, 215, 284);
 }
 
+.page-width {
+  max-width: 1390px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 * {
   box-sizing: border-box;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  /* font-family: "Helvetica Neue", helvetica, arial, sans-serif; */
-  line-height: 1.4;
   color: var(--color-black);
 }
 
@@ -126,23 +132,20 @@ html {
   flex-direction: column;
   width: 100%;
   background-color: var(--color-white);
-  margin-bottom: -4rem;
 }
 
 .home-container .home-body {
   flex: 1;
   margin-bottom: 4rem;
-  align-items: center;
   background-color: var(--color-white);
+  /* border-top: 1px solid var(--color-black); */
   padding: 4rem 1.5rem 4rem 1.5rem;
 }
 
 .home-header {
   display: flex;
   align-items: center;
-  justify-content: center;
   flex: 1;
-  width: 60%;
   margin: auto;
   min-width: 352px;
   background-color: var(--color-yellow);
@@ -165,6 +168,14 @@ html {
   text-align: center;
   color: var(--color-black);
   margin: 0;
+}
+
+.home-header .page-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+  /* optional, only if you want it centered */
 }
 
 .home-body {
@@ -197,8 +208,6 @@ html {
   justify-content: center;
   min-height: 269px;
   min-width: 350px;
-  border-radius: .5rem;
-  border: 1px solid var(--color-black);
 }
 
 .home-body .create form {
@@ -243,9 +252,9 @@ html {
 
   .home-container .home-body {
     flex-direction: column;
+    align-items: center;
     gap: .3rem;
     margin-bottom: 2rem;
-    align-items: center;
   }
 
   .home-body section {
@@ -299,17 +308,12 @@ footer {
 }
 
 .landing-page-main {
-  background-color: var(--color-foam-green);
-  /* max-width: 1470px; */
-  /* margin: 0 auto; */
+
+  background-color: var(--color-white);
 }
 
 .landing-page-main .bright {
   color: var(--color-black);
-}
-
-.about-section .row {
-  margin: 0;
 }
 
 .landing-page-main .lead {
@@ -338,6 +342,7 @@ footer {
 }
 
 .landing-page-top .btn-hero {
+.landing-page-top .btn-hero {
   border: 1px solid var(--color-black);
   background-color: var(--color-foam-green);
   padding: .5rem 2rem;
@@ -347,34 +352,6 @@ footer {
 }
 
 .landing-page-top .btn-hero:hover {
-  background-color: var(--color-black);
-  color: var(--color-white);
-}
-
-.timeline-card .btns-container {
-  display: flex;
-  gap: .3rem;
-  justify-content: center;
-  align-items: center;
-}
-
-#resetChallenge,
-#fetchButton,
-#endGameBtn,
-#leaveTeamBtn {
-  border: 1px solid var(--color-black);
-  background-color: var(--color-yellow);
-  font-weight: bold;
-  font-size: 1rem;
-  padding: .4rem;
-  color: var(--color-black);
-  display: block;
-  border-radius: 6px;
-}
-
-#resetChallenge:hover,
-#fetchButton:hover,
-#endGameBtn:hover #leaveTeamBtn:hover {
   background-color: var(--color-black);
   color: var(--color-white);
 }
@@ -466,13 +443,11 @@ card-body {
   font-size: 2rem;
 }
 
-.group-name-section span:not(strong),
-.code-container .small {
+.group-name-section span:not(strong) {
   color: gray;
 }
 
-.group-name-section span strong,
-.code-container strong {
+.group-name-section span strong {
   font-weight: bolder;
   font-size: 1.5rem;
   border: 2px dashed var(--color-black);
@@ -659,7 +634,7 @@ card-body {
 .main-cards {
   background-color: var(--color-sky-blue);
   width: 100%;
-  padding: 6rem 2rem;
+  padding: 4rem 2rem;
 }
 
 .main-cards .card {
@@ -668,6 +643,8 @@ card-body {
   color: var(--color-black);
   border-radius: 0;
   border: 1px solid var(--color-black);
+  max-width: 93%;
+  margin: 0 auto;
 }
 
 .main-cards .rounded-number {
@@ -866,33 +843,6 @@ card-body {
   background-color: var(--color-sky-blue);
 }
 
-.user-card .btn-profile {
-  color: white;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-
-.user-card .btn-profile label,
-.user-card .btn-config {
-  background-color: var(--color-yellow);
-  color: var(--color-black);
-  font-weight: 500;
-  border: 1px solid var(--color-black);
-  font-size: 1.2rem;
-  padding: .5rem;
-}
-
-.user-card .btn-profile label:hover,
-.user-card .btn-config:hover {
-  background-color: var(--color-black);
-  color: white;
-}
-
-.user-card .btn-foam {
-  background-color: var(--color-foam-green);
-}
-
 .timeline-card,
 .cash-jar-card {
   min-width: 432px;
@@ -920,6 +870,49 @@ card-body {
     justify-content: center;
   }
 }
+
+/* TIGHTEN HERO + FEATURE SPACING ON SMALL & MID SCREENS */
+@media (max-width: 1024px) {
+  .home-header {
+    padding: 3.5rem 2rem;
+  }
+
+  .home-container {
+    min-height: auto;
+  }
+
+  .main-cards {
+    padding: 2.5rem 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-header {
+    padding: 2.5rem 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-header {
+    padding: 3rem 1.5rem;
+  }
+
+  .home-container {
+    min-height: auto;
+  }
+
+  .home-body .join,
+  .home-body .create {
+    min-height: auto;
+  }
+
+  .home-body {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    gap: 2rem;
+  }
+}
+
 
 @media screen and (max-width: 589px) {
   .user-card .card-body>div {
