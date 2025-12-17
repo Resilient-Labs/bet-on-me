@@ -58,7 +58,6 @@
           <div class="collapse navbar-collapse" id="mainNavbar">
             <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
 
-              <% if (isInGroup && currentpath !== '/teamPage') { %>
                 <%
                   const safeGoals = typeof goals !== 'undefined' ? goals : null;
                   const canAccessTeamPage = Boolean(safeGoals?.id && safeGoals?.wagerPaid);
@@ -74,13 +73,10 @@
                     My Group
                   </a>
                 </li>
-              <% } %>
 
-              <% if (currentpath !== '/userGoal') { %>
                 <li class="nav-item">
                   <a href="/userGoal" class="nav-link">My Goal</a>
                 </li>
-              <% } %>
 
               <li class="nav-item d-lg-none">
                 <a href="/profile" class="nav-link">Profile</a>
