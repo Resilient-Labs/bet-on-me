@@ -253,20 +253,22 @@ getProfile: async (req, res) => {
     }
   },
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
+joinCluster: async (req, res) => {
+  try {
+    const joinCode = req.body.code;
+    const userId = req.user._id;
 
-  joinCluster: async (req, res) => {
-    try {
-      const joinCode = req.body.code;
-      const cluster = await Cluster.findOne({
-        cluster_join_id: joinCode,
-      });
-      // No cluster found
+    const cluster = await Cluster.findOne({
+      cluster_join_id: joinCode,
+    });
+
+    // No cluster found
     if (!cluster) {
       req.flash("lateJoin", "Invalid group code.");
       return res.redirect("/home");
     }
 
-    // Denying the user to join because the challenge has alread started --- Innocent for denying part only
+    // Deny join if challenge already started
     const now = new Date();
     const challengeStart = new Date(cluster.challengeStartDate);
 
@@ -278,26 +280,40 @@ getProfile: async (req, res) => {
       return res.redirect("/home");
     }
 
-      //  Atomic MongoDB-level protection against duplicates
-      const result = await Cluster.updateOne(
-        {
-          _id: cluster._id,
-          cluster_members: { $ne: req.user._id }, // only update if not already a member
-        },
-        {
-          $addToSet: { cluster_members: req.user._id },
-          $inc: { member_count: 1 },
-        }
-      );
+    // checking duplicates by their objectID!
+    const alreadyMember = cluster.cluster_members.some(
+      memberId => memberId.toString() === userId.toString()
+    );
 
-    req.flash("success_msg", "Joined cluster successfully");
+    if (alreadyMember) {
+      req.flash("lateJoin", "You are already in this group.");
+      return res.redirect("/home");
+    }
+
+    // CHECKING CAPACITY OF USERS
+    if (cluster.member_count >= 8) {
+      req.flash("lateJoin", "This group is already full (8 members max).");
+      return res.redirect("/home");
+    }
+
+    // join is valid
+    await Cluster.updateOne(
+      { _id: cluster._id },
+      {
+        $push: { cluster_members: userId },
+        $inc: { member_count: 1 },
+      }
+    );
+
+    req.flash("success_msg", "Joined cluster successfully!");
     res.redirect("/userGoal");
   } catch (err) {
     console.error(err);
-    req.flash("error_msg", "Error joining cluster");
+    req.flash("error_msg", "Error joining cluster.");
     res.redirect("/clusters/join");
   }
 },
+
 
 
 
