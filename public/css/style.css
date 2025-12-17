@@ -336,7 +336,7 @@ footer {
   color: var(--color-black)
 }
 
-.landing-page-top .btn-hero {
+.landing-page-top .btn-hero{
   border: 1px solid var(--color-black);
   background-color: var(--color-foam-green);
   padding: .5rem 2rem;
@@ -346,6 +346,33 @@ footer {
 }
 
 .landing-page-top .btn-hero:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.timeline-card .btns-container{
+  display: flex;
+  gap: .3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+#resetChallenge,
+#fetchButton,
+#endGameBtn {
+  border: 1px solid var(--color-black);
+  background-color: var(--color-yellow);
+  font-weight: bold;
+  font-size: 1rem;
+  padding: .4rem;
+  color: var(--color-black);
+  display: block;
+  border-radius:6px;
+}
+
+#resetChallenge:hover,
+#fetchButton:hover,
+#endGameBtn:hover {
   background-color: var(--color-black);
   color: var(--color-white);
 }

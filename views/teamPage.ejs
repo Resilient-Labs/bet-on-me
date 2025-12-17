@@ -96,28 +96,30 @@
               <div class="card timeline-card ">
                 <div class="py-4 team-card-header d-flex align-items-center">
                   <h4 class="mb-0 text-dark flex-grow-1 ">Timeline</h4>
+                  <div class="btns-container">
+                    <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                      <button id="fetchButton" class=""
+                        data-cluster-id="<%=cluster._id%>">Start</button>
+                      <% } %>
+                    <!-- /teamPage/${clusterId}/resetTimer -->
+                    <form action="/teamPage/<%= cluster._id %>/resetTimer" method="POST">
+                      <button id="resetChallenge">Reset</button>
+                    </form>
 
-                  <!-- /teamPage/${clusterId}/resetTimer -->
-                  <form action="/teamPage/<%= cluster._id %>/resetTimer" method="POST">
-                    <button id="resetChallenge">Reset</button>
-                  </form>
-
-                  <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
-                    <button id="fetchButton" class="btn btn-outline-dark ms-auto"
-                      data-cluster-id="<%=cluster._id%>">Start Timer</button>
-                    <% } %>
+                    
 
 
 
-                      <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
-                        <form action="/teamPage/deleteTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
-                          <button id="endGameBtn">Delete Group</button>
-                        </form>
-                        <% } else { %>
-                          <form action="/teamPage/leaveTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
-                            <button id="leaveTeamBtn">Leave Group</button>
+                        <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
+                          <form action="/teamPage/deleteTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
+                            <button id="endGameBtn">Delete Group</button>
                           </form>
-                          <% } %>
+                          <% } else { %>
+                            <form action="/teamPage/leaveTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
+                              <button id="leaveTeamBtn">Leave Group</button>
+                            </form>
+                            <% } %>
+                  </div>
                 </div>
 
 
