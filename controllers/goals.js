@@ -1,4 +1,5 @@
 const Goal = require("../models/Goal");
+const Cluster = require("../models/Cluster")
 
 module.exports = {
   // get user goals
@@ -16,18 +17,24 @@ module.exports = {
 
       const updatedGoal = await Goal.findOneAndUpdate({
         user: req.user.id,
+        cluster: req.user.joined_clusters[0]
       }, {
         name
       })
-      console.log(updatedGoal)
+      console.log('searched cluster: ', req.user.joined_clusters)
 
       if (updatedGoal == null) {
+        
+        const cluster = await Cluster.findOne({ cluster_members: { $in : req.user._id }})
+        console.log('cluster', cluster.cluster_name)
         const goal = await Goal.create({
           name,
           description,
           completed: completed || false,
           user: req.user.id,
+          cluster_id: cluster._id
         });
+        console.log('goal', goal)
       }
       res.redirect("/userGoal");
     } catch (err) {

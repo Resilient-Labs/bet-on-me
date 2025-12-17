@@ -4,6 +4,7 @@ const Post = require("../models/Post");
 const Task = require("../models/Task");
 const { getUserTasks } = require("./tasks");
 const Goal = require("../models/Goal");
+const User = require("../models/User");
 
 module.exports = {
   
@@ -79,14 +80,15 @@ getProfile: async (req, res) => {
         cluster_members: req.user.id
       }).populate('cluster_members').lean();
 
-     if (!cluster) {
-  return res.redirect("/404?reason=invalid-code");
-}
+      if (!cluster) {
+        return res.redirect("/404?reason=invalid-code");
+      }
 
-
+      
       const posts = await Post.find({ user: req.user.id });
       const tasks = await Task.find({ user: req.user.id }) || [];
-      const goals = await Goal.findOne({ user: req.user.id }) || null;
+      const goals = await Goal.findOne({ user: req.user.id, cluster_id: cluster._id}) || null;
+      console.log('searched goal', goals)
 
       // Compute simple member progress based on tasks: percent of completed tasks
       const memberProgress = [];
@@ -103,7 +105,6 @@ getProfile: async (req, res) => {
 
       res.render("userGoal.ejs", {
         user: req.user,
-        posts,
         tasks,
         goals,
         cluster,
@@ -166,7 +167,7 @@ getProfile: async (req, res) => {
       }
 
       const randomCode = makeid(8)
-      await Cluster.create({
+      const newCluster = await Cluster.create({
         cluster_name: req.body.title,
         user: req.user.id,
         cluster_join_id: randomCode,
@@ -174,7 +175,18 @@ getProfile: async (req, res) => {
         member_count: 1,
         endDate: req.body.challengeDate
       });
-      console.log("Post has been added!");
+      console.log("Cluster has been added!", newCluster._id);
+      //adds cluster to the user property: joined_clusters
+      const newUser = await User.findByIdAndUpdate(req.user._id, {
+        $push:{
+          joined_clusters: {
+            $each: [newCluster._id],
+            $position: 0
+          }
+        }
+      })
+      console.log('updated user: ', newUser)
+
       //after creating a cluster the user is redirected to the group page
       res.redirect("/userGoal");
     } catch (err) {
@@ -305,6 +317,17 @@ joinCluster: async (req, res) => {
         $inc: { member_count: 1 },
       }
     );
+
+    //update user with cluster
+    const newUser = await User.findByIdAndUpdate(req.user._id, {
+        $push:{
+          joined_clusters: {
+            $each: [cluster._id],
+            $position: 0
+          }
+        }
+      })
+      console.log('updated user: ', newUser)
 
     req.flash("success_msg", "Joined cluster successfully!");
     res.redirect("/userGoal");
