@@ -738,11 +738,11 @@ card-body {
 .amount-list {
   position: absolute;
   bottom: 0px;
-  left: -25%;
+  left: 50%;
   transform: translateX(-50%);
   background: var(--color-white);
   opacity: .9;
-  padding: 15px 20px;
+  padding: 15px;
   border: 1px solid var(--color-black);
   min-width: 220px;
   z-index: 10;
