@@ -38,7 +38,15 @@ Get the bourbon mixin from http://bourbon.io
 /* Main */
 .flip-clock-wrapper {
   font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
-  -webkit-user-select: none; }
+  -webkit-user-select: none;
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+ }
 
 .flip-clock-meridium {
   background: none !important;
@@ -46,15 +54,6 @@ Get the bourbon mixin from http://bourbon.io
   font-size: 36px !important; }
 
 .flip-clock-meridium a { color: #313333; }
-
-.flip-clock-wrapper {
-  text-align: center;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  /* margin: 1em; */
-}
 
 .flip-clock-wrapper:before,
 .flip-clock-wrapper:after {
@@ -69,7 +68,7 @@ Get the bourbon mixin from http://bourbon.io
 .flip-clock-wrapper ul {
   position: relative;
   float: left;
-  /* margin: 5px; */
+  margin: 0 5px; 
   width: 60px;
   height: 90px;
   font-size: 80px;
@@ -161,35 +160,44 @@ Get the bourbon mixin from http://bourbon.io
   background-color: #605e5afc;
   /* Option 1: #605e5afc // Option 2: #785757f7 */
   border-radius: 6px;
-  font-size: 70px; }
+  font-size: 70px; 
+}
 
 .flip-clock-wrapper ul li a div.up div.inn {
-  top: 0; }
+  top: 0; 
+}
 
 .flip-clock-wrapper ul li a div.down div.inn {
-  bottom: 0; }
+  bottom: 0; 
+}
 
 /* PLAY */
 .flip-clock-wrapper ul.play li.flip-clock-before {
-  z-index: 3; }
+  z-index: 3; 
+}
 
-.flip-clock-wrapper .flip {   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); }
+.flip-clock-wrapper .flip {
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); 
+}
 
 .flip-clock-wrapper ul.play li.flip-clock-active {
   -webkit-animation: asd 0.5s 0.5s linear both;
   -moz-animation: asd 0.5s 0.5s linear both;
   animation: asd 0.5s 0.5s linear both;
-  z-index: 5; }
+  z-index: 5; 
+}
 
 .flip-clock-divider {
   float: left;
   display: inline-block;
   position: relative;
   width: 20px;
-  height: 100px; }
+  height: 100px; 
+}
 
 .flip-clock-divider:first-child {
-  width: 0; }
+  width: 0; 
+}
 
 .flip-clock-dot {
   display: block;
@@ -199,26 +207,32 @@ Get the bourbon mixin from http://bourbon.io
   position: absolute;
   border-radius: 50%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  left: 5px; }
+  left: 5px; 
+}
 
 .flip-clock-divider .flip-clock-label {
   position: absolute;
   top: -1.5em;
   right: -86px;
   color: black;
-  text-shadow: none; }
+  text-shadow: none; 
+}
 
 .flip-clock-divider.minutes .flip-clock-label {
-  right: -88px; }
+  right: -88px; 
+}
 
 .flip-clock-divider.seconds .flip-clock-label {
-  right: -91px; }
+  right: -91px; 
+}
 
 .flip-clock-dot.top {
-  top: 30px; }
+  top: 30px; 
+}
 
 .flip-clock-dot.bottom {
-  bottom: 30px; }
+  bottom: 30px; 
+}
 
 @-webkit-keyframes asd {
   0% {
@@ -228,7 +242,8 @@ Get the bourbon mixin from http://bourbon.io
     z-index: 4; }
 
   100% {
-    z-index: 4; } }
+    z-index: 4; } 
+  }
 
 @-moz-keyframes asd {
   0% {
@@ -238,7 +253,8 @@ Get the bourbon mixin from http://bourbon.io
     z-index: 4; }
 
   100% {
-    z-index: 4; } }
+    z-index: 4; } 
+  }
 
 @-o-keyframes asd {
   0% {
@@ -248,7 +264,8 @@ Get the bourbon mixin from http://bourbon.io
     z-index: 4; }
 
   100% {
-    z-index: 4; } }
+    z-index: 4; } 
+  }
 
 @keyframes asd {
   0% {
@@ -258,75 +275,86 @@ Get the bourbon mixin from http://bourbon.io
     z-index: 4; }
 
   100% {
-    z-index: 4; } }
+    z-index: 4; } 
+  }
 
 .flip-clock-wrapper ul.play li.flip-clock-active .down {
   z-index: 2;
   -webkit-animation: turn 0.5s 0.5s linear both;
   -moz-animation: turn 0.5s 0.5s linear both;
-  animation: turn 0.5s 0.5s linear both; }
+  animation: turn 0.5s 0.5s linear both; 
+}
 
 @-webkit-keyframes turn {
   0% {
     -webkit-transform: rotateX(90deg); }
 
   100% {
-    -webkit-transform: rotateX(0deg); } }
+    -webkit-transform: rotateX(0deg); } 
+  }
 
 @-moz-keyframes turn {
   0% {
     -moz-transform: rotateX(90deg); }
 
   100% {
-    -moz-transform: rotateX(0deg); } }
+    -moz-transform: rotateX(0deg); } 
+  }
 
 @-o-keyframes turn {
   0% {
     -o-transform: rotateX(90deg); }
 
   100% {
-    -o-transform: rotateX(0deg); } }
+    -o-transform: rotateX(0deg); } 
+  }
 
 @keyframes turn {
   0% {
     transform: rotateX(90deg); }
 
   100% {
-    transform: rotateX(0deg); } }
+    transform: rotateX(0deg); } 
+  }
 
 .flip-clock-wrapper ul.play li.flip-clock-before .up {
   z-index: 2;
   -webkit-animation: turn2 0.5s linear both;
   -moz-animation: turn2 0.5s linear both;
-  animation: turn2 0.5s linear both; }
+  animation: turn2 0.5s linear both; 
+}
 
 @-webkit-keyframes turn2 {
   0% {
     -webkit-transform: rotateX(0deg); }
 
   100% {
-    -webkit-transform: rotateX(-90deg); } }
+    -webkit-transform: rotateX(-90deg); } 
+  }
 
 @-moz-keyframes turn2 {
   0% {
     -moz-transform: rotateX(0deg); }
 
   100% {
-    -moz-transform: rotateX(-90deg); } }
+    -moz-transform: rotateX(-90deg); } 
+  }
 
 @-o-keyframes turn2 {
   0% {
     -o-transform: rotateX(0deg); }
 
   100% {
-    -o-transform: rotateX(-90deg); } }
+    -o-transform: rotateX(-90deg); } 
+  }
 
 @keyframes turn2 {
   0% {
     transform: rotateX(0deg); }
 
   100% {
-    transform: rotateX(-90deg); } }
+    transform: rotateX(-90deg); } 
+  }
 
 .flip-clock-wrapper ul li.flip-clock-active {
   z-index: 3; }
@@ -433,8 +461,18 @@ Get the bourbon mixin from http://bourbon.io
   100% {
     opacity: 0; } }
 
+@media (max-width: 1300px) { /* Adjust 600px to your desired breakpoint */
+    .flip-clock-divider.seconds,
+    .flip-clock-divider.seconds ~ .flip {
+        display: none;
+    }
+    /* Optional: adjust the clock wrapper width to center the remaining parts */
+    .your-clock-wrapper-class {
+        width: 300px; /* Example width for a clock without seconds */
+    }
+}
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 800px) {
         .flip-clock-wrapper{
             margin: -3em;
             margin-left: -2em;
