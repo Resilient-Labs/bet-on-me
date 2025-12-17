@@ -61,7 +61,7 @@ getProfile: async (req, res) => {
       });
       //redirects to home if not in group
       if(!cluster) {
-        return res.redirect("/home");
+        return res.redirect("/404");
       }
 
       res.render("teamPage.ejs", {
@@ -80,11 +80,12 @@ getProfile: async (req, res) => {
         cluster_members: req.user.id
       }).populate('cluster_members').lean();
 
-      if(!cluster) {
-        return res.redirect("/home");
-      }
-      console.log('user cluster', req.user.joined_clusters)
-      
+     if (!cluster) {
+  return res.redirect("/404?reason=invalid-code");
+}
+
+
+      const posts = await Post.find({ user: req.user.id });
       const tasks = await Task.find({ user: req.user.id }) || [];
       const goals = await Goal.findOne({ user: req.user.id, cluster_id: req.user.joined_clusters[0] }) || null;
       console.log('searched goal', goals)
@@ -277,7 +278,7 @@ joinCluster: async (req, res) => {
     // No cluster found
     if (!cluster) {
       req.flash("lateJoin", "Invalid group code.");
-      return res.redirect("/home");
+      return res.redirect("/404");
     }
 
     // Deny join if challenge already started
