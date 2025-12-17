@@ -253,14 +253,16 @@ getProfile: async (req, res) => {
     }
   },
   //RESOLVE - moved deleteTask to controllers/tasks.js @author Winnie
+joinCluster: async (req, res) => {
+  try {
+    const joinCode = req.body.code;
+    const userId = req.user._id;
 
-  joinCluster: async (req, res) => {
-    try {
-      const joinCode = req.body.code;
-      const cluster = await Cluster.findOne({
-        cluster_join_id: joinCode,
-      });
-      // No cluster found
+    const cluster = await Cluster.findOne({
+      cluster_join_id: joinCode,
+    });
+
+    // No cluster found
     if (!cluster) {
       req.flash("lateJoin", "Invalid group code.");
       return res.redirect("/home");
@@ -278,31 +280,31 @@ getProfile: async (req, res) => {
       return res.redirect("/home");
     }
 
-    // Atomic join with max 8 members enforced
-    const result = await Cluster.updateOne(
+    // checking duplicates by their objectID!
+    const alreadyMember = cluster.cluster_members.some(
+      memberId => memberId.toString() === userId.toString()
+    );
+
+    if (alreadyMember) {
+      req.flash("lateJoin", "You are already in this group.");
+      return res.redirect("/home");
+    }
+
+    // CHECKING CAPACITY OF USERS
+    if (cluster.member_count >= 8) {
+      req.flash("lateJoin", "This group is already full (8 members max).");
+      return res.redirect("/home");
+    }
+
+    // join is valid
+    await Cluster.updateOne(
+      { _id: cluster._id },
       {
-        _id: cluster._id,
-        cluster_members: { $ne: req.user._id },
-        // only allow join if the cluster currently has fewer than 8 members
-        member_count: { $lt: 8 },
-      },
-      {
-        $addToSet: { cluster_members: req.user._id },
+        $push: { cluster_members: userId },
         $inc: { member_count: 1 },
       }
     );
 
-    // Update did not happen
-    if (result.modifiedCount === 0) {
-      if (cluster.cluster_members.includes(req.user._id)) {
-        req.flash("lateJoin", "You are already in this group.");
-      } else {
-        req.flash("lateJoin", "This group is already full (8 members max).");
-      }
-      return res.redirect("/home");
-    }
-
-    // Success
     req.flash("success_msg", "Joined cluster successfully!");
     res.redirect("/userGoal");
   } catch (err) {
@@ -311,6 +313,7 @@ getProfile: async (req, res) => {
     res.redirect("/clusters/join");
   }
 },
+
 
 
 
