@@ -60,9 +60,14 @@
   border-top: solid 1px var(--color-black);
 }
 
+.custom-footer .btn:hover{
+  background-color: var(--color-sky-blue);
+  border: 1px solid var(--color-black);
+}
+
 .custom-footer .footer-contact-btn {
   background-color: var(--color-black);
-  color: var(--color-white)
+  color: var(--color-white);
 }
 
 .text-small {

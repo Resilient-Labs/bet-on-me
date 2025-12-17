@@ -10,7 +10,9 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+  font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+  line-height: 1.4;
   color: var(--color-black);
 }
 
@@ -292,8 +294,8 @@ footer {
 }
 
 .landing-page-main {
-
   background-color: var(--color-white);
+  max-width: 1240px;
 }
 
 .landing-page-main .bright {
