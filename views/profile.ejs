@@ -20,13 +20,11 @@
                         height: 300px;
                         object-fit: cover;
                         border-radius: 50%;
-                        border: 3px solid var(--color-white);
+                        border: 3px solid var(--color-black);
                       ">
 
               <br>
-              <button class="btn w-100"
-                style="background-color:rgb( 255, 205, 26); color: white; border: none; font-weight: 500;">
-
+              <button class="btn w-100 btn-profile">
                 <form action="/users/update-picture" method="POST" enctype="multipart/form-data" class="mt-2">
                   <input type="file" name="profile_image" id="imageUpload" class="d-none" accept="image/*">
 
@@ -73,13 +71,11 @@
           <div class="card shadow-sm user-card">
             <div class="card-body">
 
-              <button class="btn w-100 mb-2" data-bs-toggle="modal" data-bs-target="#changePasswordModal"
-                style="background-color: var( --color-foam-green); color: var(--bg-dark-gray); border: none; font-weight: 500;">
+              <button class="btn w-100 mb-2 btn-config btn-foam" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
                 Change Password
               </button>
 
-              <button class="btn w-100" data-bs-toggle="modal" data-bs-target="#deleteAccountModal"
-                style="background-color:rgb( 255, 205, 26); color: white; border: none; font-weight: 500;">
+              <button class="btn w-100 btn-config" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
                 Delete Account
               </button>
 
@@ -89,7 +85,7 @@
         </div>
 
         <!-- RIGHT COLUMN -->
-        <div class="col-lg-8">
+        <div class="col-lg-8 code-container">
 
           <!-- GOAL CLUSTER -->
           <div class="card shadow-sm user-card">
@@ -139,9 +135,9 @@
             <hr class="my-4">
 
             <!-- JOIN CODE -->
-            <p class="small mb-0">
-              Join Code:
-              <strong style="font-size: 1.1rem;">
+            <p class="small mb-0" style="font-size: 1rem;">
+              Join Code
+              <strong style="font-size: 1.2rem;">
                 <%= cluster?.cluster_join_id %>
             
                   <!-- JOIN_CODE -->
@@ -204,7 +200,7 @@
                                               <!-- GOAL ITEM (repeat for each goal) -->
                                               <div
                                                 class="list-group-item d-flex justify-content-between align-items-start"
-                                                ; style="background-color: rgb(235, 232, 232)">
+                                                ; style="background-color: rgb(235, 232, 232); border: 1px solid var(--color-black)">
                                                 <div class="ms-2 me-auto">
                                                   <div class="fw-bold">
                                                     <!-- goal.title -->
@@ -216,7 +212,7 @@
                                                     <%= ele[1] ? ele[1] : 'unknown date'%>
                                                   </small>
                                                 </div>
-                                                <span style="font-size: 1.5rem;">🏆</span>
+                                                <span style="font-size: 1.5rem; position: relative; top:5px">🏆</span>
                                               </div>
                                               <%})%>
                                                 <!-- END GOAL ITEM -->
