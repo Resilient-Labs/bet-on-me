@@ -238,9 +238,9 @@
                                                             style="width: 48px; height: 48px; object-fit: cover; border: 2px solid var(--color-foam-green);" />
                                                         <div class="flex-grow-1">
                                                             <div class="fw-bold">
-                                                                <%= mp.user.userName || mp.user.userName %>
+                                                                <%= mp.user.userName %>
                                                             </div>
-                                                            <small class="text-muted">
+                                                            <small class="text-muted member-percent" data-user-id="<%= mp.user._id %>">
                                                                 <%= mp.percent %>% Complete
                                                             </small>
                                                         </div>
