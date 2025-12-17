@@ -6,44 +6,44 @@ const { getUserTasks } = require("./tasks");
 const Goal = require("../models/Goal");
 
 module.exports = {
-  
-getProfile: async (req, res) => {
-  try {
-    // User posts!
-    const posts = await Post.find({ user: req.user.id }).lean();
 
-    // Member since
-    let memberSince = "Unknown";
-    if (req.user?.createdAt) {
-      memberSince = new Date(req.user.createdAt).toLocaleDateString("en-US");
+  getProfile: async (req, res) => {
+    try {
+      // User posts!
+      const posts = await Post.find({ user: req.user.id }).lean();
+
+      // Member since
+      let memberSince = "Unknown";
+      if (req.user?.createdAt) {
+        memberSince = new Date(req.user.createdAt).toLocaleDateString("en-US");
+      }
+
+      // FETCH CLUSTERS THE USER IS IN!!!!
+      const clusters = await Cluster.find({
+        cluster_members: req.user._id,
+      })
+        .populate("cluster_members")
+        .lean();
+
+      // fetch user's goals as an array for the profile view
+      //dividing the goals into completed and incompleted just in case someone needed all the goals
+      const goals = (await Goal.find({ user: req.user.id, completed: false }).lean()) || [];
+      const completedGoals = (await Goal.find({ user: req.user.id, completed: true }).lean()) || [];
+      res.render("profile", {
+        posts,
+        user: req.user,
+        memberSince,
+        clusters,
+        goals,
+        completedGoals,
+        showProfileBubble: true,
+        messages: req.flash(),
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error loading profile");
     }
-
-    // FETCH CLUSTERS THE USER IS IN!!!!
-    const clusters = await Cluster.find({
-      cluster_members: req.user._id,
-    })
-      .populate("cluster_members")
-      .lean();
-
-    // fetch user's goals as an array for the profile view
-    //dividing the goals into completed and incompleted just in case someone needed all the goals
-    const goals = (await Goal.find({ user: req.user.id , completed: false}).lean()) || [];
-    const completedGoals = (await Goal.find({ user: req.user.id , completed: true}).lean()) || [];
-    res.render("profile", {
-      posts,
-      user: req.user,
-      memberSince,
-      clusters,
-      goals,
-      completedGoals,
-      showProfileBubble: true,
-      messages: req.flash(),
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error loading profile");
-  }
-},
+  },
   //this is the page that shows after successful login
   getHome: async (req, res) => {
     try {
@@ -53,13 +53,13 @@ getProfile: async (req, res) => {
     }
   },
   getTeamPage: async (req, res) => {
-    try{
+    try {
       //checks is user is a member of a group for nav
       const cluster = await Cluster.findOne({
         cluster_members: req.user.id
       });
       //redirects to home if not in group
-      if(!cluster) {
+      if (!cluster) {
         return res.redirect("/home");
       }
 
@@ -74,29 +74,61 @@ getProfile: async (req, res) => {
     }
   },
   getUserGoal: async (req, res) => {
-    try{
+    try {
       let cluster = await Cluster.findOne({
         cluster_members: req.user.id
       }).populate('cluster_members').lean();
 
-      if(!cluster) {
+      if (!cluster) {
         return res.redirect("/home");
       }
 
-      const posts = await Post.find({ user: req.user.id });
-      const tasks = await Task.find({ user: req.user.id }) || [];
-      const goals = await Goal.findOne({ user: req.user.id }) || null;
+      // FIX: Better error handling for tasks query
+      let tasks = [];
+      try {
+        tasks = await Task.find({ user: req.user.id }).lean();
+        // Validate that tasks is actually an array
+        if (!Array.isArray(tasks)) {
+          console.error('Tasks query did not return an array:', tasks);
+          tasks = [];
+        }
+      } catch (taskErr) {
+        console.error('Error fetching tasks:', taskErr);
+        tasks = [];
+      }
+
+      const posts = await Post.find({ user: req.user.id }).lean();
+      const goals = await Goal.findOne({ user: req.user.id }).lean() || null;
 
       // Compute simple member progress based on tasks: percent of completed tasks
       const memberProgress = [];
       for (const member of (cluster.cluster_members || [])) {
         try {
+          // FIX: Ensure member is valid before querying
+          if (!member || !member._id) {
+            console.error('Invalid member object:', member);
+            continue;
+          }
+
           const total = await Task.countDocuments({ user: member._id });
           const completed = await Task.countDocuments({ user: member._id, task_is_completed: true });
           const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
-          memberProgress.push({ user: member, total, completed, percent });
+
+          // FIX: Only include valid member data
+          memberProgress.push({
+            user: {
+              _id: member._id,
+              userName: member.userName,
+              profile_image: member.profile_image
+            },
+            total,
+            completed,
+            percent
+          });
         } catch (e) {
-          memberProgress.push({ user: member, total: 0, completed: 0, percent: 0 });
+          console.error('Error calculating progress for member:', member?._id, e);
+          // Skip this member instead of pushing invalid data
+          continue;
         }
       }
 
@@ -111,7 +143,8 @@ getProfile: async (req, res) => {
         messages: req.flash()
       });
     } catch (err) {
-      console.log("getUserGoal error:", err);
+      console.error("getUserGoal error:", err);
+      req.flash('error', 'Error loading goal page');
       res.redirect("/home");
     }
   },
@@ -261,22 +294,22 @@ getProfile: async (req, res) => {
         cluster_join_id: joinCode,
       });
       // No cluster found
-    if (!cluster) {
-      req.flash("lateJoin", "Invalid group code.");
-      return res.redirect("/home");
-    }
+      if (!cluster) {
+        req.flash("lateJoin", "Invalid group code.");
+        return res.redirect("/home");
+      }
 
-    // Denying the user to join because the challenge has alread started --- Innocent for denying part only
-    const now = new Date();
-    const challengeStart = new Date(cluster.challengeStartDate);
+      // Denying the user to join because the challenge has alread started --- Innocent for denying part only
+      const now = new Date();
+      const challengeStart = new Date(cluster.challengeStartDate);
 
-    if (now > challengeStart) {
-      req.flash(
-        "lateJoin",
-        "You are late to join this challenge. You can join the next one!"
-      );
-      return res.redirect("/home");
-    }
+      if (now > challengeStart) {
+        req.flash(
+          "lateJoin",
+          "You are late to join this challenge. You can join the next one!"
+        );
+        return res.redirect("/home");
+      }
 
       //  Atomic MongoDB-level protection against duplicates
       const result = await Cluster.updateOne(
@@ -290,14 +323,14 @@ getProfile: async (req, res) => {
         }
       );
 
-    req.flash("success_msg", "Joined cluster successfully");
-    res.redirect("/userGoal");
-  } catch (err) {
-    console.error(err);
-    req.flash("error_msg", "Error joining cluster");
-    res.redirect("/clusters/join");
-  }
-},
+      req.flash("success_msg", "Joined cluster successfully");
+      res.redirect("/userGoal");
+    } catch (err) {
+      console.error(err);
+      req.flash("error_msg", "Error joining cluster");
+      res.redirect("/clusters/join");
+    }
+  },
 
 
 

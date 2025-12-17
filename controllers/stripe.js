@@ -54,7 +54,7 @@ module.exports = {
       const { session_id } = req.query;
       
       if (!session_id) {
-        req.flash('errors', { msg: 'Invalid session.' });
+        req.flash('error', 'Invalid session.');
         return res.redirect('/userGoal');
       }
 
@@ -69,15 +69,18 @@ module.exports = {
           stripeSessionId: session_id,
         });
 
-        req.flash('success', { msg: 'Payment successful! Your wager has been placed.' });
+        // FIX: Use 'success' instead of 'success' with object
+        req.flash('success', 'Payment successful! Your wager has been placed.');
       } else {
-        req.flash('errors', { msg: 'Payment not completed.' });
+        // FIX: Use 'error' instead of 'errors' with object
+        req.flash('error', 'Payment not completed.');
       }
 
       res.redirect('/userGoal');
     } catch (err) {
       console.error('Success handler error:', err);
-      req.flash('errors', { msg: 'Error processing payment confirmation.' });
+      // FIX: Use 'error' instead of 'errors' with object
+      req.flash('error', 'Error processing payment confirmation.');
       res.redirect('/userGoal');
     }
   },
