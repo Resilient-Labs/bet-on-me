@@ -9,6 +9,8 @@ const flash = require("express-flash");
 const logger = require("morgan");
 const connectDB = require("./config/database");
 const figlet = require("figlet");
+const Goal = require("./models/Goal");
+const Cluster = require("./models/Cluster");
 
 // ROUTES
 const mainRoutes = require("./routes/main");
@@ -66,9 +68,25 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // use flash messages for errors, info, etc...
-// Make user available in all EJS templates so conditional can be made for header; user || !user for login/logout buttons in nav
-app.use((req, res, next) => {
+// Make user + goals available in all EJS templates so conditional can be made for header; user || !user for login/logout buttons in nav
+app.use(async (req, res, next) => {
   res.locals.user = req.user || null;
+
+  try {
+    const goal = await Goal.findOne({
+      user: req.user?.id,
+    }).lean();
+    res.locals.goal = goal;
+
+    const cluster = await Cluster.findOne({
+      cluster_members: req.user?.id,
+    }).lean();
+    res.locals.cluster = cluster;
+
+  } catch(err) {
+    console.log(err)
+  }
+
   next();
 });
 

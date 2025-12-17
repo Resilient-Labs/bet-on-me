@@ -59,13 +59,11 @@
             <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
 
                 <%
-                  const safeGoals = typeof goals !== 'undefined' ? goals : null;
-                  const canAccessTeamPage = Boolean(safeGoals?.id && safeGoals?.wagerPaid);
+                  const canAccessTeamPage = goal && goal.wagerPaid;
                 %>
                 <li class="nav-item">
                   <a
-                    id="<%= canAccessTeamPage ? '' : 'team-page-disable' %>"
-                    class="nav-link"
+                    class="nav-link <%= canAccessTeamPage ? '' : 'page-disable' %>"
                     href="<%= canAccessTeamPage ? '/teamPage' : '#' %>"
                     title="<%= canAccessTeamPage ? '' : 'Add a wager to your goal before accessing your Group Page' %>"
                     <%= canAccessTeamPage ? '' : 'onclick="event.preventDefault()"' %>
@@ -75,7 +73,13 @@
                 </li>
 
                 <li class="nav-item">
-                  <a href="/userGoal" class="nav-link">My Goal</a>
+                  <a
+                    href="/userGoal"
+                    class="nav-link <%= cluster?._id ? '' : 'page-disable' %>"
+                    title="<%= cluster?._id ?  '' : 'Join or start a group before accessing your Goals' %>"
+                  >
+                    My Goal
+                  </a>
                 </li>
 
               <li class="nav-item d-lg-none">
