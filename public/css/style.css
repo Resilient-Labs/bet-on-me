@@ -298,13 +298,17 @@ footer {
 }
 
 .landing-page-main {
-  background-color: var(--color-white);
+  background-color: var(--color-foam-green);
   /* max-width: 1470px; */
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 .landing-page-main .bright {
   color: var(--color-black);
+}
+
+.about-section .row{
+  margin: 0;
 }
 
 .landing-page-main .lead {
