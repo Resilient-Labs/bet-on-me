@@ -44,8 +44,8 @@ module.exports = {
             price_data: {
               currency: "usd",
               product_data: {
-                name: `Goal Wager: ${goalName}`,
-                description: "Place a wager on your goal to stay accountable",
+                name: `Goal: ${goalName}`,
+                description: "Raise the stakes",
               },
               unit_amount: amountInCents,
             },
