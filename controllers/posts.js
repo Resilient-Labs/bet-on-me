@@ -80,7 +80,7 @@ getProfile: async (req, res) => {
       }).populate('cluster_members').lean();
 
      if (!cluster) {
-  return res.redirect("/404?reason=invalid-code");
+  return res.redirect("/404");
 }
 
 
@@ -328,7 +328,7 @@ joinCluster: async (req, res) => {
 
       // if there's no cluster
       if (!cluster) {
-        return res.status(404).send("Cluster doesn't exist!");
+        return res.status(404).send("Cluster doesn't exist!").redirect("/404");
       }
 
       // Check membership

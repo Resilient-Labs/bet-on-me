@@ -62,16 +62,14 @@
                   const canAccessTeamPage = goal && goal.wagerPaid;
                 %>
                 <li class="nav-item">
-                  <a
-                    class="nav-link <%= canAccessTeamPage ? '' : 'page-disable' %>"
-                    href="<%= canAccessTeamPage ? '/teamPage' : '#' %>"
-                    title="<%= canAccessTeamPage ? '' : 'Add a wager to your goal before accessing your Group Page' %>"
-                    <%= canAccessTeamPage ? '' : 'onclick="event.preventDefault()"' %>
-                  >
-                    My Group
-                  </a>
-                </li>
-
+                    <a
+                      class="nav-link <%= canAccessTeamPage ? '' : 'page-disable' %>"
+                      href="<%= canAccessTeamPage ? '/teamPage' : '/404' %>"
+                      title="<%= canAccessTeamPage ? '' : 'Add a wager to your goal before accessing your Group Page' %>"
+                    >
+                      My Group
+                    </a>
+                  </li>
                 <li class="nav-item">
                   <a
                     href="/userGoal"
