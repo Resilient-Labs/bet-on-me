@@ -185,15 +185,31 @@ module.exports = {
       cluster_join_id: joinCode,
     });
 
+    // No cluster found
     if (!cluster) {
-    return res.redirect("/404");
-  }
+      req.flash("lateJoin", "Invalid group code.");
+      return res.redirect("/home");
+    }
 
-    //  Atomic MongoDB-level protection against duplicates
+    // Deny join if challenge already started
+    const now = new Date();
+    const challengeStart = new Date(cluster.challengeStartDate);
+
+    if (now > challengeStart) {
+      req.flash(
+        "lateJoin",
+        "You are late to join this challenge. You can join the next one!"
+      );
+      return res.redirect("/home");
+    }
+
+    // Atomic join with max 8 members enforced
     const result = await Cluster.updateOne(
       {
         _id: cluster._id,
-        cluster_members: { $ne: req.user._id }, // only update if not already a member
+        cluster_members: { $ne: req.user._id },
+        // only allow join if the cluster currently has fewer than 8 members
+        member_count: { $lt: 8 },
       },
       {
         $addToSet: { cluster_members: req.user._id },
@@ -201,17 +217,22 @@ module.exports = {
       }
     );
 
-    // If no document was modified, user was already in the group
+    // Update did not happen
     if (result.modifiedCount === 0) {
-      req.flash("error_msg", "Already in group");
-      return res.redirect("/clusters/join");
+      if (cluster.cluster_members.includes(req.user._id)) {
+        req.flash("lateJoin", "You are already in this group.");
+      } else {
+        req.flash("lateJoin", "This group is already full (8 members max).");
+      }
+      return res.redirect("/home");
     }
 
-    req.flash("success_msg", "Joined cluster successfully");
-    res.redirect("/userProfile");
+    // Success
+    req.flash("success_msg", "Joined cluster successfully!");
+    res.redirect("/userGoal");
   } catch (err) {
     console.error(err);
-    req.flash("error_msg", "Error joining cluster");
+    req.flash("error_msg", "Error joining cluster.");
     res.redirect("/clusters/join");
   }
 },
