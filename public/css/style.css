@@ -433,11 +433,13 @@ card-body {
   font-size: 2rem;
 }
 
-.group-name-section span:not(strong) {
+.group-name-section span:not(strong),
+.code-container .small {
   color: gray;
 }
 
-.group-name-section span strong {
+.group-name-section span strong,
+.code-container strong {
   font-weight: bolder;
   font-size: 1.5rem;
   border: 2px dashed var(--color-black);
@@ -800,7 +802,7 @@ card-body {
 /* ~~~~~~~!!!!!!!!!!!!TEAM PAGE CSS!!!!!!!~~~~~~~~ */
 /* ~~~~~~~!!!!!!!!!!!! END !!!!!!!~~~~~~~~ */
 
-.error-page{
+.error-page {
   height: 80vh;
   display: flex;
   flex-direction: column;
@@ -811,24 +813,51 @@ card-body {
   font-weight: bolder;
 }
 
-.error-page button{
-  border : 1px solid var(--color-black);
+.error-page button {
+  border: 1px solid var(--color-black);
   border: 1px solid #2ec4b6;
   font-size: 1.3rem;
 }
 
-.error-page button:hover{
+.error-page button:hover {
   background-color: var(--color-foam-green);
   color: var(--color-black);
 }
 
-.error-page pre + pre {
+.error-page pre+pre {
   transform: scale(0.5);
   transform-origin: center;
 }
 
 .pDiv {
   background-color: var(--color-sky-blue);
+}
+
+.user-card .btn-profile {
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+
+.user-card .btn-profile label,
+.user-card .btn-config {
+  background-color: var(--color-yellow);
+  color: var(--color-black);
+  font-weight: 500;
+  border: 1px solid var(--color-black);
+  font-size: 1.2rem;
+  padding: .5rem;
+}
+
+.user-card .btn-profile label:hover,
+.user-card .btn-config:hover {
+  background-color: var(--color-black);
+  color: white;
+}
+
+.user-card .btn-foam{
+  background-color: var(--color-foam-green);
 }
 
 .timeline-card,

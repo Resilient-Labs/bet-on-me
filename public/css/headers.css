@@ -102,6 +102,7 @@ a.signup:hover {
 
 .custom-header .btn-hover:hover {
   background-color: var(--color-black);
+  color: var(--color-white);
 }
 
 .btn-hover a:hover {
