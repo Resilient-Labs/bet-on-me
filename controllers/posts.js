@@ -176,7 +176,7 @@ getProfile: async (req, res) => {
       });
       console.log("Post has been added!");
       //after creating a cluster the user is redirected to the group page
-      res.redirect("/teamPage");
+      res.redirect("/userGoal");
     } catch (err) {
       console.log(err);
     }
