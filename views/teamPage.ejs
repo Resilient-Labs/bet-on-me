@@ -60,8 +60,7 @@
                             <div class="flex-grow-1 me-3">
                               <div class="progress" style="height: 1.5rem; border-radius: 0.5rem; overflow: hidden;">
                                 <div class="progress-bar progress-bar-animated" role="progressbar"
-                                  style="width: <%= member.progress || 0 %>%"
-                                  aria-valuenow="<%= member.progress || 0 %>" aria-valuemin="0" aria-valuemax="100">
+                                  data-progress="<%= member.progress || 0 %>" aria-valuenow="<%= member.progress || 0 %>" aria-valuemin="0" aria-valuemax="100">
                                 </div>
                               </div>
                             </div>
@@ -140,7 +139,7 @@
                     <div class="hover-jar">
                       <div class="amount-list">
                         <% members.forEach((member, index)=> { %>
-                          <div class="user-line" style="--delay:<%= index * 0.2 %>s;">
+                          <div class="user-line" data-delay="<%= index * 0.2 %>s">
                             <span class="coin-small">🟡</span>
                             <p>
                               <%= member.username || member.email %>:
@@ -187,6 +186,21 @@
             this.src = src + '?t=' + new Date().getTime();
           });
         }
+      });
+    </script>
+    <script>
+      // Apply data-driven styles to avoid inline EJS in style attributes
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.progress-bar[data-progress]').forEach(el => {
+          const v = el.getAttribute('data-progress') || '0';
+          el.style.width = v + '%';
+          el.setAttribute('aria-valuenow', v);
+        });
+
+        document.querySelectorAll('.user-line[data-delay]').forEach(el => {
+          const d = el.getAttribute('data-delay') || '0s';
+          el.style.setProperty('--delay', d);
+        });
       });
     </script>
     <%- include('partials/clockFoot') -%>

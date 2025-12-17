@@ -9,10 +9,39 @@
   - No timing data is stored in localStorage anymore; the server is the single source of truth.
 */
 
+import * as THREE from 'https://unpkg.com/three@0.159.0/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.159.0/examples/jsm/controls/OrbitControls.js';
+
 let countdown = null;
 const deleteCluster = document.getElementById('endGameBtn');
 if (deleteCluster) {
   deleteCluster.style.display = 'none';
+}
+
+// Expose test helpers on window for quick manual testing from the console
+// (Removed test helpers for confetti/popup)
+
+// Prevent multiple confetti in same session
+let _threeConfettiStarted = false;
+// Track whether countdown has actually finished (only then allow celebration)
+let _countdownHasFinished = false;
+
+// Temporary dev helper: force the countdown-finished flow from the console.
+// Call `window.__forceCountdownFinish()` after reloading the page to run the same logic
+// that runs when a real countdown finishes. Remove this helper when finished testing.
+if (typeof window !== 'undefined') {
+  window.__forceCountdownFinish = function () {
+    try {
+      // Ensure the FlipClock UI shows 0
+      initClock();
+      if (countdown) {
+        try { countdown.setTime(0); countdown.stop(); } catch (e) { /* ignore */ }
+      }
+      handleCountdownFinished();
+    } catch (e) {
+      console.warn('forceCountdownFinish failed', e);
+    }
+  };
 }
 
 /**
@@ -39,7 +68,7 @@ function initClock() {
         if (time <= 0) {
           console.log('Countdown reached zero!');
           this.stop();
-          handleCountdownFinished();
+            handleCountdownFinished();
         }
       },
     },
@@ -54,6 +83,8 @@ function setCountdownSeconds(totalSeconds) {
   initClock();
   if (!countdown) return;
 
+  // starting a new countdown -> clear finished flag
+  _countdownHasFinished = false;
   countdown.setTime(Math.max(0, Math.floor(totalSeconds)));
   countdown.start();
 }
@@ -62,7 +93,7 @@ function setCountdownSeconds(totalSeconds) {
  * When the countdown reaches zero (or server says it's done),
  * update UI elements accordingly.
  */
-function handleCountdownFinished() {
+function handleCountdownFinished({ suppressCelebration = false } = {}) {
   // Show leave button, hide start button
   const fetchBtn = document.getElementById('fetchButton');
   const teamProgressTitle = document.getElementById('teamProgressTitle');
@@ -79,6 +110,24 @@ function handleCountdownFinished() {
 
   if (teamProgressTitle) {
     teamProgressTitle.innerText = 'Cluster Completed!';
+  }
+  // mark finished so confetti/popup only run when appropriate
+  _countdownHasFinished = true;
+
+  // Trigger celebration UI and confetti from one central place unless suppressed
+  try {
+    if (!_countdownHasFinished) {
+      console.log('handleCountdownFinished: finished flag not set, nothing to do');
+      return;
+    }
+    if (!suppressCelebration) {
+      if (typeof launchThreeConfetti === 'function') launchThreeConfetti();
+      showCelebrationPopup();
+    } else {
+      console.log('handleCountdownFinished: celebration suppressed (UI-only)');
+    }
+  } catch (e) {
+    console.warn('handleCountdownFinished celebration error', e);
   }
 }
 
@@ -142,6 +191,168 @@ async function syncTimerFromServer() {
   }
 }
 
+// Three.js confetti (adapted, simplified)
+function launchThreeConfetti() {
+  if (_threeConfettiStarted) return;
+  _threeConfettiStarted = true;
+
+  const worldRadius = 5;
+  const confettiSize = 0.08;
+  const confettiNum = 400;
+
+  let camera, scene, renderer, controls;
+  let confettiMesh;
+  const dummy = new THREE.Object3D();
+  const matrix = new THREE.Matrix4();
+  const color = new THREE.Color();
+
+  console.log('launchThreeConfetti() starting');
+  init();
+
+  function init() {
+    camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, worldRadius * 10);
+    camera.position.z = worldRadius * 3;
+
+    scene = new THREE.Scene();
+
+    
+    const confettiGeometry = new THREE.PlaneGeometry(confettiSize / 2, confettiSize);
+    const confettiMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+    confettiMesh = new THREE.InstancedMesh(confettiGeometry, confettiMaterial, confettiNum);
+
+    function getRandomColor() {
+      const hue = Math.floor(Math.random() * 360);
+      return `hsl(${hue}, 80%, 50%)`;
+    }
+
+    for (let i = 0; i < confettiNum; i++) {
+      matrix.makeRotationFromEuler(new THREE.Euler(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI));
+      matrix.setPosition(
+        THREE.MathUtils.randFloatSpread(worldRadius * 2),
+        THREE.MathUtils.randFloatSpread(worldRadius * 2),
+        THREE.MathUtils.randFloatSpread(worldRadius * 2)
+      );
+      confettiMesh.setMatrixAt(i, matrix);
+      confettiMesh.setColorAt(i, color.set(getRandomColor()));
+    }
+    scene.add(confettiMesh);
+
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    
+    renderer.domElement.style.position = 'fixed';
+    renderer.domElement.style.top = '0';
+    renderer.domElement.style.left = '0';
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
+    renderer.domElement.style.zIndex = '999999';
+    renderer.domElement.style.pointerEvents = 'none';
+    document.body.appendChild(renderer.domElement);
+
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1;
+
+    animate();
+    window.addEventListener('resize', onWindowResize);
+  }
+
+  function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+
+    // simple fall simulation
+    if (confettiMesh) {
+      for (let i = 0; i < confettiNum; i++) {
+        confettiMesh.getMatrixAt(i, matrix);
+        matrix.decompose(dummy.position, dummy.quaternion, dummy.scale);
+        dummy.position.y -= 0.02 * ((i % 4) + 1);
+        if (dummy.position.y < -worldRadius) dummy.position.y = worldRadius;
+        dummy.rotation.x += 0.01;
+        dummy.updateMatrix();
+        confettiMesh.setMatrixAt(i, dummy.matrix);
+      }
+      confettiMesh.instanceMatrix.needsUpdate = true;
+    }
+    renderer.render(scene, camera);
+  }
+}
+
+// Celebration popup: list usernames who reached 100%
+function showCelebrationPopup() {
+  try {
+    const userCards = Array.from(document.querySelectorAll('.user-card'));
+    const winners = [];
+    userCards.forEach(card => {
+      const nameEl = card.querySelector('h5');
+      const progressBar = card.querySelector('.progress-bar');
+      const name = nameEl ? nameEl.innerText.trim() : null;
+      const progress = progressBar ? Number(progressBar.getAttribute('aria-valuenow') || 0) : 0;
+      if (name && progress >= 100) winners.push(name);
+    });
+
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.inset = '0';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.style.background = 'rgba(0,0,0,0.45)';
+    overlay.style.zIndex = '1000001';
+
+    const box = document.createElement('div');
+    box.style.background = '#fff';
+    box.style.borderRadius = '12px';
+    box.style.padding = '20px';
+    box.style.maxWidth = '480px';
+    box.style.textAlign = 'center';
+
+    const title = document.createElement('h2');
+    title.innerText = winners.length ? 'Congratulations!' : 'Well done';
+    box.appendChild(title);
+
+    const msg = document.createElement('p');
+    if (winners.length) msg.innerText = 'The following teammates completed their goals:';
+    else msg.innerText = 'No teammates reached 100% — good job everyone!';
+    box.appendChild(msg);
+
+    if (winners.length) {
+      const list = document.createElement('ul');
+      list.style.listStyle = 'none';
+      list.style.padding = '0';
+      winners.forEach(n => {
+        const li = document.createElement('li');
+        li.innerText = n;
+        li.style.fontWeight = '600';
+        li.style.margin = '6px 0';
+        list.appendChild(li);
+      });
+      box.appendChild(list);
+    }
+
+    const close = document.createElement('button');
+    close.innerText = 'Close';
+    close.style.marginTop = '12px';
+    close.addEventListener('click', () => overlay.remove());
+    box.appendChild(close);
+
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    // auto remove after 10s
+    setTimeout(() => { if (document.body.contains(overlay)) overlay.remove(); }, 10000);
+  } catch (e) {
+    console.warn('showCelebrationPopup error', e);
+  }
+}
+
 /**
  * Update button visibility based on whether the timer is running
  * or has ever been started.
@@ -196,6 +407,9 @@ if (fetchBtn) {
   });
 }
 
+// Test Finish button - sets the clock to 0 and triggers the finished flow (confetti + popup)
+// (Removed Test Finish handler for confetti testing)
+
 
 /**
  * Reset button - optional: if you want to truly reset the cluster timer,
@@ -249,3 +463,6 @@ if (document.readyState === 'loading') {
 } else {
   syncTimerFromServer();
 }
+
+// Developer helper: if the user has set the following localStorage keys as a quick test,
+// (Removed localStorage dev simulation helper)
