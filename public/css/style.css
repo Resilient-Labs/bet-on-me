@@ -130,14 +130,15 @@ html {
 .home-container .home-body {
   flex: 1;
   margin-bottom: 4rem;
+  align-items: center;
   background-color: var(--color-white);
-  /* border-top: 1px solid var(--color-black); */
   padding: 4rem 1.5rem 4rem 1.5rem;
 }
 
 .home-header {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex: 1;
   width: 60%;
   margin: auto;
@@ -194,6 +195,9 @@ html {
   justify-content: center;
   min-height: 269px;
   min-width: 350px;
+  max-height: 300px;
+  border-radius: .5rem;
+  border: 1px solid var(--color-black);
 }
 
 .home-body .create form {
@@ -238,9 +242,9 @@ html {
 
   .home-container .home-body {
     flex-direction: column;
-    align-items: center;
     gap: .3rem;
     margin-bottom: 2rem;
+    align-items: center;
   }
 
   .home-body section {
@@ -295,7 +299,8 @@ footer {
 
 .landing-page-main {
   background-color: var(--color-white);
-  max-width: 1240px;
+  /* max-width: 1470px; */
+  margin: 0 auto;
 }
 
 .landing-page-main .bright {
