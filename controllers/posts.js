@@ -367,6 +367,7 @@ joinCluster: async (req, res) => {
 
       if (!cluster) {
         return res.status(404).json({ message: "Cluster not found" });
+        return res.redirect("/404");
       }
 
       res.json(cluster);
