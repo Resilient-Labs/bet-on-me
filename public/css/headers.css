@@ -160,9 +160,13 @@ a.signup:hover {
   padding-left: 20px
 }
 
-#team-page-disable{
+.page-disable{
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+ul > li > a.page-disable:hover{
+  font-size: 1.2rem; /* revert hover affects when disabled */
 }
 
 /* Mobile burger menu styling */
