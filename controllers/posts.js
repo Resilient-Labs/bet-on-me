@@ -80,9 +80,10 @@ getProfile: async (req, res) => {
         cluster_members: req.user.id
       }).populate('cluster_members').lean();
 
-      if (!cluster) {
-        return res.redirect("/404?reason=invalid-code");
-      }
+     if (!cluster) {
+  return res.redirect("/404");
+}
+
 
       
       const posts = await Post.find({ user: req.user.id });
@@ -351,7 +352,7 @@ joinCluster: async (req, res) => {
 
       // if there's no cluster
       if (!cluster) {
-        return res.status(404).send("Cluster doesn't exist!");
+        return res.status(404).send("Cluster doesn't exist!").redirect("/404");
       }
 
       // Check membership
@@ -390,6 +391,7 @@ joinCluster: async (req, res) => {
 
       if (!cluster) {
         return res.status(404).json({ message: "Cluster not found" });
+        return res.redirect("/404");
       }
 
       res.json(cluster);
