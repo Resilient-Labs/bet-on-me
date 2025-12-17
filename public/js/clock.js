@@ -55,6 +55,7 @@ function initClock() {
     language: 'en',
     autoStart: false,
     countdown: true,
+    showSeconds: true,
     callbacks: {
       start() {
         console.log('The clock has started!');

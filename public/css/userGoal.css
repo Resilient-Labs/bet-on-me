@@ -276,6 +276,8 @@ body {
     font-size: 1.2rem;
 }
 
+
+
 /* Goal Completed Button */
 #goalCompletedBtn {
     background-color: var(--color-mustard) !important;
@@ -284,12 +286,29 @@ body {
     font-size: 1.1rem;
     transition: all 0.3s ease;
     color: var(--text-color) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hide original text on hover */
+#goalCompletedBtn:hover:not(:disabled)::after {
+    content: "Let's Celebrate!";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-sky-blue) !important;
 }
 
 #goalCompletedBtn:hover:not(:disabled) {
     background-color: rgb(235, 185, 6) !important;
     transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(255, 205, 26, 0.4);
+    box-shadow: 0 5px 15px var(--color-sky-blue) !important;
 }
 
 #goalCompletedBtn:disabled {
