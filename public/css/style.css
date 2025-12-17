@@ -169,7 +169,7 @@ html {
 }
 
 .home-header .page-inner {
-  max-width: 1200px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 0 2rem;
   text-align: center;
@@ -303,6 +303,11 @@ footer {
   z-index: 10;
   /* Keeps it on top */
   /* Add height, background, etc. */
+}
+
+#footer-container {
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .landing-page-main {
