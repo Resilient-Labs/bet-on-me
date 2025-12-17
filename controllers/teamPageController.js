@@ -226,7 +226,9 @@ module.exports = {
         _id: req.params.id,
         user: req.user.id,        // only creator can reset
       });
-
+      console.log("Resetting timer for cluster:", req.params.id);
+      console.log("Request by user:", req.user.id);
+      console.log("Found cluster:", cluster);
       if (!cluster) {
         return res.status(404).send("Team not found or not authorized");
       }
@@ -236,7 +238,8 @@ module.exports = {
       cluster.timerDurationSec = null;
       await cluster.save();
 
-      res.json({ ok: true });
+      // res.json({ ok: true });
+      res.redirect("/teamPage");
     } catch (err) {
       console.error(err);
       res.status(500).send("Error resetting team timer");
