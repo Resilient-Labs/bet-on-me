@@ -136,18 +136,40 @@ a.signup:hover {
   font-size: 20px;
 }
 
-#team-page-disable{
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-#team-page-disable:hover{
-  font-size: inherit;
-  color: var(--color-black);
-}
-
 /* ensure the text-end div items are vertically centered */
 .text-end {
   display: flex;
   align-items: center;
+}
+
+#profile-nav{
+  padding-left: 20px
+}
+
+/* Mobile burger menu styling */
+@media (max-width: 990px) {
+  .navbar-collapse {
+    width: 100%;
+  }
+
+  .navbar-collapse .navbar-nav {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+    flex-direction: column;
+  }
+
+  .navbar-collapse .nav-item {
+    width: 100%;
+  }
+
+  .navbar-collapse .nav-link {
+    display: block;
+    border-bottom: 1px solid var(--color-black); /* line between items */
+    padding: 0.75rem 0;
+  }
+
+  .navbar-collapse .nav-item:last-child .nav-link {
+    border-bottom: none;
+  }
 }

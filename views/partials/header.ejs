@@ -22,88 +22,100 @@
 
 <body>
   <header class="custom-header">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/home" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container d-flex align-items-center justify-content-between">
+
+        <!-- Logo -->
+        <a href="/home" class="navbar-brand d-flex align-items-center">
           <div class="logo-container">
             <img class="bi me-2 header-logo" role="img" aria-label="Bootstrap" src="/imgs/BETonMe-noBg.png">
           </div>
-
         </a>
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        </ul>
-        <div class="text-end d-flex align-items-center gap-3">
 
-          <% if (!user) { %>
-            <!-- NOT LOGGED IN -->
-            <button type="button" class="btn btn-warning btn-hover">
-              <a href="#" type="button" data-bs-toggle="modal" class="login" data-bs-target="#loginModal">Login</a>
+        <!-- Mobile burger + logout: only for logged-in users -->
+        <% if (user) { %>
+          <div class="d-flex d-lg-none align-items-center gap-2 ms-auto">
+            <!-- Burger -->
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#mainNavbar"
+              aria-controls="mainNavbar"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
             </button>
-            <button type="button" class="btn btn-warning btn-hover">
-              <a href="#" type="button" data-bs-toggle="modal" class="signup" data-bs-target="#signupModal">Signup</a>
-            </button>
 
-            <% } else { %>
-              <!-- LOGGED IN -->
+            <!-- Logout button -->
+            <a href="/logout" class="btn btn-warning btn-hover signup">Logout</a>
+          </div>
+        <% } %>
 
-              <ul class="nav align-items-center gap-3">
+        <!-- Collapsible menu: only for logged-in users -->
+        <% if (user) { %>
+          <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
 
-                <% if(isInGroup) { %>
-
-                  <!-- show team page on every page but the my group page -->
-                  <% if (user && currentpath!=='/teamPage' ){ %>
-
-                    <%
-                    const safeGoals = typeof goals !== 'undefined' ? goals : null;
-                    const canAccessTeamPage = Boolean(safeGoals?.id && safeGoals?.wagerPaid);
-                    %>
-
-                    <li class="nav-item">
-                      <a
-                        id="<%= canAccessTeamPage ? '' : 'team-page-disable' %>"
-                        class="nav-link"
-                        href="<%= canAccessTeamPage ? '/teamPage' : '#' %>"
-                        title="<%= canAccessTeamPage
-                          ? ''
-                          : 'Add a wager to your goal before accessing your Group Page' %>"
-                        <%= canAccessTeamPage ? '' : 'onclick="event.preventDefault()"' %>
-                        <%= canAccessTeamPage ? '' : 'aria-disabled="true"' %>
-                      >
-                        My Group
-                      </a>
-                    </li>
-
-                    <% } %>
-
-                      <!-- show user goal page on every page by my goals page -->
-                      <% if(user && currentpath !=='/userGoal' ) { %>
-                        <li class="nav-item">
-                          <a href="/userGoal" class="nav-link ">My Goal</a>
-                        </li>
-                        <% } %>
-
-                          <% } %>
-
-              </ul>
-
-              <a href="/profile" class="profile-bubble d-flex align-items-center">
-                <img src="<%= user.profile_image || 'https://via.placeholder.com/50' %>" alt="Profile"
-                  class="rounded-circle" style="
-                  width: 50px;
-                  height: 50px;
-                  object-fit: cover;
-                  border: 2px solid;
-                " />
-                          </a>
-
-
-              <button type="button" class="btn btn-warning btn-hover">
-                <a href="/logout" type="button" class="signup">Logout</a>
-              </button>
+              <% if (isInGroup && currentpath !== '/teamPage') { %>
+                <%
+                  const safeGoals = typeof goals !== 'undefined' ? goals : null;
+                  const canAccessTeamPage = Boolean(safeGoals?.id && safeGoals?.wagerPaid);
+                %>
+                <li class="nav-item">
+                  <a
+                    id="<%= canAccessTeamPage ? '' : 'team-page-disable' %>"
+                    class="nav-link"
+                    href="<%= canAccessTeamPage ? '/teamPage' : '#' %>"
+                    title="<%= canAccessTeamPage ? '' : 'Add a wager to your goal before accessing your Group Page' %>"
+                    <%= canAccessTeamPage ? '' : 'onclick="event.preventDefault()"' %>
+                  >
+                    My Group
+                  </a>
+                </li>
               <% } %>
-        </div>
+
+              <% if (currentpath !== '/userGoal') { %>
+                <li class="nav-item">
+                  <a href="/userGoal" class="nav-link">My Goal</a>
+                </li>
+              <% } %>
+
+              <li class="nav-item d-lg-none">
+                <a href="/profile" class="nav-link">Profile</a>
+              </li>
+            </ul>
+          </div>
+        <% } %>
+
+        <!-- Desktop-only profile + logout for logged-in users -->
+        <% if (user) { %>
+          <div class="d-none d-lg-flex align-items-center gap-3">
+            <a href="/profile" class="profile-bubble" id="profile-nav">
+              <img
+                src="<%= user.profile_image || 'https://via.placeholder.com/50' %>"
+                class="rounded-circle"
+                style="width:50px;height:50px;object-fit:cover;border:2px solid;"
+              />
+            </a>
+            <a href="/logout" class="btn btn-warning btn-hover signup">Logout</a>
+          </div>
+        <% } %>
+
+        <% if (!user) { %>
+          <div class="d-flex align-items-center gap-2 ms-auto">
+            <button type="button" class="btn btn-warning btn-hover">
+              <a href="#" class="login" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+            </button>
+            <button type="button" class="btn btn-warning btn-hover">
+              <a href="#" class="signup" data-bs-toggle="modal" data-bs-target="#signupModal">Signup</a>
+            </button>
+          </div>
+        <% } %>
+
       </div>
-    </div>
+    </nav>
   </header>
 
   <!-- modals -->
