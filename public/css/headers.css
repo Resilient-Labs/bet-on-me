@@ -74,6 +74,14 @@
   font-size: 85%;
 }
 
+.custom-footer .small-text{
+  font-size: 1rem;
+}
+.custom-footer .small-text + small{
+  font-size: .8rem;
+}
+
+
 .dropdown-toggle:not(:focus) {
   outline: 0;
 }
@@ -183,4 +191,14 @@ a.signup:hover {
   .navbar-collapse .nav-item:last-child .nav-link {
     border-bottom: none;
   }
+}
+
+@media screen and (max-width:992px){
+  .custom-footer .small-text{
+  font-size: .8rem;
+}
+.custom-footer .small-text + small{
+  font-size: .6rem;
+}
+
 }
