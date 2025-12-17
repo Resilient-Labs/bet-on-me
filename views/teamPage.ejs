@@ -108,8 +108,6 @@
 
                     
 
-
-
                         <% if (user && cluster && String(user._id)===String(cluster.user)) { %>
                           <form action="/teamPage/deleteTeamData/<%= cluster._id %>?_method=DELETE" method="POST">
                             <button id="endGameBtn">Delete Group</button>

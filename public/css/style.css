@@ -100,8 +100,10 @@ html {
 
 .login-modal .btn-close {
   background-color: var(--color-back);
-}
+  height: .8rem;
+  width: .8rem;
 
+}
 
 .login-modal input:focus,
 .home-container input:focus {
@@ -306,7 +308,7 @@ footer {
   color: var(--color-black);
 }
 
-.about-section .row{
+.about-section .row {
   margin: 0;
 }
 
@@ -335,7 +337,7 @@ footer {
   color: var(--color-black)
 }
 
-.landing-page-top .btn-hero{
+.landing-page-top .btn-hero {
   border: 1px solid var(--color-black);
   background-color: var(--color-foam-green);
   padding: .5rem 2rem;
@@ -349,7 +351,7 @@ footer {
   color: var(--color-white);
 }
 
-.timeline-card .btns-container{
+.timeline-card .btns-container {
   display: flex;
   gap: .3rem;
   justify-content: center;
@@ -358,7 +360,8 @@ footer {
 
 #resetChallenge,
 #fetchButton,
-#endGameBtn {
+#endGameBtn,
+#leaveTeamBtn {
   border: 1px solid var(--color-black);
   background-color: var(--color-yellow);
   font-weight: bold;
@@ -366,12 +369,12 @@ footer {
   padding: .4rem;
   color: var(--color-black);
   display: block;
-  border-radius:6px;
+  border-radius: 6px;
 }
 
 #resetChallenge:hover,
 #fetchButton:hover,
-#endGameBtn:hover {
+#endGameBtn:hover #leaveTeamBtn:hover {
   background-color: var(--color-black);
   color: var(--color-white);
 }
@@ -886,7 +889,7 @@ card-body {
   color: white;
 }
 
-.user-card .btn-foam{
+.user-card .btn-foam {
   background-color: var(--color-foam-green);
 }
 
