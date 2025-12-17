@@ -447,7 +447,7 @@ if (resetBtn) {
 
       // Optionally update buttons: show Start again, hide Leave/Delete
       updateButtonVisibility({ running: false, hasRun: false });
-      
+
     } catch (err) {
       console.error('Error resetting timer:', err);
     }

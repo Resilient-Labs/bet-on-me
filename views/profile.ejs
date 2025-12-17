@@ -39,7 +39,7 @@
 
 
 
-          
+
           <!-- ACCOUNT INFO -->
           <div class="card shadow-sm user-card">
 
@@ -50,19 +50,16 @@
 
             <div class="card-body">
 
- <p><strong style="color: var(--btn-color);">User Name:</strong>
+              <p><strong style="color: var(--btn-color);">User Name:</strong>
                 <%= user.userName %>
               </p>
-              <p ><strong style="color: var(--btn-color);">Email:</strong>
+              <p><strong style="color: var(--btn-color);">Email:</strong>
                 <%= user.email %>
               </p>
               <p class="mb-0">
                 <strong style="color: var(--btn-color);">Member Since:</strong>
-                <%= new Date(user.createdAt).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric"
-                }) %>
+                <%= new Date(user.createdAt).toLocaleDateString("en-US", { year: "numeric" , month: "long" ,
+                  day: "numeric" }) %>
               </p>
             </div>
           </div>
@@ -71,7 +68,8 @@
           <div class="card shadow-sm user-card">
             <div class="card-body">
 
-              <button class="btn w-100 mb-2 btn-config btn-foam" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+              <button class="btn w-100 mb-2 btn-config btn-foam" data-bs-toggle="modal"
+                data-bs-target="#changePasswordModal">
                 Change Password
               </button>
 
@@ -93,56 +91,66 @@
               <h4 class="mb-0">Your Goal Cluster</h4>
             </div>
             <% const cluster=clusters[0] %>
-            <div class="card-body"">
+              <div class="card-body"">
 
               <!-- CLUSTER NAME -->
               <div class=" d-flex align-items-center mb-4">
-              <h5 class="mb-0 me-3">
-                <%= cluster?.cluster_name %>    
-                    
-              </h5>
-            </div>
+                <h5 class="mb-0 me-3">
+                  <%= cluster?.cluster_name %>
 
-            <!-- MEMBERS HEADER -->
-            <h6 class="mb-3">Members</h6>
+                </h5>
+              </div>
 
-            <!-- MEMBERS LIST -->
-            <div class="row g-3">
+              <!-- MEMBERS HEADER -->
+              <h6 class="mb-3">Members</h6>
 
-              <div class="col-md-6">
-                <div class="d-flex align-items-center p-3 rounded"
-                  style=" border: 2px solid; background-color: rgb(235, 232, 232);">
+              <!-- MEMBERS LIST -->
+              <div class="row g-3">
 
-                  <img src="<%= user.profile_image || 'https://via.placeholder.com/50' %>" class="rounded-circle me-3"
-                    style="
+                <% if (cluster?.cluster_members?.length) { %>
+                  <% cluster.cluster_members.forEach(member=> { %>
+
+                    <div class="col-md-6">
+                      <div class="d-flex align-items-center p-3 rounded"
+                        style="border: 2px solid; background-color: rgb(235, 232, 232);">
+
+                        <!-- Profile Picture -->
+                        <img src="<%= member.profile_image || 'https://via.placeholder.com/50' %>"
+                          class="rounded-circle me-3" style="
                             width: 50px;
                             height: 50px;
                             object-fit: cover;
                             border: 2px solid;
                           " />
-                  <h6 class="fw-semibold">
-                    <%= user.userName %>
-                      <span>
-                        You
-                  </h6>
-                  </span>
 
-                </div>
-              </div>
+                        <!-- Username -->
+                        <h6 class="fw-semibold mb-0">
+                          <%= member.userName %>
+                            <% if (String(member._id)===String(user._id)) { %>
+                              <span class="ms-2 text-muted">(You)</span>
+                              <% } %>
+                        </h6>
 
-            </div>
+                      </div>
+                    </div>
 
-            <hr class="my-4">
+                    <% }) %>
+                      <% } else { %>
+                        <p class="text-muted">No members found.</p>
+                        <% } %>
 
-            <!-- JOIN CODE -->
-            <p class="small mb-0" style="font-size: 1rem;">
-              Join Code
-              <strong style="font-size: 1.2rem;">
-                <%= cluster?.cluster_join_id %>
-            
-                  <!-- JOIN_CODE -->
-              </strong>
-            </p>
+              </div><br><br>
+
+
+              <!-- JOIN CODE -->
+              <p class="small mb-0" style="font-size: 1rem;">
+                Join Code
+                <strong style="font-size: 1.2rem;">
+                  <%= cluster?.cluster_join_id %>
+
+                    <!-- JOIN_CODE -->
+                </strong>
+              </p>
 
 
           </div>
@@ -169,58 +177,60 @@
                     , "September" , "October" , "November" ,"December"] %>
                     <% completedGoals.forEach(goal=> { %>
                       <% let date %>
-                      <% if (goal.completedAt === null) { %> 
-                        <% date = 'unknown date' %>
-                      <% } else { %>
-                        <% date=`${monthNames[goal.completedAt.getMonth()]}, ${goal.completedAt.getFullYear()}` %>
-                      <% } %>
-                        <% if (!monthlyGoals[date]) { %>
-                          <% monthlyGoals[date]=[[ goal.name, goal.completedAt ]] %>
+                        <% if (goal.completedAt===null) { %>
+                          <% date='unknown date' %>
                             <% } else { %>
-                              <% monthlyGoals[date].push([goal.name,goal.completedAt]) %>
+                              <% date=`${monthNames[goal.completedAt.getMonth()]}, ${goal.completedAt.getFullYear()}` %>
                                 <% } %>
-                                  <% }) %>
-                                    <div class="mb-4">
-                                      <!-- For each month, make a header and list the goals -->
-                                      <% for (const [month, goalList] of Object.entries(monthlyGoals)) { %>
-                                        <% goalList.sort((a,b)=> b[1] - a[1]) %>
+                                  <% if (!monthlyGoals[date]) { %>
+                                    <% monthlyGoals[date]=[[ goal.name, goal.completedAt ]] %>
+                                      <% } else { %>
+                                        <% monthlyGoals[date].push([goal.name,goal.completedAt]) %>
+                                          <% } %>
+                                            <% }) %>
+                                              <div class="mb-4">
+                                                <!-- For each month, make a header and list the goals -->
+                                                <% for (const [month, goalList] of Object.entries(monthlyGoals)) { %>
+                                                  <% goalList.sort((a,b)=> b[1] - a[1]) %>
 
-                                          <!-- MONTH HEADER -->
-                                          <div class="d-flex align-items-center mb-3">
-                                            <h6 class="mb-0 me-3">
-                                              <!-- e.g., "December 2025" -->
-                                              <%= month %>
-                                            </h6>
-                                            
-                                          </div>
+                                                    <!-- MONTH HEADER -->
+                                                    <div class="d-flex align-items-center mb-3">
+                                                      <h6 class="mb-0 me-3">
+                                                        <!-- e.g., "December 2025" -->
+                                                        <%= month %>
+                                                      </h6>
 
-                                          <!-- GOALS LIST -->
-                                          <div class="list-group">
-                                            <% goalList.forEach(ele=> { %>
-                                              <!-- GOAL ITEM (repeat for each goal) -->
-                                              <div
-                                                class="list-group-item d-flex justify-content-between align-items-start"
-                                                ; style="background-color: rgb(235, 232, 232); border: 1px solid var(--color-black)">
-                                                <div class="ms-2 me-auto">
-                                                  <div class="fw-bold">
-                                                    <!-- goal.title -->
-                                                    <%= ele[0] %>
-                                                  </div>
-                                                  <small style="color: #000; opacity: 0.8;">
-                                                    Completed on
-                                                    <!-- goal.completedAt formatted date -->
-                                                    <%= ele[1] ? ele[1] : 'unknown date'%>
-                                                  </small>
-                                                </div>
-                                                <span style="font-size: 1.5rem; position: relative; top:5px">🏆</span>
+                                                    </div>
+
+                                                    <!-- GOALS LIST -->
+                                                    <div class="list-group">
+                                                      <% goalList.forEach(ele=> { %>
+                                                        <!-- GOAL ITEM (repeat for each goal) -->
+                                                        <div
+                                                          class="list-group-item d-flex justify-content-between align-items-start"
+                                                          ;
+                                                          style="background-color: rgb(235, 232, 232); border: 1px solid var(--color-black)">
+                                                          <div class="ms-2 me-auto">
+                                                            <div class="fw-bold">
+                                                              <!-- goal.title -->
+                                                              <%= ele[0] %>
+                                                            </div>
+                                                            <small style="color: #000; opacity: 0.8;">
+                                                              Completed on
+                                                              <!-- goal.completedAt formatted date -->
+                                                              <%= ele[1] ? ele[1] : 'unknown date' %>
+                                                            </small>
+                                                          </div>
+                                                          <span
+                                                            style="font-size: 1.5rem; position: relative; top:5px">🏆</span>
+                                                        </div>
+                                                        <%})%>
+                                                          <!-- END GOAL ITEM -->
+                                                    </div>
                                               </div>
-                                              <%})%>
-                                                <!-- END GOAL ITEM -->
-                                          </div>
-                                    </div>
-                                    <% } %>
-                                      <% } %>
-                                        <!-- END MONTHLY SECTION -->
+                                              <% } %>
+                                                <% } %>
+                                                  <!-- END MONTHLY SECTION -->
           </div>
         </div>
 
