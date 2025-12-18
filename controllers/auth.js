@@ -187,7 +187,9 @@ exports.forgotPassword = (req, res) => {
       to: email,
       subject: 'Password Reset Request',
       //RESOLVE - insert link that redirects to hosted website resolve forgotPassword link
-      html: `<p>You have requested a password reset. Click on the following link to reset your password: <a href="${token}">Reset Password</a></p>`
+      html: `<p>You have requested a password reset. Click on the following link to reset your password:</p>
+             <p><a href="${req.protocol}://${req.get('host')}/reset/${token}">Reset Password</a></p>
+             <p>If you did not request this, please ignore this email.</p>`
     };
 
     try {
@@ -207,6 +209,65 @@ exports.forgotPassword = (req, res) => {
   saveTokenToDatabase(req.body.resetEmail, token)
   sendResetEmail(req.body.resetEmail, token)
 }
+
+// Render the reset password form (accessed from the email link)
+exports.renderReset = async (req, res) => {
+  try {
+    const token = req.params.token;
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+    if (!user) {
+      req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
+      req.flash('modal', 'reset');
+      return res.redirect('/');
+    }
+    res.render('resetPassword', { token });
+  } catch (err) {
+    console.error('renderReset error', err);
+    req.flash('errors', { msg: 'Could not load reset form' });
+    res.redirect('/');
+  }
+};
+
+// Handle posted new password from reset form
+exports.resetPasswordPost = async (req, res) => {
+  try {
+    const token = req.params.token;
+    const { password, confirmPassword } = req.body;
+    const errors = [];
+    if (!password || !confirmPassword) errors.push({ msg: 'Please fill out all password fields.' });
+    if (password && password.length < 8) errors.push({ msg: 'Password must be at least 8 characters long' });
+    if (password !== confirmPassword) errors.push({ msg: 'Passwords do not match' });
+    if (errors.length) {
+      errors.forEach(e => req.flash('errors', e));
+      return res.redirect('back');
+    }
+
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+    if (!user) {
+      req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
+      req.flash('modal', 'reset');
+      return res.redirect('/');
+    }
+
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    req.flash('success', { msg: 'Password has been reset. You can now log in.' });
+    res.redirect('/');
+  } catch (err) {
+    console.error('resetPasswordPost error', err);
+    req.flash('errors', { msg: 'Could not reset password' });
+    res.redirect('/');
+  }
+};
 
 // Change password while user is logged in
 exports.changePassword = async (req, res) => {
