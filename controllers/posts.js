@@ -25,6 +25,7 @@ getProfile: async (req, res) => {
     })
       .populate("cluster_members")
       .lean();
+      console.log(clusters.length);
 
     // fetch user's goals as an array for the profile view
     //dividing the goals into completed and incompleted just in case someone needed all the goals

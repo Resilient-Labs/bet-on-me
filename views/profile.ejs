@@ -87,11 +87,17 @@
 
           <!-- GOAL CLUSTER -->
           <div class="card shadow-sm user-card">
-            <div class="team-card-header">
-              <h4 class="mb-0">Your Goal Cluster</h4>
+            <% if(clusters.length === 0) { %>
+              <div class="team-card-header">
+              <h4 class="mb-0">You're not in a group yet!</h4>
             </div>
+            <% } else {%>
+              <div class="team-card-header">
+              <h4 class="mb-0">Your group</h4>
+            </div>
+           <% } %>
             <% const cluster=clusters[0] %>
-              <div class="card-body"">
+              <div class="card-body">
 
               <!-- CLUSTER NAME -->
               <div class=" d-flex align-items-center mb-4">
