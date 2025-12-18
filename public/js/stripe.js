@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // validate amount is provided
       if (!amountInput || amountInput <= 0) {
-        showModal('Invalid Amount', 'Please enter a valid wager amount');
+        showModal('Invalid amount', 'Please enter a valid wager amount');
         return;
       }
 
@@ -175,24 +175,24 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // check if it's a whole number
       if (amount !== parseFloat(amountInput)) {
-        showModal('Invalid Amount', 'Please enter a whole dollar amount (no cents)');
+        showModal('Invalid amount', 'Please enter a whole dollar amount (no cents)');
         return;
       }
 
       // check maximum
       if (amount > 999) {
-        showModal('Amount Too High', 'Maximum wager amount is $999');
+        showModal('Amount too high', 'Maximum wager amount is $999');
         return;
       }
 
       // check minimum
       if (amount < 1) {
-        showModal('Amount Too Low', 'Minimum wager amount is $1');
+        showModal('Amount too Low', 'Minimum wager amount is $1');
         return;
       }
 
       if (!goalId) {
-        showModal('Missing Goal', 'Please create a goal first');
+        showModal('Missing goal', 'Please create a goal first');
         return;
       }
 
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // check if payment was cancelled
   const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('canceled') === 'true') {
-    showModal('Payment Canceled', 'Payment was canceled. You can try again when ready.');
+  if (urlParams.get('cancelled') === 'true') {
+    showModal('Payment Cancelled', 'Payment was cancelled. You can try again when ready.');
   }
 });

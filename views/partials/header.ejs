@@ -65,7 +65,7 @@
                     <a
                       class="nav-link <%= canAccessTeamPage ? '' : 'page-disable' %>"
                       href="<%= canAccessTeamPage ? '/teamPage' : '/404' %>"
-                      title="<%= canAccessTeamPage ? '' : 'Add a wager to your goal before accessing your Group Page' %>"
+                      title="<%= canAccessTeamPage ? '' : 'Place a wager to access your group page' %>"
                     >
                       My Group
                     </a>
@@ -74,7 +74,7 @@
                   <a
                     href="/userGoal"
                     class="nav-link <%= cluster?._id ? '' : 'page-disable' %>"
-                    title="<%= cluster?._id ?  '' : 'Join or start a group before accessing your Goals' %>"
+                    title="<%= cluster?._id ?  '' : 'Join or start a group to access your goal' %>"
                   >
                     My Goal
                   </a>
