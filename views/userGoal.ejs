@@ -174,10 +174,10 @@
                                                     class="form-check-input checkbox me-2"
                                                     <%= task.task_is_completed ? 'checked' : '' %>
                                                     data-completed="<%= task.task_is_completed %>" />
-                                                <span name="<%= task._id %>"
-                                                    class="task-text flex-grow-1 <%= task.task_is_completed ? ' text-muted' %>">
-                                                    <%= task.task_name %>
-                                                </span>
+                                                    <span name="<%= task._id %>"
+                                                        class="task-text flex-grow-1 <%= task.task_is_completed ? 'text-muted' : '' %>">
+                                                      <%= task.task_name %>
+                                                  </span>
 
                                                 <!-- Default buttons -->
                                                 <div class="btn-group btn-group-sm ms-2">
