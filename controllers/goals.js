@@ -1,5 +1,6 @@
 const Goal = require("../models/Goal");
-const Cluster = require("../models/Cluster")
+const Cluster = require("../models/Cluster");
+const User = require("../models/User")
 
 module.exports = {
   // get user goals
@@ -15,7 +16,38 @@ module.exports = {
     try {
       console.log(req.params.id)
       const cluster = await Cluster.find({ user: req.params.id });
-      console.log(cluster)
+      let payout = 0
+      let payoutMembers = {
+        members : [],
+        completedMembers : [],
+        completedMembersWagerAmounts : [],
+        nonCompletedMembers : []
+      }
+      const clusterMembers = cluster[0].cluster_members
+      for(const member of clusterMembers){
+        const goal = await Goal.findOne({ user: member })
+        payoutMembers.members.push(member)
+
+        const user = await User.findById( {_id: member} )
+        console.log(user, 'USER')
+        if(goal.completed){
+          payoutMembers.completedMembers.push(member)
+        }else if(!goal.completed){
+          payoutMembers.nonCompletedMembers.push(member)
+          payout += goal.wagerAmount
+        }
+      }
+
+      const winnersPayout = payout/payoutMembers.completedMembers.length
+
+console.log(payout, payoutMembers)
+
+
+      // Promise.all(cluster[0].cluster_members.forEach(async(x) => await Goal.find({ user: x })))
+      //   .then((values) => {
+      //     console.log(values)
+      //   });
+
       res.send(JSON.stringify(cluster))
     } catch (err) {
       console.error(err);
