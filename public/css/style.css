@@ -293,6 +293,12 @@ header {
   /* Add height, background, etc. */
 }
 
+.termsText {
+font-size: 12px;
+margin: 0 10px;
+margin-top: 5px;
+}
+
 footer {
   /* position: fixed; Makes it stick to the viewport */
   bottom: 0;
