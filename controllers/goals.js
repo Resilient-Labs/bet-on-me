@@ -29,6 +29,7 @@ module.exports = {
         payoutMembers.members.push(member)
 
         const user = await User.findById( {_id: member} )
+        
         console.log(user, 'USER')
         if(goal.completed){
           payoutMembers.completedMembers.push(member)
