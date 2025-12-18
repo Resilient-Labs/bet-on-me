@@ -307,6 +307,8 @@ footer {
 #footer-container {
   padding-left: 30px;
   padding-right: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .landing-page-main {
