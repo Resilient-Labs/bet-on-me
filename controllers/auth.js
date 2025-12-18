@@ -114,6 +114,7 @@ exports.postSignup = async (req, res, next) => {
     email: req.body.email,
     access: req.body?.access,     // -> ?. <- before access is checking for any access value. If it's there, then return value. If not, then return udefined
     password: req.body.password,
+    wallet: 0,
     score: 0
   })
 
