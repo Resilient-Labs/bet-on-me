@@ -210,7 +210,7 @@
               <div class="d-flex align-items-center mb-3">
                 <h6 class="mb-0 me-3">
                   <!-- e.g., "December 2025" -->
-                  <%= month %>
+                  <%= month.replace(',', '') %>
                 </h6>
 
               </div>
@@ -228,7 +228,7 @@
                     <small style="color: #000; opacity: 0.8;">
                       Completed on
                       <!-- goal.completedAt formatted date -->
-                      <%= ele[1] ? ele[1] : 'unknown date' %>
+                      <%= ele[1] ? new Date(ele[1]).toLocaleDateString("en-US", { year: "numeric" , month: "long", day: "numeric" }) : 'unknown date' %>
                     </small>
                   </div>
                   <span style="font-size: 1.5rem; position: relative; top:5px">🏆</span>
