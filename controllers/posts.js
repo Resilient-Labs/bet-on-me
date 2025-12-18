@@ -12,7 +12,7 @@ getProfile: async (req, res) => {
   try {
     // User posts!
     const posts = await Post.find({ user: req.user.id }).lean();
-
+    
     // Member since
     let memberSince = "Unknown";
     if (req.user?.createdAt) {

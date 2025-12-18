@@ -34,6 +34,7 @@ module.exports = {
         // console.log(user, 'USER')
         if (goal.completed) {
           payoutMembers.completedMembers.push(member)
+          payoutMembers.completedMembersWagerAmounts.push(goal.wagerAmount)
           console.log(user.wallet, 'wallet')
         } else if (!goal.completed) {
           payoutMembers.nonCompletedMembers.push(member)
@@ -41,9 +42,13 @@ module.exports = {
         }
       }
 
+      let iterate = 0
       for (const winner of payoutMembers.completedMembers) {
         const winnersPayout = payout / payoutMembers.completedMembers.length
-        const mem = await User.findByIdAndUpdate(winner, { $inc: { wallet: winnersPayout } })
+        console.log(iterate)
+        const user = User.findById({ _id: winner })
+        const mem = await User.findByIdAndUpdate(winner, { $inc: { wallet: winnersPayout + payoutMembers.completedMembersWagerAmounts[iterate] } })
+        iterate++
       }
 
 
