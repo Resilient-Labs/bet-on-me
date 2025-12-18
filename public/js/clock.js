@@ -94,7 +94,7 @@ function setCountdownSeconds(totalSeconds) {
  * When the countdown reaches zero (or server says it's done),
  * update UI elements accordingly.
  */
-function handleCountdownFinished({ suppressCelebration = false } = {}) {
+async function handleCountdownFinished({ suppressCelebration = false } = {}) {
   // Show leave button, hide start button
   const fetchBtn = document.getElementById('fetchButton');
   const teamProgressTitle = document.getElementById('teamProgressTitle');
@@ -130,6 +130,23 @@ function handleCountdownFinished({ suppressCelebration = false } = {}) {
   } catch (e) {
     console.warn('handleCountdownFinished celebration error', e);
   }
+
+  const userId = document.querySelector(".userId").dataset.value
+  console.log(userId)
+
+  const url = `/goal/test/${userId}`
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log(result, 'BLAH');
+  } catch (error) {
+    console.error(error.message);
+  }
+
 }
 
 /**
@@ -316,12 +333,12 @@ function showCelebrationPopup() {
     box.style.textAlign = 'center';
 
     const title = document.createElement('h2');
-    title.innerText = winners.length ? 'Congratulations!' : 'Well done';
+    title.innerText = winners.length ? 'Congratulations!' : 'Womp';
     box.appendChild(title);
 
     const msg = document.createElement('p');
-    if (winners.length) msg.innerText = 'The following teammates completed their goals:';
-    else msg.innerText = 'No teammates reached 100% — good job everyone!';
+    if (winners.length) msg.innerText = 'These teammates crushed their goals:';
+    else msg.innerText = 'No one reached their goal — let\'s throw a pity party!';
     box.appendChild(msg);
 
     if (winners.length) {

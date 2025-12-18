@@ -26,6 +26,10 @@ const GoalSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  cluster_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Cluster",
+  },
   wagerPaid: {
     type: Boolean,
     default: false,

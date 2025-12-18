@@ -30,6 +30,11 @@
   margin: .3rem 0;
 }
 
+#navbar-container {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 .form-control-dark:focus {
   border-color: #fff;
   box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
@@ -60,7 +65,7 @@
   border-top: solid 1px var(--color-black);
 }
 
-.custom-footer .btn:hover{
+.custom-footer .btn:hover {
   background-color: var(--color-sky-blue);
   border: 1px solid var(--color-black);
 }
@@ -74,10 +79,11 @@
   font-size: 85%;
 }
 
-.custom-footer .small-text{
+.custom-footer .small-text {
   font-size: 1rem;
 }
-.custom-footer .small-text + small{
+
+.custom-footer .small-text+small {
   font-size: .8rem;
 }
 
@@ -156,17 +162,18 @@ a.signup:hover {
   align-items: center;
 }
 
-#profile-nav{
+#profile-nav {
   padding-left: 20px
 }
 
-.page-disable{
+.page-disable {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-ul > li > a.page-disable:hover{
-  font-size: 1.2rem; /* revert hover affects when disabled */
+ul>li>a.page-disable:hover {
+  font-size: 1.2rem;
+  /* revert hover affects when disabled */
 }
 
 /* Mobile burger menu styling */
@@ -188,7 +195,8 @@ ul > li > a.page-disable:hover{
 
   .navbar-collapse .nav-link {
     display: block;
-    border-bottom: 1px solid var(--color-black); /* line between items */
+    border-bottom: 1px solid var(--color-black);
+    /* line between items */
     padding: 0.75rem 0;
   }
 
@@ -197,12 +205,41 @@ ul > li > a.page-disable:hover{
   }
 }
 
-@media screen and (max-width:992px){
-  .custom-footer .small-text{
-  font-size: .8rem;
+@media screen and (max-width:992px) {
+
+  .custom-footer .small-text {
+    font-size: .8rem;
+    font-weight: bold;
+  }
+
+  .custom-footer .small-text+small {
+    font-size: .8rem;
+  }
+/* 
+  .custom-footer .header-logo {
+    width: 50px;
+    height: 50px;
+  } */
 }
-.custom-footer .small-text + small{
-  font-size: .6rem;
-}
+
+@media screen and (max-width: 400px){
+   #footer-container {
+    padding-left: .7rem !important;
+    padding-right: .7rem !important;
+  }
+
+   .custom-footer .small-text {
+    font-size: .7rem;
+    font-weight: bold;
+  }
+
+  .custom-footer .small-text+small {
+    font-size: .7rem;
+  }
+
+  .custom-footer .header-logo {
+    width: 50px;
+    height: 50px;
+  }
 
 }

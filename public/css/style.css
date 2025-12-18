@@ -165,6 +165,7 @@ html {
   text-align: center;
   color: var(--color-black);
   margin: 0;
+  max-width: 640px;
 }
 
 .home-body {
@@ -301,6 +302,13 @@ footer {
   z-index: 10;
   /* Keeps it on top */
   /* Add height, background, etc. */
+}
+
+#footer-container {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .landing-page-main {

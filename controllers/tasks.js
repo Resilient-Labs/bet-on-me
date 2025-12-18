@@ -49,6 +49,7 @@ module.exports = {
         if (goalCompleted) {
           await Goal.findByIdAndUpdate(updatedTask.goal_id, {
             completed: true,
+            completedAt: new Date(),
           });
         }
 

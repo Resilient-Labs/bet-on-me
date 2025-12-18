@@ -11,39 +11,108 @@ goalForm.addEventListener("submit", (e) => {
     // Create the dialog
     const dialog = document.createElement("dialog");
 
-    // Add content
-    dialog.innerHTML =
-      `<h2>Invalid Input</h2>
-  <p>Where's that goal at? Huh???</p>
-  <button onclick="this.closest('dialog').close()">Close</button>`;
-    dialog.style.padding = "20px";
-    dialog.style.borderRadius = "8px";
-    dialog.style.border = "1px solid #ccc";
-    dialog.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
-    dialog.style.fontFamily = "Arial, sans-serif";
-    dialog.style.textAlign = "center";
-    dialog.querySelector("h2").style.marginBottom = "10px";
-    dialog.querySelector("p").style.marginBottom = "20px";
-    dialog.querySelector("button").style.padding = "8px 16px";
-    dialog.querySelector("button").style.border = "none";
-    dialog.querySelector("button").style.borderRadius = "4px";
-    dialog.querySelector("button").style.backgroundColor = "#007BFF";
-    dialog.querySelector("button").style.color = "#fff";
-    dialog.querySelector("button").style.cursor = "pointer";
-    dialog.querySelector("button").addEventListener("mouseover", function () {
-      this.style.backgroundColor = "#0056b3";
-    });
-    dialog.querySelector("button").addEventListener("mouseout", function () {
-      this.style.backgroundColor = "#007BFF";
-    });
-    dialog.style.maxWidth = "300px";
-    dialog.style.width = "80%";
-    dialog.style.margin = " 10% auto";
-    // Append to body
-    document.body.appendChild(dialog);
+    // Add content with proper structure matching the original modal
+dialog.innerHTML = `
+<div class="modal-content login-modal">
+  <div class="modal-header">
+    <h5 class="modal-title">Invalid input</h5>
+    <button type="button" class="btn-close" onclick="this.closest('dialog').close()" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <p>Where's that goal at? Huh???</p>
+    <button type="button" class="btn" onclick="this.closest('dialog').close()">Close</button>
+  </div>
+</div>
+`;
 
-    // Show it
-    dialog.showModal();
+// Apply styles to match your CSS
+dialog.style.padding = "0";
+dialog.style.border = "2px solid var(--color-black)";
+dialog.style.borderRadius = "1rem";
+dialog.style.overflow = "hidden";
+dialog.style.maxWidth = "500px";
+dialog.style.width = "90%";
+dialog.style.backgroundColor = "transparent";
+
+// Style the modal header
+const modalHeader = dialog.querySelector('.modal-header');
+if (modalHeader) {
+modalHeader.style.padding = "1rem";
+modalHeader.style.display = "flex";
+modalHeader.style.justifyContent = "space-between";
+modalHeader.style.alignItems = "center";
+modalHeader.style.backgroundColor = "rgb(174, 223, 194)";
+}
+
+// Style the title
+const modalTitle = dialog.querySelector('.modal-title');
+if (modalTitle) {
+modalTitle.style.margin = "0";
+modalTitle.style.color = "var(--color-black)";
+modalTitle.style.fontSize = "1.25rem";
+modalTitle.style.fontWeight = "bold";
+}
+
+// Style the close button (X)
+const btnClose = dialog.querySelector('.btn-close');
+if (btnClose) {
+btnClose.style.backgroundColor = "rgb(212 205 225)";
+btnClose.style.height = "1.2rem";
+btnClose.style.width = "1.4rem";
+btnClose.style.opacity = "1";
+btnClose.style.border = "none";
+btnClose.style.cursor = "pointer";
+}
+
+// Style the modal body
+const modalBody = dialog.querySelector('.modal-body');
+if (modalBody) {
+modalBody.style.backgroundColor = "rgb(174, 223, 194)";
+modalBody.style.padding = "1.5rem";
+modalBody.style.textAlign = "center";
+}
+
+// Style the paragraph
+const paragraph = dialog.querySelector('.modal-body p');
+if (paragraph) {
+paragraph.style.color = "var(--color-black)";
+paragraph.style.marginBottom = "1.5rem";
+paragraph.style.fontSize = "1rem";
+}
+
+// Style the Close button
+const closeBtn = dialog.querySelector('.modal-body button');
+if (closeBtn) {
+closeBtn.style.backgroundColor = "var(--color-yellow)";
+closeBtn.style.border = "1px solid var(--color-black)";
+closeBtn.style.color = "var(--color-black)";
+closeBtn.style.fontSize = "1.2rem";
+closeBtn.style.fontWeight = "bold";
+closeBtn.style.padding = ".5rem 1.5rem";
+closeBtn.style.borderRadius = ".25rem";
+closeBtn.style.cursor = "pointer";
+closeBtn.style.transition = "all 0.3s ease";
+
+// Hover effects
+closeBtn.addEventListener('mouseover', function() {
+  this.style.backgroundColor = "var(--color-sky-blue)";
+  this.style.borderColor = "var(--color-black)";
+});
+
+closeBtn.addEventListener('mouseout', function() {
+  this.style.backgroundColor = "var(--color-yellow)";
+  this.style.borderColor = "var(--color-black)";
+});
+}
+
+// Remove default dialog backdrop and add custom styling
+dialog.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
+
+// Append to body
+document.body.appendChild(dialog);
+
+// Show it
+dialog.showModal();
   }
 });
 
