@@ -43,6 +43,9 @@ router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
 // this function leads to where a user can reset their password
 router.post("/passwordReset", upload.single("file"), authController.forgotPassword);
+// Routes for password reset flow (link sent by email)
+router.get('/reset/:token', authController.renderReset);
+router.post('/reset/:token', authController.resetPasswordPost);
 // Change password (from profile modal)
 router.post("/profile/changePassword", ensureAuth, authController.changePassword);
 // this route allows users to edit a task
