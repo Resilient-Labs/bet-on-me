@@ -5,6 +5,7 @@ const Goal = require("../models/Goal");
 const Task = require("../models/Task"); // ← ADD THIS
 
 
+
 exports.getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).lean();
@@ -58,16 +59,66 @@ exports.updateProfilePicture = async (req, res) => {
   }
 };
 //delete user account logic --Innocent
+const nodemailer = require('nodemailer');
+require("dotenv").config({ path: "./config/.env" });
+
+// Goodbye email function
+const sendGoodbyeEmail = async (email, userName) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.MAILER_USER,
+      pass: process.env.MAILER_PASS
+    }
+  });
+
+  const mailOptions = {
+    from: 'betonmemailer@gmail.com',
+    to: email,
+    subject: 'Sorry to see you go!',
+    html: `<p>Hi ${userName},</p>
+    <p>We're sorry to see you go! Your Bet On Me account has been successfully deleted.</p>
+    <p>We hope you achieved some great goals during your time with us! If you ever want to come back, we'll be here to see you strive.</p>
+    <img src="cid:BOMLogo" alt="Bet On Me Logo">
+    <p>Take care,<br>The Bet On Me Team</p>`,
+    attachments: [
+      {
+        filename: "logo.png",
+        path: "public/imgs/logo.png",
+        cid: "BOMLogo"
+      }
+    ]
+  };
+  
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Goodbye email sent to:', email);
+  } catch (error) {
+    console.error('Error sending goodbye email:', error);
+  }
+};
+
 exports.deleteAccount = async (req, res) => {
   try {
     const userId = req.user.id;
+    
+    // Get user info before deleting (for email)
+    const user = await User.findById(userId);
+    const userEmail = user.email;
+    const userName = user.userName;
+    
     // Delete user
     await User.findByIdAndDelete(userId);
+    
     // OPTIONAL (recommended cleanup)
     await Cluster.updateMany(
       { cluster_members: userId },
       { $pull: { cluster_members: userId }, $inc: { member_count: -1 } }
     );
+    
+    // Send goodbye email (don't await - let it send in background)
+    sendGoodbyeEmail(userEmail, userName);
+    
     // Destroy session
     req.logout(() => {
       req.session.destroy(() => {

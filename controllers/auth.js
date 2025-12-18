@@ -5,6 +5,8 @@ const async = require("async")
 const crypto = require("crypto")
 const nodemailer = require("nodemailer")
 
+
+
 exports.getLogin = (req, res) => {
   if (req.user) {
     //main page to make or join groups
@@ -77,14 +79,50 @@ exports.logout = (req, res) => {
     })
   })
 
+
+  require("dotenv").config({ path: "./config/.env" });
+
+
+};
+const sendWelcomeEmail = async (email, userName) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.MAILER_USER,
+      pass: process.env.MAILER_PASS
+    }
+  });
+
+  const mailOptions = {
+    from: 'betonmemailer@gmail.com',
+    to: email,
+    subject: 'Welcome to Bet On Me!',
+    html: `<p>Hi ${userName},</p>
+    <p>Welcome to Bet On Me!</p>
+    <p>We're so excited you've decided to join us and can't wait to help you achieve your goals!</p>
+    <img src="cid:BOMLogo" alt="Bet On Me Logo">
+    <p>Best,<br>The Bet On Me Team</p>`,
+    attachments: [
+      {
+        filename: "logo.png",
+        path: "public/imgs/logo.png", // Adjust path as needed
+        cid: "BOMLogo"
+      }
+    ]
+  };
+  
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Welcome email sent to:', email);
+  } catch (error) {
+    console.error('Error sending welcome email:', error);
+  }
 };
 
 exports.getSignup = (req, res) => {
   if (req.user) {
-    //main page to make or join groups
     return res.redirect("/home");
   }
-  //redirect back to landing page in case of signup error
   res.redirect("/");
 };
 
@@ -101,10 +139,10 @@ exports.postSignup = async (req, res, next) => {
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
-    //redirect to landing page and open correct modal
     req.flash("modal", "signup");
     return res.redirect("/");
   }
+  
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
   });
@@ -112,35 +150,44 @@ exports.postSignup = async (req, res, next) => {
   const user = new User({
     userName: req.body.userName,
     email: req.body.email,
-    access: req.body?.access,     // -> ?. <- before access is checking for any access value. If it's there, then return value. If not, then return udefined
+    access: req.body?.access,
     password: req.body.password,
     wallet: 0,
     score: 0
-  })
+  });
 
-  console.log('user', user)
+  console.log('user', user);
 
   const existingUser = await User.findOne(
     { $or: [{ email: req.body.email }, { userName: req.body.userName }] }
-  )
+  );
+  
   if (existingUser) {
     req.flash("errors", {
       msg: "Account with that email address or username already exists.",
     });
-    //redirect to landing page and open correct modal
     req.flash("modal", "signup");
     return res.redirect("/");
   }
-  user.save()
-    .then(usr => {
-      req.logIn(user, (err) => {
-        if (err) {
-          return next(err);
-        }
-        //main page to make or join groups
-        res.redirect("/home");
-      });
+  
+  try {
+    await user.save();
+    
+    // Send welcome email after user is saved
+    await sendWelcomeEmail(user.email, user.userName);
+    
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/home");
     });
+  } catch (error) {
+    console.error('Signup error:', error);
+    req.flash("errors", { msg: "An error occurred during signup." });
+    req.flash("modal", "signup");
+    return res.redirect("/");
+  }
 };
 
 
