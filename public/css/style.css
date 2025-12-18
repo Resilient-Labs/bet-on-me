@@ -303,6 +303,11 @@ footer {
   /* Add height, background, etc. */
 }
 
+#footer-container {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 .landing-page-main {
   background-color: var(--color-foam-green);
   /* max-width: 1470px; */
