@@ -165,6 +165,7 @@ html {
   text-align: center;
   color: var(--color-black);
   margin: 0;
+  max-width: 640px;
 }
 
 .home-body {
