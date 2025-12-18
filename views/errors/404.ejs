@@ -9,8 +9,6 @@
 
 /* whole error page */
 .error-page {
-  width: 100%;
-  height: 100%;
   min-height: 100vh;
   background-color: #141414;
   display: flex;
@@ -26,7 +24,9 @@
   font-family: monospace;
   font-size: 0.7rem;
   line-height: 1.1;
+  text-align: center;
   white-space: pre;
+  margin: 0;
 }
 
 /* Space between figlet blocks */
@@ -54,20 +54,14 @@
   transform: translateY(-1px);
 }
 
-@media screen and (max-width: 1200px) {
-  .figlet-text{
-    font-size: 9px;
-  }
-}
-
 </style>
-<body>
-  <div class="error-page">
+
+<div class="error-page">
   <pre class="figlet-text">
 <%= figlet.textSync("404", { horizontalLayout: "default" }) %>
   </pre>
 
-  <pre class="figlet-text message">
+  <pre class="figlet-text">
 <%= figlet.textSync(message, { horizontalLayout: "default" }) %>
   </pre>
 
@@ -75,4 +69,3 @@
     ← Go Back
   </button>
 </div>
-</body>
