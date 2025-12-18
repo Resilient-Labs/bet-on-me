@@ -15,7 +15,7 @@ goalForm.addEventListener("submit", (e) => {
 dialog.innerHTML = `
 <div class="modal-content login-modal">
   <div class="modal-header">
-    <h5 class="modal-title">Invalid Input</h5>
+    <h5 class="modal-title">Invalid input</h5>
     <button type="button" class="btn-close" onclick="this.closest('dialog').close()" aria-label="Close"></button>
   </div>
   <div class="modal-body">
