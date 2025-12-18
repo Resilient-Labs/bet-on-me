@@ -885,6 +885,17 @@ card-body {
   font-size: 1.2rem;
 }
 
+.account-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wallet {
+  padding: .5rem;
+  font-size: 1.7rem;
+}
 
 .user-card .btn-profile label,
 .user-card .btn-config {
@@ -959,6 +970,10 @@ card-body {
 
   .group-name-section span {
     margin-top: 0.5rem;
+  }
+
+   .account-info{
+    flex-direction: column;
   }
 }
 
