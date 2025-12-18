@@ -185,7 +185,7 @@ html {
   border: 1px solid var(--color-black);
 }
 
-.max-users{
+.max-users {
   text-align: center;
   font-weight: 700;
 }
@@ -883,6 +883,17 @@ card-body {
   font-size: 1.2rem;
 }
 
+.account-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wallet {
+  padding: .5rem;
+  font-size: 1.7rem;
+}
 
 .user-card .btn-profile label,
 .user-card .btn-config {
@@ -947,6 +958,13 @@ card-body {
     width: 100%;
     margin-bottom: 0.5rem;
   }
+
+   .wallet-code {
+    gap: 0;
+  }
+  .wallet{
+    margin-top: .5rem;
+  }
 }
 
 @media screen and (max-width: 484px) {
@@ -957,6 +975,9 @@ card-body {
 
   .group-name-section span {
     margin-top: 0.5rem;
+  }
+   .account-info{
+    flex-direction: column;
   }
 }
 
