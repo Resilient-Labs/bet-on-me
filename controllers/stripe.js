@@ -1,5 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Goal = require("../models/Goal");
+const nodemailer = require('nodemailer');
+require("dotenv").config({ path: "./config/.env" });
 
 const wagerDescriptions = [
   "Raise the stakes!",
@@ -10,6 +12,44 @@ const wagerDescriptions = [
   "Your future self is watching ",
   "Commit now. Celebrate later ",
 ];
+
+// Payment confirmation email function
+const sendPaymentConfirmationEmail = async (email, userName, paymentAmount) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.MAILER_USER,
+      pass: process.env.MAILER_PASS
+    }
+  });
+
+  const mailOptions = {
+    from: 'betonmemailer@gmail.com',
+    to: email,
+    subject: 'Payment Confirmation - Bet On Me',
+    html: `<p>Hi ${userName},</p>
+    <p>Thank you for your payment! We've successfully received your wager.</p>
+    <p><strong>Wager Amount: $${paymentAmount.toFixed(2)}</strong></p>
+    <p>Your bet has been placed! Keep working toward your goal - you've got this!</p>
+    <img src="cid:BOMLogo" alt="Bet On Me Logo">
+    <p>Best,<br>The Bet On Me Team</p>
+    <p style="font-size: 12px; color: #666;">If you did not make this payment, please contact us immediately at betonmemailer@gmail.com</p>`,
+    attachments: [
+      {
+        filename: "logo.png",
+        path: "public/imgs/logo.png",
+        cid: "BOMLogo"
+      }
+    ]
+  };
+  
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Payment confirmation email sent to:', email);
+  } catch (error) {
+    console.error('Error sending payment confirmation email:', error);
+  }
+};
 
 
 module.exports = {
@@ -89,40 +129,54 @@ module.exports = {
   },
 
   // handle successful payment
-  handleSuccess: async (req, res) => {
-    try {
-      const { session_id } = req.query;
 
-      if (!session_id) {
-        req.flash("errors", { msg: "Invalid session." });
-        return res.redirect("/userGoal");
-      }
+// Updated handleSuccess function
+handleSuccess: async (req, res) => {
+  try {
+    const { session_id } = req.query;
 
-      const session = await stripe.checkout.sessions.retrieve(session_id);
-
-      if (session.payment_status === "paid") {
-        // update goal with payment info
-        const goalId = session.client_reference_id;
-        await Goal.findByIdAndUpdate(goalId, {
-          wagerAmount: parseFloat(session.metadata.amount),
-          wagerPaid: true,
-          stripeSessionId: session_id,
-        });
-
-        req.flash("success", {
-          msg: "Payment successful! Your wager has been placed.",
-        });
-      } else {
-        req.flash("errors", { msg: "Payment not completed." });
-      }
-
-      res.redirect("/userGoal");
-    } catch (err) {
-      console.error("Success handler error:", err);
-      req.flash("errors", { msg: "Error processing payment confirmation." });
-      res.redirect("/userGoal");
+    if (!session_id) {
+      req.flash("errors", { msg: "Invalid session." });
+      return res.redirect("/userGoal");
     }
-  },
+
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+
+    if (session.payment_status === "paid") {
+      // Get the goal to access user info
+      const goalId = session.client_reference_id;
+      const goal = await Goal.findById(goalId).populate('user');
+      
+      // Update goal with payment info
+      await Goal.findByIdAndUpdate(goalId, {
+        wagerAmount: parseFloat(session.metadata.amount),
+        wagerPaid: true,
+        stripeSessionId: session_id,
+      });
+
+      // Send payment confirmation email
+      if (goal && goal.user) {
+        await sendPaymentConfirmationEmail(
+          goal.user.email,
+          goal.user.userName,
+          parseFloat(session.metadata.amount)
+        );
+      }
+
+      req.flash("success", {
+        msg: "Payment successful! Your wager has been placed.",
+      });
+    } else {
+      req.flash("errors", { msg: "Payment not completed." });
+    }
+
+    res.redirect("/userGoal");
+  } catch (err) {
+    console.error("Success handler error:", err);
+    req.flash("errors", { msg: "Error processing payment confirmation." });
+    res.redirect("/userGoal");
+  }
+},
 
   // Webhook to handle Stripe events
   handleWebhook: async (req, res) => {
