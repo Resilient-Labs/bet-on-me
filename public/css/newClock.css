@@ -479,6 +479,11 @@ ul.flip{
   div.card-body.text-center.p-4{
     padding: 15px;
   }
+  ul.flip{
+    width: 500px;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 @media screen and (max-width: 1000px) {
@@ -506,5 +511,19 @@ ul.flip{
       div.countdown.flip-clock-wrapper{
         margin: 20px;
         padding-right: 25px;
+      }
+  }
+  
+  @media screen and (max-width: 400px) {
+    div.countdown.flip-clock-wrapper{
+        margin: 0;
+        padding-right: 0;
+      }
+      ul.flip{
+        width: 900px;
+        margin: 5px;
+      }
+      div.card-body.text-center.p-4{
+        padding: 0;
       }
   }
