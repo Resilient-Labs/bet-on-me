@@ -326,7 +326,8 @@ function showCelebrationPopup() {
     overlay.style.zIndex = '1000001';
 
     const box = document.createElement('div');
-    box.style.background = '#fff';
+    box.style.background = 'rgb(174, 223, 194)';
+    box.style.border = '1px solid rgb(60, 51, 77)';
     box.style.borderRadius = '12px';
     box.style.padding = '20px';
     box.style.maxWidth = '480px';
@@ -358,6 +359,11 @@ function showCelebrationPopup() {
     const close = document.createElement('button');
     close.innerText = 'Close';
     close.style.marginTop = '12px';
+    close.style.padding = '.5rem';
+    close.style.backgroundColor = 'rgb(60, 51, 77)';
+    close.style.border = '1px solid rgb(60, 51, 77)';
+    close.style.borderRadius = '6px';
+    close.style.color = 'rgb(235, 232, 232)';
     close.addEventListener('click', () => overlay.remove());
     box.appendChild(close);
 

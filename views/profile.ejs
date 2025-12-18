@@ -42,8 +42,17 @@
         <!-- ACCOUNT INFO -->
         <div class="card shadow-sm user-card">
 
-          <div class="team-card-header">
+          <div class="team-card-header account-info">
             <h4 class="mb-0">Account Info</h4>
+             <% if(Number.isNaN(parseInt(user.wallet))) { %>
+              <div class="wallet">
+                <i class="fa-solid fa-wallet"></i> $0
+              </div>
+             <% }else{ %>
+              <div class="wallet">
+                <i class="fa-solid fa-wallet"></i> $<%= parseInt(user.wallet) %>
+              </div>
+            <% } %>
           </div>
 
 
@@ -152,16 +161,6 @@
 
                   <!-- JOIN_CODE -->
                 </strong>
-                <% if(Number.isNaN(parseInt(user.wallet))) { %>
-              <div>
-                My Wallet: $0
-              </div>
-             <% }else{ %>
-              <div>
-                My Wallet: $<%= parseInt(user.wallet) %>
-              </div>
-            <% } %>
-
               </p>
             </div>
 
