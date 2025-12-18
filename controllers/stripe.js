@@ -1,6 +1,17 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Goal = require("../models/Goal");
 
+const wagerDescriptions = [
+  "Raise the stakes!",
+  "Put your money where your goals are ",
+  "No backing out now — stay committed ",
+  "Bet on yourself. Literally.",
+  "Pressure creates progress ",
+  "Your future self is watching ",
+  "Commit now. Celebrate later ",
+];
+
+
 module.exports = {
   // create a checkout session for goal wager
   createCheckoutSession: async (req, res) => {
@@ -36,6 +47,9 @@ module.exports = {
 
       // convert amount to cents (Stripe uses smallest currency unit)
       const amountInCents = Math.round(amountNum * 100);
+     
+      const randomDescription =
+      wagerDescriptions[Math.floor(Math.random() * wagerDescriptions.length)];
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
@@ -45,7 +59,7 @@ module.exports = {
               currency: "usd",
               product_data: {
                 name: `Goal: ${goalName}`,
-                description: "Raise the stakes!",
+                description: randomDescription,
               },
               unit_amount: amountInCents,
             },
