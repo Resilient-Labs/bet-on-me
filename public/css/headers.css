@@ -30,11 +30,6 @@
   margin: .3rem 0;
 }
 
-#navbar-container{
-  padding-left: 30px;
-  padding-right: 30px;
-}
-
 .form-control-dark:focus {
   border-color: #fff;
   box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
