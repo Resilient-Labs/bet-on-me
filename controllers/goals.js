@@ -14,34 +14,42 @@ module.exports = {
 
   getCluster: async (req, res) => {
     try {
-      console.log(req.params.id)
       const cluster = await Cluster.find({ user: req.params.id });
       let payout = 0
       let payoutMembers = {
-        members : [],
-        completedMembers : [],
-        completedMembersWagerAmounts : [],
-        nonCompletedMembers : []
+        members: [],
+        completedMembers: [],
+        completedMembersWagerAmounts: [],
+        nonCompletedMembers: []
       }
       const clusterMembers = cluster[0].cluster_members
-      for(const member of clusterMembers){
+      for (const member of clusterMembers) {
         const goal = await Goal.findOne({ user: member })
+
         payoutMembers.members.push(member)
 
-        const user = await User.findById( {_id: member} )
-        
-        console.log(user, 'USER')
-        if(goal.completed){
+        const user = await User.findById({ _id: member })
+
+
+        // console.log(user, 'USER')
+        if (goal.completed) {
           payoutMembers.completedMembers.push(member)
-        }else if(!goal.completed){
+          console.log(user.wallet, 'wallet')
+        } else if (!goal.completed) {
           payoutMembers.nonCompletedMembers.push(member)
           payout += goal.wagerAmount
         }
       }
 
-      const winnersPayout = payout/payoutMembers.completedMembers.length
+      for (const winner of payoutMembers.completedMembers) {
+        const winnersPayout = payout / payoutMembers.completedMembers.length
+        const mem = await User.findByIdAndUpdate(winner, { $inc: { wallet: winnersPayout } })
+      }
 
-console.log(payout, payoutMembers)
+
+
+
+      console.log(payout, payoutMembers)
 
 
       // Promise.all(cluster[0].cluster_members.forEach(async(x) => await Goal.find({ user: x })))
