@@ -45,7 +45,6 @@ Get the bourbon mixin from http://bourbon.io
   justify-content: center;
   width: 100%;
   max-width: 100%;
-  overflow: hidden;
  }
 
 .flip-clock-meridium {
@@ -185,6 +184,7 @@ Get the bourbon mixin from http://bourbon.io
   -moz-animation: asd 0.5s 0.5s linear both;
   animation: asd 0.5s 0.5s linear both;
   z-index: 5; 
+  padding: 0;
 }
 
 .flip-clock-divider {
@@ -196,9 +196,13 @@ Get the bourbon mixin from http://bourbon.io
 }
 
 .flip-clock-divider:first-child {
-  width: 0; 
+  width: 0;
+  margin: 0;
 }
 
+ul.flip{
+  padding: 0;
+}
 .flip-clock-dot {
   display: block;
   background: #323434;
@@ -461,22 +465,40 @@ Get the bourbon mixin from http://bourbon.io
   100% {
     opacity: 0; } }
 
-@media (max-width: 1300px) { /* Adjust 600px to your desired breakpoint */
+@media (max-width: 1500px) { 
     .flip-clock-divider.seconds,
     .flip-clock-divider.seconds ~ .flip {
         display: none;
     }
-    /* Optional: adjust the clock wrapper width to center the remaining parts */
     .your-clock-wrapper-class {
-        width: 300px; /* Example width for a clock without seconds */
+        width: 400px; 
     }
+}
+
+@media screen and (max-width: 1050px) {
+  div.card-body.text-center.p-4{
+    padding: 15px;
+  }
+  ul.flip{
+    width: 500px;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  div.col-lg-4.col-md-5{
+    width:500px;
+  }
 }
 
     @media screen and (max-width: 800px) {
         .flip-clock-wrapper{
-            margin: -3em;
             margin-left: -2em;
-            padding: 6em;
+        }
+        div.countdown.flip-clock-wrapper{
+          padding: 0px;
+          margin-left: 0px;
         }
     }
 
@@ -485,5 +507,23 @@ Get the bourbon mixin from http://bourbon.io
           margin: -5em;
           margin-left: -2em;
           padding-top: 6em;
+      }
+      div.countdown.flip-clock-wrapper{
+        margin: 20px;
+        padding-right: 25px;
+      }
+  }
+  
+  @media screen and (max-width: 400px) {
+    div.countdown.flip-clock-wrapper{
+        margin: 0;
+        padding-right: 0;
+      }
+      ul.flip{
+        width: 900px;
+        margin: 5px;
+      }
+      div.card-body.text-center.p-4{
+        padding: 0;
       }
   }
