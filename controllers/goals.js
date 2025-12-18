@@ -22,6 +22,7 @@ module.exports = {
         completedMembersWagerAmounts: [],
         nonCompletedMembers: []
       }
+      console.log(cluster)
       const clusterMembers = cluster[0].cluster_members
       for (const member of clusterMembers) {
         const goal = await Goal.findOne({ user: member })

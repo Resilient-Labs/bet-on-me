@@ -144,18 +144,25 @@
             </div><br><br>
 
             <!-- JOIN CODE -->
-             <div>
-            <p class="small mb-0" style="font-size: 1rem;">
-              Join Code
-              <strong style="font-size: 1.2rem;">
-                <%= cluster?.cluster_join_id %>
-
-                <!-- JOIN_CODE -->
-              </strong>
             <div>
-              My Wallet: $<%= parseInt(user.wallet) %>
-            </div>
-            </p>
+              <p class="small mb-0" style="font-size: 1rem;">
+                Join Code
+                <strong style="font-size: 1.2rem;">
+                  <%= cluster?.cluster_join_id %>
+
+                  <!-- JOIN_CODE -->
+                </strong>
+                <% if(Number.isNaN(parseInt(user.wallet))) { %>
+              <div>
+                My Wallet: $0
+              </div>
+             <% }else{ %>
+              <div>
+                My Wallet: $<%= parseInt(user.wallet) %>
+              </div>
+            <% } %>
+
+              </p>
             </div>
 
 
