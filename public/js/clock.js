@@ -316,12 +316,12 @@ function showCelebrationPopup() {
     box.style.textAlign = 'center';
 
     const title = document.createElement('h2');
-    title.innerText = winners.length ? 'Congratulations!' : 'Well done';
+    title.innerText = winners.length ? 'Congratulations!' : 'Womp';
     box.appendChild(title);
 
     const msg = document.createElement('p');
-    if (winners.length) msg.innerText = 'The following teammates completed their goals:';
-    else msg.innerText = 'No teammates reached 100% — good job everyone!';
+    if (winners.length) msg.innerText = 'These teammates crushed their goals:';
+    else msg.innerText = 'No one reached their goal — let\'s throw a pity party!';
     box.appendChild(msg);
 
     if (winners.length) {

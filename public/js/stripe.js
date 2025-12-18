@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // check minimum
       if (amount < 1) {
-        showModal('Amount too Low', 'Minimum wager amount is $1');
+        showModal('Amount too low', 'Minimum wager amount is $1');
         return;
       }
 
