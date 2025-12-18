@@ -11,6 +11,18 @@ module.exports = {
     }
   },
 
+  getCluster: async (req, res) => {
+    try {
+      console.log(req.params.id)
+      const cluster = await Cluster.find({ user: req.params.id });
+      console.log(cluster)
+      res.send(JSON.stringify(cluster))
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+
   createOrUpdateGoal: async (req, res) => {
     try {
       const { name, description, completed } = req.body;
@@ -24,8 +36,8 @@ module.exports = {
       console.log('searched cluster: ', req.user.joined_clusters)
 
       if (updatedGoal == null) {
-        
-        const cluster = await Cluster.findOne({ cluster_members: { $in : req.user._id }})
+
+        const cluster = await Cluster.findOne({ cluster_members: { $in: req.user._id } })
         console.log('cluster', cluster.cluster_name)
         const goal = await Goal.create({
           name,
