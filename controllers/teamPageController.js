@@ -54,22 +54,18 @@ module.exports = {
       });
 
       if (!cluster) {
-        return res.status(404).send("Team not found");
+        return res.redirect("/404");
       }
 
-      // Compute remaining seconds from the shared timer fields
       const remainingSec = getRemainingSeconds(cluster);
       const duration = secondsToHMS(remainingSec);
 
-      // Fetch goals and tasks for each member to get wager amounts and progress
       const membersWithGoals = await Promise.all(
         cluster.cluster_members.map(async (member) => {
-          // Get member's main goal for wager amount
           const goals = await Goal.find({ user: member._id }).lean();
           const mainGoal = goals.length > 0 ? goals[0] : null;
           const user = await User.findById(member);
 
-          // Get member's tasks to calculate progress
           const tasks = await Task.find({ user: member._id }).lean();
           const completedTasks = tasks.filter(
             (task) => task.task_is_completed
@@ -84,7 +80,6 @@ module.exports = {
             wagerAmount: mainGoal?.wagerAmount || 0,
             wagerPaid: mainGoal?.wagerPaid || false,
             progress,
-            // Optional: pass duration if template expects it per member
             duration,
           };
         })
@@ -94,7 +89,7 @@ module.exports = {
         user: req.user,
         cluster,
         members: membersWithGoals,
-        duration, // shared remaining time for the whole cluster
+        duration,
         isCreator: cluster.user.toString() === req.user.id,
       });
     } catch (err) {
@@ -119,10 +114,9 @@ module.exports = {
       });
 
       if (!cluster) {
-        return res.status(404).send("Team not found");
+        return res.redirect("/404");
       }
 
-      // compute remainingSec from existing timer fields
       const remainingSec = getRemainingSeconds(cluster);
       const duration = secondsToHMS(remainingSec);
 
@@ -149,10 +143,10 @@ module.exports = {
       res.json({
         cluster,
         members: membersWithGoals,
-        duration,                // remaining time; 0/0/0 if not started
-        timerStartAt: cluster.timerStartAt, // may be null
-        timerDurationSec: cluster.timerDurationSec, // may be null
-        timerRunning: remainingSec > 0, // true if timer is active
+        duration,
+        timerStartAt: cluster.timerStartAt,
+        timerDurationSec: cluster.timerDurationSec,
+        timerRunning: remainingSec > 0,
       });
     } catch (err) {
       console.log(err);
@@ -171,14 +165,13 @@ module.exports = {
     try {
       const cluster = await Cluster.findOne({
         _id: req.params.id,
-        user: req.user.id,          // only creator can start
+        user: req.user.id,
       });
 
       if (!cluster) {
-        return res.status(404).send("Team not found or not authorized");
+        return res.redirect("/404");
       }
 
-      // If already started, just return current state
       if (cluster.timerStartAt && cluster.timerDurationSec) {
         const remainingSec = getRemainingSeconds(cluster);
         return res.json({
@@ -188,7 +181,7 @@ module.exports = {
         });
       }
 
-      // Define the challenge duration once (e.g. from createdAt to endDate)
+     // Define the challenge duration once (e.g. from createdAt to endDate)
       const endDate = cluster.endDate || new Date();
       const initialDuration = getDuration(cluster.createdAt, endDate);
       const durationSec =
@@ -228,10 +221,9 @@ module.exports = {
       });
 
       if (!cluster) {
-        return res.status(404).send("Team not found or not authorized");
+        return res.redirect("/404");
       }
-
-      // Clear timer fields
+       // Clear timer fields
       cluster.timerStartAt = null;
       cluster.timerDurationSec = null;
       await cluster.save();
@@ -249,22 +241,18 @@ module.exports = {
    */
   deleteTeamData: async (req, res) => {
     try {
-      // Find the cluster by ID
       const cluster = await Cluster.findById(req.params.id);
 
       if (!cluster) {
-        return res.status(404).send("Team not found");
+        return res.redirect("/404");
       }
 
-      // Verify the user has permission to delete (must be the creator)
       if (cluster.user.toString() !== req.user.id) {
         return res.status(403).send("Unauthorized to delete this team");
       }
 
-      // Delete the cluster
       await Cluster.deleteOne({ _id: req.params.id });
 
-      // Redirect to profile or success page
       res.redirect("/profile");
     } catch (err) {
       console.log(err);
@@ -282,10 +270,9 @@ module.exports = {
       const cluster = await Cluster.findById(req.params.id);
 
       if (!cluster) {
-        return res.status(404).send("Team not found");
+        return res.redirect("/404");
       }
 
-      // Check if user is actually in the cluster
       if (
         !cluster.cluster_members.some(
           (member) => member._id.toString() === req.user.id
@@ -294,14 +281,12 @@ module.exports = {
         return res.status(403).send("You are not a member of this team");
       }
 
-      // Prevent creator from leaving (they must delete instead)
       if (cluster.user.toString() === req.user.id) {
         return res
           .status(403)
           .send("Creator cannot leave. Please delete the team instead.");
       }
 
-      // Remove user from cluster_members array
       cluster.cluster_members = cluster.cluster_members.filter(
         (member) => member._id.toString() !== req.user.id
       );
