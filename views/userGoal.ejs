@@ -175,7 +175,7 @@
                                                     <%= task.task_is_completed ? 'checked' : '' %>
                                                     data-completed="<%= task.task_is_completed %>" />
                                                 <span name="<%= task._id %>"
-                                                    class="task-text flex-grow-1 <%= task.task_is_completed ? 'text-decoration-line-through text-muted strike-through' : '' %>">
+                                                    class="task-text flex-grow-1 <%= task.task_is_completed ? ' text-muted' %>">
                                                     <%= task.task_name %>
                                                 </span>
 
@@ -222,7 +222,7 @@
                         <div class="card shadow-sm border-0 team-preview">
                             <div class="card-body p-4">
                                 <h5 class="card-title fw-bold mb-4">
-                                     Team Progress
+                                     Group Progress
                                 </h5>
                                 <% if (memberProgress && memberProgress.length) { %>
                                     <div class="row g-3">
