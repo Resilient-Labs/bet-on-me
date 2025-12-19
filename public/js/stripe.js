@@ -206,3 +206,5 @@ document.addEventListener('DOMContentLoaded', () => {
     showModal('Payment Cancelled', 'Payment was cancelled. You can try again when ready.');
   }
 });
+
+

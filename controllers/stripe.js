@@ -1,5 +1,6 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Goal = require("../models/Goal");
+const User = require("../models/User")
 
 const wagerDescriptions = [
   "Raise the stakes!",
@@ -47,9 +48,9 @@ module.exports = {
 
       // convert amount to cents (Stripe uses smallest currency unit)
       const amountInCents = Math.round(amountNum * 100);
-     
+
       const randomDescription =
-      wagerDescriptions[Math.floor(Math.random() * wagerDescriptions.length)];
+        wagerDescriptions[Math.floor(Math.random() * wagerDescriptions.length)];
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
@@ -200,4 +201,26 @@ module.exports = {
       res.status(500).json({ error: err.message });
     }
   },
+  withdrawalWallet: async (req, res) => {
+    try {
+      const { amount } = req.body;
+
+      await User.findByIdAndUpdate(req.user._id, { $inc: { wallet: -amount } })
+
+      const user = await User.findById(req.user._id)
+
+      console.log(user.wallet)
+
+      res.json({
+        success: true,
+        payoutId: 'po_simulated_' + Date.now(),
+        status: 'pending',
+        expected_arrival_date: new Date(Date.now() + 86400000).toLocaleDateString(),
+        wallet: user.wallet,
+      });
+
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  }
 };
