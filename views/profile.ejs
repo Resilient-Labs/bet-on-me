@@ -44,7 +44,7 @@
         <!-- ACCOUNT INFO -->
         <div class="card shadow-sm user-card">
 
-          <div class="team-card-header account-info">
+          <div class="team-card-header account-info" style="display: flex; flex-flow: column;">
             <h4 class="mb-0">Account Info</h4>
             <% if(Number.isNaN(parseInt(user.wallet))) { %>
             <div class="wallet">
@@ -58,13 +58,13 @@
             <div>
               <section>
 
-                <h1>Withdraw Funds</h1>
+                <h1 style="text-align: center;">Withdraw Funds</h1>
 
                 <div>
-                  <label for="amount">Withdrawal Amount (in USD):</label>
-                  <input type="number" id="amount" min="1" placeholder="Enter amount">
 
-                  <button id="withdrawButton">Process Withdrawal</button>
+                  <input style="text-align: center; padding-top: 4px; border: 1px solid black; border-radius: 6px; width: 140px; font-size: 18px; height: 46px;" class="inputAmount" type="number" id="amount" min="1" placeholder="Enter amount">
+
+                  <button class="btn btn-config withBtn" id="withdrawButton">Process Withdrawal</button>
                 </div>
 
                 <div id="result" class="result" style="display: none;"></div>
@@ -116,6 +116,9 @@
                     resultElement.textContent = message;
                     resultElement.style.display = 'block';
                     resultElement.className = 'result ' + type;
+                    resultElement.style.fontSize = "1.4rem"
+                    resultElement.style.paddingTop = "10px"
+                    resultElement.style.textAlign = "center"
                   }
                 </script>
               </section>
