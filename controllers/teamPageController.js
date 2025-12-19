@@ -62,10 +62,12 @@ module.exports = {
 
       const membersWithGoals = await Promise.all(
         cluster.cluster_members.map(async (member) => {
+          //TODO: query goals with user id AND cluster id, maybe...
           const goals = await Goal.find({ user: member._id }).lean();
-          const mainGoal = goals.length > 0 ? goals[0] : null;
+          const mainGoal = goals.length > 0 ? goals[0] : null; // Why do this when you can reference the goal directly?
           const user = await User.findById(member);
 
+          //TODO: task needs to find goal id as well
           const tasks = await Task.find({ user: member._id }).lean();
           const completedTasks = tasks.filter(
             (task) => task.task_is_completed
