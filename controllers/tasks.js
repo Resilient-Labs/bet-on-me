@@ -112,8 +112,8 @@ module.exports = {
         req.flash('error', 'Task limit reached (maximum 6 tasks).');
         return res.redirect('/userGoal');
       }
-
-      const goal = await Goal.findOne({ user: req.user.id });
+      //Godwin: HotFix continued - task is created with proper id.
+      const goal = await Goal.findOne({ user: req.user.id , cluster_id: req.user.joined_clusters[0]});
 
       // Create the task
       await Task.create({

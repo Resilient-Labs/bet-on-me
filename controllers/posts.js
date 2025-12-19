@@ -88,16 +88,26 @@ getProfile: async (req, res) => {
 
       
       const posts = await Post.find({ user: req.user.id });
-      const tasks = await Task.find({ user: req.user.id }) || [];
       const goals = await Goal.findOne({ user: req.user.id, cluster_id: cluster._id}) || null;
-      console.log('searched goal', goals)
+
+      // Godwin - HotFix for userGoals.ejs:
+      // Changed the order of the queries so tasks can query with the goal id
+      let tasks = []
+      if (goals === null){
+        tasks = []
+      } else {
+        tasks = await Task.find({ user: req.user.id , goal_id : goals._id}) || [];
+      }
+      
+      console.log('goal id', goals)
 
       // Compute simple member progress based on tasks: percent of completed tasks
       const memberProgress = [];
       for (const member of (cluster.cluster_members || [])) {
         try {
-          const total = await Task.countDocuments({ user: member._id });
-          const completed = await Task.countDocuments({ user: member._id, task_is_completed: true });
+          //Godwin: same thing down here, querying with the goal_id.
+          const total = await Task.countDocuments({ user: member._id , goal_id : goals._id});
+          const completed = await Task.countDocuments({ user: member._id, task_is_completed: true, goal_id : goals._id });
           const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
           memberProgress.push({ user: member, total, completed, percent });
         } catch (e) {
