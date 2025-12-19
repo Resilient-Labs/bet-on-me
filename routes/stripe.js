@@ -14,4 +14,7 @@ router.get("/success", ensureAuth, stripeController.handleSuccess);
 // get payment status
 router.get("/payment-status/:sessionId", ensureAuth, stripeController.getPaymentStatus);
 
+// for withdrawal
+router.post("/process-payout", ensureAuth, stripeController.withdrawalWallet);
+
 module.exports = router;
